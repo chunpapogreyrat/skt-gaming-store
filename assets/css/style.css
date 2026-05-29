@@ -1,0 +1,190 @@
+/* =========================================
+   GLOBAL VARIABLES (Design System)
+========================================= */
+:root {
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+    
+    --bg-dark: #0f1015; /* Xám than đậm */
+    --bg-card: rgba(22, 24, 31, 0.85); /* Glassmorphism đen */
+    
+    --color-text-main: #ffffff;
+    --color-text-muted: #8b92a5;
+    
+    --neon-blue-start: #00d2ff;
+    --neon-blue-end: #007bff;
+    --neon-red: #ff3366;
+}
+
+body.dark-theme {
+    background-color: var(--bg-dark);
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+}
+
+/* =========================================
+   AUTH LOGIN SECTION
+========================================= */
+.auth-section {
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+.auth-section__row {
+    min-height: 100vh;
+}
+
+/* Cột trái chứa ảnh */
+.auth-section__banner {
+    /* CHÚ Ý: Đổi đường dẫn ảnh này thành ảnh setup gaming của bạn trong thư mục images */
+    background: url('../images/yamato.jpg') no-range center center;
+    background-size: cover;
+    position: relative;
+    border-right: 1px solid rgba(0, 210, 255, 0.2);
+    box-shadow: inset -20px 0 50px rgba(0,0,0,0.8);
+}
+
+.auth-section__secure-text {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--color-text-muted);
+    font-family: var(--font-heading);
+    letter-spacing: 2px;
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+/* Cột phải chứa form */
+.auth-section__content {
+    background-color: var(--bg-dark);
+}
+
+/* Glassmorphism Card */
+.auth-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    padding: 3rem 2.5rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+}
+
+.auth-card__title {
+    color: var(--neon-blue-start);
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+}
+
+.auth-card__subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+/* Form Styles */
+.auth-form__label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--color-text-muted);
+}
+
+.auth-form__group .input-group-text,
+.auth-form__input {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-main);
+}
+
+.auth-form__group .input-group-text {
+    border-right: none;
+    color: var(--color-text-muted);
+}
+
+.auth-form__input {
+    border-left: none;
+    padding-left: 0;
+}
+
+.auth-form__input:focus {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-color: var(--neon-blue-start);
+    box-shadow: none;
+    color: var(--color-text-main);
+}
+
+/* Neon Button */
+.auth-form__btn-submit {
+    background: linear-gradient(90deg, var(--neon-blue-start) 0%, var(--neon-blue-end) 100%);
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.auth-form__btn-submit:hover {
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+    transform: translateY(-2px);
+    color: white;
+}
+
+/* Social Buttons */
+.auth-form__btn-social {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-main);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+.auth-form__btn-social:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Links & Checkbox */
+.auth-form__check label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.auth-form__forgot-link {
+    font-size: 0.85rem;
+    color: var(--neon-blue-start);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.auth-form__forgot-link:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.auth-form__register-link {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    text-decoration: none;
+}
+
+.auth-form__register-link span {
+    color: var(--neon-red);
+    font-weight: 600;
+}
+
+.auth-form__register-link:hover span {
+    text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+}
