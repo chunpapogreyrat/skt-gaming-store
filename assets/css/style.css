@@ -4,16 +4,22 @@
 :root {
     --font-heading: 'Orbitron', sans-serif;
     --font-body: 'Poppins', sans-serif;
-    
-    --bg-dark: #0f1015; /* Xám than đậm */
-    --bg-card: rgba(22, 24, 31, 0.85); /* Glassmorphism đen */
-    
+
+    --bg-dark: #0f1015;
+    /* Xám than đậm - Nền toàn trang */
+    --bg-card: #15171e;
+    /* Màu nền card tối mượt giống thiết kế */
+    --input-bg: #1e2029;
+    /* Màu nền input */
+
     --color-text-main: #ffffff;
     --color-text-muted: #8b92a5;
-    
+
     --neon-blue-start: #00d2ff;
     --neon-blue-end: #007bff;
-    --neon-red: #ff3366;
+    --neon-red: #ff003c;
+    /* Chỉnh lại đỏ tươi cho chuẩn SKT */
+    --neon-red-end: #c9002b;
 }
 
 body.dark-theme {
@@ -22,7 +28,12 @@ body.dark-theme {
     font-family: var(--font-body);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
 }
 
@@ -30,6 +41,7 @@ h1, h2, h3, h4, h5, h6 {
    AUTH LOGIN SECTION
 ========================================= */
 .auth-section {
+    background: url('../images/slider/screen.png') center/cover no-repeat fixed;
     min-height: 100vh;
     overflow: hidden;
 }
@@ -40,49 +52,39 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Cột trái chứa ảnh */
 .auth-section__banner {
-    /* CHÚ Ý: Đổi đường dẫn ảnh này thành ảnh setup gaming của bạn trong thư mục images */
-    background: url('../images/yamato.jpg') no-range center center;
-    background-size: cover;
     position: relative;
-    border-right: 1px solid rgba(0, 210, 255, 0.2);
-    box-shadow: inset -20px 0 50px rgba(0,0,0,0.8);
-}
-
-.auth-section__secure-text {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    color: var(--color-text-muted);
-    font-family: var(--font-heading);
-    letter-spacing: 2px;
-    font-size: 0.75rem;
-    opacity: 0.6;
 }
 
 /* Cột phải chứa form */
 .auth-section__content {
-    background-color: var(--bg-dark);
+    background: rgba(15, 16, 21, 0.65);
+    /* Phủ một lớp đen trong suốt 65% */
+    backdrop-filter: blur(20px);
+    /* Làm nhòe hình nền phía sau cực mạnh */
+    -webkit-backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    /* Đường viền highlight mỏng */
+    box-shadow: -15px 0 35px rgba(0, 0, 0, 0.5);
+    /* Đổ bóng tách biệt 2 cột */
 }
 
-/* Glassmorphism Card */
+/* Card Đăng ký chuẩn thiết kế */
 .auth-card {
-    background: var(--bg-card);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
-    padding: 3rem 2.5rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 2rem;
     width: 100%;
-    max-width: 500px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    max-width: 520px;
 }
 
 .auth-card__title {
-    color: var(--neon-blue-start);
+    color: var(--color-text-main);
+    /* Chữ trắng giống thiết kế */
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.8rem;
     text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+    letter-spacing: 1px;
 }
 
 .auth-card__subtitle {
@@ -94,15 +96,23 @@ h1, h2, h3, h4, h5, h6 {
 .auth-form__label {
     font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: var(--color-text-muted);
+    text-transform: uppercase;
+}
+
+/* Custom Input Group (Tràn viền, bo góc mượt) */
+.auth-form__group .input-group {
+    border-radius: 6px;
+    overflow: hidden;
 }
 
 .auth-form__group .input-group-text,
 .auth-form__input {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--input-bg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--color-text-main);
+    padding: 0.8rem 1rem;
 }
 
 .auth-form__group .input-group-text {
@@ -116,75 +126,161 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .auth-form__input:focus {
-    background-color: rgba(0, 0, 0, 0.8);
-    border-color: var(--neon-blue-start);
+    background-color: #232530;
+    /* Sáng lên nhẹ khi focus */
+    border-color: var(--neon-red);
     box-shadow: none;
     color: var(--color-text-main);
 }
 
-/* Neon Button */
+.auth-form__input::placeholder {
+    color: #555b6e;
+}
+
+
+/* Nút Trở Về (Nâng cấp) */
+.btn-back {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--color-text-main);
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.btn-back:hover {
+    background: rgba(0, 210, 255, 0.1);
+    border-color: var(--neon-blue-start);
+    color: var(--neon-blue-start) !important;
+    box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+    transform: translateX(-5px);
+    /* Trượt nhẹ sang trái khi hover */
+}
+
+/* Nút Đăng ký (Submit) - Đỏ Gradient chuẩn Gaming */
 .auth-form__btn-submit {
-    background: linear-gradient(90deg, var(--neon-blue-start) 0%, var(--neon-blue-end) 100%);
+    background: linear-gradient(90deg, var(--neon-red) 0%, var(--neon-red-end) 100%);
     color: white;
     font-family: var(--font-heading);
     font-weight: 700;
     letter-spacing: 1.5px;
     border: none;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 14px;
+    border-radius: 6px;
     transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 0, 60, 0.3);
 }
 
 .auth-form__btn-submit:hover {
-    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+    box-shadow: 0 8px 25px rgba(255, 0, 60, 0.5);
     transform: translateY(-2px);
     color: white;
 }
 
-/* Social Buttons */
+/* Social Buttons Base */
 .auth-form__btn-social {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--color-text-main);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
-    padding: 10px;
+    background-color: transparent;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    border-radius: 6px;
     transition: all 0.3s ease;
 }
 
-.auth-form__btn-social:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+/* Màu thương hiệu Google */
+.btn-google {
+    border: 1px solid #EA4335;
+    color: #EA4335;
+}
+
+.btn-google:hover {
+    background-color: #EA4335;
     color: white;
+    box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
 }
 
-/* Links & Checkbox */
-.auth-form__check label {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
+/* Màu thương hiệu Facebook */
+.btn-facebook {
+    border: 1px solid #1877F2;
+    color: #1877F2;
 }
 
-.auth-form__forgot-link {
-    font-size: 0.85rem;
-    color: var(--neon-blue-start);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.auth-form__forgot-link:hover {
+.btn-facebook:hover {
+    background-color: #1877F2;
     color: white;
-    text-decoration: underline;
+    box-shadow: 0 5px 15px rgba(24, 119, 242, 0.3);
 }
 
+/* Links */
 .auth-form__register-link {
     font-size: 0.9rem;
     color: var(--color-text-muted);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .auth-form__register-link span {
-    color: var(--neon-red);
+    color: var(--neon-blue-start);
+    /* Link chuyển login màu xanh cyan như Figma */
     font-weight: 600;
 }
 
 .auth-form__register-link:hover span {
-    text-shadow: 0 0 10px rgba(255, 51, 102, 0.5);
+    text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+    text-decoration: underline;
+}
+/* =========================================
+   HỦY BỎ ICON MẮT MẶC ĐỊNH CỦA TRÌNH DUYỆT
+========================================= */
+/* Ẩn con mắt mặc định trên Microsoft Edge và các trình duyệt dùng nhân Chromium */
+.auth-form__input::-ms-reveal,
+.auth-form__input::-ms-clear {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+/* =========================================
+   SỬA LẠI VIỀN CHO CỤM INPUT (LOCK + INPUT + EYE)
+========================================= */
+/* Cục icon Khóa ở đầu: ẩn viền phải */
+.auth-form__group .input-group-text:first-child {
+    border-right: none;
+}
+
+/* Ô nhập liệu ở giữa: ẩn cả viền trái lẫn viền phải để nối liền mạch */
+.auth-form__group .auth-form__input {
+    border-left: none;
+    border-right: none;
+}
+
+/* Cục icon Con Mắt ở cuối: ẩn viền trái và khôi phục viền phải */
+.auth-form__group .toggle-password {
+    border-left: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background-color: var(--input-bg);
+    color: var(--color-text-muted);
+}
+/* Tối ưu hóa UI Checkbox Đăng nhập */
+.auth-form__check .form-check-input:checked {
+    background-color: var(--neon-red) !important;
+    border-color: var(--neon-red) !important;
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+}
+
+.auth-form__check .form-check-input:focus {
+    box-shadow: none;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Hiệu ứng trỏ chuột cho link quên mật khẩu */
+.auth-form__forgot-link:hover {
+    color: var(--color-text-main) !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+    text-decoration: underline !important;
 }

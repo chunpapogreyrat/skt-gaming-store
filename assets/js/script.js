@@ -3,27 +3,29 @@
 ========================================= */
 
 function initTogglePassword() {
-    // Lấy tất cả các nút toggle (chạy tốt cho cả 1 ô bên Login và 2 ô bên Register)
+    // Tìm tất cả các nút có class .toggle-password
     const togglePasswordBtns = document.querySelectorAll('.toggle-password');
 
     togglePasswordBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
-            // Tìm ô input nằm ngay trước nút bấm
-            const inputField = this.previousElementSibling;
+            // CÁCH MỚI: Tìm thẻ cha .input-group gần nhất
+            const container = this.closest('.input-group');
+            if (!container) return; // Nếu không tìm thấy cha thì dừng lại
+            
+            // Tìm ô input và thẻ icon <i> nằm bên trong cụm đó
+            const inputField = container.querySelector('input');
             const icon = this.querySelector('i');
 
-            if (inputField && inputField.tagName === 'INPUT') {
-                // Đảo chiều trạng thái text / password
-                const type = inputField.getAttribute('type') === 'password' ? 'text' : 'password';
-                inputField.setAttribute('type', type);
-                
-                // Đổi icon tương ứng
-                if (type === 'text') {
+            // Kiểm tra nếu có đủ cả input lẫn icon thì mới xử lý
+            if (inputField && icon) {
+                if (inputField.type === 'password') {
+                    inputField.type = 'text'; // Hiện mật khẩu
                     icon.classList.remove('fa-eye');
-                    icon.classList.add('fa-eye-slash');
+                    icon.classList.add('fa-eye-slash'); // Đổi thành mắt gạch chéo
                 } else {
+                    inputField.type = 'password'; // Ẩn mật khẩu
                     icon.classList.remove('fa-eye-slash');
-                    icon.classList.add('fa-eye');
+                    icon.classList.add('fa-eye'); // Đổi thành mắt mở
                 }
             }
         });
@@ -33,10 +35,7 @@ function initTogglePassword() {
 /* =========================================
    INITIALIZATION (GLOBAL)
 ========================================= */
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Gọi hàm khởi tạo khi trang đã load xong HTML
+    // Kích hoạt hàm khi trang đã load xong HTML
     initTogglePassword();
-    
-    // Bạn có thể gọi thêm các hàm khác ở đây (ví dụ: initHeroSlider, initProductFilter...)
 });

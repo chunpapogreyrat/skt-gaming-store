@@ -1,101 +1,113 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Nhập - SKT Gaming Store</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Đăng nhập - SKT Gaming Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body class="dark-theme">
 
-    <section class="auth-section">
+    <section class="auth-section d-flex align-items-center min-vh-100">
         <div class="container-fluid p-0">
             <div class="row g-0 auth-section__row">
-                
-                <div class="col-lg-7 d-none d-lg-block auth-section__banner">
-                    <div class="auth-section__secure-text">
-                        <small>SECURE CONNECTION ESTABLISHED • ENCRYPTION LEVEL MAXIMUM</small>
+
+                <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-end p-5 position-relative auth-section__banner">
+                    <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+                    <div class="z-1 text-white mb-5">
+                        <h1 class="display-3 fw-bold font-orbitron text-uppercase" style="text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);">
+                            Engineered<br>For<br>Champions
+                        </h1>
+                        <p class="lead font-poppins mt-3">Trang bị hệ thống tối tân. Chinh phục mọi đỉnh cao.</p>
                     </div>
                 </div>
 
-                <div class="col-lg-5 auth-section__content d-flex align-items-center justify-content-center">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-sm-5 auth-section__content position-relative">
                     
+                    <a href="index.html" class="position-absolute top-0 end-0 m-4 text-decoration-none font-poppins btn-back">
+                        <i class="fa-solid fa-arrow-left me-2"></i> TRỞ VỀ
+                    </a>
+
                     <div class="auth-card">
                         <div class="text-center mb-4">
-                            <h1 class="auth-card__title">CHÀO MỪNG TRỞ LẠI</h1>
-                            <p class="auth-card__subtitle">Truy cập vào trung tâm điều khiển của bạn.</p>
+                            <h2 class="auth-card__title">Đăng Nhập Hệ Thống</h2>
+                            <p class="auth-card__subtitle mt-2">Chào mừng chiến binh quay trở lại chiến trường.</p>
                         </div>
 
-                        <form class="auth-form" action="#" method="POST">
-                            <div class="mb-4 auth-form__group">
-                                <label for="email" class="form-label auth-form__label">EMAIL</label>
+                        <form action="#" method="POST" class="auth-form font-poppins">
+                            
+                            <div class="mb-3 auth-form__group">
+                                <label class="form-label auth-form__label">Email / Tài khoản</label>
                                 <div class="input-group">
-                                    <span class="input-group-text auth-form__icon"><i class="fa-regular fa-envelope"></i></span>
-                                    <input type="email" class="form-control auth-form__input" id="email" placeholder="commander@skt.gg" required>
+                                    <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
+                                    <input type="email" class="form-control auth-form__input" placeholder="email@example.com" required>
                                 </div>
                             </div>
 
-                            <div class="mb-4 auth-form__group">
-                                <label for="password" class="form-label auth-form__label">MẬT KHẨU</label>
+                            <div class="mb-3 auth-form__group">
+                                <label class="form-label auth-form__label">Mật Khẩu</label>
                                 <div class="input-group">
-                                    <span class="input-group-text auth-form__icon"><i class="fa-solid fa-lock"></i></span>
-                                    <input type="password" class="form-control auth-form__input" id="password" placeholder="••••••••" required>
-                                    <span class="input-group-text auth-form__icon-toggle" id="togglePassword" style="cursor: pointer;">
-                                        <i class="fa-regular fa-eye-slash"></i>
+                                    <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                    <input type="password" class="form-control auth-form__input password-field" placeholder="••••••••" required>
+                                    <span class="input-group-text cursor-pointer toggle-password">
+                                        <i class="fa-regular fa-eye"></i>
                                     </span>
                                 </div>
                             </div>
 
-                            <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-4 font-size-sm">
                                 <div class="form-check auth-form__check">
-                                    <input class="form-check-input" type="checkbox" value="" id="rememberMe">
-                                    <label class="form-check-label" for="rememberMe">Ghi nhớ tôi</label>
+                                    <input class="form-check-input bg-dark border-secondary cursor-pointer" type="checkbox" id="rememberMe">
+                                    <label class="form-check-label cursor-pointer text-secondary" for="rememberMe" style="font-size: 0.85rem;">
+                                        Ghi nhớ đăng nhập
+                                    </label>
                                 </div>
-                                <a href="#" class="auth-form__forgot-link">Quên mật khẩu?</a>
+                                <a href="forgot-password.html" class="auth-form__forgot-link" style="font-size: 0.85rem; color: var(--neon-blue-start); text-decoration: none;">
+                                    Quên mật khẩu?
+                                </a>
                             </div>
 
-                            <button type="submit" class="btn auth-form__btn-submit w-100 mb-4">ĐĂNG NHẬP</button>
+                            <button type="submit" class="btn w-100 auth-form__btn-submit mb-4">
+                                ĐĂNG NHẬP
+                            </button>
 
-                            <div class="auth-form__divider d-flex align-items-center mb-4">
-                                <hr class="flex-grow-1">
-                                <span class="mx-3 text-muted">HOẶC KẾT NỐI VỚI</span>
-                                <hr class="flex-grow-1">
+                            <div class="d-flex align-items-center mb-4">
+                                <hr class="flex-grow-1" style="border-color: rgba(255,255,255,0.1);">
+                                <span class="mx-3 small font-poppins" style="color: var(--color-text-muted);">HOẶC ĐĂNG NHẬP BẰNG</span>
+                                <hr class="flex-grow-1" style="border-color: rgba(255,255,255,0.1);">
                             </div>
 
-                            <div class="row g-3 mb-4">
+                            <div class="row g-3 mb-4 text-center">
                                 <div class="col-6">
-                                    <button type="button" class="btn auth-form__btn-social w-100">
-                                        <i class="fa-brands fa-google me-2" style="color: #ea4335;"></i> Google
+                                    <button type="button" class="btn auth-form__btn-social btn-google w-100 py-2">
+                                        <i class="fa-brands fa-google me-2"></i> GOOGLE
                                     </button>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn auth-form__btn-social w-100">
-                                        <i class="fa-brands fa-facebook me-2" style="color: #1877f2;"></i> Facebook
+                                    <button type="button" class="btn auth-form__btn-social btn-facebook w-100 py-2">
+                                        <i class="fa-brands fa-facebook-f me-2"></i> FACEBOOK
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="text-center mt-3">
+                            <div class="text-center font-poppins mt-2">
                                 <a href="register.html" class="auth-form__register-link">Chưa có tài khoản? <span>Đăng ký ngay</span></a>
                             </div>
                         </form>
                     </div>
-@code nhu cac
                 </div>
+
             </div>
         </div>
     </section>
 
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
