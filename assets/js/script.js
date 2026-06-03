@@ -330,16 +330,16 @@ function addToCart(data) {
 }
 
 function initFlyToCart() {
-    document.querySelectorAll('.p-card__quick').forEach(function (btn) {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-            flyPaperPlane(btn);
-            var card = btn.closest('.p-card');
-            // add to cart shortly after plane launches
-            setTimeout(function () { addToCart(readCardData(card)); }, 400);
-        });
-    });
+    // Event delegation: hoạt động kể cả với card thêm sau, không phụ thuộc thứ tự init
+    document.addEventListener('click', function (e) {
+        var btn = e.target.closest('.p-card__quick');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        flyPaperPlane(btn);
+        var card = btn.closest('.p-card');
+        setTimeout(function () { addToCart(readCardData(card)); }, 400);
+    }, true); // capture phase: chạy TRƯỚC handler điều hướng của .p-card
 }
 /* #endregion */
 
