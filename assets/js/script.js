@@ -515,12 +515,30 @@ function initDetailPage() {
         });
     }
 
-    // Detail add to cart — fly to cart icon
+    // Detail add to cart — paper plane fly + add to cart with qty
     var addCartBtn = document.getElementById('detailAddCart');
     if (addCartBtn) {
         addCartBtn.addEventListener('click', function () {
-            var galleryImg = document.querySelector('.detail-gallery__slide.active img, .detail-gallery__main .owl-item.active img');
-            if (galleryImg) flyToCart(galleryImg);
+            // ảnh để bay: slide đang active, fallback ảnh đầu tiên
+            var galleryImg = document.querySelector('.detail-gallery__main .owl-item.active img')
+                          || document.querySelector('.detail-gallery__slide img');
+            if (galleryImg) flyPaperPlane(galleryImg);
+
+            // dữ liệu sản phẩm từ trang detail
+            var nameEl  = document.querySelector('.detail-info__title');
+            var priceEl = document.querySelector('.detail-info__price');
+            var imgEl   = document.querySelector('.detail-gallery__slide img');
+            var qtyEl   = document.getElementById('detailQtyInput');
+            var qty     = qtyEl ? (parseInt(qtyEl.value) || 1) : 1;
+
+            var data = {
+                name:  nameEl  ? nameEl.textContent.trim()  : 'Sản phẩm',
+                price: priceEl ? priceEl.textContent.trim() : '0đ',
+                img:   imgEl   ? imgEl.getAttribute('src')  : ''
+            };
+            setTimeout(function () {
+                for (var i = 0; i < qty; i++) addToCart(data);
+            }, 400);
         });
     }
 
