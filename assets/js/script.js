@@ -4,10 +4,10 @@
 function initTogglePassword() {
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
         btn.addEventListener('click', function () {
-            const container = this.closest('.input-group');
+            var container = this.closest('.input-group');
             if (!container) return;
-            const input = container.querySelector('input');
-            const icon  = this.querySelector('i');
+            var input = container.querySelector('input');
+            var icon  = this.querySelector('i');
             if (input && icon) {
                 if (input.type === 'password') {
                     input.type = 'text';
@@ -26,14 +26,10 @@ function initTogglePassword() {
    #region NAVBAR
 ========================================== */
 function initNavbar() {
-    const toggle = document.getElementById('navToggle');
-    const menu   = document.getElementById('navMenu');
+    var toggle = document.getElementById('navToggle');
+    var menu   = document.getElementById('navMenu');
     if (!toggle || !menu) return;
-
-    toggle.addEventListener('click', function () {
-        menu.classList.toggle('is-open');
-    });
-
+    toggle.addEventListener('click', function () { menu.classList.toggle('is-open'); });
     document.addEventListener('click', function (e) {
         if (!toggle.contains(e.target) && !menu.contains(e.target)) {
             menu.classList.remove('is-open');
@@ -43,26 +39,23 @@ function initNavbar() {
 /* #endregion */
 
 /* ==========================================
-   #region HERO
+   #region HERO SLIDER
 ========================================== */
 function initHeroSlider() {
-    const next      = document.getElementById('nextBtn');
-    const prev      = document.getElementById('prevBtn');
-    const track     = document.getElementById('heroTrack');
-    const heroTitle = document.getElementById('heroTitle');
-    const heroDesc  = document.getElementById('heroDesc');
-
+    var next      = document.getElementById('nextBtn');
+    var prev      = document.getElementById('prevBtn');
+    var track     = document.getElementById('heroTrack');
+    var heroTitle = document.getElementById('heroTitle');
+    var heroDesc  = document.getElementById('heroDesc');
     if (!track || !next || !prev) return;
 
     function updateHero() {
-        const items  = track.querySelectorAll('.hero-card');
-        const active = items[1];
+        var items  = track.querySelectorAll('.hero-card');
+        var active = items[1];
         if (!active) return;
-
         heroTitle.innerText = active.dataset.title;
         heroDesc.innerText  = active.dataset.desc;
-
-        const heroBg = document.getElementById('heroBg');
+        var heroBg = document.getElementById('heroBg');
         if (heroBg) {
             heroBg.style.backgroundImage    = active.style.backgroundImage;
             heroBg.style.backgroundSize     = 'cover';
@@ -72,67 +65,55 @@ function initHeroSlider() {
     }
 
     next.addEventListener('click', function () {
-        const items = track.querySelectorAll('.hero-card');
+        var items = track.querySelectorAll('.hero-card');
         track.appendChild(items[0]);
         updateHero();
     });
-
     prev.addEventListener('click', function () {
-        const items = track.querySelectorAll('.hero-card');
+        var items = track.querySelectorAll('.hero-card');
         track.prepend(items[items.length - 1]);
         updateHero();
     });
-
     setInterval(function () { next.click(); }, 6000);
-
     updateHero();
 }
 /* #endregion */
 
 /* ==========================================
-   #region SALE SLIDER
+   #region DEALS CAROUSEL (Owl Carousel)
 ========================================== */
-function initSaleSlider() {
-    var wrap  = document.querySelector('.sale-track-wrap');
-    var track = document.getElementById('saleTrack');
-    var prev  = document.getElementById('salePrev');
-    var next  = document.getElementById('saleNext');
-    if (!wrap || !track) return;
-
-    var VISIBLE  = 3;
-    var GAP      = 12;
-    var current  = 0;
-    var cards    = track.querySelectorAll('.sale-card');
-    var maxSlide = cards.length - VISIBLE;
-
-    function setWidths() {
-        var w = (wrap.offsetWidth - GAP * (VISIBLE - 1)) / VISIBLE;
-        cards.forEach(function (c) { c.style.width = w + 'px'; c.style.minWidth = w + 'px'; });
-        return w;
-    }
-
-    var cardW = setWidths();
-    window.addEventListener('resize', function () { cardW = setWidths(); slide(); });
-
-    function slide() {
-        track.style.transform = 'translateX(-' + current * (cardW + GAP) + 'px)';
-    }
-
-    next && next.addEventListener('click', function () { if (current < maxSlide) { current++; slide(); } });
-    prev && prev.addEventListener('click', function () { if (current > 0) { current--; slide(); } });
+function initDealsCarousel() {
+    if (typeof $ === 'undefined' || typeof $.fn.owlCarousel === 'undefined') return;
+    $('.deals-carousel').owlCarousel({
+        loop:      true,
+        margin:    12,
+        nav:       true,
+        dots:      true,
+        autoplay:  true,
+        autoplayTimeout: 4000,
+        autoplayHoverPause: true,
+        navText: [
+            '<i class="fa-solid fa-chevron-left"></i>',
+            '<i class="fa-solid fa-chevron-right"></i>'
+        ],
+        responsive: {
+            0:   { items: 1 },
+            576: { items: 2 },
+            992: { items: 3 }
+        }
+    });
 }
 /* #endregion */
 
 /* ==========================================
-   #region COUNTDOWN
+   #region COUNTDOWN TIMER
 ========================================== */
 function initCountdown() {
     var hEl = document.getElementById('timerH');
     var mEl = document.getElementById('timerM');
     var sEl = document.getElementById('timerS');
     if (!hEl) return;
-
-    var total = 2 * 3600 + 45 * 60 + 7;
+    var total = 5 * 3600 + 59 * 60 + 59;
     setInterval(function () {
         if (total <= 0) return;
         total--;
@@ -144,12 +125,27 @@ function initCountdown() {
 /* #endregion */
 
 /* ==========================================
+   #region AOS (Animate On Scroll)
+========================================== */
+function initAOS() {
+    if (typeof AOS === 'undefined') return;
+    AOS.init({
+        duration: 700,
+        easing:   'ease-out-cubic',
+        once:     true,
+        offset:   60
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
     initNavbar();
     initHeroSlider();
-    initSaleSlider();
+    initDealsCarousel();
     initCountdown();
+    initAOS();
 });
