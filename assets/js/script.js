@@ -80,40 +80,40 @@ function initHeroSlider() {
 /* #endregion */
 
 /* ==========================================
-   #region DEALS CAROUSEL (Owl Carousel)
+   #region SALE OWL CAROUSEL
 ========================================== */
-function initDealsCarousel() {
+function initSaleCarousel() {
     if (typeof $ === 'undefined' || typeof $.fn.owlCarousel === 'undefined') return;
-    $('.deals-carousel').owlCarousel({
-        loop:      true,
-        margin:    12,
-        nav:       true,
-        dots:      true,
-        autoplay:  true,
-        autoplayTimeout: 4000,
+
+    var $car = $('.sale-carousel').owlCarousel({
+        loop: true,
+        margin: 12,
+        nav: false,
+        dots: false,
+        autoplay: true,
+        autoplayTimeout: 4500,
         autoplayHoverPause: true,
-        navText: [
-            '<i class="fa-solid fa-chevron-left"></i>',
-            '<i class="fa-solid fa-chevron-right"></i>'
-        ],
         responsive: {
             0:   { items: 1 },
             576: { items: 2 },
             992: { items: 3 }
         }
     });
+
+    $('#salePrev').on('click', function () { $car.trigger('prev.owl.carousel'); });
+    $('#saleNext').on('click', function () { $car.trigger('next.owl.carousel'); });
 }
 /* #endregion */
 
 /* ==========================================
-   #region COUNTDOWN TIMER
+   #region COUNTDOWN
 ========================================== */
 function initCountdown() {
     var hEl = document.getElementById('timerH');
     var mEl = document.getElementById('timerM');
     var sEl = document.getElementById('timerS');
     if (!hEl) return;
-    var total = 5 * 3600 + 59 * 60 + 59;
+    var total = 2 * 3600 + 41 * 60 + 15;
     setInterval(function () {
         if (total <= 0) return;
         total--;
@@ -125,16 +125,11 @@ function initCountdown() {
 /* #endregion */
 
 /* ==========================================
-   #region AOS (Animate On Scroll)
+   #region AOS
 ========================================== */
 function initAOS() {
     if (typeof AOS === 'undefined') return;
-    AOS.init({
-        duration: 700,
-        easing:   'ease-out-cubic',
-        once:     true,
-        offset:   60
-    });
+    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
 }
 /* #endregion */
 
@@ -145,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
     initNavbar();
     initHeroSlider();
-    initDealsCarousel();
+    initSaleCarousel();
     initCountdown();
     initAOS();
 });
