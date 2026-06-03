@@ -693,6 +693,46 @@ function initSetupsFilter() {
 /* #endregion */
 
 /* ==========================================
+   #region COUNT-UP STATS (About page)
+========================================== */
+function initCountUp() {
+    var nums = document.querySelectorAll('.about-stat__num[data-count]');
+    if (!nums.length) return;
+
+    function animate(el) {
+        var target = parseInt(el.dataset.count, 10) || 0;
+        var dur = 1600;
+        var start = null;
+        function step(ts) {
+            if (!start) start = ts;
+            var p = Math.min((ts - start) / dur, 1);
+            // easeOutQuart
+            var eased = 1 - Math.pow(1 - p, 4);
+            var val = Math.floor(eased * target);
+            el.textContent = val.toLocaleString('vi-VN');
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target.toLocaleString('vi-VN');
+        }
+        requestAnimationFrame(step);
+    }
+
+    if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+            entries.forEach(function (en) {
+                if (en.isIntersecting) {
+                    animate(en.target);
+                    obs.unobserve(en.target);
+                }
+            });
+        }, { threshold: 0.4 });
+        nums.forEach(function (n) { obs.observe(n); });
+    } else {
+        nums.forEach(animate);
+    }
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -701,6 +741,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initAuthState();
     initProductLinks();
     initSetupsFilter();
+    initCountUp();
     initNavbar();
     initHeroSlider();
     initSaleCarousel();
