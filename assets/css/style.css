@@ -343,6 +343,39 @@ img { max-width: 100%; display: block; }
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+
+/* Auth message (login result) */
+.auth-msg {
+    display: none;
+    align-items: center;
+    gap: .5rem;
+    font-size: .82rem;
+    font-weight: 500;
+    padding: 11px 14px;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+.auth-msg--ok,
+.auth-msg--err { display: flex; }
+.auth-msg--ok {
+    background: rgba(0,184,148,.12);
+    border: 1px solid rgba(0,184,148,.4);
+    color: #00d4a8;
+}
+.auth-msg--err {
+    background: rgba(255,0,60,.1);
+    border: 1px solid var(--red-dim);
+    color: #ff6b81;
+}
+
+/* Shake on wrong login */
+.auth-shake { animation: authShake .45s cubic-bezier(.36,.07,.19,.97); }
+@keyframes authShake {
+    10%, 90% { transform: translateX(-2px); }
+    20%, 80% { transform: translateX(4px); }
+    30%, 50%, 70% { transform: translateX(-7px); }
+    40%, 60% { transform: translateX(7px); }
+}
 /* #endregion */
 
 /* ==========================================

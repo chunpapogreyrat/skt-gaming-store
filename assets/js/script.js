@@ -488,10 +488,65 @@ function initProfileTabs() {
 /* #endregion */
 
 /* ==========================================
+   #region FAKE AUTH (demo: admin / 12456)
+========================================== */
+var FAKE_USER = { username: 'admin', password: '12456' };
+
+function initFakeAuth() {
+    var emailEl = document.getElementById('loginEmail');
+    var passEl  = document.getElementById('loginPass');
+    if (!emailEl || !passEl) return; // chỉ chạy ở trang login
+    var form = emailEl.closest('form');
+    if (!form) return;
+
+    var submitBtn = form.querySelector('.auth-form__btn-submit');
+    var msg = document.createElement('div');
+    msg.className = 'auth-msg';
+    if (submitBtn) form.insertBefore(msg, submitBtn);
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var u = emailEl.value.trim();
+        var p = passEl.value;
+
+        if (u === FAKE_USER.username && p === FAKE_USER.password) {
+            msg.className = 'auth-msg auth-msg--ok';
+            msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang chuyển hướng...';
+            try { localStorage.setItem('skt_user', u); } catch (err) {}
+            setTimeout(function () { window.location.href = 'index.html'; }, 900);
+        } else {
+            msg.className = 'auth-msg auth-msg--err';
+            msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Sai tài khoản hoặc mật khẩu! (admin / 12456)';
+            form.classList.add('auth-shake');
+            setTimeout(function () { form.classList.remove('auth-shake'); }, 500);
+        }
+    });
+}
+/* #endregion */
+
+/* ==========================================
+   #region PRODUCT LINKS (mọi sản phẩm -> detail.html)
+========================================== */
+function initProductLinks() {
+    var cards = document.querySelectorAll('.p-card, .deal-card, .top-card, .wishlist-card');
+    cards.forEach(function (card) {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', function (e) {
+            // bỏ qua khi bấm nút hành động / link / swatch
+            if (e.target.closest('button, a, .swatch, .p-card__quick, .wishlist-card__heart')) return;
+            window.location.href = 'detail.html';
+        });
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
+    initFakeAuth();
+    initProductLinks();
     initNavbar();
     initHeroSlider();
     initSaleCarousel();
