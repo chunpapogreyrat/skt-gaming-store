@@ -322,7 +322,7 @@ function addToCart(data) {
                     '<input type="text" value="1" readonly>' +
                     '<button type="button" class="qty-input__btn">+</button>' +
                 '</div>' +
-                '<button type="button" class="cart-item__remove">Bỏ</button>' +
+                '<button type="button" class="cart-item__remove" aria-label="Xóa"><i class="fa-solid fa-trash-can"></i></button>' +
             '</div>';
         list.appendChild(item);
     }
@@ -611,6 +611,47 @@ function initFakeAuth() {
 /* #endregion */
 
 /* ==========================================
+   #region AUTH STATE (gating đăng nhập)
+========================================== */
+function isLoggedIn() {
+    try { return !!localStorage.getItem('skt_user'); } catch (e) { return false; }
+}
+
+function initAuthState() {
+    var loggedIn = isLoggedIn();
+
+    // Icon profile: đã login -> profile.html, chưa login -> login.html
+    var userLink = document.querySelector('.navbar__actions a.navbar__icon-btn');
+    if (userLink) {
+        userLink.setAttribute('href', loggedIn ? 'profile.html' : 'login.html');
+        userLink.setAttribute('title', loggedIn ? 'Tài khoản của tôi' : 'Đăng nhập');
+        var icon = userLink.querySelector('i');
+        if (icon) {
+            icon.className = loggedIn ? 'fa-solid fa-user' : 'fa-regular fa-user';
+        }
+        userLink.classList.toggle('navbar__icon-btn--active', loggedIn);
+    }
+
+    // Bảo vệ trang profile: chưa đăng nhập thì đá về login
+    var onProfile = /profile\.html$/i.test(window.location.pathname);
+    if (onProfile && !loggedIn) {
+        window.location.replace('login.html');
+        return;
+    }
+
+    // Đăng xuất: xóa session rồi về trang chủ
+    var logoutBtn = document.querySelector('.profile-sidebar__link--logout');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            try { localStorage.removeItem('skt_user'); } catch (err) {}
+            window.location.href = 'index.html';
+        });
+    }
+}
+/* #endregion */
+
+/* ==========================================
    #region PRODUCT LINKS (mọi sản phẩm -> detail.html)
 ========================================== */
 function initProductLinks() {
@@ -632,6 +673,7 @@ function initProductLinks() {
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
     initFakeAuth();
+    initAuthState();
     initProductLinks();
     initNavbar();
     initHeroSlider();
