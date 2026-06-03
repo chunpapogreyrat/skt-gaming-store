@@ -4,154 +4,139 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKT Gaming Store - Đỉnh Cao Trải Nghiệm</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body class="dark-theme">
 
-<!-- ===== NAVBAR ===== -->
-<nav class="skt-navbar navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid px-4 px-xl-5">
-        <a href="index.html" class="navbar-brand skt-logo">
-            <span class="logo-skt">SKT</span>GAMING STORE
+<!-- #region ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+    <div class="announcement-bar__track">
+        <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>🔥 SẢN PHẨM MỚI: FINALMOUSE ULX VỪA VỀ KHO &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+        <span>🔥 SẢN PHẨM MỚI: FINALMOUSE ULX VỪA VỀ KHO &nbsp;&nbsp;&bull;&nbsp;&nbsp;</span>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region NAVBAR -->
+<nav class="navbar" id="mainNav">
+    <div class="navbar__container">
+        <a href="index.html" class="navbar__logo">
+            <span class="navbar__logo-skt">SKT</span> GAMING
         </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
-            <i class="fa-solid fa-bars text-white"></i>
+
+        <button class="navbar__toggle" id="navToggle" aria-label="Mở menu">
+            <i class="fa-solid fa-bars"></i>
         </button>
-        <div class="collapse navbar-collapse" id="navMain">
-            <ul class="navbar-nav mx-auto gap-1">
-                <li class="nav-item"><a class="nav-link nav-active" href="index.html">Trang Chủ</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Bàn Phím Cơ</a>
-                    <ul class="dropdown-menu skt-dropdown">
-                        <li><a class="dropdown-item" href="#">Bàn phím có dây</a></li>
-                        <li><a class="dropdown-item" href="#">Bàn phím không dây</a></li>
-                        <li><a class="dropdown-item" href="#">Keycap & Phụ kiện</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="#">Chuột Gaming</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Tai Nghe</a></li>
-                <li class="nav-item"><a class="nav-link nav-deals" href="#">Deals <i class="fa-solid fa-fire ms-1"></i></a></li>
+
+        <div class="navbar__menu" id="navMenu">
+            <ul class="navbar__links">
+                <li><a href="#" class="navbar__link navbar__link--active">Gaming Gear</a></li>
+                <li><a href="#" class="navbar__link">Góc game thủ</a></li>
+                <li><a href="#" class="navbar__link">Giới thiệu về chúng tui</a></li>
+                <li><a href="#" class="navbar__link">Liên hệ</a></li>
             </ul>
-            <div class="nav-right d-flex align-items-center gap-3">
-                <div class="nav-search-wrap">
-                    <i class="fa-solid fa-magnifying-glass nav-search-icon"></i>
-                    <input type="text" class="nav-search-input" placeholder="Tìm kiếm chiến mã...">
+
+            <div class="navbar__actions">
+                <div class="navbar__search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Tìm kiếm chiến mã...">
                 </div>
-                <a href="cart.html" class="nav-icon-btn position-relative">
+                <a href="cart.html" class="navbar__icon-btn" aria-label="Giỏ hàng">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-badge">3</span>
+                    <span class="navbar__badge">3</span>
                 </a>
-                <a href="login.html" class="nav-icon-btn">
+                <a href="login.html" class="navbar__icon-btn" aria-label="Tài khoản">
                     <i class="fa-regular fa-user"></i>
                 </a>
             </div>
         </div>
     </div>
 </nav>
+<!-- #endregion -->
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="heroSection">
-    <div class="hero__bg" id="heroBg"></div>
-    <div class="hero__overlay"></div>
-    <div class="hero__scanline"></div>
+<!-- #region HERO -->
+<section class="hero-slider">
+    <div class="hero-slider__bg" id="heroBg"></div>
 
-    <div class="hero__inner container-fluid px-4 px-xl-5">
-        <div class="hero__left">
-            <span class="hero__badge" id="heroBadge">SẢN PHẨM MỚI NHẤT</span>
-            <h1 class="hero__title" id="heroTitle">
-                RAZER<br>HUNTSMAN<br><span class="hero__hl">NIKO EDITION</span>
-            </h1>
-            <p class="hero__desc" id="heroDesc">Bàn phím cơ phiên bản giới hạn Niko Edition. Công tắc quang học thế hệ 2, RGB per-key ấn tượng, thiết kế nghệ thuật độc quyền.</p>
-            <div class="hero__actions">
-                <a href="#" class="btn-hero-fill">KHÁM PHÁ NGAY</a>
-                <a href="#" class="btn-hero-outline">CHI TIẾT</a>
-            </div>
-        </div>
-
-        <div class="hero__center">
-            <div class="hero__glow"></div>
-            <img src="assets/images/Products/Keyboard/Huntsman%20Niko/niko1.webp" alt="" class="hero__product-img" id="heroMainImg">
-        </div>
-
-        <div class="hero__thumbs" id="heroThumbs"></div>
+    <div class="hero-slider__content">
+        <h1 id="heroTitle"></h1>
+        <p id="heroDesc"></p>
+        <button class="btn-main">
+            <span>Khám phá ngay</span>
+        </button>
     </div>
 
-    <div class="hero__dots" id="heroDots">
-        <span class="hero-dot active" data-idx="0"></span>
-        <span class="hero-dot" data-idx="1"></span>
-        <span class="hero-dot" data-idx="2"></span>
-        <span class="hero-dot" data-idx="3"></span>
+    <div class="hero-slider__track" id="heroTrack">
+        <div class="hero-card"
+             data-title="Gaming Gear Đỉnh Cao"
+             data-desc="Trang bị vũ khí — chinh phục mọi chiến trường"
+             style="background-image: url('assets/images/slider/1.jpg')">
+        </div>
+        <div class="hero-card"
+             data-title="Chuột Gaming Pro"
+             data-desc="Cảm biến quang học bậc nhất — phản xạ 0 độ trễ"
+             style="background-image: url('assets/images/slider/2.jpg')">
+        </div>
+        <div class="hero-card"
+             data-title="Bàn Phím Cơ Custom"
+             data-desc="Hall Effect & Rapid Trigger — cú bấm hoàn hảo nhất"
+             style="background-image: url('assets/images/slider/3.jpg')">
+        </div>
+        <div class="hero-card"
+             data-title="Màn Hình Esports 360Hz"
+             data-desc="Từng khung hình là lợi thế — DyAc+ không bóng mờ"
+             style="background-image: url('assets/images/slider/4.jpg')">
+        </div>
+    </div>
+
+    <div class="hero-nav">
+        <button id="prevBtn">&#8249;</button>
+        <button id="nextBtn">&#8250;</button>
     </div>
 </section>
+<!-- #endregion -->
 
-<!-- ===== MAIN CONTENT 3-6-3 ===== -->
+<!-- #region MAIN CONTENT -->
 <main class="container-fluid px-4 px-xl-5 my-5">
     <div class="row g-4">
 
-        <!-- LEFT SIDEBAR -->
         <aside class="col-lg-3">
             <div class="skt-panel mb-4">
-                <h5 class="panel-title"><i class="fa-solid fa-table-cells-large me-2 text-danger"></i>DANH MỤC SẢN PHẨM</h5>
+                <h5 class="panel-title"><i class="fa-solid fa-table-cells-large me-2"></i>DANH MỤC SẢN PHẨM</h5>
                 <ul class="sidebar-menu list-unstyled m-0">
-                    <li>
-                        <a href="#" class="active">
-                            <i class="fa-solid fa-keyboard"></i>
-                            <span>Bàn Phím Cơ</span>
-                            <i class="fa-solid fa-angle-right ms-auto"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-computer-mouse"></i>
-                            <span>Chuột Gaming</span>
-                            <i class="fa-solid fa-angle-right ms-auto"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-headphones"></i>
-                            <span>Tai Nghe Esports</span>
-                            <i class="fa-solid fa-angle-right ms-auto"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa-solid fa-grip"></i>
-                            <span>Lót Chuột & Phụ Kiện</span>
-                            <i class="fa-solid fa-angle-right ms-auto"></i>
-                        </a>
-                    </li>
+                    <li><a href="#" class="active"><i class="fa-solid fa-keyboard"></i><span>Bàn Phím Cơ</span><i class="fa-solid fa-angle-right ms-auto"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-computer-mouse"></i><span>Chuột Gaming</span><i class="fa-solid fa-angle-right ms-auto"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-headphones"></i><span>Tai Nghe Esports</span><i class="fa-solid fa-angle-right ms-auto"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-grip"></i><span>Lót Chuột & Phụ Kiện</span><i class="fa-solid fa-angle-right ms-auto"></i></a></li>
                 </ul>
             </div>
-
             <div class="skt-panel">
-                <h5 class="panel-title"><i class="fa-solid fa-fire-flame-curved me-2 text-danger"></i>TOP BÁN CHẠY</h5>
+                <h5 class="panel-title"><i class="fa-solid fa-fire-flame-curved me-2"></i>TOP BÁN CHẠY</h5>
                 <div class="top-seller-list">
                     <div class="top-seller-item">
-                        <div class="top-seller-img">
-                            <img src="assets/images/Products/Keyboard/Centauri/ctr1.webp" alt="Centauri">
-                        </div>
+                        <div class="top-seller-img"><img src="assets/images/Products/Keyboard/Centauri/ctr1.webp" alt="Centauri"></div>
                         <div class="top-seller-info">
                             <p class="top-seller-name">Centauri Keyboard</p>
                             <span class="top-seller-price">2.450.000đ</span>
                         </div>
                     </div>
                     <div class="top-seller-item">
-                        <div class="top-seller-img">
-                            <img src="assets/images/Products/Mice/Tenz/tenz1.webp" alt="TenZ Mouse">
-                        </div>
+                        <div class="top-seller-img"><img src="assets/images/Products/Mice/Tenz/tenz1.webp" alt="TenZ"></div>
                         <div class="top-seller-info">
                             <p class="top-seller-name">TenZ Signature</p>
                             <span class="top-seller-price">3.190.000đ</span>
                         </div>
                     </div>
                     <div class="top-seller-item">
-                        <div class="top-seller-img">
-                            <img src="assets/images/Products/Mice/Frostlord/fl1.webp" alt="Frostlord">
-                        </div>
+                        <div class="top-seller-img"><img src="assets/images/Products/Mice/Frostlord/fl1.webp" alt="Frostlord"></div>
                         <div class="top-seller-info">
                             <p class="top-seller-name">Frostlord Pro</p>
                             <span class="top-seller-price">2.990.000đ</span>
@@ -161,14 +146,10 @@
             </div>
         </aside>
 
-        <!-- CENTER -->
         <section class="col-lg-6">
             <div class="skt-panel sale-panel mb-4">
                 <div class="sale-panel__header">
-                    <div class="sale-title">
-                        <i class="fa-solid fa-fire"></i>
-                        <span>SALE TRONG NGÀY</span>
-                    </div>
+                    <div class="sale-title"><i class="fa-solid fa-fire"></i><span>SALE TRONG NGÀY</span></div>
                     <div class="sale-timer">
                         <span class="timer-box" id="timerH">02</span>
                         <span class="timer-colon">:</span>
@@ -183,36 +164,11 @@
                 </div>
                 <div class="sale-track-wrap">
                     <div class="sale-track" id="saleTrack">
-                        <div class="sale-card">
-                            <span class="sale-tag">-30%</span>
-                            <div class="sale-card__img"><img src="assets/images/Products/Keyboard/ARC65/arc1.webp" alt="ARC65"></div>
-                            <p class="sale-card__name">ARC65 Keyboard</p>
-                            <span class="price-new">1.890.000đ</span>
-                        </div>
-                        <div class="sale-card">
-                            <span class="sale-tag">-15%</span>
-                            <div class="sale-card__img"><img src="assets/images/Products/Mice/Sycrox%20V6/sv61.webp" alt="Sycrox V6"></div>
-                            <p class="sale-card__name">Sycrox V6 Mouse</p>
-                            <span class="price-new">1.450.000đ</span>
-                        </div>
-                        <div class="sale-card">
-                            <span class="sale-tag">-20%</span>
-                            <div class="sale-card__img"><img src="assets/images/Products/Mice/Beast%20X%20Max/bxm1.webp" alt="Beast X Max"></div>
-                            <p class="sale-card__name">Beast X Max</p>
-                            <span class="price-new">2.100.000đ</span>
-                        </div>
-                        <div class="sale-card">
-                            <span class="sale-tag">-25%</span>
-                            <div class="sale-card__img"><img src="assets/images/Products/Keyboard/LUCE60/lc1.webp" alt="LUCE60"></div>
-                            <p class="sale-card__name">LUCE60 Custom</p>
-                            <span class="price-new">2.500.000đ</span>
-                        </div>
-                        <div class="sale-card">
-                            <span class="sale-tag">-10%</span>
-                            <div class="sale-card__img"><img src="assets/images/Products/Mice/ViperV4Pro/vv4p1.webp" alt="Viper V4 Pro"></div>
-                            <p class="sale-card__name">Viper V4 Pro</p>
-                            <span class="price-new">2.890.000đ</span>
-                        </div>
+                        <div class="sale-card"><span class="sale-tag">-30%</span><div class="sale-card__img"><img src="assets/images/Products/Keyboard/ARC65/arc1.webp" alt="ARC65"></div><p class="sale-card__name">ARC65 Keyboard</p><span class="price-new">1.890.000đ</span></div>
+                        <div class="sale-card"><span class="sale-tag">-15%</span><div class="sale-card__img"><img src="assets/images/Products/Mice/Sycrox%20V6/sv61.webp" alt="Sycrox V6"></div><p class="sale-card__name">Sycrox V6 Mouse</p><span class="price-new">1.450.000đ</span></div>
+                        <div class="sale-card"><span class="sale-tag">-20%</span><div class="sale-card__img"><img src="assets/images/Products/Mice/Beast%20X%20Max/bxm1.webp" alt="Beast X Max"></div><p class="sale-card__name">Beast X Max</p><span class="price-new">2.100.000đ</span></div>
+                        <div class="sale-card"><span class="sale-tag">-25%</span><div class="sale-card__img"><img src="assets/images/Products/Keyboard/LUCE60/lc1.webp" alt="LUCE60"></div><p class="sale-card__name">LUCE60 Custom</p><span class="price-new">2.500.000đ</span></div>
+                        <div class="sale-card"><span class="sale-tag">-10%</span><div class="sale-card__img"><img src="assets/images/Products/Mice/ViperV4Pro/vv4p1.webp" alt="Viper V4 Pro"></div><p class="sale-card__name">Viper V4 Pro</p><span class="price-new">2.890.000đ</span></div>
                     </div>
                 </div>
             </div>
@@ -222,117 +178,26 @@
                 <a href="#" class="view-all-link">Xem tất cả <i class="fa-solid fa-angle-right ms-1"></i></a>
             </div>
             <div class="row g-3">
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Keyboard/PCMK/pcmk1.webp" alt="PCMK"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">PCMK</span>
-                            <p class="product-name">Custom 65%</p>
-                            <span class="product-price">3.200.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Mice/X2CL/x2cl1.webp" alt="X2CL"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">PULSAR</span>
-                            <p class="product-name">X2CL Pro</p>
-                            <span class="product-price">2.190.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Mice/Akitsu/akitsu1.webp" alt="Akitsu"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">FINALMOUSE</span>
-                            <p class="product-name">Akitsu Pro</p>
-                            <span class="product-price">4.500.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt="Wooting"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">WOOTING</span>
-                            <p class="product-name">60HE Analog</p>
-                            <span class="product-price">3.850.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Mice/Superstrike/ss1.webp" alt="Superstrike"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">FANTECH</span>
-                            <p class="product-name">Superstrike</p>
-                            <span class="product-price">890.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Keyboard/Majestouch/mjt1.webp" alt="Majestouch"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">FILCO</span>
-                            <p class="product-name">Majestouch 2</p>
-                            <span class="product-price">2.990.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <span class="product-sale-tag">-10%</span>
-                        <div class="product-card__img"><img src="assets/images/Products/Keyboard/MADE68%20Ultra%20V2/md1.webp" alt="MADE68 Ultra V2"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">MADE68</span>
-                            <p class="product-name">Ultra V2</p>
-                            <span class="product-price">1.850.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Keyboard/Xpunk/xp1.webp" alt="Xpunk"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">XPUNK</span>
-                            <p class="product-name">Custom 80%</p>
-                            <span class="product-price">2.200.000đ</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="product-card">
-                        <div class="product-card__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt="Finalmouse ULX"></div>
-                        <div class="product-card__body">
-                            <span class="product-brand">FINALMOUSE</span>
-                            <p class="product-name">ULX Pro</p>
-                            <span class="product-price">5.990.000đ</span>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Keyboard/PCMK/pcmk1.webp" alt="PCMK"></div><div class="product-card__body"><span class="product-brand">PCMK</span><p class="product-name">Custom 65%</p><span class="product-price">3.200.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Mice/X2CL/x2cl1.webp" alt="X2CL"></div><div class="product-card__body"><span class="product-brand">PULSAR</span><p class="product-name">X2CL Pro</p><span class="product-price">2.190.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Mice/Akitsu/akitsu1.webp" alt="Akitsu"></div><div class="product-card__body"><span class="product-brand">FINALMOUSE</span><p class="product-name">Akitsu Pro</p><span class="product-price">4.500.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt="Wooting"></div><div class="product-card__body"><span class="product-brand">WOOTING</span><p class="product-name">60HE Analog</p><span class="product-price">3.850.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Mice/Superstrike/ss1.webp" alt="Superstrike"></div><div class="product-card__body"><span class="product-brand">FANTECH</span><p class="product-name">Superstrike</p><span class="product-price">890.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Keyboard/Majestouch/mjt1.webp" alt="Majestouch"></div><div class="product-card__body"><span class="product-brand">FILCO</span><p class="product-name">Majestouch 2</p><span class="product-price">2.990.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><span class="product-sale-tag">-10%</span><div class="product-card__img"><img src="assets/images/Products/Keyboard/MADE68%20Ultra%20V2/md1.webp" alt="MADE68"></div><div class="product-card__body"><span class="product-brand">MADE68</span><p class="product-name">Ultra V2</p><span class="product-price">1.850.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Keyboard/Xpunk/xp1.webp" alt="Xpunk"></div><div class="product-card__body"><span class="product-brand">XPUNK</span><p class="product-name">Custom 80%</p><span class="product-price">2.200.000đ</span></div></div></div>
+                <div class="col-4"><div class="product-card"><div class="product-card__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt="ULX"></div><div class="product-card__body"><span class="product-brand">FINALMOUSE</span><p class="product-name">ULX Pro</p><span class="product-price">5.990.000đ</span></div></div></div>
             </div>
         </section>
 
-        <!-- RIGHT -->
         <aside class="col-lg-3">
             <div class="promo-banner mb-3 position-relative overflow-hidden">
                 <img src="assets/images/KeyboardBanner.jpg" alt="Tuần Lễ Keyboard" class="promo-banner__img">
-                <div class="promo-banner__overlay">
-                    <span class="promo-label">PROMOTION</span>
-                    <h6 class="promo-title">TUẦN LỄ KEYBOARD</h6>
-                    <p class="promo-sub">Giảm đến 40% bàn phím cơ</p>
-                </div>
+                <div class="promo-banner__overlay"><span class="promo-label">PROMOTION</span><h6 class="promo-title">TUẦN LỄ KEYBOARD</h6><p class="promo-sub">Giảm đến 40% bàn phím cơ</p></div>
             </div>
             <div class="promo-banner mb-3 position-relative overflow-hidden">
-                <img src="assets/images/chuotbanner.jpg" alt="Flash Deal Chuột" class="promo-banner__img">
-                <div class="promo-banner__overlay">
-                    <span class="promo-label">FLASH DEAL</span>
-                    <h6 class="promo-title">GIẢM 50% CHUỘT GAMING</h6>
-                    <p class="promo-sub">Số lượng có hạn trong ngày</p>
-                </div>
+                <img src="assets/images/chuotbanner.jpg" alt="Flash Deal" class="promo-banner__img">
+                <div class="promo-banner__overlay"><span class="promo-label">FLASH DEAL</span><h6 class="promo-title">GIẢM 50% CHUỘT GAMING</h6><p class="promo-sub">Số lượng có hạn trong ngày</p></div>
             </div>
             <div class="skt-panel build-custom-panel text-center">
                 <div class="build-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
@@ -344,8 +209,9 @@
 
     </div>
 </main>
+<!-- #endregion -->
 
-<!-- ===== BRAND PARTNERS ===== -->
+<!-- #region BRAND PARTNERS -->
 <section class="brands-section">
     <div class="container-fluid px-4 px-xl-5">
         <div class="brands-track">
@@ -364,8 +230,9 @@
         </div>
     </div>
 </section>
+<!-- #endregion -->
 
-<!-- ===== FOOTER ===== -->
+<!-- #region FOOTER -->
 <footer class="skt-footer pt-5 pb-3 mt-3">
     <div class="container-fluid px-4 px-xl-5">
         <div class="row g-4 mb-4">
@@ -405,11 +272,10 @@
                 </div>
             </div>
         </div>
-        <div class="footer-bottom text-center">
-            © 2024 SKT Gaming. Designed with Cyber-precision.
-        </div>
+        <div class="footer-bottom text-center">© 2024 SKT Gaming. Designed with Cyber-precision.</div>
     </div>
 </footer>
+<!-- #endregion -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/script.js"></script>

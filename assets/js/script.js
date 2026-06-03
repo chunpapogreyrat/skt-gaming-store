@@ -1,5 +1,5 @@
 /* ==========================================
-   AUTH MODULE
+   #region AUTH
 ========================================== */
 function initTogglePassword() {
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
@@ -20,127 +20,77 @@ function initTogglePassword() {
         });
     });
 }
+/* #endregion */
 
 /* ==========================================
-   HERO SLIDER
+   #region NAVBAR
 ========================================== */
-const HERO_SLIDES = [
-    {
-        badge: 'SẢN PHẨM MỚI NHẤT',
-        titleLines: ['RAZER', 'HUNTSMAN', '<span class="hero__hl">NIKO EDITION</span>'],
-        desc: 'Bàn phím cơ phiên bản giới hạn Niko Edition. Công tắc quang học thế hệ 2, RGB per-key ấn tượng, thiết kế nghệ thuật độc quyền.',
-        img: 'assets/images/Products/Keyboard/Huntsman%20Niko/niko1.webp',
-        bg:  'assets/images/slider/1.jpg',
-    },
-    {
-        badge: 'HOT NHẤT THÁNG',
-        titleLines: ['FINALMOUSE', 'MAYA X', '<span class="hero__hl">WIRELESS</span>'],
-        desc: 'Chuột gaming siêu nhẹ dành riêng cho game thủ Esports. Sensor quang học bậc nhất thế giới, trọng lượng tối ưu cho tốc độ phản xạ đỉnh cao.',
-        img: 'assets/images/Products/Mice/Maya%20X/mx1.webp',
-        bg:  'assets/images/slider/2.jpg',
-    },
-    {
-        badge: 'BÁN CHẠY SỐ 1',
-        titleLines: ['WOOTING', '60HE', '<span class="hero__hl">ANALOG</span>'],
-        desc: 'Bàn phím Hall Effect đầu tiên với Rapid Trigger. Công nghệ analog tiên tiến nhất cho game thủ Esports tranh đấu đỉnh cao.',
-        img: 'assets/images/Products/Keyboard/Wooting/wt1.webp',
-        bg:  'assets/images/slider/3.jpg',
-    },
-    {
-        badge: 'ĐỘC QUYỀN',
-        titleLines: ['FINALMOUSE', 'ULX', '<span class="hero__hl">PRO</span>'],
-        desc: 'Chuột gaming Finalmouse ULX Pro — giới hạn toàn cầu. Khung carbon siêu nhẹ, cảm biến tùy chỉnh độc quyền, đỉnh cao của engineering.',
-        img: 'assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp',
-        bg:  'assets/images/slider/4.jpg',
-    },
-];
+function initNavbar() {
+    const toggle = document.getElementById('navToggle');
+    const menu   = document.getElementById('navMenu');
+    if (!toggle || !menu) return;
 
-let currentSlide   = 0;
-let heroAutoTimer  = null;
-
-function goToSlide(idx) {
-    const slide    = HERO_SLIDES[idx];
-    const imgEl    = document.getElementById('heroMainImg');
-    const bgEl     = document.getElementById('heroBg');
-    const badgeEl  = document.getElementById('heroBadge');
-    const titleEl  = document.getElementById('heroTitle');
-    const descEl   = document.getElementById('heroDesc');
-
-    if (!imgEl) return;
-
-    [badgeEl, titleEl, descEl, imgEl].forEach(el => {
-        if (el) { el.style.opacity = '0'; el.style.transform = 'translateY(10px)'; }
+    toggle.addEventListener('click', function () {
+        menu.classList.toggle('is-open');
     });
 
-    setTimeout(function () {
-        if (bgEl)    bgEl.style.backgroundImage = "url('" + slide.bg + "')";
-        if (badgeEl) badgeEl.textContent = slide.badge;
-        if (titleEl) titleEl.innerHTML   = slide.titleLines.join('<br>');
-        if (descEl)  descEl.textContent  = slide.desc;
-        if (imgEl)   imgEl.src           = slide.img;
-
-        [badgeEl, titleEl, descEl, imgEl].forEach(el => {
-            if (el) { el.style.opacity = '1'; el.style.transform = ''; }
-        });
-
-        document.querySelectorAll('.hero-dot').forEach(function (d, i) {
-            d.classList.toggle('active', i === idx);
-        });
-
-        renderHeroThumbs(idx);
-    }, 340);
-
-    currentSlide = idx;
-}
-
-function renderHeroThumbs(activeIdx) {
-    const container = document.getElementById('heroThumbs');
-    if (!container) return;
-    container.innerHTML = '';
-    for (var i = 1; i <= 2; i++) {
-        var idx   = (activeIdx + i) % HERO_SLIDES.length;
-        var slide = HERO_SLIDES[idx];
-        var div   = document.createElement('div');
-        div.className = 'hero-thumb';
-        div.innerHTML = '<img src="' + slide.img + '" alt="">';
-        div.addEventListener('click', (function (capturedIdx) {
-            return function () {
-                clearInterval(heroAutoTimer);
-                goToSlide(capturedIdx);
-                startHeroAuto();
-            };
-        })(idx));
-        container.appendChild(div);
-    }
-}
-
-function startHeroAuto() {
-    heroAutoTimer = setInterval(function () {
-        goToSlide((currentSlide + 1) % HERO_SLIDES.length);
-    }, 5000);
-}
-
-function initHeroSlider() {
-    var bgEl = document.getElementById('heroBg');
-    if (!bgEl) return;
-
-    bgEl.style.backgroundImage = "url('" + HERO_SLIDES[0].bg + "')";
-    renderHeroThumbs(0);
-
-    document.querySelectorAll('.hero-dot').forEach(function (dot) {
-        dot.addEventListener('click', function () {
-            var idx = parseInt(this.dataset.idx);
-            clearInterval(heroAutoTimer);
-            goToSlide(idx);
-            startHeroAuto();
-        });
+    document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+            menu.classList.remove('is-open');
+        }
     });
-
-    startHeroAuto();
 }
+/* #endregion */
 
 /* ==========================================
-   SALE SLIDER
+   #region HERO
+========================================== */
+function initHeroSlider() {
+    const next      = document.getElementById('nextBtn');
+    const prev      = document.getElementById('prevBtn');
+    const track     = document.getElementById('heroTrack');
+    const heroTitle = document.getElementById('heroTitle');
+    const heroDesc  = document.getElementById('heroDesc');
+
+    if (!track || !next || !prev) return;
+
+    function updateHero() {
+        const items  = track.querySelectorAll('.hero-card');
+        const active = items[1];
+        if (!active) return;
+
+        heroTitle.innerText = active.dataset.title;
+        heroDesc.innerText  = active.dataset.desc;
+
+        const heroBg = document.getElementById('heroBg');
+        if (heroBg) {
+            heroBg.style.backgroundImage    = active.style.backgroundImage;
+            heroBg.style.backgroundSize     = 'cover';
+            heroBg.style.backgroundPosition = 'center';
+            heroBg.style.filter             = 'blur(24px) brightness(0.25)';
+        }
+    }
+
+    next.addEventListener('click', function () {
+        const items = track.querySelectorAll('.hero-card');
+        track.appendChild(items[0]);
+        updateHero();
+    });
+
+    prev.addEventListener('click', function () {
+        const items = track.querySelectorAll('.hero-card');
+        track.prepend(items[items.length - 1]);
+        updateHero();
+    });
+
+    setInterval(function () { next.click(); }, 6000);
+
+    updateHero();
+}
+/* #endregion */
+
+/* ==========================================
+   #region SALE SLIDER
 ========================================== */
 function initSaleSlider() {
     var wrap  = document.querySelector('.sale-track-wrap');
@@ -149,40 +99,32 @@ function initSaleSlider() {
     var next  = document.getElementById('saleNext');
     if (!wrap || !track) return;
 
-    var VISIBLE = 3;
-    var GAP     = 12;
-    var current = 0;
-    var cards   = track.querySelectorAll('.sale-card');
-    var total   = cards.length;
-    var maxSlide = total - VISIBLE;
+    var VISIBLE  = 3;
+    var GAP      = 12;
+    var current  = 0;
+    var cards    = track.querySelectorAll('.sale-card');
+    var maxSlide = cards.length - VISIBLE;
 
-    function setCardWidths() {
-        var wrapW = wrap.offsetWidth;
-        var cardW = (wrapW - GAP * (VISIBLE - 1)) / VISIBLE;
-        cards.forEach(function (c) {
-            c.style.width    = cardW + 'px';
-            c.style.minWidth = cardW + 'px';
-        });
-        return cardW;
+    function setWidths() {
+        var w = (wrap.offsetWidth - GAP * (VISIBLE - 1)) / VISIBLE;
+        cards.forEach(function (c) { c.style.width = w + 'px'; c.style.minWidth = w + 'px'; });
+        return w;
     }
 
-    var cardW = setCardWidths();
-    window.addEventListener('resize', function () { cardW = setCardWidths(); slide(); });
+    var cardW = setWidths();
+    window.addEventListener('resize', function () { cardW = setWidths(); slide(); });
 
     function slide() {
-        track.style.transform = 'translateX(-' + (current * (cardW + GAP)) + 'px)';
+        track.style.transform = 'translateX(-' + current * (cardW + GAP) + 'px)';
     }
 
-    next && next.addEventListener('click', function () {
-        if (current < maxSlide) { current++; slide(); }
-    });
-    prev && prev.addEventListener('click', function () {
-        if (current > 0) { current--; slide(); }
-    });
+    next && next.addEventListener('click', function () { if (current < maxSlide) { current++; slide(); } });
+    prev && prev.addEventListener('click', function () { if (current > 0) { current--; slide(); } });
 }
+/* #endregion */
 
 /* ==========================================
-   COUNTDOWN TIMER
+   #region COUNTDOWN
 ========================================== */
 function initCountdown() {
     var hEl = document.getElementById('timerH');
@@ -191,7 +133,6 @@ function initCountdown() {
     if (!hEl) return;
 
     var total = 2 * 3600 + 45 * 60 + 7;
-
     setInterval(function () {
         if (total <= 0) return;
         total--;
@@ -200,12 +141,14 @@ function initCountdown() {
         sEl.textContent = String(total % 60).padStart(2, '0');
     }, 1000);
 }
+/* #endregion */
 
 /* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
+    initNavbar();
     initHeroSlider();
     initSaleSlider();
     initCountdown();
