@@ -668,6 +668,31 @@ function initProductLinks() {
 /* #endregion */
 
 /* ==========================================
+   #region SETUPS FILTER (Góc Game Thủ)
+========================================== */
+function initSetupsFilter() {
+    var btns  = document.querySelectorAll('.setups-filter__btn');
+    var cards = document.querySelectorAll('.setup-card');
+    if (!btns.length || !cards.length) return;
+
+    btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            btns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+
+            var cat = btn.dataset.cat;
+            cards.forEach(function (card) {
+                var show = (cat === 'all' || card.dataset.cat === cat);
+                card.classList.toggle('is-hidden', !show);
+            });
+
+            if (typeof AOS !== 'undefined') AOS.refresh();
+        });
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -675,6 +700,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFakeAuth();
     initAuthState();
     initProductLinks();
+    initSetupsFilter();
     initNavbar();
     initHeroSlider();
     initSaleCarousel();
