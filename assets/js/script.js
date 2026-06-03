@@ -230,39 +230,103 @@ function showConfirm(productName) {
 /* #endregion */
 
 /* ==========================================
-   #region FLY-TO-CART
+   #region FLY-TO-CART (paper plane)
 ========================================== */
-function flyToCart(imgEl) {
+function flyPaperPlane(fromEl) {
     var cartIcon = document.getElementById('openCartBtn');
-    if (!cartIcon || !imgEl) return;
+    if (!cartIcon || !fromEl) return;
 
-    var imgRect  = imgEl.getBoundingClientRect();
+    var fromRect = fromEl.getBoundingClientRect();
     var cartRect = cartIcon.getBoundingClientRect();
 
-    var clone = document.createElement('div');
-    clone.className = 'fly-clone';
-    clone.style.width  = imgRect.width + 'px';
-    clone.style.height = imgRect.height + 'px';
-    clone.style.left   = imgRect.left + 'px';
-    clone.style.top    = imgRect.top + 'px';
-    clone.style.backgroundImage = 'url(' + imgEl.src + ')';
-    clone.style.backgroundSize = 'contain';
-    clone.style.backgroundRepeat = 'no-repeat';
-    clone.style.backgroundPosition = 'center';
-    clone.style.backgroundColor = '#1a1c24';
-    document.body.appendChild(clone);
+    var startX = fromRect.left + fromRect.width / 2;
+    var startY = fromRect.top + fromRect.height / 2;
+    var endX   = cartRect.left + cartRect.width / 2;
+    var endY   = cartRect.top + cartRect.height / 2;
+
+    var plane = document.createElement('div');
+    plane.className = 'fly-plane';
+    plane.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+    plane.style.left = startX + 'px';
+    plane.style.top  = startY + 'px';
+    document.body.appendChild(plane);
+
+    // angle so the plane points toward the cart
+    var angle = Math.atan2(endY - startY, endX - startX) * 180 / Math.PI;
+    plane.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) scale(1)';
 
     requestAnimationFrame(function () {
-        clone.classList.add('is-flying');
-        clone.style.left = cartRect.left + (cartRect.width / 2) + 'px';
-        clone.style.top  = cartRect.top + (cartRect.height / 2) + 'px';
+        plane.classList.add('is-flying');
+        plane.style.left = endX + 'px';
+        plane.style.top  = endY + 'px';
+        plane.style.transform = 'translate(-50%, -50%) rotate(' + angle + 'deg) scale(.3)';
+        plane.style.opacity = '0';
     });
 
     setTimeout(function () {
-        clone.remove();
+        plane.remove();
         cartIcon.classList.add('cart-bouncing');
         setTimeout(function () { cartIcon.classList.remove('cart-bouncing'); }, 500);
-    }, 700);
+    }, 750);
+}
+
+/* Read product data from any card type */
+function readCardData(card) {
+    if (!card) return null;
+    var nameEl  = card.querySelector('.p-card__name, .deal-card__name, .top-card__name, .wishlist-card__name');
+    var priceEl = card.querySelector('.p-card__price, .deal-card__price, .deal-card__new, .top-card__price, .wishlist-card__price');
+    var imgEl   = card.querySelector('img');
+    return {
+        name:  nameEl  ? nameEl.textContent.trim()  : 'Sản phẩm',
+        price: priceEl ? priceEl.textContent.trim() : '0đ',
+        img:   imgEl   ? imgEl.getAttribute('src')  : ''
+    };
+}
+
+/* Parse "5.990.000đ" -> 5990000 */
+function parsePrice(str) {
+    return parseInt((str || '').replace(/[^\d]/g, ''), 10) || 0;
+}
+function formatPrice(num) {
+    return num.toLocaleString('vi-VN') + 'đ';
+}
+
+/* Add a product to cart drawer (or bump qty if exists) */
+function addToCart(data) {
+    var list = document.getElementById('cartList');
+    if (!list || !data) return;
+
+    // If same product already in cart -> increment its qty
+    var existing = null;
+    list.querySelectorAll('.cart-item').forEach(function (it) {
+        var n = it.querySelector('.cart-item__name');
+        if (n && n.textContent.trim() === data.name) existing = it;
+    });
+
+    if (existing) {
+        var input = existing.querySelector('.qty-input input');
+        if (input) input.value = (parseInt(input.value) || 1) + 1;
+    } else {
+        var item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML =
+            '<div class="cart-item__img"><img src="' + data.img + '" alt=""></div>' +
+            '<div class="cart-item__info">' +
+                '<h6 class="cart-item__name">' + data.name + '</h6>' +
+                '<span class="cart-item__price">' + data.price + '</span>' +
+                '<p class="cart-item__variant">Phân loại: Mặc định</p>' +
+            '</div>' +
+            '<div class="cart-item__actions">' +
+                '<div class="qty-input">' +
+                    '<button type="button" class="qty-input__btn">−</button>' +
+                    '<input type="text" value="1" readonly>' +
+                    '<button type="button" class="qty-input__btn">+</button>' +
+                '</div>' +
+                '<button type="button" class="cart-item__remove">Bỏ</button>' +
+            '</div>';
+        list.appendChild(item);
+    }
+    updateCartCount();
 }
 
 function initFlyToCart() {
@@ -270,9 +334,10 @@ function initFlyToCart() {
         btn.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
+            flyPaperPlane(btn);
             var card = btn.closest('.p-card');
-            var img  = card ? card.querySelector('.p-card__media img') : null;
-            if (img) flyToCart(img);
+            // add to cart shortly after plane launches
+            setTimeout(function () { addToCart(readCardData(card)); }, 400);
         });
     });
 }
@@ -286,6 +351,7 @@ function initCartDrawer() {
     var openBtn  = document.getElementById('openCartBtn');
     var closeBtn = document.getElementById('closeCartBtn');
     var backdrop = document.getElementById('cartBackdrop');
+    var list     = document.getElementById('cartList');
     if (!drawer || !openBtn) return;
 
     function open()  {
@@ -306,45 +372,65 @@ function initCartDrawer() {
         if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
     });
 
-    // Remove item with confirm dialog
-    document.querySelectorAll('.cart-item__remove').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var item = btn.closest('.cart-item');
-            if (!item) return;
-            var nameEl = item.querySelector('.cart-item__name');
-            var name   = nameEl ? nameEl.textContent.trim() : 'sản phẩm này';
+    // Delegated events (works for items added later too)
+    if (list) {
+        list.addEventListener('click', function (e) {
+            // Remove with confirm
+            var rm = e.target.closest('.cart-item__remove');
+            if (rm) {
+                var item = rm.closest('.cart-item');
+                if (!item) return;
+                var nameEl = item.querySelector('.cart-item__name');
+                var name   = nameEl ? nameEl.textContent.trim() : 'sản phẩm này';
+                showConfirm(name).then(function (confirmed) {
+                    if (!confirmed) return;
+                    item.style.transition = 'opacity .3s, transform .3s';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateX(30px)';
+                    setTimeout(function () { item.remove(); updateCartCount(); }, 300);
+                });
+                return;
+            }
+            // Qty +/-
+            var qtyBtn = e.target.closest('.qty-input__btn');
+            if (qtyBtn) {
+                var group = qtyBtn.closest('.qty-input');
+                var input = group.querySelector('input');
+                var isPlus = qtyBtn.textContent.trim() === '+';
+                var n = parseInt(input.value) || 1;
+                input.value = isPlus ? n + 1 : Math.max(1, n - 1);
+                updateCartCount();
+            }
+        });
+    }
 
-            showConfirm(name).then(function (confirmed) {
-                if (!confirmed) return;
-                item.style.transition = 'opacity .3s, transform .3s';
-                item.style.opacity = '0';
-                item.style.transform = 'translateX(30px)';
-                setTimeout(function () { item.remove(); updateCartCount(); }, 300);
-            });
-        });
-    });
-
-    // Qty +/-
-    document.querySelectorAll('.qty-input').forEach(function (group) {
-        var input = group.querySelector('input');
-        var btns  = group.querySelectorAll('.qty-input__btn');
-        if (btns.length < 2 || !input) return;
-        btns[0].addEventListener('click', function () {
-            var n = Math.max(1, (parseInt(input.value) || 1) - 1);
-            input.value = n;
-        });
-        btns[1].addEventListener('click', function () {
-            input.value = (parseInt(input.value) || 1) + 1;
-        });
-    });
+    updateCartCount();
 }
 
+/* Badge + drawer count = total quantity; also recompute total price */
 function updateCartCount() {
-    var count = document.querySelectorAll('#cartList .cart-item').length;
-    var badge = document.getElementById('cartBadge');
+    var items = document.querySelectorAll('#cartList .cart-item');
+    var totalQty = 0;
+    var totalPrice = 0;
+
+    items.forEach(function (it) {
+        var input = it.querySelector('.qty-input input');
+        var qty   = input ? (parseInt(input.value) || 1) : 1;
+        var priceEl = it.querySelector('.cart-item__price');
+        totalQty   += qty;
+        totalPrice += parsePrice(priceEl ? priceEl.textContent : '') * qty;
+    });
+
+    var badge      = document.getElementById('cartBadge');
     var titleCount = document.getElementById('cartCount');
-    if (badge) badge.textContent = count;
-    if (titleCount) titleCount.textContent = count;
+    if (badge)      badge.textContent = totalQty;
+    if (titleCount) titleCount.textContent = totalQty;
+
+    var totalEl = document.querySelector('.cart-drawer__total-value');
+    if (totalEl) totalEl.innerHTML = formatPrice(totalPrice).replace('đ', '<sup>đ</sup>');
+
+    // hide badge if empty
+    if (badge) badge.style.display = totalQty > 0 ? '' : 'none';
 }
 /* #endregion */
 

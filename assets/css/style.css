@@ -1331,19 +1331,21 @@ body.is-locked { overflow: hidden; }
 /* ==========================================
    #region FLY-TO-CART ANIMATION
 ========================================== */
-.fly-clone {
+.fly-plane {
     position: fixed;
     z-index: 9999;
     pointer-events: none;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(255,0,60,.5);
-    transition: none;
-    will-change: transform, opacity;
+    font-size: 1.6rem;
+    color: var(--red);
+    text-shadow: 0 0 14px var(--red-glow), 0 0 4px #fff;
+    transform: translate(-50%, -50%);
+    will-change: left, top, transform, opacity;
 }
-.fly-clone.is-flying {
-    transition: all .65s cubic-bezier(.25,.8,.25,1);
-    opacity: 0;
-    transform: scale(.18);
+.fly-plane.is-flying {
+    transition: left .75s cubic-bezier(.5,0,.5,1),
+                top  .75s cubic-bezier(.3,-0.4,.7,1),
+                transform .75s ease-in,
+                opacity .75s ease-in;
 }
 
 /* Cart icon bounce feedback */
