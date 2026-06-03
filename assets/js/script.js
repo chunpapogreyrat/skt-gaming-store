@@ -4,7 +4,7 @@
 function initTogglePassword() {
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var container = this.closest('.input-group');
+            var container = this.closest('.auth-field') || this.closest('.input-group');
             if (!container) return;
             var input = container.querySelector('input');
             var icon  = this.querySelector('i');
@@ -16,8 +16,31 @@ function initTogglePassword() {
                     input.type = 'password';
                     icon.classList.replace('fa-eye-slash', 'fa-eye');
                 }
+                // blink animation feedback
+                btn.classList.add('is-blink');
+                setTimeout(function () { btn.classList.remove('is-blink'); }, 400);
             }
         });
+    });
+}
+/* #endregion */
+
+/* ==========================================
+   #region AUTH PARALLAX (banner bg follows mouse)
+========================================== */
+function initAuthParallax() {
+    var section = document.querySelector('.auth-section');
+    var bg      = document.getElementById('authBannerBg');
+    if (!section || !bg) return;
+
+    section.addEventListener('mousemove', function (e) {
+        var x = (e.clientX / window.innerWidth  - 0.5);
+        var y = (e.clientY / window.innerHeight - 0.5);
+        // move opposite to cursor for depth
+        bg.style.transform = 'scale(1.1) translate(' + (-x * 24) + 'px, ' + (-y * 24) + 'px)';
+    });
+    section.addEventListener('mouseleave', function () {
+        bg.style.transform = 'scale(1.1) translate(0,0)';
     });
 }
 /* #endregion */
@@ -479,4 +502,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initFlyToCart();
     initDetailPage();
     initProfileTabs();
+    initAuthParallax();
 });

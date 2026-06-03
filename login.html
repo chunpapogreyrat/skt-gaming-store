@@ -17,10 +17,11 @@
         <div class="container-fluid p-0">
             <div class="row g-0 auth-section__row">
 
-                <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-end p-5 position-relative auth-section__banner">
-                    <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+                <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-end p-5 position-relative auth-section__banner" id="authBanner">
+                    <div class="auth-section__banner-bg" id="authBannerBg"></div>
+                    <div class="overlay position-absolute top-0 start-0 w-100 h-100"></div>
                     <div class="z-1 text-white mb-5">
-                        <h1 class="display-3 fw-bold font-orbitron text-uppercase" style="text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);">
+                        <h1 class="display-3 fw-bold font-orbitron text-uppercase" style="text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);">
                             Engineered<br>For<br>Champions
                         </h1>
                         <p class="lead font-poppins mt-3">Trang bị hệ thống tối tân. Chinh phục mọi đỉnh cao.</p>
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="col-lg-6 d-flex align-items-center justify-content-center p-4 p-sm-5 auth-section__content position-relative">
-                    
+
                     <a href="index.html" class="position-absolute top-0 end-0 m-4 text-decoration-none font-poppins btn-back">
                         <i class="fa-solid fa-arrow-left me-2"></i> TRỞ VỀ
                     </a>
@@ -40,24 +41,20 @@
                         </div>
 
                         <form action="#" method="POST" class="auth-form font-poppins">
-                            
-                            <div class="mb-3 auth-form__group">
-                                <label class="form-label auth-form__label">Email / Tài khoản</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
-                                    <input type="email" class="form-control auth-form__input" placeholder="email@example.com" required>
-                                </div>
+
+                            <div class="auth-field">
+                                <span class="auth-field__icon"><i class="fa-regular fa-envelope"></i></span>
+                                <input type="email" id="loginEmail" class="auth-field__input" placeholder=" " required>
+                                <label for="loginEmail" class="auth-field__label">Email / Tài khoản</label>
                             </div>
 
-                            <div class="mb-3 auth-form__group">
-                                <label class="form-label auth-form__label">Mật Khẩu</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
-                                    <input type="password" class="form-control auth-form__input password-field" placeholder="••••••••" required>
-                                    <span class="input-group-text cursor-pointer toggle-password">
-                                        <i class="fa-regular fa-eye"></i>
-                                    </span>
-                                </div>
+                            <div class="auth-field">
+                                <span class="auth-field__icon"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" id="loginPass" class="auth-field__input" placeholder=" " required>
+                                <label for="loginPass" class="auth-field__label">Mật khẩu</label>
+                                <button type="button" class="auth-field__toggle toggle-password" aria-label="Hiện mật khẩu">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
                             </div>
 
                             <div class="d-flex justify-content-between align-items-center mb-4 font-size-sm">
