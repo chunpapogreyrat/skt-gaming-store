@@ -134,6 +134,102 @@ function initAOS() {
 /* #endregion */
 
 /* ==========================================
+   #region SEARCH OVERLAY
+========================================== */
+function initSearchOverlay() {
+    var overlay  = document.getElementById('searchOverlay');
+    var openBtn  = document.getElementById('openSearchBtn');
+    var closeBtn = document.getElementById('closeSearchBtn');
+    var backdrop = document.getElementById('searchBackdrop');
+    var input    = document.getElementById('searchInput');
+    if (!overlay || !openBtn) return;
+
+    function open()  {
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('is-locked');
+        setTimeout(function () { if (input) input.focus(); }, 350);
+    }
+    function close() {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('is-locked');
+    }
+
+    openBtn.addEventListener('click', open);
+    closeBtn && closeBtn.addEventListener('click', close);
+    backdrop && backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+    });
+}
+/* #endregion */
+
+/* ==========================================
+   #region CART DRAWER
+========================================== */
+function initCartDrawer() {
+    var drawer   = document.getElementById('cartDrawer');
+    var openBtn  = document.getElementById('openCartBtn');
+    var closeBtn = document.getElementById('closeCartBtn');
+    var backdrop = document.getElementById('cartBackdrop');
+    if (!drawer || !openBtn) return;
+
+    function open()  {
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('is-locked');
+    }
+    function close() {
+        drawer.classList.remove('is-open');
+        drawer.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('is-locked');
+    }
+
+    openBtn.addEventListener('click', open);
+    closeBtn && closeBtn.addEventListener('click', close);
+    backdrop && backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
+    });
+
+    // Remove item demo behavior
+    document.querySelectorAll('.cart-item__remove').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = btn.closest('.cart-item');
+            if (!item) return;
+            item.style.transition = 'opacity .25s, transform .25s';
+            item.style.opacity = '0';
+            item.style.transform = 'translateX(20px)';
+            setTimeout(function () { item.remove(); updateCartCount(); }, 250);
+        });
+    });
+
+    // Qty +/-
+    document.querySelectorAll('.qty-input').forEach(function (group) {
+        var input = group.querySelector('input');
+        var btns  = group.querySelectorAll('.qty-input__btn');
+        if (btns.length < 2 || !input) return;
+        btns[0].addEventListener('click', function () {
+            var n = Math.max(1, (parseInt(input.value) || 1) - 1);
+            input.value = n;
+        });
+        btns[1].addEventListener('click', function () {
+            input.value = (parseInt(input.value) || 1) + 1;
+        });
+    });
+}
+
+function updateCartCount() {
+    var count = document.querySelectorAll('#cartList .cart-item').length;
+    var badge = document.getElementById('cartBadge');
+    var titleCount = document.getElementById('cartCount');
+    if (badge) badge.textContent = count;
+    if (titleCount) titleCount.textContent = count;
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -143,4 +239,6 @@ document.addEventListener('DOMContentLoaded', function () {
     initSaleCarousel();
     initCountdown();
     initAOS();
+    initSearchOverlay();
+    initCartDrawer();
 });

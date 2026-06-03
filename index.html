@@ -42,11 +42,13 @@
                 <li><a href="#" class="navbar__link">Liên hệ</a></li>
             </ul>
             <div class="navbar__actions">
-                <div class="navbar__search">
+                <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openSearchBtn" aria-label="Tìm kiếm">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" placeholder="Tìm kiếm chiến mã...">
-                </div>
-                <a href="cart.html" class="navbar__icon-btn"><i class="fa-solid fa-cart-shopping"></i><span class="navbar__badge">3</span></a>
+                </button>
+                <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openCartBtn" aria-label="Giỏ hàng">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="navbar__badge" id="cartBadge">3</span>
+                </button>
                 <a href="login.html" class="navbar__icon-btn"><i class="fa-regular fa-user"></i></a>
             </div>
         </div>
@@ -163,105 +165,215 @@
             </div>
 
             <div class="featured-grid" data-aos="fade-up" data-aos-delay="80">
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Keyboard/Centauri/ctr1.webp" alt=""></div>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--sale">-30%</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Keyboard/Centauri/ctr1.webp" alt="Akko 3098B">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">AKKO</span>
-                        <p class="p-card__name">3098B NEON Edition</p>
-                        <div class="p-card__prices">
-                            <span class="p-card__price">2.450.000đ</span>
-                            <del class="p-card__old">3.500.000đ</del>
+                        <h6 class="p-card__name">3098B NEON Edition</h6>
+                        <p class="p-card__desc">Bàn phím cơ không dây đa kết nối</p>
+                        <span class="p-card__feature">3 mode &bull; Hot-swap</span>
+                        <div class="p-card__bottom">
+                            <div class="p-card__prices">
+                                <span class="p-card__price">2.450.000đ</span>
+                                <del class="p-card__old">3.500.000đ</del>
+                            </div>
+                            <div class="p-card__swatches">
+                                <span class="swatch" style="background:#1a1a1a"></span>
+                                <span class="swatch" style="background:#e8e8e8"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Mice/X2CL/x2cl1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--new">MỚI</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Mice/X2CL/x2cl1.webp" alt="Pulsar X2">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">PULSAR</span>
-                        <p class="p-card__name">X2 Wireless V2</p>
-                        <span class="p-card__price">2.190.000đ</span>
+                        <h6 class="p-card__name">X2 Wireless V2</h6>
+                        <p class="p-card__desc">Chuột Esports siêu nhẹ 52g</p>
+                        <span class="p-card__feature">Sensor PAW3950 &bull; 8K Hz</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">2.190.000đ</span>
+                            <div class="p-card__swatches">
+                                <span class="swatch" style="background:#fff"></span>
+                                <span class="swatch" style="background:#222"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Mice/Frostlord/fl1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Mice/Frostlord/fl1.webp" alt="HS80">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">CORSAIR</span>
-                        <p class="p-card__name">HS80 RGB Wireless</p>
-                        <span class="p-card__price">2.990.000đ</span>
+                        <h6 class="p-card__name">HS80 RGB Wireless</h6>
+                        <p class="p-card__desc">Tai nghe Dolby Atmos 7.1</p>
+                        <span class="p-card__feature">Pin 20h &bull; SLIPSTREAM</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">2.990.000đ</span>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Keyboard/MADE68%20Ultra%20V2/md1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--preorder">Đặt trước</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Keyboard/MADE68%20Ultra%20V2/md1.webp" alt="MADE68">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
-                        <span class="p-card__brand">AKKO</span>
-                        <p class="p-card__name">3068B Multi-mode</p>
-                        <span class="p-card__price">1.850.000đ</span>
+                        <span class="p-card__brand">MADE68</span>
+                        <h6 class="p-card__name">Ultra V2 Custom</h6>
+                        <p class="p-card__desc">Bàn phím 65% Hall Effect</p>
+                        <span class="p-card__feature">8K polling rate &bull; HE switch</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">1.850.000đ</span>
+                            <div class="p-card__swatches">
+                                <span class="swatch" style="background:#0a0a0a"></span>
+                                <span class="swatch" style="background:#d4af37"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Mice/Maya%20X/mx1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Mice/Maya%20X/mx1.webp" alt="Maya X">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
-                        <span class="p-card__brand">LOGITECH</span>
-                        <p class="p-card__name">G502 X Plus RGB</p>
-                        <span class="p-card__price">3.490.000đ</span>
+                        <span class="p-card__brand">FINALMOUSE</span>
+                        <h6 class="p-card__name">Maya X Wireless</h6>
+                        <p class="p-card__desc">Chuột Esports siêu nhẹ 38g</p>
+                        <span class="p-card__feature">Magnesium frame</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">3.490.000đ</span>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Mice/Beast%20X%20Max/bxm1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--sale">-15%</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Mice/Beast%20X%20Max/bxm1.webp" alt="BlackShark">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">RAZER</span>
-                        <p class="p-card__name">BlackShark V2 Pro</p>
-                        <span class="p-card__price">4.290.000đ</span>
+                        <h6 class="p-card__name">BlackShark V2 Pro</h6>
+                        <p class="p-card__desc">Tai nghe Esports không dây</p>
+                        <span class="p-card__feature">THX Spatial Audio</span>
+                        <div class="p-card__bottom">
+                            <div class="p-card__prices">
+                                <span class="p-card__price">4.290.000đ</span>
+                                <del class="p-card__old">5.050.000đ</del>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--hot">HOT</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt="Wooting 60HE">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">WOOTING</span>
-                        <p class="p-card__name">60HE Analog</p>
-                        <span class="p-card__price">3.850.000đ</span>
+                        <h6 class="p-card__name">60HE Analog</h6>
+                        <p class="p-card__desc">Bàn phím HE chơi game</p>
+                        <span class="p-card__feature">8K polling rate &bull; Rapid Trigger</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">3.850.000đ</span>
+                            <div class="p-card__swatches">
+                                <span class="swatch" style="background:#000"></span>
+                                <span class="swatch" style="background:#ccc"></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Mice/Akitsu/akitsu1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--limited">Limited</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Mice/Akitsu/akitsu1.webp" alt="Akitsu">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">FINALMOUSE</span>
-                        <p class="p-card__name">Akitsu Pro</p>
-                        <span class="p-card__price">4.500.000đ</span>
+                        <h6 class="p-card__name">Akitsu Pro</h6>
+                        <p class="p-card__desc">Bản giới hạn Nhật Bản</p>
+                        <span class="p-card__feature">Magnesium &bull; Genome sensor</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">4.500.000đ</span>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Keyboard/PCMK/pcmk1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Keyboard/PCMK/pcmk1.webp" alt="PCMK">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">PCMK</span>
-                        <p class="p-card__name">Custom 65%</p>
-                        <span class="p-card__price">3.200.000đ</span>
+                        <h6 class="p-card__name">Custom 65% Pro</h6>
+                        <p class="p-card__desc">Bàn phím custom build sẵn</p>
+                        <span class="p-card__feature">Gasket mount &bull; Aluminum</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">3.200.000đ</span>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Keyboard/Realforce%20R4/rr1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Keyboard/Realforce%20R4/rr1.webp" alt="Realforce R4">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">REALFORCE</span>
-                        <p class="p-card__name">R4S TKL</p>
-                        <span class="p-card__price">4.990.000đ</span>
+                        <h6 class="p-card__name">R4S TKL</h6>
+                        <p class="p-card__desc">Bàn phím văn phòng cao cấp</p>
+                        <span class="p-card__feature">Topre 45g &bull; APC</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">4.990.000đ</span>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <span class="p-card__tag p-card__tag--limited">Limited</span>
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt="ULX">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">FINALMOUSE</span>
-                        <p class="p-card__name">ULX Pro</p>
-                        <span class="p-card__price">5.990.000đ</span>
+                        <h6 class="p-card__name">ULX Pro</h6>
+                        <p class="p-card__desc">Chuột flagship 2024</p>
+                        <span class="p-card__feature">Sensor Genome &bull; 4K Hz</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">5.990.000đ</span>
+                        </div>
                     </div>
-                </div>
-                <div class="p-card">
-                    <div class="p-card__img"><img src="assets/images/Products/Keyboard/Majestouch/mjt1.webp" alt=""></div>
+                </article>
+                <article class="p-card">
+                    <div class="p-card__media">
+                        <img src="assets/images/Products/Keyboard/Majestouch/mjt1.webp" alt="Majestouch">
+                        <button class="p-card__quick"><i class="fa-solid fa-plus"></i> Chọn nhanh</button>
+                    </div>
                     <div class="p-card__body">
                         <span class="p-card__brand">FILCO</span>
-                        <p class="p-card__name">Majestouch 2</p>
-                        <span class="p-card__price">2.990.000đ</span>
+                        <h6 class="p-card__name">Majestouch 2</h6>
+                        <p class="p-card__desc">Bàn phím Cherry MX huyền thoại</p>
+                        <span class="p-card__feature">Cherry MX Original</span>
+                        <div class="p-card__bottom">
+                            <span class="p-card__price">2.990.000đ</span>
+                        </div>
                     </div>
-                </div>
+                </article>
             </div>
 
             <div class="partners mt-5" data-aos="fade-up">
@@ -357,6 +469,114 @@
         </div>
     </div>
 </footer>
+<!-- #endregion -->
+
+<!-- #region SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay__panel">
+        <div class="search-overlay__head">
+            <i class="fa-solid fa-magnifying-glass search-overlay__icon"></i>
+            <input type="text" id="searchInput" class="search-overlay__input" placeholder="Tìm chuột, bàn phím, tai nghe...">
+            <button class="search-overlay__close" id="closeSearchBtn" aria-label="Đóng">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <div class="search-overlay__divider"></div>
+        <div class="search-overlay__body">
+            <p class="search-overlay__label">Search menu</p>
+            <ul class="search-overlay__menu list-unstyled">
+                <li><a href="#"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a></li>
+                <li><a href="#"><i class="fa-solid fa-keyboard"></i> Bàn Phím</a></li>
+                <li><a href="#"><i class="fa-solid fa-grip"></i> Lót Chuột</a></li>
+                <li><a href="#"><i class="fa-solid fa-headphones"></i> Tai Nghe</a></li>
+                <li><a href="#"><i class="fa-solid fa-tag"></i> Khuyến Mãi</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="search-overlay__backdrop" id="searchBackdrop"></div>
+</div>
+<!-- #endregion -->
+
+<!-- #region CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-drawer__backdrop" id="cartBackdrop"></div>
+    <aside class="cart-drawer__panel">
+        <header class="cart-drawer__head">
+            <h5 class="cart-drawer__title">
+                Giỏ hàng <span class="cart-drawer__count" id="cartCount">3</span>
+            </h5>
+            <button class="cart-drawer__close" id="closeCartBtn" aria-label="Đóng">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </header>
+        <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text"><i class="fa-solid fa-truck-fast"></i> Bạn được giao hàng miễn phí!</p>
+            <div class="cart-drawer__bar"><span class="cart-drawer__bar-fill"></span></div>
+        </div>
+        <div class="cart-drawer__list" id="cartList">
+            <div class="cart-item">
+                <div class="cart-item__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt=""></div>
+                <div class="cart-item__info">
+                    <h6 class="cart-item__name">Finalmouse ULX Pro — Chuột Esports</h6>
+                    <span class="cart-item__price">5.990.000đ</span>
+                    <p class="cart-item__variant">Đen / Medium</p>
+                </div>
+                <div class="cart-item__actions">
+                    <div class="qty-input">
+                        <button type="button" class="qty-input__btn">−</button>
+                        <input type="text" value="1" readonly>
+                        <button type="button" class="qty-input__btn">+</button>
+                    </div>
+                    <button type="button" class="cart-item__remove">Bỏ</button>
+                </div>
+            </div>
+            <div class="cart-item">
+                <div class="cart-item__img"><img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt=""></div>
+                <div class="cart-item__info">
+                    <h6 class="cart-item__name">Wooting 60HE Analog Keyboard</h6>
+                    <span class="cart-item__price">3.850.000đ</span>
+                    <p class="cart-item__variant">Đen / Full</p>
+                </div>
+                <div class="cart-item__actions">
+                    <div class="qty-input">
+                        <button type="button" class="qty-input__btn">−</button>
+                        <input type="text" value="1" readonly>
+                        <button type="button" class="qty-input__btn">+</button>
+                    </div>
+                    <button type="button" class="cart-item__remove">Bỏ</button>
+                </div>
+            </div>
+            <div class="cart-item">
+                <div class="cart-item__img"><img src="assets/images/Products/Mice/Maya%20X/mx1.webp" alt=""></div>
+                <div class="cart-item__info">
+                    <h6 class="cart-item__name">Finalmouse Maya X Wireless</h6>
+                    <span class="cart-item__price">3.490.000đ</span>
+                    <p class="cart-item__variant">Trắng / Small</p>
+                </div>
+                <div class="cart-item__actions">
+                    <div class="qty-input">
+                        <button type="button" class="qty-input__btn">−</button>
+                        <input type="text" value="1" readonly>
+                        <button type="button" class="qty-input__btn">+</button>
+                    </div>
+                    <button type="button" class="cart-item__remove">Bỏ</button>
+                </div>
+            </div>
+        </div>
+        <footer class="cart-drawer__foot">
+            <div class="cart-drawer__total">
+                <span class="cart-drawer__total-label">Tổng</span>
+                <span class="cart-drawer__total-value">13.330.000<sup>đ</sup></span>
+            </div>
+            <p class="cart-drawer__tax">Đã bao gồm thuế. <a href="#">Phí ship</a> sẽ được tính khi thanh toán</p>
+            <a href="#" class="cart-drawer__note-link"><i class="fa-solid fa-pen"></i> Thêm ghi chú</a>
+            <div class="cart-drawer__actions">
+                <a href="cart.html" class="cart-drawer__btn cart-drawer__btn--outline">Xem giỏ hàng</a>
+                <a href="checkout.html" class="cart-drawer__btn cart-drawer__btn--primary"><i class="fa-solid fa-lock"></i> Thanh toán</a>
+            </div>
+        </footer>
+    </aside>
+</div>
 <!-- #endregion -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
