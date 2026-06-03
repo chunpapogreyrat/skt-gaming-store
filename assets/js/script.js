@@ -733,6 +733,30 @@ function initCountUp() {
 /* #endregion */
 
 /* ==========================================
+   #region CONTACT FORM
+========================================== */
+function initContactForm() {
+    var form = document.getElementById('contactForm');
+    var ok   = document.getElementById('contactSuccess');
+    if (!form) return;
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (ok) ok.classList.add('is-show');
+        var btn = form.querySelector('.contact-form__submit');
+        if (btn) {
+            var original = btn.innerHTML;
+            btn.innerHTML = 'ĐÃ GỬI <i class="fa-solid fa-check ms-2"></i>';
+            setTimeout(function () { btn.innerHTML = original; }, 2500);
+        }
+        // reset fields (giữ lại thông báo)
+        form.querySelectorAll('input, textarea').forEach(function (f) { f.value = ''; });
+        setTimeout(function () { if (ok) ok.classList.remove('is-show'); }, 4000);
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -742,6 +766,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initProductLinks();
     initSetupsFilter();
     initCountUp();
+    initContactForm();
     initNavbar();
     initHeroSlider();
     initSaleCarousel();
