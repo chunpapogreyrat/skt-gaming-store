@@ -373,9 +373,9 @@ img { max-width: 100%; display: block; }
     padding-left: .75rem;
     border-left: 3px solid var(--red);
 }
-.partners__row { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+.partners__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .partners__item {
-    height: 56px;
+    height: 70px;
     background: var(--bg-panel);
     border: 1px solid rgba(255,255,255,.05);
     border-radius: 6px;
@@ -393,7 +393,7 @@ img { max-width: 100%; display: block; }
     box-shadow: 0 0 14px var(--red-dim);
     transform: translateY(-2px);
 }
-.partners__item img { max-height: 38px; max-width: 100%; object-fit: contain; }
+.partners__item img { max-height: 48px; max-width: 100%; object-fit: contain; }
 
 /* ----- Col 3 — Ad blocks ----- */
 .ad-block {
@@ -1004,5 +1004,140 @@ body.is-locked { overflow: hidden; }
 @media (max-width: 576px) {
     .cart-drawer__panel { width: 100%; }
     .search-overlay__panel { padding: 1.5rem 1.5rem 2rem; }
+}
+/* #endregion */
+
+/* ==========================================
+   #region FLY-TO-CART ANIMATION
+========================================== */
+.fly-clone {
+    position: fixed;
+    z-index: 9999;
+    pointer-events: none;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(255,0,60,.5);
+    transition: none;
+    will-change: transform, opacity;
+}
+.fly-clone.is-flying {
+    transition: all .65s cubic-bezier(.25,.8,.25,1);
+    opacity: 0;
+    transform: scale(.18);
+}
+
+/* Cart icon bounce feedback */
+@keyframes cartBounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.4); }
+    50%  { transform: scale(.9); }
+    70%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+.cart-bouncing {
+    animation: cartBounce .5s ease;
+}
+/* #endregion */
+
+/* ==========================================
+   #region CONFIRM MODAL
+========================================== */
+.confirm-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+.confirm-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+.confirm-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(4px);
+}
+.confirm-modal__box {
+    position: relative;
+    background: #14161d;
+    border: 1px solid var(--red-dim);
+    border-radius: 12px;
+    padding: 2rem 2rem 1.5rem;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.7), 0 0 30px var(--red-subtle);
+    transform: scale(.9);
+    transition: transform .3s cubic-bezier(.25,.8,.25,1);
+}
+.confirm-modal.is-open .confirm-modal__box {
+    transform: scale(1);
+}
+.confirm-modal__icon {
+    width: 52px; height: 52px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: var(--red-subtle);
+    border: 1px solid var(--red-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--red);
+    font-size: 1.3rem;
+}
+.confirm-modal__title {
+    font-family: var(--font-h);
+    font-size: .88rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: .6rem;
+}
+.confirm-modal__text {
+    font-size: .82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+.confirm-modal__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.confirm-modal__btn {
+    padding: 11px 14px;
+    border-radius: 6px;
+    font-family: var(--font-h);
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all .25s ease;
+    border: none;
+}
+.confirm-modal__btn--cancel {
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,.12);
+}
+.confirm-modal__btn--cancel:hover {
+    background: rgba(255,255,255,.12);
+    border-color: rgba(255,255,255,.2);
+}
+.confirm-modal__btn--confirm {
+    background: linear-gradient(90deg, var(--red), #c9002b);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(255,0,60,.4);
+}
+.confirm-modal__btn--confirm:hover {
+    box-shadow: 0 6px 22px var(--red-glow);
+    transform: translateY(-2px);
 }
 /* #endregion */

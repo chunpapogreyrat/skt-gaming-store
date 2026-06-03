@@ -166,6 +166,96 @@ function initSearchOverlay() {
 /* #endregion */
 
 /* ==========================================
+   #region CONFIRM MODAL
+========================================== */
+var _confirmResolve = null;
+
+function showConfirm(productName) {
+    var modal    = document.getElementById('confirmModal');
+    var textEl   = document.getElementById('confirmText');
+    var okBtn    = document.getElementById('confirmOk');
+    var cancelBtn = document.getElementById('confirmCancel');
+    var backdrop = document.getElementById('confirmBackdrop');
+    if (!modal) return Promise.resolve(false);
+
+    if (productName) {
+        textEl.textContent = 'Bạn có chắc chắn muốn xóa "' + productName + '" khỏi giỏ hàng không?';
+    }
+
+    modal.classList.add('is-open');
+
+    return new Promise(function (resolve) {
+        _confirmResolve = resolve;
+
+        function close(result) {
+            modal.classList.remove('is-open');
+            _confirmResolve = null;
+            okBtn.removeEventListener('click', onOk);
+            cancelBtn.removeEventListener('click', onCancel);
+            backdrop.removeEventListener('click', onCancel);
+            resolve(result);
+        }
+
+        function onOk()     { close(true); }
+        function onCancel() { close(false); }
+
+        okBtn.addEventListener('click', onOk);
+        cancelBtn.addEventListener('click', onCancel);
+        backdrop.addEventListener('click', onCancel);
+    });
+}
+/* #endregion */
+
+/* ==========================================
+   #region FLY-TO-CART
+========================================== */
+function flyToCart(imgEl) {
+    var cartIcon = document.getElementById('openCartBtn');
+    if (!cartIcon || !imgEl) return;
+
+    var imgRect  = imgEl.getBoundingClientRect();
+    var cartRect = cartIcon.getBoundingClientRect();
+
+    var clone = document.createElement('div');
+    clone.className = 'fly-clone';
+    clone.style.width  = imgRect.width + 'px';
+    clone.style.height = imgRect.height + 'px';
+    clone.style.left   = imgRect.left + 'px';
+    clone.style.top    = imgRect.top + 'px';
+    clone.style.backgroundImage = 'url(' + imgEl.src + ')';
+    clone.style.backgroundSize = 'contain';
+    clone.style.backgroundRepeat = 'no-repeat';
+    clone.style.backgroundPosition = 'center';
+    clone.style.backgroundColor = '#1a1c24';
+    document.body.appendChild(clone);
+
+    requestAnimationFrame(function () {
+        clone.classList.add('is-flying');
+        clone.style.left = cartRect.left + (cartRect.width / 2) + 'px';
+        clone.style.top  = cartRect.top + (cartRect.height / 2) + 'px';
+    });
+
+    setTimeout(function () {
+        clone.remove();
+        cartIcon.classList.add('cart-bouncing');
+        setTimeout(function () { cartIcon.classList.remove('cart-bouncing'); }, 500);
+    }, 700);
+}
+
+function initFlyToCart() {
+    document.querySelectorAll('.p-card__quick').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var card = btn.closest('.p-card');
+            var img  = card ? card.querySelector('.p-card__media img') : null;
+            if (img) flyToCart(img);
+        });
+    });
+}
+/* #endregion */
+
+/* ==========================================
    #region CART DRAWER
 ========================================== */
 function initCartDrawer() {
@@ -193,15 +283,21 @@ function initCartDrawer() {
         if (e.key === 'Escape' && drawer.classList.contains('is-open')) close();
     });
 
-    // Remove item demo behavior
+    // Remove item with confirm dialog
     document.querySelectorAll('.cart-item__remove').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var item = btn.closest('.cart-item');
             if (!item) return;
-            item.style.transition = 'opacity .25s, transform .25s';
-            item.style.opacity = '0';
-            item.style.transform = 'translateX(20px)';
-            setTimeout(function () { item.remove(); updateCartCount(); }, 250);
+            var nameEl = item.querySelector('.cart-item__name');
+            var name   = nameEl ? nameEl.textContent.trim() : 'sản phẩm này';
+
+            showConfirm(name).then(function (confirmed) {
+                if (!confirmed) return;
+                item.style.transition = 'opacity .3s, transform .3s';
+                item.style.opacity = '0';
+                item.style.transform = 'translateX(30px)';
+                setTimeout(function () { item.remove(); updateCartCount(); }, 300);
+            });
         });
     });
 
@@ -241,4 +337,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initAOS();
     initSearchOverlay();
     initCartDrawer();
+    initFlyToCart();
 });
