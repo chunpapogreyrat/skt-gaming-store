@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Tiết Sản Phẩm — SKT Gaming Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+
+<!-- #region ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+    <div class="announcement-bar__track">
+        <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&bull;&nbsp;</span>
+        <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&bull;&nbsp;</span>
+        <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&bull;&nbsp;</span>
+        <span>🔥 SẢN PHẨM MỚI: FINALMOUSE ULX VỪA VỀ KHO &nbsp;&bull;&nbsp;</span>
+        <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&bull;&nbsp;</span>
+        <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&bull;&nbsp;</span>
+        <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&bull;&nbsp;</span>
+        <span>🔥 SẢN PHẨM MỚI: FINALMOUSE ULX VỪA VỀ KHO &nbsp;&bull;&nbsp;</span>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region NAVBAR -->
+<nav class="navbar" id="mainNav">
+    <div class="navbar__container">
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-skt">SKT</span> GAMING</a>
+        <button class="navbar__toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="navbar__menu" id="navMenu">
+            <ul class="navbar__links">
+                <li><a href="index.html" class="navbar__link">Gaming Gear</a></li>
+                <li><a href="#" class="navbar__link">Góc game thủ</a></li>
+                <li><a href="#" class="navbar__link">Giới thiệu về chúng tui</a></li>
+                <li><a href="#" class="navbar__link">Liên hệ</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openSearchBtn" aria-label="Tìm kiếm">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openCartBtn" aria-label="Giỏ hàng">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="navbar__badge" id="cartBadge">3</span>
+                </button>
+                <a href="login.html" class="navbar__icon-btn"><i class="fa-regular fa-user"></i></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- #endregion -->
+
+<!-- #region BREADCRUMB -->
+<nav class="breadcrumb-bar container-fluid px-4 px-xl-5">
+    <ol class="breadcrumb-bar__list">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+        <li><a href="#">Bàn Phím Cơ</a></li>
+        <li class="breadcrumb-bar__active">Wooting 60HE Analog</li>
+    </ol>
+</nav>
+<!-- #endregion -->
+
+<!-- #region PRODUCT DETAIL -->
+<main class="container-fluid px-4 px-xl-5 detail-page">
+    <div class="row g-4">
+
+        <!-- GALLERY -->
+        <div class="col-lg-6">
+            <div class="detail-gallery">
+                <div class="detail-gallery__badge">-15%</div>
+                <div class="detail-gallery__main owl-carousel" id="galleryMain">
+                    <div class="detail-gallery__slide">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt="Wooting 60HE - Mặt trước">
+                    </div>
+                    <div class="detail-gallery__slide">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt2.webp" alt="Wooting 60HE - Mặt bên">
+                    </div>
+                    <div class="detail-gallery__slide">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt3.webp" alt="Wooting 60HE - Mặt sau">
+                    </div>
+                </div>
+                <div class="detail-gallery__thumbs" id="galleryThumbs">
+                    <button class="detail-gallery__thumb is-active" data-idx="0">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt="">
+                    </button>
+                    <button class="detail-gallery__thumb" data-idx="1">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt2.webp" alt="">
+                    </button>
+                    <button class="detail-gallery__thumb" data-idx="2">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt3.webp" alt="">
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFO -->
+        <div class="col-lg-6">
+            <div class="detail-info">
+                <span class="detail-info__brand">WOOTING</span>
+                <h1 class="detail-info__title">Wooting 60HE Analog Keyboard</h1>
+                <p class="detail-info__subtitle">Bàn phím HE chơi game — 8K polling rate</p>
+
+                <div class="detail-info__rating">
+                    <div class="stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                    </div>
+                    <span class="detail-info__rating-text">4.5 (128 đánh giá)</span>
+                </div>
+
+                <div class="detail-info__price-box">
+                    <span class="detail-info__price">3.270.000đ</span>
+                    <del class="detail-info__old-price">3.850.000đ</del>
+                    <span class="detail-info__save">Tiết kiệm 580.000đ</span>
+                </div>
+
+                <div class="detail-info__stock">
+                    <i class="fa-solid fa-circle-check"></i> Còn hàng <span>(25 sản phẩm)</span>
+                </div>
+
+                <div class="detail-info__features">
+                    <div class="feature-chip"><i class="fa-solid fa-bolt"></i> Rapid Trigger</div>
+                    <div class="feature-chip"><i class="fa-solid fa-microchip"></i> Hall Effect</div>
+                    <div class="feature-chip"><i class="fa-solid fa-gauge-high"></i> 8K Hz</div>
+                    <div class="feature-chip"><i class="fa-solid fa-keyboard"></i> 60% Layout</div>
+                </div>
+
+                <div class="detail-info__variants">
+                    <p class="detail-info__variant-label">Màu sắc:</p>
+                    <div class="detail-info__swatches">
+                        <button class="detail-swatch is-active" style="background:#1a1a1a" title="Đen"></button>
+                        <button class="detail-swatch" style="background:#e8e8e8" title="Trắng"></button>
+                    </div>
+                </div>
+
+                <div class="detail-info__actions">
+                    <div class="detail-qty">
+                        <button class="detail-qty__btn" id="detailQtyMinus">−</button>
+                        <input type="text" value="1" readonly class="detail-qty__input" id="detailQtyInput">
+                        <button class="detail-qty__btn" id="detailQtyPlus">+</button>
+                    </div>
+                    <button class="detail-btn detail-btn--cart" id="detailAddCart">
+                        <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
+                    </button>
+                    <button class="detail-btn detail-btn--buy">
+                        MUA NGAY
+                    </button>
+                </div>
+
+                <div class="detail-info__policies">
+                    <div class="policy-item"><i class="fa-solid fa-truck-fast"></i><span>Miễn phí giao hàng toàn quốc</span></div>
+                    <div class="policy-item"><i class="fa-solid fa-shield-halved"></i><span>Bảo hành chính hãng 24 tháng</span></div>
+                    <div class="policy-item"><i class="fa-solid fa-rotate-left"></i><span>Đổi trả miễn phí trong 7 ngày</span></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- #region REVIEWS -->
+    <section class="review-section mt-5" data-aos="fade-up">
+        <h3 class="review-section__title"><i class="fa-solid fa-comments"></i> Đánh Giá Khách Hàng</h3>
+
+        <div class="review-list">
+            <div class="review-card">
+                <div class="review-card__head">
+                    <div class="review-card__avatar">NA</div>
+                    <div class="review-card__meta">
+                        <strong class="review-card__author">Nguyễn Văn A</strong>
+                        <small class="review-card__date">03/06/2026</small>
+                    </div>
+                    <div class="review-card__stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <p class="review-card__text">Bàn phím quá đỉnh, switch mượt, Rapid Trigger cực nhạy. Đóng gói kỹ lưỡng. Highly recommend!</p>
+            </div>
+            <div class="review-card">
+                <div class="review-card__head">
+                    <div class="review-card__avatar">TB</div>
+                    <div class="review-card__meta">
+                        <strong class="review-card__author">Trần Văn B</strong>
+                        <small class="review-card__date">02/06/2026</small>
+                    </div>
+                    <div class="review-card__stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    </div>
+                </div>
+                <p class="review-card__text">Build quality tốt, giao nhanh. Chỉ tiếc là chưa có phiên bản TKL.</p>
+            </div>
+            <div class="review-card">
+                <div class="review-card__head">
+                    <div class="review-card__avatar">LC</div>
+                    <div class="review-card__meta">
+                        <strong class="review-card__author">Lê Thị C</strong>
+                        <small class="review-card__date">01/06/2026</small>
+                    </div>
+                    <div class="review-card__stars">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </div>
+                <p class="review-card__text">Chơi Valorant rank lên 2 bậc từ khi dùng bàn phím này. 10 điểm không nhưng.</p>
+            </div>
+        </div>
+
+        <form class="review-form" onsubmit="return false;">
+            <h5 class="review-form__title">Viết đánh giá của bạn</h5>
+            <div class="review-form__row">
+                <div class="review-form__rating-pick">
+                    <span>Đánh giá:</span>
+                    <div class="star-pick" id="starPick">
+                        <i class="fa-solid fa-star" data-val="1"></i>
+                        <i class="fa-solid fa-star" data-val="2"></i>
+                        <i class="fa-solid fa-star" data-val="3"></i>
+                        <i class="fa-solid fa-star" data-val="4"></i>
+                        <i class="fa-solid fa-star" data-val="5"></i>
+                    </div>
+                </div>
+            </div>
+            <textarea class="review-form__textarea" rows="4" placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm..."></textarea>
+            <button type="submit" class="review-form__submit">
+                <i class="fa-solid fa-paper-plane"></i> Gửi đánh giá
+            </button>
+        </form>
+    </section>
+    <!-- #endregion -->
+
+    <!-- #region RELATED PRODUCTS -->
+    <section class="related-section mt-5 mb-5" data-aos="fade-up">
+        <h3 class="related-section__title"><i class="fa-solid fa-layer-group"></i> Sản Phẩm Tương Tự</h3>
+        <div class="related-carousel owl-carousel">
+            <article class="p-card">
+                <span class="p-card__tag p-card__tag--hot">HOT</span>
+                <div class="p-card__media"><img src="assets/images/Products/Keyboard/Centauri/ctr1.webp" alt=""></div>
+                <div class="p-card__body">
+                    <span class="p-card__brand">CUSTOM</span>
+                    <h6 class="p-card__name">Centauri Keyboard</h6>
+                    <p class="p-card__desc">Bàn phím custom cao cấp</p>
+                    <div class="p-card__bottom"><span class="p-card__price">2.450.000đ</span></div>
+                </div>
+            </article>
+            <article class="p-card">
+                <div class="p-card__media"><img src="assets/images/Products/Keyboard/ARC65/arc1.webp" alt=""></div>
+                <div class="p-card__body">
+                    <span class="p-card__brand">CUSTOM</span>
+                    <h6 class="p-card__name">ARC65 Custom 65%</h6>
+                    <p class="p-card__desc">Gasket mount aluminum</p>
+                    <div class="p-card__bottom"><span class="p-card__price">1.890.000đ</span></div>
+                </div>
+            </article>
+            <article class="p-card">
+                <span class="p-card__tag p-card__tag--preorder">Đặt trước</span>
+                <div class="p-card__media"><img src="assets/images/Products/Keyboard/MADE68%20Ultra%20V2/md1.webp" alt=""></div>
+                <div class="p-card__body">
+                    <span class="p-card__brand">MADE68</span>
+                    <h6 class="p-card__name">Ultra V2 Custom</h6>
+                    <p class="p-card__desc">65% Hall Effect keyboard</p>
+                    <div class="p-card__bottom"><span class="p-card__price">1.850.000đ</span></div>
+                </div>
+            </article>
+            <article class="p-card">
+                <div class="p-card__media"><img src="assets/images/Products/Keyboard/PCMK/pcmk1.webp" alt=""></div>
+                <div class="p-card__body">
+                    <span class="p-card__brand">PCMK</span>
+                    <h6 class="p-card__name">Custom 65% Pro</h6>
+                    <p class="p-card__desc">Bàn phím build sẵn</p>
+                    <div class="p-card__bottom"><span class="p-card__price">3.200.000đ</span></div>
+                </div>
+            </article>
+            <article class="p-card">
+                <div class="p-card__media"><img src="assets/images/Products/Keyboard/Majestouch/mjt1.webp" alt=""></div>
+                <div class="p-card__body">
+                    <span class="p-card__brand">FILCO</span>
+                    <h6 class="p-card__name">Majestouch 2</h6>
+                    <p class="p-card__desc">Cherry MX huyền thoại</p>
+                    <div class="p-card__bottom"><span class="p-card__price">2.990.000đ</span></div>
+                </div>
+            </article>
+            <article class="p-card">
+                <div class="p-card__media"><img src="assets/images/Products/Keyboard/Realforce%20R4/rr1.webp" alt=""></div>
+                <div class="p-card__body">
+                    <span class="p-card__brand">REALFORCE</span>
+                    <h6 class="p-card__name">R4S TKL</h6>
+                    <p class="p-card__desc">Topre 45g — APC</p>
+                    <div class="p-card__bottom"><span class="p-card__price">4.990.000đ</span></div>
+                </div>
+            </article>
+        </div>
+    </section>
+    <!-- #endregion -->
+
+</main>
+<!-- #endregion -->
+
+<!-- #region FOOTER -->
+<footer class="site-footer mt-5">
+    <div class="container-fluid px-4 px-xl-5">
+        <div class="row g-4 site-footer__top">
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="site-footer__logo"><span class="site-footer__logo-skt">SKT</span> GAMING STORE</a>
+                <p class="site-footer__desc">Vũ khí tối thượng cho game thủ chuyên nghiệp. Engineered for extreme performance.</p>
+                <div class="site-footer__socials">
+                    <a href="#" class="social-btn social-btn--web"><i class="fa-solid fa-globe"></i></a>
+                    <a href="#" class="social-btn social-btn--yt"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-btn social-btn--fb"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn social-btn--dc"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="social-btn social-btn--tk"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="social-btn social-btn--ig"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6 class="site-footer__col-title">SẢN PHẨM</h6>
+                <ul class="site-footer__links list-unstyled">
+                    <li><a href="#">Bàn phím cơ</a></li>
+                    <li><a href="#">Chuột gaming</a></li>
+                    <li><a href="#">Tai nghe</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6">
+                <h6 class="site-footer__col-title">HỖ TRỢ</h6>
+                <ul class="site-footer__links list-unstyled">
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Giao hàng hỏa tốc</a></li>
+                    <li><a href="#">Liên hệ chúng tôi</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="site-footer__col-title">THANH TOÁN</h6>
+                <div class="site-footer__payments">
+                    <span class="pay-badge">VISA</span>
+                    <span class="pay-badge">MOMO</span>
+                    <span class="pay-badge">BANK</span>
+                </div>
+                <p class="site-footer__copyright">© 2024 SKT Gaming. Designed with Cyber-precision.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- #endregion -->
+
+<!-- #region CONFIRM MODAL -->
+<div class="confirm-modal" id="confirmModal">
+    <div class="confirm-modal__backdrop" id="confirmBackdrop"></div>
+    <div class="confirm-modal__box">
+        <div class="confirm-modal__icon"><i class="fa-solid fa-trash-can"></i></div>
+        <h6 class="confirm-modal__title">Xóa sản phẩm?</h6>
+        <p class="confirm-modal__text" id="confirmText">Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?</p>
+        <div class="confirm-modal__actions">
+            <button class="confirm-modal__btn confirm-modal__btn--cancel" id="confirmCancel">Hủy bỏ</button>
+            <button class="confirm-modal__btn confirm-modal__btn--confirm" id="confirmOk">Xóa luôn</button>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay__panel">
+        <div class="search-overlay__head">
+            <i class="fa-solid fa-magnifying-glass search-overlay__icon"></i>
+            <input type="text" id="searchInput" class="search-overlay__input" placeholder="Tìm chuột, bàn phím, tai nghe...">
+            <button class="search-overlay__close" id="closeSearchBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="search-overlay__divider"></div>
+        <div class="search-overlay__body">
+            <p class="search-overlay__label">Search menu</p>
+            <ul class="search-overlay__menu list-unstyled">
+                <li><a href="#"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a></li>
+                <li><a href="#"><i class="fa-solid fa-keyboard"></i> Bàn Phím</a></li>
+                <li><a href="#"><i class="fa-solid fa-grip"></i> Lót Chuột</a></li>
+                <li><a href="#"><i class="fa-solid fa-headphones"></i> Tai Nghe</a></li>
+                <li><a href="#"><i class="fa-solid fa-tag"></i> Khuyến Mãi</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="search-overlay__backdrop" id="searchBackdrop"></div>
+</div>
+<!-- #endregion -->
+
+<!-- #region CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-drawer__backdrop" id="cartBackdrop"></div>
+    <aside class="cart-drawer__panel">
+        <header class="cart-drawer__head">
+            <h5 class="cart-drawer__title">Giỏ hàng <span class="cart-drawer__count" id="cartCount">3</span></h5>
+            <button class="cart-drawer__close" id="closeCartBtn"><i class="fa-solid fa-xmark"></i></button>
+        </header>
+        <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text"><i class="fa-solid fa-truck-fast"></i> Bạn được giao hàng miễn phí!</p>
+            <div class="cart-drawer__bar"><span class="cart-drawer__bar-fill"></span></div>
+        </div>
+        <div class="cart-drawer__list" id="cartList">
+            <div class="cart-item">
+                <div class="cart-item__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt=""></div>
+                <div class="cart-item__info">
+                    <h6 class="cart-item__name">Finalmouse ULX Pro</h6>
+                    <span class="cart-item__price">5.990.000đ</span>
+                    <p class="cart-item__variant">Đen / Medium</p>
+                </div>
+                <div class="cart-item__actions">
+                    <div class="qty-input"><button type="button" class="qty-input__btn">−</button><input type="text" value="1" readonly><button type="button" class="qty-input__btn">+</button></div>
+                    <button type="button" class="cart-item__remove">Bỏ</button>
+                </div>
+            </div>
+        </div>
+        <footer class="cart-drawer__foot">
+            <div class="cart-drawer__total">
+                <span class="cart-drawer__total-label">Tổng</span>
+                <span class="cart-drawer__total-value">5.990.000<sup>đ</sup></span>
+            </div>
+            <p class="cart-drawer__tax">Đã bao gồm thuế. <a href="#">Phí ship</a> sẽ được tính khi thanh toán</p>
+            <a href="#" class="cart-drawer__note-link"><i class="fa-solid fa-pen"></i> Thêm ghi chú</a>
+            <div class="cart-drawer__actions">
+                <a href="cart.html" class="cart-drawer__btn cart-drawer__btn--outline">Xem giỏ hàng</a>
+                <a href="checkout.html" class="cart-drawer__btn cart-drawer__btn--primary"><i class="fa-solid fa-lock"></i> Thanh toán</a>
+            </div>
+        </footer>
+    </aside>
+</div>
+<!-- #endregion -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

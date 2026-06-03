@@ -326,6 +326,106 @@ function updateCartCount() {
 /* #endregion */
 
 /* ==========================================
+   #region DETAIL PAGE
+========================================== */
+function initDetailPage() {
+    if (typeof $ === 'undefined' || typeof $.fn.owlCarousel === 'undefined') return;
+
+    // Gallery carousel
+    var $gallery = $('.detail-gallery__main');
+    if ($gallery.length) {
+        $gallery.owlCarousel({
+            items: 1, loop: true, nav: true, dots: false, smartSpeed: 400,
+            navText: ['<i class="fa-solid fa-chevron-left"></i>', '<i class="fa-solid fa-chevron-right"></i>']
+        });
+
+        // Thumb click → go to slide
+        document.querySelectorAll('.detail-gallery__thumb').forEach(function (tb) {
+            tb.addEventListener('click', function () {
+                var idx = parseInt(tb.dataset.idx);
+                $gallery.trigger('to.owl.carousel', [idx, 300]);
+                document.querySelectorAll('.detail-gallery__thumb').forEach(function (t) { t.classList.remove('is-active'); });
+                tb.classList.add('is-active');
+            });
+        });
+
+        // Sync thumb active on slide change
+        $gallery.on('changed.owl.carousel', function (e) {
+            var idx = e.item.index - e.relatedTarget._clones.length / 2;
+            var total = e.item.count;
+            idx = ((idx % total) + total) % total;
+            document.querySelectorAll('.detail-gallery__thumb').forEach(function (t, i) {
+                t.classList.toggle('is-active', i === idx);
+            });
+        });
+    }
+
+    // Related products carousel
+    $('.related-carousel').owlCarousel({
+        loop: true, margin: 14, nav: true, dots: false,
+        autoplay: true, autoplayTimeout: 5000, autoplayHoverPause: true,
+        navText: ['<i class="fa-solid fa-chevron-left"></i>', '<i class="fa-solid fa-chevron-right"></i>'],
+        responsive: { 0: { items: 1 }, 576: { items: 2 }, 992: { items: 4 } }
+    });
+
+    // Detail qty +/-
+    var qtyMinus = document.getElementById('detailQtyMinus');
+    var qtyPlus  = document.getElementById('detailQtyPlus');
+    var qtyInput = document.getElementById('detailQtyInput');
+    if (qtyMinus && qtyPlus && qtyInput) {
+        qtyMinus.addEventListener('click', function () {
+            qtyInput.value = Math.max(1, (parseInt(qtyInput.value) || 1) - 1);
+        });
+        qtyPlus.addEventListener('click', function () {
+            qtyInput.value = (parseInt(qtyInput.value) || 1) + 1;
+        });
+    }
+
+    // Star pick
+    var starPick = document.getElementById('starPick');
+    if (starPick) {
+        var stars = starPick.querySelectorAll('i');
+        stars.forEach(function (s) {
+            s.addEventListener('click', function () {
+                var val = parseInt(s.dataset.val);
+                stars.forEach(function (st, i) {
+                    st.classList.toggle('is-active', i < val);
+                });
+            });
+            s.addEventListener('mouseenter', function () {
+                var val = parseInt(s.dataset.val);
+                stars.forEach(function (st, i) {
+                    st.style.color = i < val ? '#ffc107' : '#333';
+                });
+            });
+        });
+        starPick.addEventListener('mouseleave', function () {
+            stars.forEach(function (st) {
+                st.style.color = st.classList.contains('is-active') ? '#ffc107' : '#333';
+            });
+        });
+    }
+
+    // Detail add to cart — fly to cart icon
+    var addCartBtn = document.getElementById('detailAddCart');
+    if (addCartBtn) {
+        addCartBtn.addEventListener('click', function () {
+            var galleryImg = document.querySelector('.detail-gallery__slide.active img, .detail-gallery__main .owl-item.active img');
+            if (galleryImg) flyToCart(galleryImg);
+        });
+    }
+
+    // Color swatch click
+    document.querySelectorAll('.detail-swatch').forEach(function (sw) {
+        sw.addEventListener('click', function () {
+            document.querySelectorAll('.detail-swatch').forEach(function (s) { s.classList.remove('is-active'); });
+            sw.classList.add('is-active');
+        });
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -338,4 +438,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initSearchOverlay();
     initCartDrawer();
     initFlyToCart();
+    initDetailPage();
 });
