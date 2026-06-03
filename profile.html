@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài Khoản Của Tôi — SKT Gaming Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="dark-theme">
+
+<!-- #region ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+    <div class="announcement-bar__track">
+        <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&bull;&nbsp;</span>
+        <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&bull;&nbsp;</span>
+        <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&bull;&nbsp;</span>
+        <span>🔥 SẢN PHẨM MỚI: FINALMOUSE ULX VỪA VỀ KHO &nbsp;&bull;&nbsp;</span>
+        <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&bull;&nbsp;</span>
+        <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&bull;&nbsp;</span>
+        <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&bull;&nbsp;</span>
+        <span>🔥 SẢN PHẨM MỚI: FINALMOUSE ULX VỪA VỀ KHO &nbsp;&bull;&nbsp;</span>
+    </div>
+</div>
+<!-- #endregion -->
+
+<!-- #region NAVBAR -->
+<nav class="navbar" id="mainNav">
+    <div class="navbar__container">
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-skt">SKT</span> GAMING</a>
+        <button class="navbar__toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+        <div class="navbar__menu" id="navMenu">
+            <ul class="navbar__links">
+                <li><a href="index.html" class="navbar__link">Gaming Gear</a></li>
+                <li><a href="#" class="navbar__link">Góc game thủ</a></li>
+                <li><a href="#" class="navbar__link">Giới thiệu về chúng tui</a></li>
+                <li><a href="#" class="navbar__link">Liên hệ</a></li>
+            </ul>
+            <div class="navbar__actions">
+                <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openSearchBtn" aria-label="Tìm kiếm">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+                <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openCartBtn" aria-label="Giỏ hàng">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="navbar__badge" id="cartBadge">3</span>
+                </button>
+                <a href="profile.html" class="navbar__icon-btn navbar__icon-btn--active"><i class="fa-solid fa-user"></i></a>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- #endregion -->
+
+<!-- #region BREADCRUMB -->
+<nav class="breadcrumb-bar container-fluid px-4 px-xl-5">
+    <ol class="breadcrumb-bar__list">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+        <li class="breadcrumb-bar__active">Tài khoản của tôi</li>
+    </ol>
+</nav>
+<!-- #endregion -->
+
+<!-- #region MAIN -->
+<main class="container-fluid px-4 px-xl-5 profile-page">
+
+    <!-- USER HEADER CARD -->
+    <div class="profile-hero" data-aos="fade-up">
+        <div class="profile-hero__user">
+            <div class="profile-hero__avatar">
+                <img src="assets/images/avt/truong.jpg" alt="Avatar">
+                <span class="profile-hero__edit"><i class="fa-solid fa-camera"></i></span>
+            </div>
+            <div class="profile-hero__info">
+                <h2 class="profile-hero__name">Nguyễn Văn A</h2>
+                <p class="profile-hero__meta">
+                    <span><i class="fa-regular fa-calendar"></i> Thành viên từ 2025</span>
+                    <span class="profile-hero__rank"><i class="fa-solid fa-crown"></i> Gold Member</span>
+                </p>
+            </div>
+        </div>
+        <div class="profile-hero__points">
+            <span class="profile-hero__points-label">ĐIỂM THƯỞNG</span>
+            <span class="profile-hero__points-value">3.580</span>
+        </div>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="profile-stats" data-aos="fade-up" data-aos-delay="60">
+        <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--red"><i class="fa-solid fa-box"></i></div>
+            <div class="stat-card__info">
+                <span class="stat-card__label">Tổng đơn hàng</span>
+                <span class="stat-card__value">24</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--blue"><i class="fa-solid fa-spinner"></i></div>
+            <div class="stat-card__info">
+                <span class="stat-card__label">Đang xử lý</span>
+                <span class="stat-card__value">2</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--pink"><i class="fa-solid fa-heart"></i></div>
+            <div class="stat-card__info">
+                <span class="stat-card__label">Wishlist</span>
+                <span class="stat-card__value">8</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-card__icon stat-card__icon--gold"><i class="fa-solid fa-coins"></i></div>
+            <div class="stat-card__info">
+                <span class="stat-card__label">Điểm thưởng</span>
+                <span class="stat-card__value">3.580</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+
+        <!-- SIDEBAR -->
+        <aside class="col-lg-3" data-aos="fade-right">
+            <div class="profile-sidebar">
+                <button class="profile-sidebar__link is-active" data-tab="overview">
+                    <i class="fa-solid fa-table-cells-large"></i> <span>Tổng quan</span>
+                </button>
+                <button class="profile-sidebar__link" data-tab="info">
+                    <i class="fa-solid fa-user"></i> <span>Thông tin cá nhân</span>
+                </button>
+                <button class="profile-sidebar__link" data-tab="orders">
+                    <i class="fa-solid fa-bag-shopping"></i> <span>Đơn hàng</span>
+                </button>
+                <button class="profile-sidebar__link" data-tab="address">
+                    <i class="fa-solid fa-location-dot"></i> <span>Địa chỉ giao hàng</span>
+                </button>
+                <button class="profile-sidebar__link" data-tab="wishlist">
+                    <i class="fa-solid fa-heart"></i> <span>Wishlist</span>
+                </button>
+                <button class="profile-sidebar__link" data-tab="password">
+                    <i class="fa-solid fa-lock"></i> <span>Đổi mật khẩu</span>
+                </button>
+                <a href="login.html" class="profile-sidebar__link profile-sidebar__link--logout">
+                    <i class="fa-solid fa-right-from-bracket"></i> <span>Đăng xuất</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- CONTENT -->
+        <section class="col-lg-9" data-aos="fade-up" data-aos-delay="80">
+
+            <!-- TAB: TỔNG QUAN -->
+            <div class="profile-tab is-active" data-panel="overview">
+
+                <!-- Thông tin cá nhân (form) -->
+                <div class="profile-panel mb-4">
+                    <h5 class="profile-panel__title"><i class="fa-solid fa-id-card"></i> Thông Tin Cá Nhân</h5>
+                    <form class="profile-form" onsubmit="return false;">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Họ và tên</label>
+                                <input type="text" class="profile-form__input" value="Nguyễn Văn A">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Email</label>
+                                <input type="email" class="profile-form__input" value="nguyenvana@gamermail.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Số điện thoại</label>
+                                <input type="text" class="profile-form__input" value="0901 234 567">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Ngày sinh</label>
+                                <input type="text" class="profile-form__input" value="01/01/2000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Giới tính</label>
+                                <select class="profile-form__input">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                    <option>Khác</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <button class="profile-btn profile-btn--primary w-100">CẬP NHẬT THÔNG TIN</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Đơn hàng gần đây -->
+                <div class="profile-panel mb-4">
+                    <div class="profile-panel__head">
+                        <h5 class="profile-panel__title m-0"><i class="fa-solid fa-bag-shopping"></i> Đơn Hàng Gần Đây</h5>
+                        <button class="profile-link" data-tab="orders">Xem tất cả <i class="fa-solid fa-angle-right"></i></button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="profile-table">
+                            <thead>
+                                <tr>
+                                    <th>Mã đơn</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="order-code">#SKT-28361</td>
+                                    <td>15/02/2024</td>
+                                    <td class="order-total">4.290.000đ</td>
+                                    <td><span class="order-badge order-badge--done">Hoàn thành</span></td>
+                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="order-code">#SKT-28113</td>
+                                    <td>02/02/2024</td>
+                                    <td class="order-total">12.300.000đ</td>
+                                    <td><span class="order-badge order-badge--processing">Đang giao</span></td>
+                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Wishlist gần đây -->
+                <div class="profile-panel mb-4">
+                    <div class="profile-panel__head">
+                        <h5 class="profile-panel__title m-0"><i class="fa-solid fa-heart"></i> Wishlist Gần Đây</h5>
+                        <button class="profile-link" data-tab="wishlist">Xem tất cả <i class="fa-solid fa-angle-right"></i></button>
+                    </div>
+                    <div class="wishlist-grid">
+                        <div class="wishlist-card">
+                            <button class="wishlist-card__heart"><i class="fa-solid fa-heart"></i></button>
+                            <div class="wishlist-card__img"><img src="assets/images/Products/Mice/ViperV4Pro/vv4p1.webp" alt=""></div>
+                            <div class="wishlist-card__body">
+                                <h6 class="wishlist-card__name">Razer Viper V2 Pro</h6>
+                                <span class="wishlist-card__price">2.990.000đ</span>
+                                <button class="profile-btn profile-btn--outline w-100">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                        <div class="wishlist-card">
+                            <button class="wishlist-card__heart"><i class="fa-solid fa-heart"></i></button>
+                            <div class="wishlist-card__img"><img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt=""></div>
+                            <div class="wishlist-card__body">
+                                <h6 class="wishlist-card__name">Asus ROG Azoth</h6>
+                                <span class="wishlist-card__price">4.290.000đ</span>
+                                <button class="profile-btn profile-btn--outline w-100">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Địa chỉ + Bảo mật -->
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="profile-panel h-100">
+                            <h5 class="profile-panel__title"><i class="fa-solid fa-location-dot"></i> Địa Chỉ Mặc Định</h5>
+                            <p class="profile-address__name">Nhà riêng</p>
+                            <p class="profile-address__text">123 Đường Neon, Phường Cyber-Noir, Quận 1, TP. Hồ Chí Minh</p>
+                            <p class="profile-address__phone"><i class="fa-solid fa-phone"></i> (+84) 901 234 567</p>
+                            <button class="profile-link" data-tab="address"><i class="fa-solid fa-pen"></i> Chỉnh sửa</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="profile-panel h-100">
+                            <h5 class="profile-panel__title"><i class="fa-solid fa-shield-halved"></i> Bảo Mật Tài Khoản</h5>
+                            <p class="profile-address__text">Thay đổi mật khẩu thường xuyên để bảo vệ tài khoản và thông tin mua hàng của bạn.</p>
+                            <button class="profile-btn profile-btn--outline" data-tab="password">ĐỔI MẬT KHẨU</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: THÔNG TIN CÁ NHÂN -->
+            <div class="profile-tab" data-panel="info">
+                <div class="profile-panel">
+                    <h5 class="profile-panel__title"><i class="fa-solid fa-id-card"></i> Thông Tin Cá Nhân</h5>
+                    <form class="profile-form" onsubmit="return false;">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Họ và tên</label>
+                                <input type="text" class="profile-form__input" value="Nguyễn Văn A">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Email</label>
+                                <input type="email" class="profile-form__input" value="nguyenvana@gamermail.com">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Số điện thoại</label>
+                                <input type="text" class="profile-form__input" value="0901 234 567">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Ngày sinh</label>
+                                <input type="text" class="profile-form__input" value="01/01/2000">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="profile-form__label">Giới tính</label>
+                                <select class="profile-form__input"><option>Nam</option><option>Nữ</option><option>Khác</option></select>
+                            </div>
+                            <div class="col-12">
+                                <button class="profile-btn profile-btn--primary">CẬP NHẬT THÔNG TIN</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- TAB: ĐƠN HÀNG -->
+            <div class="profile-tab" data-panel="orders">
+                <div class="profile-panel">
+                    <h5 class="profile-panel__title"><i class="fa-solid fa-bag-shopping"></i> Tất Cả Đơn Hàng</h5>
+                    <div class="table-responsive">
+                        <table class="profile-table">
+                            <thead>
+                                <tr><th>Mã đơn</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="order-code">#SKT-28361</td><td>15/02/2024</td>
+                                    <td class="order-total">4.290.000đ</td>
+                                    <td><span class="order-badge order-badge--done">Hoàn thành</span></td>
+                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="order-code">#SKT-28113</td><td>02/02/2024</td>
+                                    <td class="order-total">12.300.000đ</td>
+                                    <td><span class="order-badge order-badge--processing">Đang giao</span></td>
+                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="order-code">#SKT-27980</td><td>20/01/2024</td>
+                                    <td class="order-total">2.190.000đ</td>
+                                    <td><span class="order-badge order-badge--done">Hoàn thành</span></td>
+                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="order-code">#SKT-27845</td><td>08/01/2024</td>
+                                    <td class="order-total">5.990.000đ</td>
+                                    <td><span class="order-badge order-badge--cancelled">Đã hủy</span></td>
+                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: ĐỊA CHỈ -->
+            <div class="profile-tab" data-panel="address">
+                <div class="profile-panel">
+                    <div class="profile-panel__head">
+                        <h5 class="profile-panel__title m-0"><i class="fa-solid fa-location-dot"></i> Sổ Địa Chỉ</h5>
+                        <button class="profile-btn profile-btn--outline"><i class="fa-solid fa-plus"></i> Thêm địa chỉ</button>
+                    </div>
+                    <div class="address-card address-card--default">
+                        <span class="address-card__tag">Mặc định</span>
+                        <p class="address-card__name">Nguyễn Văn A — Nhà riêng</p>
+                        <p class="address-card__text">123 Đường Neon, Phường Cyber-Noir, Quận 1, TP. Hồ Chí Minh</p>
+                        <p class="address-card__phone"><i class="fa-solid fa-phone"></i> (+84) 901 234 567</p>
+                        <div class="address-card__actions">
+                            <button class="profile-link"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="profile-link profile-link--danger"><i class="fa-solid fa-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+                    <div class="address-card">
+                        <p class="address-card__name">Nguyễn Văn A — Công ty</p>
+                        <p class="address-card__text">456 Tòa nhà Esports, Phường Bến Nghé, Quận 1, TP. Hồ Chí Minh</p>
+                        <p class="address-card__phone"><i class="fa-solid fa-phone"></i> (+84) 909 888 777</p>
+                        <div class="address-card__actions">
+                            <button class="profile-link"><i class="fa-solid fa-pen"></i> Sửa</button>
+                            <button class="profile-link profile-link--danger"><i class="fa-solid fa-trash"></i> Xóa</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: WISHLIST -->
+            <div class="profile-tab" data-panel="wishlist">
+                <div class="profile-panel">
+                    <h5 class="profile-panel__title"><i class="fa-solid fa-heart"></i> Sản Phẩm Yêu Thích</h5>
+                    <div class="wishlist-grid wishlist-grid--full">
+                        <div class="wishlist-card">
+                            <button class="wishlist-card__heart"><i class="fa-solid fa-heart"></i></button>
+                            <div class="wishlist-card__img"><img src="assets/images/Products/Mice/ViperV4Pro/vv4p1.webp" alt=""></div>
+                            <div class="wishlist-card__body">
+                                <h6 class="wishlist-card__name">Razer Viper V2 Pro</h6>
+                                <span class="wishlist-card__price">2.990.000đ</span>
+                                <button class="profile-btn profile-btn--outline w-100">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                        <div class="wishlist-card">
+                            <button class="wishlist-card__heart"><i class="fa-solid fa-heart"></i></button>
+                            <div class="wishlist-card__img"><img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt=""></div>
+                            <div class="wishlist-card__body">
+                                <h6 class="wishlist-card__name">Asus ROG Azoth</h6>
+                                <span class="wishlist-card__price">4.290.000đ</span>
+                                <button class="profile-btn profile-btn--outline w-100">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                        <div class="wishlist-card">
+                            <button class="wishlist-card__heart"><i class="fa-solid fa-heart"></i></button>
+                            <div class="wishlist-card__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt=""></div>
+                            <div class="wishlist-card__body">
+                                <h6 class="wishlist-card__name">Finalmouse ULX Pro</h6>
+                                <span class="wishlist-card__price">5.990.000đ</span>
+                                <button class="profile-btn profile-btn--outline w-100">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                        <div class="wishlist-card">
+                            <button class="wishlist-card__heart"><i class="fa-solid fa-heart"></i></button>
+                            <div class="wishlist-card__img"><img src="assets/images/Products/Keyboard/Centauri/ctr1.webp" alt=""></div>
+                            <div class="wishlist-card__body">
+                                <h6 class="wishlist-card__name">Akko Centauri Keyboard</h6>
+                                <span class="wishlist-card__price">2.450.000đ</span>
+                                <button class="profile-btn profile-btn--outline w-100">Thêm vào giỏ</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB: ĐỔI MẬT KHẨU -->
+            <div class="profile-tab" data-panel="password">
+                <div class="profile-panel">
+                    <h5 class="profile-panel__title"><i class="fa-solid fa-lock"></i> Đổi Mật Khẩu</h5>
+                    <form class="profile-form profile-form--narrow" onsubmit="return false;">
+                        <div class="mb-3">
+                            <label class="profile-form__label">Mật khẩu hiện tại</label>
+                            <input type="password" class="profile-form__input" placeholder="••••••••">
+                        </div>
+                        <div class="mb-3">
+                            <label class="profile-form__label">Mật khẩu mới</label>
+                            <input type="password" class="profile-form__input" placeholder="••••••••">
+                        </div>
+                        <div class="mb-3">
+                            <label class="profile-form__label">Xác nhận mật khẩu mới</label>
+                            <input type="password" class="profile-form__input" placeholder="••••••••">
+                        </div>
+                        <button class="profile-btn profile-btn--primary">CẬP NHẬT MẬT KHẨU</button>
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </div>
+</main>
+<!-- #endregion -->
+
+<!-- #region FOOTER -->
+<footer class="site-footer mt-5">
+    <div class="container-fluid px-4 px-xl-5">
+        <div class="row g-4 site-footer__top">
+            <div class="col-lg-4 col-md-6">
+                <a href="#" class="site-footer__logo"><span class="site-footer__logo-skt">SKT</span> GAMING STORE</a>
+                <p class="site-footer__desc">Vũ khí tối thượng cho game thủ chuyên nghiệp. Engineered for extreme performance.</p>
+                <div class="site-footer__socials">
+                    <a href="#" class="social-btn social-btn--web"><i class="fa-solid fa-globe"></i></a>
+                    <a href="#" class="social-btn social-btn--yt"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="social-btn social-btn--fb"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="social-btn social-btn--dc"><i class="fa-brands fa-discord"></i></a>
+                    <a href="#" class="social-btn social-btn--tk"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="social-btn social-btn--ig"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-6 col-6">
+                <h6 class="site-footer__col-title">SẢN PHẨM</h6>
+                <ul class="site-footer__links list-unstyled">
+                    <li><a href="#">Bàn phím cơ</a></li>
+                    <li><a href="#">Chuột gaming</a></li>
+                    <li><a href="#">Tai nghe</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-6">
+                <h6 class="site-footer__col-title">HỖ TRỢ</h6>
+                <ul class="site-footer__links list-unstyled">
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Giao hàng hỏa tốc</a></li>
+                    <li><a href="#">Liên hệ chúng tôi</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h6 class="site-footer__col-title">THANH TOÁN</h6>
+                <div class="site-footer__payments">
+                    <span class="pay-badge">VISA</span>
+                    <span class="pay-badge">MOMO</span>
+                    <span class="pay-badge">BANK</span>
+                </div>
+                <p class="site-footer__copyright">© 2024 SKT Gaming. Designed with Cyber-precision.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- #endregion -->
+
+<!-- #region SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay" aria-hidden="true">
+    <div class="search-overlay__panel">
+        <div class="search-overlay__head">
+            <i class="fa-solid fa-magnifying-glass search-overlay__icon"></i>
+            <input type="text" id="searchInput" class="search-overlay__input" placeholder="Tìm chuột, bàn phím, tai nghe...">
+            <button class="search-overlay__close" id="closeSearchBtn"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="search-overlay__divider"></div>
+        <div class="search-overlay__body">
+            <p class="search-overlay__label">Search menu</p>
+            <ul class="search-overlay__menu list-unstyled">
+                <li><a href="#"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a></li>
+                <li><a href="#"><i class="fa-solid fa-keyboard"></i> Bàn Phím</a></li>
+                <li><a href="#"><i class="fa-solid fa-grip"></i> Lót Chuột</a></li>
+                <li><a href="#"><i class="fa-solid fa-headphones"></i> Tai Nghe</a></li>
+                <li><a href="#"><i class="fa-solid fa-tag"></i> Khuyến Mãi</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="search-overlay__backdrop" id="searchBackdrop"></div>
+</div>
+<!-- #endregion -->
+
+<!-- #region CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-drawer__backdrop" id="cartBackdrop"></div>
+    <aside class="cart-drawer__panel">
+        <header class="cart-drawer__head">
+            <h5 class="cart-drawer__title">Giỏ hàng <span class="cart-drawer__count" id="cartCount">3</span></h5>
+            <button class="cart-drawer__close" id="closeCartBtn"><i class="fa-solid fa-xmark"></i></button>
+        </header>
+        <div class="cart-drawer__progress">
+            <p class="cart-drawer__progress-text"><i class="fa-solid fa-truck-fast"></i> Bạn được giao hàng miễn phí!</p>
+            <div class="cart-drawer__bar"><span class="cart-drawer__bar-fill"></span></div>
+        </div>
+        <div class="cart-drawer__list" id="cartList">
+            <div class="cart-item">
+                <div class="cart-item__img"><img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt=""></div>
+                <div class="cart-item__info">
+                    <h6 class="cart-item__name">Finalmouse ULX Pro</h6>
+                    <span class="cart-item__price">5.990.000đ</span>
+                    <p class="cart-item__variant">Đen / Medium</p>
+                </div>
+                <div class="cart-item__actions">
+                    <div class="qty-input"><button type="button" class="qty-input__btn">−</button><input type="text" value="1" readonly><button type="button" class="qty-input__btn">+</button></div>
+                    <button type="button" class="cart-item__remove">Bỏ</button>
+                </div>
+            </div>
+        </div>
+        <footer class="cart-drawer__foot">
+            <div class="cart-drawer__total">
+                <span class="cart-drawer__total-label">Tổng</span>
+                <span class="cart-drawer__total-value">5.990.000<sup>đ</sup></span>
+            </div>
+            <p class="cart-drawer__tax">Đã bao gồm thuế. <a href="#">Phí ship</a> sẽ được tính khi thanh toán</p>
+            <a href="#" class="cart-drawer__note-link"><i class="fa-solid fa-pen"></i> Thêm ghi chú</a>
+            <div class="cart-drawer__actions">
+                <a href="cart.html" class="cart-drawer__btn cart-drawer__btn--outline">Xem giỏ hàng</a>
+                <a href="checkout.html" class="cart-drawer__btn cart-drawer__btn--primary"><i class="fa-solid fa-lock"></i> Thanh toán</a>
+            </div>
+        </footer>
+    </aside>
+</div>
+<!-- #endregion -->
+
+<!-- #region CONFIRM MODAL -->
+<div class="confirm-modal" id="confirmModal">
+    <div class="confirm-modal__backdrop" id="confirmBackdrop"></div>
+    <div class="confirm-modal__box">
+        <div class="confirm-modal__icon"><i class="fa-solid fa-trash-can"></i></div>
+        <h6 class="confirm-modal__title">Xóa sản phẩm?</h6>
+        <p class="confirm-modal__text" id="confirmText">Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?</p>
+        <div class="confirm-modal__actions">
+            <button class="confirm-modal__btn confirm-modal__btn--cancel" id="confirmCancel">Hủy bỏ</button>
+            <button class="confirm-modal__btn confirm-modal__btn--confirm" id="confirmOk">Xóa luôn</button>
+        </div>
+    </div>
+</div>
+<!-- #endregion -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

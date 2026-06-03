@@ -426,6 +426,45 @@ function initDetailPage() {
 /* #endregion */
 
 /* ==========================================
+   #region PROFILE TABS
+========================================== */
+function initProfileTabs() {
+    var links  = document.querySelectorAll('.profile-sidebar__link[data-tab]');
+    var panels = document.querySelectorAll('.profile-tab[data-panel]');
+    if (!links.length || !panels.length) return;
+
+    function activate(tab) {
+        // sidebar active state
+        document.querySelectorAll('.profile-sidebar__link[data-tab]').forEach(function (l) {
+            l.classList.toggle('is-active', l.dataset.tab === tab);
+        });
+        // panels
+        panels.forEach(function (p) {
+            p.classList.toggle('is-active', p.dataset.panel === tab);
+        });
+        // scroll up a bit
+        window.scrollTo({ top: 280, behavior: 'smooth' });
+    }
+
+    // sidebar buttons
+    links.forEach(function (link) {
+        link.addEventListener('click', function () {
+            activate(link.dataset.tab);
+        });
+    });
+
+    // any inner element with data-tab (e.g. "Xem tất cả", "Chỉnh sửa")
+    document.querySelectorAll('[data-tab]').forEach(function (el) {
+        if (el.classList.contains('profile-sidebar__link')) return;
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            activate(el.dataset.tab);
+        });
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -439,4 +478,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initCartDrawer();
     initFlyToCart();
     initDetailPage();
+    initProfileTabs();
 });
