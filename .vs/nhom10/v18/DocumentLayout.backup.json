@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\nam3hk2\\php2\\nhom10\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8A14A91A-8BE7-993C-5496-95681F6BDFC4}|E:\\nam3hk2\\php2\\nhom10|e:\\nam3hk2\\php2\\nhom10\\index.html||{C76D83F8-A489-11D0-8195-00A0C91BBEE3}",
+      "RelativeMoniker": "D:0:0:{8A14A91A-8BE7-993C-5496-95681F6BDFC4}|E:\\nam3hk2\\php2\\nhom10|solutionrelative:index.html||{C76D83F8-A489-11D0-8195-00A0C91BBEE3}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A14A91A-8BE7-993C-5496-95681F6BDFC4}|E:\\nam3hk2\\php2\\nhom10|e:\\nam3hk2\\php2\\nhom10\\assets\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{8A14A91A-8BE7-993C-5496-95681F6BDFC4}|E:\\nam3hk2\\php2\\nhom10|solutionrelative:assets\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8A14A91A-8BE7-993C-5496-95681F6BDFC4}|E:\\nam3hk2\\php2\\nhom10|e:\\nam3hk2\\php2\\nhom10\\assets\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{8A14A91A-8BE7-993C-5496-95681F6BDFC4}|E:\\nam3hk2\\php2\\nhom10|solutionrelative:assets\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b14149a3-e397-4c4d-a272-72056d35d53f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "script.js",
+              "DocumentMoniker": "E:\\nam3hk2\\php2\\nhom10\\assets\\js\\script.js",
+              "RelativeDocumentMoniker": "assets\\js\\script.js",
+              "ToolTip": "E:\\nam3hk2\\php2\\nhom10\\assets\\js\\script.js",
+              "RelativeToolTip": "assets\\js\\script.js",
+              "ViewState": "AgIAADkAAAAAAAAAAAAwwEUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-06-02T21:01:05.118Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "style.css",
+              "DocumentMoniker": "E:\\nam3hk2\\php2\\nhom10\\assets\\css\\style.css",
+              "RelativeDocumentMoniker": "assets\\css\\style.css",
+              "ToolTip": "E:\\nam3hk2\\php2\\nhom10\\assets\\css\\style.css",
+              "RelativeToolTip": "assets\\css\\style.css",
+              "ViewState": "AgIAAD8CAAAAAAAAAAAqwFMCAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-06-02T20:59:14.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "index.html",
+              "DocumentMoniker": "E:\\nam3hk2\\php2\\nhom10\\index.html",
+              "RelativeDocumentMoniker": "index.html",
+              "ToolTip": "E:\\nam3hk2\\php2\\nhom10\\index.html",
+              "RelativeToolTip": "index.html",
+              "LogicalView": "7651a703-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-06-02T20:58:37.676Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
