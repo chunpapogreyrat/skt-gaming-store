@@ -39,5 +39,38 @@ Route::middleware('auth')->group(function () {
 });
 
 // ──────────────────────────────────────────────────────
-// Module 6 — Admin (sẽ thêm)
+// Module 6 — Admin
 // ──────────────────────────────────────────────────────
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+
+    Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+
+    // Sản phẩm (phụ thuộc model SanPham của Codex)
+    Route::get('/san-pham', [\App\Http\Controllers\Admin\SanPhamController::class, 'index'])->name('products.index');
+    Route::get('/san-pham/them', [\App\Http\Controllers\Admin\SanPhamController::class, 'create'])->name('products.create');
+    Route::post('/san-pham', [\App\Http\Controllers\Admin\SanPhamController::class, 'store'])->name('products.store');
+    Route::get('/san-pham/{id}/sua', [\App\Http\Controllers\Admin\SanPhamController::class, 'edit'])->name('products.edit');
+    Route::put('/san-pham/{id}', [\App\Http\Controllers\Admin\SanPhamController::class, 'update'])->name('products.update');
+    Route::delete('/san-pham/{id}', [\App\Http\Controllers\Admin\SanPhamController::class, 'destroy'])->name('products.destroy');
+
+    // Đơn hàng
+    Route::get('/don-hang', [\App\Http\Controllers\Admin\DonHangController::class, 'index'])->name('orders.index');
+    Route::get('/don-hang/{id}', [\App\Http\Controllers\Admin\DonHangController::class, 'show'])->name('orders.show');
+    Route::put('/don-hang/{id}/trang-thai', [\App\Http\Controllers\Admin\DonHangController::class, 'capNhatTrangThai'])->name('orders.status');
+
+    // Tài khoản
+    Route::get('/tai-khoan', [\App\Http\Controllers\Admin\TaiKhoanController::class, 'index'])->name('users.index');
+    Route::put('/tai-khoan/{id}/trang-thai', [\App\Http\Controllers\Admin\TaiKhoanController::class, 'doiTrangThai'])->name('users.status');
+
+    // Mã giảm giá
+    Route::get('/ma-giam-gia', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'index'])->name('coupons.index');
+    Route::post('/ma-giam-gia', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'store'])->name('coupons.store');
+    Route::put('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'update'])->name('coupons.update');
+    Route::delete('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'destroy'])->name('coupons.destroy');
+
+    // Setup trưng bày
+    Route::get('/setup', [\App\Http\Controllers\Admin\SetupController::class, 'index'])->name('setups.index');
+    Route::post('/setup', [\App\Http\Controllers\Admin\SetupController::class, 'store'])->name('setups.store');
+    Route::put('/setup/{id}', [\App\Http\Controllers\Admin\SetupController::class, 'update'])->name('setups.update');
+    Route::delete('/setup/{id}', [\App\Http\Controllers\Admin\SetupController::class, 'destroy'])->name('setups.destroy');
+});
