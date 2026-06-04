@@ -412,6 +412,65 @@ img { max-width: 100%; display: block; }
 .navbar__badge { position: absolute; top: -6px; right: -6px; background: var(--red); color: #fff; font-size: .72rem; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
 .navbar__toggle { display: none; background: none; border: 1px solid var(--red-dim); color: var(--text-main); padding: 6px 12px; border-radius: 4px; cursor: pointer; margin-left: auto; transition: .25s; font-size: 1rem; }
 .navbar__toggle:hover { border-color: var(--red); color: var(--red); }
+
+/* ===== Dropdown 2 cấp ===== */
+.navbar__item { position: relative; list-style: none; }
+.navbar__caret { font-size: .6rem; margin-left: 4px; transition: transform .25s; }
+.navbar__has-drop:hover .navbar__caret { transform: rotate(180deg); color: var(--red); }
+
+.navbar__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    padding: .5rem;
+    background: rgba(13,15,21,.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--red-dim);
+    border-radius: 10px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.55), 0 0 22px rgba(255,0,60,.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    transition: opacity .28s ease, transform .28s ease, visibility .28s;
+    z-index: 1100;
+}
+.navbar__dropdown::before {
+    /* cầu nối vô hình để hover không bị ngắt */
+    content: '';
+    position: absolute;
+    top: -10px; left: 0; right: 0; height: 10px;
+}
+.navbar__has-drop:hover .navbar__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.navbar__drop-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 7px;
+    color: #c2c9d6;
+    font-family: var(--font-b);
+    font-size: .82rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: .22s;
+}
+.navbar__drop-link i { width: 18px; text-align: center; color: var(--text-dim); transition: .22s; }
+.navbar__drop-link:hover {
+    background: var(--red-subtle);
+    color: #fff;
+    border-left-color: var(--red);
+    padding-left: 17px;
+    box-shadow: inset 0 0 18px var(--red-subtle);
+}
+.navbar__drop-link:hover i { color: var(--red); }
+
 @media (max-width: 992px) {
     .navbar__container { height: 68px; display: flex; padding: 0 2rem; gap: 1rem; }
     .navbar__logo { justify-self: auto; font-size: 1.15rem; letter-spacing: 2px; }
@@ -422,6 +481,26 @@ img { max-width: 100%; display: block; }
     .navbar__link { padding: .75rem 0; width: 100%; display: block; }
     .navbar__actions { gap: 1rem; }
     .navbar__icon-btn { width: 34px; height: 34px; font-size: 1.2rem; }
+
+    /* Dropdown trên mobile: hiện inline, thụt lề */
+    .navbar__item { width: 100%; }
+    .navbar__dropdown {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        min-width: 0;
+        width: 100%;
+        padding: 0 0 .5rem 1rem;
+        margin: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        display: none;
+    }
+    .navbar__has-drop.is-open .navbar__dropdown { display: block; }
+    .navbar__has-drop.is-open .navbar__caret { transform: rotate(180deg); }
+    .navbar__drop-link { font-size: .8rem; padding: 8px 10px; }
 }
 /* #endregion */
 

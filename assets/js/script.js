@@ -58,6 +58,16 @@ function initNavbar() {
             menu.classList.remove('is-open');
         }
     });
+
+    // Mobile: chạm menu cha để mở/đóng cấp 2 (hover không dùng được trên cảm ứng)
+    document.querySelectorAll('.navbar__has-drop > .navbar__link').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                link.parentElement.classList.toggle('is-open');
+            }
+        });
+    });
 }
 /* #endregion */
 
