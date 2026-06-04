@@ -27,6 +27,7 @@ class TaiKhoan extends Authenticatable
         'hang_thanh_vien',
         'diem_tich_luy',
         'role',
+        'lan_dang_nhap_cuoi',
     ];
 
     protected $hidden = [
@@ -37,6 +38,8 @@ class TaiKhoan extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'ngay_tao'          => 'datetime',
+        'lan_dang_nhap_cuoi' => 'datetime',
+        'is_active' => 'boolean',
     ];
 
     // Laravel Auth dùng method này để lấy mật khẩu hash
