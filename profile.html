@@ -230,7 +230,7 @@
                 <div class="profile-panel mb-4">
                     <div class="profile-panel__head">
                         <h5 class="profile-panel__title m-0"><i class="fa-solid fa-bag-shopping"></i> Đơn Hàng Gần Đây</h5>
-                        <button class="profile-link" data-tab="orders">Xem tất cả <i class="fa-solid fa-angle-right"></i></button>
+                        <a href="order-history.html" class="profile-link">Xem tất cả <i class="fa-solid fa-angle-right"></i></a>
                     </div>
                     <div class="table-responsive">
                         <table class="profile-table">
@@ -240,7 +240,7 @@
                                     <th>Ngày đặt</th>
                                     <th>Tổng tiền</th>
                                     <th>Trạng thái</th>
-                                    <th></th>
+                                    <th>Chi tiết</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -248,15 +248,15 @@
                                     <td class="order-code">#SKT-28361</td>
                                     <td>15/02/2024</td>
                                     <td class="order-total">4.290.000đ</td>
-                                    <td><span class="order-badge order-badge--done">Hoàn thành</span></td>
-                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                    <td><span class="order-status order-status--done">Hoàn thành</span></td>
+                                    <td><a href="order-detail.html" class="order-view">Xem chi tiết <i class="fa-solid fa-eye"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td class="order-code">#SKT-28113</td>
                                     <td>02/02/2024</td>
                                     <td class="order-total">12.300.000đ</td>
-                                    <td><span class="order-badge order-badge--processing">Đang giao</span></td>
-                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                    <td><span class="order-status order-status--shipping">Đang giao</span></td>
+                                    <td><a href="order-detail.html" class="order-view">Xem chi tiết <i class="fa-solid fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -353,32 +353,32 @@
                     <div class="table-responsive">
                         <table class="profile-table">
                             <thead>
-                                <tr><th>Mã đơn</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th></th></tr>
+                                <tr><th>Mã đơn</th><th>Ngày đặt</th><th>Tổng tiền</th><th>Trạng thái</th><th>Chi tiết</th></tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td class="order-code">#SKT-28361</td><td>15/02/2024</td>
                                     <td class="order-total">4.290.000đ</td>
-                                    <td><span class="order-badge order-badge--done">Hoàn thành</span></td>
-                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                    <td><span class="order-status order-status--done">Hoàn thành</span></td>
+                                    <td><a href="order-detail.html" class="order-view">Xem chi tiết <i class="fa-solid fa-eye"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td class="order-code">#SKT-28113</td><td>02/02/2024</td>
                                     <td class="order-total">12.300.000đ</td>
-                                    <td><span class="order-badge order-badge--processing">Đang giao</span></td>
-                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                    <td><span class="order-status order-status--shipping">Đang giao</span></td>
+                                    <td><a href="order-detail.html" class="order-view">Xem chi tiết <i class="fa-solid fa-eye"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td class="order-code">#SKT-27980</td><td>20/01/2024</td>
                                     <td class="order-total">2.190.000đ</td>
-                                    <td><span class="order-badge order-badge--done">Hoàn thành</span></td>
-                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                    <td><span class="order-status order-status--done">Hoàn thành</span></td>
+                                    <td><a href="order-detail.html" class="order-view">Xem chi tiết <i class="fa-solid fa-eye"></i></a></td>
                                 </tr>
                                 <tr>
                                     <td class="order-code">#SKT-27845</td><td>08/01/2024</td>
                                     <td class="order-total">5.990.000đ</td>
-                                    <td><span class="order-badge order-badge--cancelled">Đã hủy</span></td>
-                                    <td><a href="#" class="order-view"><i class="fa-solid fa-eye"></i></a></td>
+                                    <td><span class="order-status order-status--cancel">Đã hủy</span></td>
+                                    <td><a href="order-detail.html" class="order-view">Xem chi tiết <i class="fa-solid fa-eye"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>
