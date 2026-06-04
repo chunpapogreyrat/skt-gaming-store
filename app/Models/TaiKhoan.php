@@ -24,6 +24,8 @@ class TaiKhoan extends Authenticatable
         'ngay_sinh',
         'gioi_tinh',
         'avatar',
+        'hang_thanh_vien',
+        'diem_tich_luy',
         'role',
     ];
 
