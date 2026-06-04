@@ -3717,3 +3717,44 @@ select.contact-field__input { appearance: none; cursor: pointer; }
     .contact-features { grid-template-columns: 1fr; }
 }
 /* #endregion */
+
+/* ==========================================
+   #region HERO PARTICLES + BACK TO TOP
+========================================== */
+.hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+.hero-particles canvas { pointer-events: none !important; }
+
+.back-to-top {
+    position: fixed;
+    right: 22px;
+    bottom: 24px;
+    z-index: 1500;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid var(--red-dim);
+    background: rgba(10,12,16,.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all .35s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 0 18px var(--red-dim);
+}
+.back-to-top.is-show { opacity: 1; visibility: visible; transform: translateY(0); }
+.back-to-top:hover {
+    background: var(--red);
+    border-color: var(--red);
+    box-shadow: 0 0 26px var(--red-glow);
+    transform: translateY(-4px);
+}
+/* #endregion */

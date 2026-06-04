@@ -157,6 +157,59 @@ function initAOS() {
 /* #endregion */
 
 /* ==========================================
+   #region HERO PARTICLES (tsParticles neon)
+========================================== */
+function initHeroParticles() {
+    var hero = document.querySelector('.hero-slider');
+    if (!hero || typeof tsParticles === 'undefined') return;
+
+    // tạo lớp hạt nằm trên nền, dưới nội dung
+    var layer = document.createElement('div');
+    layer.id = 'heroParticles';
+    layer.className = 'hero-particles';
+    hero.appendChild(layer);
+
+    tsParticles.load({
+        id: 'heroParticles',
+        options: {
+            fpsLimit: 60,
+            fullScreen: { enable: false },
+            particles: {
+                number: { value: 45, density: { enable: true, area: 900 } },
+                color: { value: ['#ff003c', '#00e5ff', '#ffffff'] },
+                shape: { type: 'circle' },
+                opacity: { value: { min: 0.2, max: 0.6 } },
+                size: { value: { min: 1, max: 3 } },
+                links: { enable: true, distance: 130, color: '#ff003c', opacity: 0.22, width: 1 },
+                move: { enable: true, speed: 0.9, outModes: { default: 'out' } }
+            },
+            detectRetina: true
+        }
+    });
+}
+/* #endregion */
+
+/* ==========================================
+   #region BACK TO TOP
+========================================== */
+function initBackToTop() {
+    var btn = document.createElement('button');
+    btn.className = 'back-to-top';
+    btn.id = 'backToTop';
+    btn.setAttribute('aria-label', 'Lên đầu trang');
+    btn.innerHTML = '<i class="fa-solid fa-chevron-up"></i>';
+    document.body.appendChild(btn);
+
+    window.addEventListener('scroll', function () {
+        btn.classList.toggle('is-show', window.scrollY > 500);
+    });
+    btn.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+/* #endregion */
+
+/* ==========================================
    #region SEARCH OVERLAY
 ========================================== */
 function initSearchOverlay() {
@@ -900,6 +953,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initCountUp();
     initCartPage();
     initContactForm();
+    initHeroParticles();
+    initBackToTop();
     initNavbar();
     initHeroSlider();
     initSaleCarousel();
