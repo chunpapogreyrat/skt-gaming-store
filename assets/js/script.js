@@ -976,6 +976,111 @@ function initCartPage() {
 /* #endregion */
 
 /* ==========================================
+   #region FORGOT PASSWORD
+========================================== */
+function initForgotPassword() {
+    var form = document.getElementById('forgotForm');
+    var email = document.getElementById('forgotEmail');
+    var msg = document.getElementById('forgotMsg');
+    if (!form || !email) return;
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!email.value.trim()) { return; }
+        if (msg) {
+            msg.className = 'auth-msg auth-msg--ok';
+            msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đã gửi link đặt lại tới ' + email.value.trim() + '. Vui lòng kiểm tra email!';
+        }
+        var btn = form.querySelector('.auth-form__btn-submit');
+        if (btn) { btn.textContent = 'ĐÃ GỬI ✓'; }
+        email.value = '';
+    });
+}
+/* #endregion */
+
+/* ==========================================
+   #region SHOP / PRODUCTS FILTER
+========================================== */
+function initShop() {
+    var grid = document.getElementById('shopGrid');
+    if (!grid) return;
+
+    var cards   = Array.prototype.slice.call(grid.querySelectorAll('.p-card'));
+    var catBtns = document.querySelectorAll('#shopCats .shop-cat');
+    var priceBtns = document.querySelectorAll('#shopPrice .shop-cat');
+    var countEl = document.getElementById('shopCount');
+    var emptyEl = document.getElementById('shopEmpty');
+    var sortEl  = document.getElementById('shopSort');
+
+    var state = { cat: 'all', min: 0, max: 999999999 };
+
+    function apply() {
+        var shown = 0;
+        cards.forEach(function (c) {
+            var price = parseInt(c.dataset.price, 10) || 0;
+            var okCat = (state.cat === 'all' || c.dataset.cat === state.cat);
+            var okPrice = (price >= state.min && price <= state.max);
+            var show = okCat && okPrice;
+            c.classList.toggle('is-hidden', !show);
+            if (show) shown++;
+        });
+        if (countEl) countEl.textContent = shown;
+        if (emptyEl) emptyEl.classList.toggle('is-show', shown === 0);
+        if (typeof AOS !== 'undefined') AOS.refresh();
+    }
+
+    catBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            catBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            state.cat = btn.dataset.cat;
+            apply();
+        });
+    });
+    priceBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            priceBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            btn.classList.add('is-active');
+            state.min = parseInt(btn.dataset.min, 10) || 0;
+            state.max = parseInt(btn.dataset.max, 10) || 999999999;
+            apply();
+        });
+    });
+
+    // Sort
+    function priceOf(c) { return parseInt(c.dataset.price, 10) || 0; }
+    if (sortEl) {
+        sortEl.addEventListener('change', function () {
+            var v = sortEl.value;
+            var sorted = cards.slice();
+            if (v === 'price-asc')  sorted.sort(function (a, b) { return priceOf(a) - priceOf(b); });
+            else if (v === 'price-desc') sorted.sort(function (a, b) { return priceOf(b) - priceOf(a); });
+            else if (v === 'name')  sorted.sort(function (a, b) { return (a.dataset.name || '').localeCompare(b.dataset.name || ''); });
+            sorted.forEach(function (c) { grid.appendChild(c); });
+        });
+    }
+
+    // Preselect category from ?cat=
+    var params = new URLSearchParams(window.location.search);
+    var qcat = params.get('cat');
+    if (qcat) {
+        var match = Array.prototype.slice.call(catBtns).filter(function (b) { return b.dataset.cat === qcat; })[0];
+        if (match) {
+            catBtns.forEach(function (b) { b.classList.remove('is-active'); });
+            match.classList.add('is-active');
+            state.cat = qcat;
+        }
+    }
+
+    // count "all" badge
+    var allBadge = document.getElementById('catCountAll');
+    if (allBadge) allBadge.textContent = cards.length;
+
+    apply();
+}
+/* #endregion */
+
+/* ==========================================
    #region CHECKOUT PAGE
 ========================================== */
 function initCheckout() {
@@ -1105,6 +1210,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initCountUp();
     initCartPage();
     initCheckout();
+    initForgotPassword();
+    initShop();
     initContactForm();
     initSiteBackground();
     initHeroParticles();
