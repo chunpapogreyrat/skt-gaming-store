@@ -152,16 +152,34 @@ function initCountdown() {
 ========================================== */
 function initAOS() {
     if (typeof AOS === 'undefined') return;
+
+    // Khởi tạo AOS chủ yếu để dùng CSS transitions của nó (không auto trigger riêng)
     AOS.init({
         duration: 750,
         easing: 'ease-out-cubic',
-        once: false,        // chạy lại mỗi lần phần tử vào khung nhìn
-        mirror: true,       // animate cả khi cuộn LÊN (phần tử rời khung nhìn)
+        once: false,
+        mirror: true,
         offset: 80,
-        anchorPlacement: 'top-bottom'
+        disableMutationObserver: true
     });
 
-    // refresh khi ảnh/layout đổi để tính lại vị trí trigger
+    // Bộ quan sát riêng: bật/tắt hiệu ứng mỗi khi phần tử vào/ra khung nhìn
+    // -> chạy lại cả khi cuộn XUỐNG lẫn cuộn LÊN (khắc phục hạn chế của AOS)
+    var els = document.querySelectorAll('[data-aos]');
+    if (!('IntersectionObserver' in window) || !els.length) return;
+
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+            if (en.isIntersecting) {
+                en.target.classList.add('aos-animate');
+            } else {
+                en.target.classList.remove('aos-animate');
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    els.forEach(function (el) { io.observe(el); });
+
     window.addEventListener('load', function () { AOS.refresh(); });
 }
 /* #endregion */
