@@ -4064,3 +4064,150 @@ select.contact-field__input { appearance: none; cursor: pointer; }
     .site-bg__glow { animation: none; }
 }
 /* #endregion */
+
+/* ==========================================
+   #region 404 ERROR PAGE
+========================================== */
+.error-page {
+    position: relative;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1.5rem;
+    overflow: hidden;
+}
+.error-page__scanline {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--red), transparent);
+    opacity: .5;
+    animation: scanMove 4s linear infinite;
+}
+@keyframes scanMove { from { top: 0; } to { top: 100%; } }
+
+.error-page__inner { position: relative; z-index: 1; max-width: 640px; }
+
+/* Glitch 404 */
+.error-page__code {
+    font-family: var(--font-h);
+    font-size: clamp(6rem, 22vw, 13rem);
+    font-weight: 900;
+    line-height: 1;
+    color: #fff;
+    margin: 0;
+    position: relative;
+    letter-spacing: 4px;
+    text-shadow: 0 0 30px rgba(255,0,60,.4);
+}
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    overflow: hidden;
+}
+.glitch::before {
+    color: var(--cyber-cyan);
+    animation: glitchTop 2.5s infinite linear alternate-reverse;
+    clip-path: inset(0 0 55% 0);
+    transform: translateX(-3px);
+}
+.glitch::after {
+    color: var(--red);
+    animation: glitchBot 2s infinite linear alternate-reverse;
+    clip-path: inset(55% 0 0 0);
+    transform: translateX(3px);
+}
+@keyframes glitchTop {
+    0%, 100% { transform: translateX(-3px); }
+    25% { transform: translateX(3px) skewX(-4deg); }
+    50% { transform: translateX(-2px); }
+    75% { transform: translateX(4px); }
+}
+@keyframes glitchBot {
+    0%, 100% { transform: translateX(3px); }
+    25% { transform: translateX(-4px); }
+    50% { transform: translateX(2px) skewX(3deg); }
+    75% { transform: translateX(-3px); }
+}
+
+.error-page__divider {
+    width: 80px; height: 3px;
+    margin: 1.4rem auto 1.6rem;
+    background: linear-gradient(90deg, var(--cyber-cyan), var(--red));
+    border-radius: 2px;
+    box-shadow: 0 0 16px var(--red-glow);
+}
+.error-page__title {
+    font-family: var(--font-h);
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-weight: 800;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 18px var(--red-dim);
+}
+.error-page__desc {
+    color: #aab3c2;
+    font-size: 1rem;
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto 2rem;
+}
+.error-page__actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+}
+.error-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .55rem;
+    font-family: var(--font-h);
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--trans);
+    border: 1px solid transparent;
+}
+.error-btn--primary {
+    background: linear-gradient(90deg, var(--red), #c9002b);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(255,0,60,.4);
+}
+.error-btn--primary:hover { transform: translateY(-3px); box-shadow: 0 8px 28px var(--red-glow); color: #fff; }
+.error-btn--ghost {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255,255,255,.2);
+}
+.error-btn--ghost:hover { border-color: var(--cyber-cyan); color: var(--cyber-cyan); box-shadow: 0 0 16px rgba(0,229,255,.3); }
+
+.error-page__links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    font-size: .9rem;
+    color: var(--text-muted);
+}
+.error-page__links a {
+    color: var(--cyber-cyan);
+    text-decoration: none;
+    transition: .2s;
+}
+.error-page__links a:hover { color: var(--red); text-shadow: 0 0 8px var(--red-dim); }
+/* #endregion */
