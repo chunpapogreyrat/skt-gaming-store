@@ -228,6 +228,26 @@ function initHeroParticles() {
 /* #endregion */
 
 /* ==========================================
+   #region SITE BACKGROUND (cyber grid + glow trôi)
+========================================== */
+function initSiteBackground() {
+    // bỏ qua trang đăng nhập/đăng ký (có nền riêng)
+    if (document.querySelector('.auth-section')) return;
+    if (document.querySelector('.site-bg')) return;
+
+    var bg = document.createElement('div');
+    bg.className = 'site-bg';
+    bg.setAttribute('aria-hidden', 'true');
+    bg.innerHTML =
+        '<div class="site-bg__grid"></div>' +
+        '<div class="site-bg__glow site-bg__glow--1"></div>' +
+        '<div class="site-bg__glow site-bg__glow--2"></div>' +
+        '<div class="site-bg__glow site-bg__glow--3"></div>';
+    document.body.prepend(bg);
+}
+/* #endregion */
+
+/* ==========================================
    #region BACK TO TOP
 ========================================== */
 function initBackToTop() {
@@ -991,6 +1011,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initCountUp();
     initCartPage();
     initContactForm();
+    initSiteBackground();
     initHeroParticles();
     initBackToTop();
     initNavbar();
