@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "laravel",
+      "runtimeExecutable": "E:\\nam3hk1\\php\\php\\php-8.1.33-nts-Win32-vs16-x64\\php.exe",
+      "runtimeArgs": ["artisan", "serve", "--port=8000"],
+      "port": 8000
+    }
+  ]
+}

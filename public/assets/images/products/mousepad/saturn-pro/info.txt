@@ -1,0 +1,15 @@
+X-RAYPAD SATURN PRO XL
+
+p1 - Tên thương hiệu: X-raypad
+p2 - Tên sản phẩm: Lót chuột X-raypad Saturn Pro (XL)
+p3 - Tóm tắt mô tả ngắn gọn: Pad balanced cân bằng giữa tốc độ và kiểm soát. Viền khâu bền, đế cao su chống trượt, kích thước XL rộng rãi cho mọi DPI.
+p4 - Số lượng sao: 4.5 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 650.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 30
+p7 - Hashtag: #Xraypad #SaturnPro #BalancedPad #XL #Stitched #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Hồng (Pink).
+
+[Dữ liệu hệ thống] slug=saturn-pro | category=mousepad | images=1.webp;2.webp;3.webp

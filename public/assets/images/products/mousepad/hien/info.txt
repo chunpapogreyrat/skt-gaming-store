@@ -1,0 +1,15 @@
+ARTISAN HIEN
+
+p1 - Tên thương hiệu: Artisan
+p2 - Tên sản phẩm: Lót chuột Artisan Hien
+p3 - Tóm tắt mô tả ngắn gọn: Pad thiên speed với bề mặt lướt nhanh và mượt mà, mang chất lượng Artisan trứ danh. Phù hợp người thích di chuột tốc độ cao, phản xạ tức thời.
+p4 - Số lượng sao: 4.7 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 1.320.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 18
+p7 - Hashtag: #Artisan #Hien #SpeedPad #MadeInJapan #Premium #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Xanh (Blue) / Đỏ (Red).
+
+[Dữ liệu hệ thống] slug=hien | category=mousepad | images=1.webp;2.webp

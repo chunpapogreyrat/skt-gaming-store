@@ -1,0 +1,15 @@
+FANTECH SUPERSTRIKE
+
+p1 - Tên thương hiệu: Fantech
+p2 - Tên sản phẩm: Chuột Gaming Fantech Superstrike
+p3 - Tóm tắt mô tả ngắn gọn: Chuột gaming phổ thông giá tốt, trọng lượng nhẹ, LED RGB bắt mắt. Cảm biến ổn định, hoàn thiện chắc chắn — lựa chọn lý tưởng cho người mới bắt đầu.
+p4 - Số lượng sao: 4.2 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 890.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 45
+p7 - Hashtag: #Fantech #Superstrike #BudgetMouse #Lightweight #RGB #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=superstrike | category=mice | images=1.webp;2.webp;3.webp

@@ -1,0 +1,15 @@
+COREPAD PXP GRIPS
+
+p1 - Tên thương hiệu: Corepad
+p2 - Tên sản phẩm: Grip chuột Corepad PXP Grips
+p3 - Tóm tắt mô tả ngắn gọn: Miếng dán grip chống trượt cao cấp của Corepad, giúp tăng độ bám và kiểm soát khi tay đổ mồ hôi trong những pha thi đấu căng thẳng. Chất liệu thấm hút tốt, cắt sẵn theo nhiều form chuột phổ biến, dễ dán và bền bỉ.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 258.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 50
+p7 - Hashtag: #Corepad #PXPGrips #MouseGrip #AntiSlip #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black).
+
+[Dữ liệu hệ thống] slug=corepad-pxp-grips | category=accessory | images=1.webp;2.webp;3.webp

@@ -1,0 +1,15 @@
+TEEVOLUTION GRAVIS
+
+p1 - Tên thương hiệu: Teevolution
+p2 - Tên sản phẩm: Lót chuột Teevolution Gravis (Hybrid)
+p3 - Tóm tắt mô tả ngắn gọn: Bề mặt hybrid mượt như kính nhưng vẫn giữ được độ kiểm soát. Tốc độ glide cao, dễ vệ sinh — phù hợp người thích cảm giác nhanh mà chính xác.
+p4 - Số lượng sao: 4.4 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 720.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 22
+p7 - Hashtag: #Teevolution #Gravis #HybridPad #FastGlide #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black).
+
+[Dữ liệu hệ thống] slug=teevolution-gravis | category=mousepad | images=1.webp;2.webp;3.webp
