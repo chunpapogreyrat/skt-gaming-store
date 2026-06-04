@@ -751,6 +751,120 @@ function initCountUp() {
 /* #endregion */
 
 /* ==========================================
+   #region CART PAGE (trang giỏ hàng)
+========================================== */
+function initCartPage() {
+    var list = document.querySelector('.cart-page__list');
+    if (!list) return; // chỉ chạy ở cart.html
+
+    var FREE_SHIP = 500000;       // mốc freeship
+    var discountRate = 0;          // % giảm theo coupon
+
+    var fmt = function (n) { return n.toLocaleString('vi-VN') + 'd'; };
+
+    function recompute(bumpEl) {
+        var rows = list.querySelectorAll('.cart-page__item');
+        var subtotal = 0, totalQty = 0;
+
+        rows.forEach(function (row) {
+            var price = parseInt(row.dataset.price, 10) || 0;
+            var input = row.querySelector('.cart-page__qty-input');
+            var qty   = input ? (parseInt(input.value) || 1) : 1;
+            var line  = price * qty;
+            subtotal += line;
+            totalQty += qty;
+            var lineEl = row.querySelector('.cart-page__line-total');
+            if (lineEl) lineEl.textContent = fmt(line);
+        });
+
+        var discount = Math.round(subtotal * discountRate);
+        var total = subtotal - discount;
+
+        var subEl = document.getElementById('cartPageSubtotal');
+        var disEl = document.querySelector('.cart-page__summary-row .txt-red');
+        var totEl = document.getElementById('cartPageTotal');
+        if (subEl) subEl.textContent = fmt(subtotal);
+        if (disEl) disEl.textContent = '-' + fmt(discount);
+        if (totEl) totEl.textContent = total.toLocaleString('vi-VN') + ' VND';
+
+        // bump animation
+        if (totEl) { totEl.classList.remove('is-bumped'); void totEl.offsetWidth; totEl.classList.add('is-bumped'); }
+        if (bumpEl) { bumpEl.classList.remove('is-bumped'); void bumpEl.offsetWidth; bumpEl.classList.add('is-bumped'); }
+
+        // freeship progress
+        var fill = document.getElementById('cartPageProgressFill');
+        var note = document.getElementById('cartPageProgressNote');
+        var pct = Math.min(100, subtotal / FREE_SHIP * 100);
+        if (fill) fill.style.width = pct + '%';
+        if (note) {
+            note.innerHTML = subtotal >= FREE_SHIP
+                ? '<i class="fa-solid fa-truck-fast"></i> Ban duoc giao hang mien phi!'
+                : 'Mua them ' + fmt(FREE_SHIP - subtotal) + ' de duoc FREESHIP!';
+        }
+
+        // empty state
+        var empty = document.getElementById('cartPageEmpty');
+        if (empty) empty.classList.toggle('is-show', rows.length === 0);
+
+        // sync navbar badge
+        var badge = document.getElementById('cartBadge');
+        if (badge) { badge.textContent = totalQty; badge.style.display = totalQty > 0 ? '' : 'none'; }
+    }
+
+    // Delegated clicks: qty +/- và remove
+    list.addEventListener('click', function (e) {
+        var row = e.target.closest('.cart-page__item');
+        if (!row) return;
+
+        if (e.target.closest('[data-cart-plus]')) {
+            var inp = row.querySelector('.cart-page__qty-input');
+            inp.value = (parseInt(inp.value) || 1) + 1;
+            recompute(row.querySelector('.cart-page__line-total'));
+            return;
+        }
+        if (e.target.closest('[data-cart-minus]')) {
+            var inp2 = row.querySelector('.cart-page__qty-input');
+            inp2.value = Math.max(1, (parseInt(inp2.value) || 1) - 1);
+            recompute(row.querySelector('.cart-page__line-total'));
+            return;
+        }
+        if (e.target.closest('.cart-page__remove')) {
+            var nameEl = row.querySelector('.cart-page__name');
+            var name = nameEl ? nameEl.textContent.trim() : 'san pham nay';
+            (typeof showConfirm === 'function' ? showConfirm(name) : Promise.resolve(confirm('Xoa?')))
+                .then(function (ok) {
+                    if (!ok) return;
+                    row.classList.add('is-removing');
+                    setTimeout(function () { row.remove(); recompute(); }, 300);
+                });
+        }
+    });
+
+    // Coupon
+    var couponBtn = document.getElementById('cartCouponBtn');
+    if (couponBtn) {
+        couponBtn.addEventListener('click', function () {
+            var input = document.getElementById('cartCoupon');
+            var msg   = document.getElementById('cartCouponMsg');
+            var code  = (input.value || '').trim().toUpperCase();
+            var codes = { 'SKTSALE': 0.1, 'SKT50': 0.5, 'GAMING5': 0.05 };
+
+            if (codes[code]) {
+                discountRate = codes[code];
+                if (msg) { msg.className = 'cart-page__coupon-msg is-ok'; msg.textContent = 'Ap dung ma "' + code + '" thanh cong! Giam ' + (discountRate * 100) + '%.'; }
+            } else {
+                discountRate = 0;
+                if (msg) { msg.className = 'cart-page__coupon-msg is-err'; msg.textContent = 'Ma uu dai khong hop le!'; }
+            }
+            recompute();
+        });
+    }
+
+    recompute();
+}
+/* #endregion */
+
+/* ==========================================
    #region CONTACT FORM
 ========================================== */
 function initContactForm() {
@@ -784,6 +898,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initProductLinks();
     initSetupsFilter();
     initCountUp();
+    initCartPage();
     initContactForm();
     initNavbar();
     initHeroSlider();

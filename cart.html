@@ -95,7 +95,7 @@
                             <input class="cart-page__qty-input" type="text" value="1" readonly>
                             <button type="button" class="cart-page__qty-btn" data-cart-plus aria-label="Tang so luong">+</button>
                         </div>
-                        <button type="button" class="cart-page__remove">Bo</button>
+                        <button type="button" class="cart-page__remove" aria-label="Xoa san pham"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                     <div class="cart-page__line-total">5.990.000d</div>
                 </article>
@@ -116,7 +116,7 @@
                             <input class="cart-page__qty-input" type="text" value="1" readonly>
                             <button type="button" class="cart-page__qty-btn" data-cart-plus aria-label="Tang so luong">+</button>
                         </div>
-                        <button type="button" class="cart-page__remove">Bo</button>
+                        <button type="button" class="cart-page__remove" aria-label="Xoa san pham"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                     <div class="cart-page__line-total">3.850.000d</div>
                 </article>
@@ -137,7 +137,7 @@
                             <input class="cart-page__qty-input" type="text" value="1" readonly>
                             <button type="button" class="cart-page__qty-btn" data-cart-plus aria-label="Tang so luong">+</button>
                         </div>
-                        <button type="button" class="cart-page__remove">Bo</button>
+                        <button type="button" class="cart-page__remove" aria-label="Xoa san pham"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                     <div class="cart-page__line-total">3.490.000d</div>
                 </article>
@@ -172,8 +172,9 @@
                 <label class="cart-page__label" for="cartCoupon">Ma uu dai</label>
                 <div class="cart-page__coupon">
                     <input id="cartCoupon" type="text" placeholder="SKTSALE">
-                    <button type="button">Ap dung</button>
+                    <button type="button" id="cartCouponBtn">Ap dung</button>
                 </div>
+                <p class="cart-page__coupon-msg" id="cartCouponMsg"></p>
 
                 <a href="checkout.html" class="cart-page__checkout">
                     <i class="fa-solid fa-lock"></i>
