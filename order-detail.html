@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết đơn hàng - SKT Gaming Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="dark-theme">
+
+    <!-- #region ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <div class="announcement-bar__track">
+            <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&bull;&nbsp;</span>
+            <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&bull;&nbsp;</span>
+            <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&bull;&nbsp;</span>
+            <span>⚡ MIỄN PHÍ VẬN CHUYỂN đơn hàng từ 500K &nbsp;&bull;&nbsp;</span>
+            <span>🎮 FLASH SALE MỖI THỨ 6 — GIẢM ĐẾN 50% &nbsp;&bull;&nbsp;</span>
+            <span>🏆 BẢO HÀNH CHÍNH HÃNG 24 THÁNG &nbsp;&bull;&nbsp;</span>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region NAVBAR -->
+    <nav class="navbar" id="mainNav">
+        <div class="navbar__container">
+            <a href="index.html" class="navbar__logo"><span class="navbar__logo-skt">SKT</span> GAMING</a>
+            <button class="navbar__toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="navbar__menu" id="navMenu">
+                <ul class="navbar__links">
+                    <li><a href="index.html" class="navbar__link">Gaming Gear</a></li>
+                    <li><a href="setups.html" class="navbar__link">Góc game thủ</a></li>
+                    <li><a href="about.html" class="navbar__link">Giới thiệu về chúng tui</a></li>
+                    <li><a href="contact.html" class="navbar__link">Liên hệ</a></li>
+                </ul>
+                <div class="navbar__actions">
+                    <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openSearchBtn" aria-label="Tìm kiếm"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openCartBtn" aria-label="Giỏ hàng"><i class="fa-solid fa-cart-shopping"></i><span class="navbar__badge" id="cartBadge">0</span></button>
+                    <a href="profile.html" class="navbar__icon-btn" aria-label="Tài khoản"><i class="fa-regular fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- #endregion -->
+
+    <!-- #region BREADCRUMB -->
+    <nav class="breadcrumb-bar container-fluid px-4 px-xl-5">
+        <ol class="breadcrumb-bar__list">
+            <li><a href="index.html"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+            <li><a href="order-history.html">Lịch sử đơn hàng</a></li>
+            <li class="breadcrumb-bar__active">#SKT-284619</li>
+        </ol>
+    </nav>
+    <!-- #endregion -->
+
+    <!-- #region ORDER DETAIL -->
+    <main class="order-detail container-fluid px-4 px-xl-5">
+        <header class="order-detail__head" data-aos="fade-up">
+            <div>
+                <h1 class="order-detail__code">Đơn hàng #SKT-284619</h1>
+                <p class="order-detail__date"><i class="fa-regular fa-calendar"></i> Đặt ngày 05/06/2026</p>
+            </div>
+            <span class="order-status order-status--pending"><i class="fa-solid fa-clock"></i> Chờ xác nhận</span>
+        </header>
+
+        <!-- Progress steps (tái dùng .success-step) -->
+        <div class="success-page__steps" data-aos="fade-up" style="margin-bottom:32px">
+            <div class="success-step is-done"><span><i class="fa-solid fa-check"></i></span>Đã đặt hàng</div>
+            <div class="success-step__line"></div>
+            <div class="success-step is-active"><span><i class="fa-solid fa-box"></i></span>Đang đóng gói</div>
+            <div class="success-step__line"></div>
+            <div class="success-step"><span><i class="fa-solid fa-truck"></i></span>Đang giao</div>
+            <div class="success-step__line"></div>
+            <div class="success-step"><span><i class="fa-solid fa-house-circle-check"></i></span>Đã nhận</div>
+        </div>
+
+        <div class="order-detail__grid">
+            <!-- LEFT: items + shipping -->
+            <div data-aos="fade-right">
+                <section class="order-detail__panel">
+                    <h3 class="order-detail__panel-title"><i class="fa-solid fa-box-open"></i> Sản phẩm trong đơn</h3>
+
+                    <div class="order-detail__item">
+                        <img class="order-detail__item-img" src="assets/images/products/mice/finalmouse-ulx/1.webp" alt="">
+                        <div class="order-detail__item-info">
+                            <div class="order-detail__item-name">Finalmouse ULX Pro - Chuột Esports</div>
+                            <div class="order-detail__item-meta">Đen / Medium</div>
+                        </div>
+                        <div class="order-detail__item-qty">5.990.000đ × 1</div>
+                        <div class="order-detail__item-total">5.990.000đ</div>
+                    </div>
+
+                    <div class="order-detail__item">
+                        <img class="order-detail__item-img" src="assets/images/products/keyboard/wooting/1.webp" alt="">
+                        <div class="order-detail__item-info">
+                            <div class="order-detail__item-name">Wooting 60HE Analog Keyboard</div>
+                            <div class="order-detail__item-meta">Đen / Lekker Switch</div>
+                        </div>
+                        <div class="order-detail__item-qty">3.850.000đ × 1</div>
+                        <div class="order-detail__item-total">3.850.000đ</div>
+                    </div>
+
+                    <div class="order-detail__item">
+                        <img class="order-detail__item-img" src="assets/images/products/mice/maya-x/1.webp" alt="">
+                        <div class="order-detail__item-info">
+                            <div class="order-detail__item-name">Maya X Wireless - Chuột siêu nhẹ 38g</div>
+                            <div class="order-detail__item-meta">Trắng / Small</div>
+                        </div>
+                        <div class="order-detail__item-qty">3.490.000đ × 1</div>
+                        <div class="order-detail__item-total">3.490.000đ</div>
+                    </div>
+                </section>
+
+                <section class="order-detail__panel">
+                    <h3 class="order-detail__panel-title"><i class="fa-solid fa-truck-fast"></i> Thông tin giao hàng</h3>
+                    <div class="order-detail__info-row">
+                        <i class="fa-regular fa-user"></i>
+                        <span class="order-detail__info-label">Người nhận</span>
+                        <span class="order-detail__info-value">Nguyễn Văn A</span>
+                    </div>
+                    <div class="order-detail__info-row">
+                        <i class="fa-solid fa-phone"></i>
+                        <span class="order-detail__info-label">Số điện thoại</span>
+                        <span class="order-detail__info-value">0901 234 567</span>
+                    </div>
+                    <div class="order-detail__info-row">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span class="order-detail__info-label">Địa chỉ</span>
+                        <span class="order-detail__info-value">123 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh</span>
+                    </div>
+                    <div class="order-detail__info-row">
+                        <i class="fa-solid fa-note-sticky"></i>
+                        <span class="order-detail__info-label">Ghi chú</span>
+                        <span class="order-detail__info-value">Giao giờ hành chính, gọi trước khi giao</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- RIGHT: summary -->
+            <aside data-aos="fade-left">
+                <section class="order-detail__panel">
+                    <h3 class="order-detail__panel-title"><i class="fa-solid fa-receipt"></i> Tóm tắt thanh toán</h3>
+                    <div class="order-detail__sum-row"><span>Tạm tính</span><strong>13.330.000đ</strong></div>
+                    <div class="order-detail__sum-row"><span>Phí vận chuyển</span><strong class="txt-green">Miễn phí</strong></div>
+                    <div class="order-detail__sum-row"><span>Giảm giá (SKTSALE)</span><strong class="txt-red">-1.333.000đ</strong></div>
+                    <div class="order-detail__sum-total">
+                        <span>Tổng cộng</span>
+                        <strong>11.997.000đ</strong>
+                    </div>
+                </section>
+
+                <section class="order-detail__panel">
+                    <h3 class="order-detail__panel-title"><i class="fa-solid fa-credit-card"></i> Phương thức</h3>
+                    <div class="order-detail__info-row">
+                        <i class="fa-solid fa-money-bill-wave"></i>
+                        <span class="order-detail__info-value">COD - Thanh toán khi nhận hàng</span>
+                    </div>
+
+                    <!-- Nút hủy chỉ hiện khi đơn còn chờ xác nhận / đang chuẩn bị -->
+                    <button class="order-detail__cancel-btn" id="cancelOrderBtn">
+                        <i class="fa-solid fa-xmark"></i> Hủy đơn hàng
+                    </button>
+                </section>
+            </aside>
+        </div>
+    </main>
+    <!-- #endregion -->
+
+    <!-- #region CONFIRM MODAL -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-modal__backdrop" id="confirmBackdrop"></div>
+        <div class="confirm-modal__box">
+            <div class="confirm-modal__icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h6 class="confirm-modal__title">Hủy đơn hàng?</h6>
+            <p class="confirm-modal__text">Bạn có chắc chắn muốn hủy đơn #SKT-284619 không? Hành động này không thể hoàn tác.</p>
+            <div class="confirm-modal__actions">
+                <button class="confirm-modal__btn confirm-modal__btn--cancel" id="confirmCancel">Không</button>
+                <button class="confirm-modal__btn confirm-modal__btn--confirm" id="confirmOk">Hủy đơn</button>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region FOOTER -->
+    <footer class="site-footer mt-5">
+        <div class="container-fluid px-4 px-xl-5">
+            <div class="row g-4 site-footer__top">
+                <div class="col-lg-4 col-md-6">
+                    <a href="index.html" class="site-footer__logo"><span class="site-footer__logo-skt">SKT</span> GAMING STORE</a>
+                    <p class="site-footer__desc">Vũ khí tối thượng cho game thủ chuyên nghiệp. Engineered for extreme performance.</p>
+                    <div class="site-footer__socials">
+                        <a href="#" class="social-btn social-btn--yt"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-btn social-btn--fb"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn social-btn--dc"><i class="fa-brands fa-discord"></i></a>
+                        <a href="#" class="social-btn social-btn--ig"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h6 class="site-footer__col-title">HỖ TRỢ</h6>
+                    <ul class="site-footer__links list-unstyled">
+                        <li><a href="#">Chính sách bảo hành</a></li>
+                        <li><a href="#">Giao hàng hỏa tốc</a></li>
+                        <li><a href="contact.html">Liên hệ chúng tôi</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="site-footer__col-title">THANH TOÁN</h6>
+                    <div class="site-footer__payments">
+                        <span class="pay-icon pay-icon--visa"><i class="fa-brands fa-cc-visa"></i></span>
+                        <span class="pay-icon pay-icon--master"><i class="fa-brands fa-cc-mastercard"></i></span>
+                        <span class="pay-icon pay-icon--momo"><i class="fa-solid fa-wallet"></i></span>
+                    </div>
+                    <p class="site-footer__copyright">© 2026 SKT Gaming. Designed with Cyber-precision.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- #endregion -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script>
+        AOS.init({ duration: 600, once: true });
+        var modal = document.getElementById('confirmModal');
+        document.getElementById('cancelOrderBtn')?.addEventListener('click', () => modal.classList.add('confirm-modal--show'));
+        document.getElementById('confirmCancel')?.addEventListener('click', () => modal.classList.remove('confirm-modal--show'));
+        document.getElementById('confirmBackdrop')?.addEventListener('click', () => modal.classList.remove('confirm-modal--show'));
+        document.getElementById('confirmOk')?.addEventListener('click', () => { modal.classList.remove('confirm-modal--show'); });
+    </script>
+</body>
+
+</html>
