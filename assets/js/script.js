@@ -871,7 +871,7 @@ function initCartPage() {
     var FREE_SHIP = 500000;       // mốc freeship
     var discountRate = 0;          // % giảm theo coupon
 
-    var fmt = function (n) { return n.toLocaleString('vi-VN') + 'd'; };
+    var fmt = function (n) { return n.toLocaleString('vi-VN') + 'đ'; };
 
     function recompute(bumpEl) {
         var rows = list.querySelectorAll('.cart-page__item');
