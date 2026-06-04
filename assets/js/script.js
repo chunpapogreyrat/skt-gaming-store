@@ -976,6 +976,100 @@ function initCartPage() {
 /* #endregion */
 
 /* ==========================================
+   #region CHECKOUT PAGE
+========================================== */
+function initCheckout() {
+    var form = document.getElementById('checkoutForm');
+    if (!form) return; // chỉ chạy ở checkout.html
+
+    var FREE_SHIP_MIN = 500000;
+    var discountRate = 0;
+    var fmt = function (n) { return n.toLocaleString('vi-VN') + 'đ'; };
+
+    function subtotal() {
+        var s = 0;
+        document.querySelectorAll('.co-sum-item').forEach(function (it) {
+            s += parseInt(it.dataset.price, 10) || 0;
+        });
+        return s;
+    }
+    function shipFee() {
+        var sel = form.querySelector('input[name="ship"]:checked');
+        var fee = sel ? (parseInt(sel.value, 10) || 0) : 0;
+        // freeship tiêu chuẩn nếu đạt mốc
+        if (sel && sel.value === '0') return 0;
+        return fee;
+    }
+
+    function recompute() {
+        var sub = subtotal();
+        var ship = shipFee();
+        var discount = Math.round(sub * discountRate);
+        var total = sub + ship - discount;
+
+        var subEl = document.getElementById('coSubtotal');
+        var shipEl = document.getElementById('coShip');
+        var disEl = document.getElementById('coDiscount');
+        var totEl = document.getElementById('coTotal');
+        if (subEl) subEl.textContent = fmt(sub);
+        if (shipEl) shipEl.textContent = ship === 0 ? 'Miễn phí' : fmt(ship);
+        if (disEl) disEl.textContent = '-' + fmt(discount);
+        if (totEl) totEl.textContent = fmt(total);
+    }
+
+    // Chọn option (ship/pay): toggle is-selected
+    form.querySelectorAll('.co-option').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+            var input = opt.querySelector('input');
+            if (!input) return;
+            input.checked = true;
+            // bỏ chọn các option cùng nhóm
+            form.querySelectorAll('input[name="' + input.name + '"]').forEach(function (i) {
+                i.closest('.co-option').classList.toggle('is-selected', i.checked);
+            });
+            recompute();
+        });
+    });
+
+    // Coupon
+    var couponBtn = document.getElementById('coCouponBtn');
+    if (couponBtn) {
+        couponBtn.addEventListener('click', function () {
+            var code = (document.getElementById('coCoupon').value || '').trim().toUpperCase();
+            var msg = document.getElementById('coCouponMsg');
+            var codes = { 'SKTSALE': 0.1, 'SKT50': 0.5, 'GAMING5': 0.05 };
+            if (codes[code]) {
+                discountRate = codes[code];
+                if (msg) { msg.className = 'co-coupon-msg is-ok'; msg.textContent = 'Áp dụng mã "' + code + '" — giảm ' + (discountRate * 100) + '%.'; }
+            } else {
+                discountRate = 0;
+                if (msg) { msg.className = 'co-coupon-msg is-err'; msg.textContent = 'Mã ưu đãi không hợp lệ!'; }
+            }
+            recompute();
+        });
+    }
+
+    // Đặt hàng -> hiện overlay thành công
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (!form.checkValidity()) { form.reportValidity(); return; }
+        var overlay = document.getElementById('orderSuccess');
+        var codeEl = document.getElementById('orderCode');
+        if (codeEl) {
+            var rnd = Math.floor(100000 + Math.random() * 900000);
+            codeEl.textContent = '#SKT-' + rnd;
+        }
+        if (overlay) {
+            overlay.classList.add('is-open');
+            document.body.classList.add('is-locked');
+        }
+    });
+
+    recompute();
+}
+/* #endregion */
+
+/* ==========================================
    #region CONTACT FORM
 ========================================== */
 function initContactForm() {
@@ -1010,6 +1104,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initSetupsFilter();
     initCountUp();
     initCartPage();
+    initCheckout();
     initContactForm();
     initSiteBackground();
     initHeroParticles();
