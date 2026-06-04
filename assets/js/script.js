@@ -958,7 +958,7 @@ function initCartPage() {
             var input = document.getElementById('cartCoupon');
             var msg   = document.getElementById('cartCouponMsg');
             var code  = (input.value || '').trim().toUpperCase();
-            var codes = { 'SKTSALE': 0.1, 'SKT50': 0.5, 'GAMING5': 0.05 };
+            var codes = { 'YUKISALE': 0.1, 'YUKI50': 0.5, 'GAMING5': 0.05 };
 
             if (codes[code]) {
                 discountRate = codes[code];
@@ -1142,7 +1142,7 @@ function initCheckout() {
         couponBtn.addEventListener('click', function () {
             var code = (document.getElementById('coCoupon').value || '').trim().toUpperCase();
             var msg = document.getElementById('coCouponMsg');
-            var codes = { 'SKTSALE': 0.1, 'SKT50': 0.5, 'GAMING5': 0.05 };
+            var codes = { 'YUKISALE': 0.1, 'YUKI50': 0.5, 'GAMING5': 0.05 };
             if (codes[code]) {
                 discountRate = codes[code];
                 if (msg) { msg.className = 'co-coupon-msg is-ok'; msg.textContent = 'Áp dụng mã "' + code + '" — giảm ' + (discountRate * 100) + '%.'; }
@@ -1162,7 +1162,7 @@ function initCheckout() {
         var codeEl = document.getElementById('orderCode');
         if (codeEl) {
             var rnd = Math.floor(100000 + Math.random() * 900000);
-            codeEl.textContent = '#SKT-' + rnd;
+            codeEl.textContent = '#YUKI-' + rnd;
         }
         if (overlay) {
             overlay.classList.add('is-open');
@@ -1199,6 +1199,116 @@ function initContactForm() {
 /* #endregion */
 
 /* ==========================================
+   #region AUTH TRANSITIONS
+   Slide ngang (login ↔ register) và xoay tại chỗ (login ↔ forgot)
+   Dùng data-transition="slide-left|slide-right|spin" + data-slide-to="url"
+========================================== */
+function initAuthTransitions() {
+    var SLIDE_MS = 480;
+    var SPIN_MS  = 420;
+
+    /* đọc loại enter từ query string ?_et= */
+    var qs        = new URLSearchParams(location.search);
+    var enterType = qs.get('_et') || 'slide-right';
+    var panel     = document.getElementById('authPanel');
+    if (!panel) return;
+
+    /* --- enter animation khi trang load --- */
+    var startCSS = '';
+    if (enterType === 'slide-left')  startCSS = 'translateX(-110%)';
+    if (enterType === 'slide-right') startCSS = 'translateX(110%)';
+    if (enterType === 'spin')        startCSS = 'perspective(900px) rotateY(-90deg) scale(0.85)';
+
+    panel.style.transform  = startCSS;
+    panel.style.opacity    = '0';
+    panel.style.transition = 'none';
+
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            var dur = (enterType === 'spin') ? SPIN_MS : SLIDE_MS;
+            panel.style.transition =
+                'transform ' + dur + 'ms cubic-bezier(0.25,0.46,0.45,0.94),' +
+                'opacity '   + (dur * 0.55) + 'ms ease';
+            panel.style.transform = (enterType === 'spin')
+                ? 'perspective(900px) rotateY(0deg) scale(1)'
+                : 'translateX(0)';
+            panel.style.opacity = '1';
+        });
+    });
+
+    /* --- exit + navigate --- */
+    function goTo(url, exitType) {
+        var exitCSS, enterNext, dur;
+
+        if (exitType === 'slide-left') {
+            exitCSS   = 'translateX(-110%)';
+            enterNext = 'slide-right';
+            dur       = SLIDE_MS;
+        } else if (exitType === 'slide-right') {
+            exitCSS   = 'translateX(110%)';
+            enterNext = 'slide-left';
+            dur       = SLIDE_MS;
+        } else {
+            exitCSS   = 'perspective(900px) rotateY(90deg) scale(0.85)';
+            enterNext = 'spin';
+            dur       = SPIN_MS;
+        }
+
+        panel.style.transition =
+            'transform ' + dur + 'ms cubic-bezier(0.55,0.055,0.675,0.19),' +
+            'opacity '   + (dur * 0.45) + 'ms ease ' + (dur * 0.3) + 'ms';
+        panel.style.transform = exitCSS;
+        panel.style.opacity   = '0';
+
+        setTimeout(function () {
+            var sep = url.indexOf('?') > -1 ? '&' : '?';
+            location.href = url + sep + '_et=' + enterNext;
+        }, dur + 30);
+    }
+
+    document.querySelectorAll('[data-transition]').forEach(function (el) {
+        el.addEventListener('click', function (e) {
+            e.preventDefault();
+            var target = this.dataset.slideTo || this.getAttribute('href');
+            goTo(target, this.dataset.transition);
+        });
+    });
+
+    /* --- Tarik modal sau khi đăng nhập --- */
+    var loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var m = document.getElementById('tarikModal');
+            if (!m) return;
+            m.style.display = 'flex';
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    m.classList.add('tarik-modal--visible');
+                    // Tự đóng sau 15 giây
+                    var autoClose = setTimeout(function () { closeTarikModal(m); }, 15000);
+                    m._autoClose = autoClose;
+                });
+            });
+        });
+    }
+
+    function closeTarikModal(m) {
+        if (!m) return;
+        clearTimeout(m._autoClose);
+        m.classList.remove('tarik-modal--visible');
+        setTimeout(function () { m.style.display = 'none'; }, 400);
+    }
+
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('.tarik-modal__close') || e.target.id === 'tarikModal') {
+            closeTarikModal(document.getElementById('tarikModal'));
+        }
+    });
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
@@ -1227,4 +1337,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initDetailPage();
     initProfileTabs();
     initAuthParallax();
+    initAuthTransitions();
 });

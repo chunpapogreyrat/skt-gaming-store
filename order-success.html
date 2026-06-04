@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đặt Hàng Thành Công - SKT Gaming Store</title>
+    <title>Đặt Hàng Thành Công - YUKI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -31,7 +31,7 @@
 <!-- #region NAVBAR -->
 <nav class="navbar" id="mainNav">
     <div class="navbar__container">
-        <a href="index.html" class="navbar__logo"><span class="navbar__logo-skt">SKT</span> GAMING</a>
+        <a href="index.html" class="navbar__logo"><span class="navbar__logo-YUKI">YUKI</span> GAMING</a>
         <button class="navbar__toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
         <div class="navbar__menu" id="navMenu">
             <ul class="navbar__links">
@@ -74,17 +74,17 @@
 <main class="success-page container-fluid px-4 px-xl-5">
     <div class="success-page__inner" data-aos="zoom-in">
         <div class="success-page__check"><i class="fa-solid fa-check"></i></div>
-        <span class="success-page__eyebrow">ĐƠN HÀNG #SKT-284619</span>
+        <span class="success-page__eyebrow">ĐƠN HÀNG #YUKI-284619</span>
         <h1 class="success-page__title">Đặt hàng thành công!</h1>
         <p class="success-page__desc">
-            Cảm ơn bạn đã tin tưởng SKT Gaming Store. Đơn hàng đang được xử lý và sẽ sớm lên đường đến tay bạn.
+            Cảm ơn bạn đã tin tưởng YUKI. Đơn hàng đang được xử lý và sẽ sớm lên đường đến tay bạn.
             Thông tin chi tiết đã được gửi qua email.
         </p>
 
         <div class="success-card">
             <div class="success-card__row">
                 <span><i class="fa-solid fa-hashtag"></i> Mã đơn hàng</span>
-                <strong>#SKT-284619</strong>
+                <strong>#YUKI-284619</strong>
             </div>
             <div class="success-card__row">
                 <span><i class="fa-solid fa-truck-fast"></i> Giao hàng dự kiến</span>
@@ -123,7 +123,7 @@
     <div class="container-fluid px-4 px-xl-5">
         <div class="row g-4 site-footer__top">
             <div class="col-lg-4 col-md-6">
-                <a href="index.html" class="site-footer__logo"><span class="site-footer__logo-skt">SKT</span> GAMING STORE</a>
+                <a href="index.html" class="site-footer__logo"><span class="site-footer__logo-YUKI">YUKI</span> GAMING STORE</a>
                 <p class="site-footer__desc">Vũ khí tối thượng cho game thủ chuyên nghiệp. Engineered for extreme performance.</p>
                 <div class="site-footer__socials">
                     <a href="#" class="social-btn social-btn--web"><i class="fa-solid fa-globe"></i></a>
@@ -159,7 +159,7 @@
                     <span class="pay-icon pay-icon--bank" title="Internet Banking"><i class="fa-solid fa-building-columns"></i></span>
                     <span class="pay-icon pay-icon--paypal" title="PayPal"><i class="fa-brands fa-paypal"></i></span>
                 </div>
-                <p class="site-footer__copyright">© 2024 SKT Gaming. Designed with Cyber-precision.</p>
+                <p class="site-footer__copyright">© 2024 YUKI. Designed with Cyber-precision.</p>
             </div>
         </div>
     </div>
@@ -234,10 +234,60 @@
 </div>
 <!-- #endregion -->
 
+<!-- #region TENZ SUCCESS MODAL -->
+<div class="tenz-modal" id="tenzModal" role="dialog" aria-modal="true">
+    <div class="tenz-modal__bg"></div>
+    <div class="tenz-modal__inner">
+        <div class="tenz-modal__badge">⚡ Order Confirmed · YUKI</div>
+        <p class="tenz-modal__slogan">
+            Chuột đã trên tay,<br>
+            <span>Aim ngang TenZ thôi nào!!</span>
+        </p>
+        <button class="tenz-modal__close-btn" id="tenzModalClose">
+            <i class="fa-solid fa-xmark"></i> ĐÓNG
+        </button>
+    </div>
+</div>
+<!-- #endregion -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3/tsparticles.slim.bundle.min.js"></script>
 <script src="assets/js/script.js"></script>
+<script>
+    (function () {
+        var modal = document.getElementById('tenzModal');
+        var closeBtn = document.getElementById('tenzModalClose');
+
+        var autoCloseTimer = null;
+
+        // Hiện modal sau 400ms để trang load xong
+        setTimeout(function () {
+            modal.style.display = 'flex';
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    modal.classList.add('tenz-modal--visible');
+                    // Tự đóng sau 15 giây
+                    autoCloseTimer = setTimeout(closeModal, 15000);
+                });
+            });
+        }, 400);
+
+        // Đóng modal
+        function closeModal() {
+            clearTimeout(autoCloseTimer);
+            modal.classList.remove('tenz-modal--visible');
+            setTimeout(function () { modal.style.display = 'none'; }, 500);
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+
+        // Click vào nền cũng đóng
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeModal();
+        });
+    })();
+</script>
 </body>
 </html>

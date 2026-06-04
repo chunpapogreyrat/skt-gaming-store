@@ -4438,3 +4438,342 @@ select.contact-field__input { appearance: none; cursor: pointer; }
 .success-step__line { width: 30px; height: 2px; background: rgba(255,255,255,.12); margin-bottom: 1.2rem; }
 .success-page__actions { display: flex; gap: .9rem; justify-content: center; flex-wrap: wrap; }
 /* #endregion */
+
+/* ==========================================
+   #region AUTH PAGE — trang đăng nhập / đăng ký / quên mật khẩu
+   Áp dụng: login.html | register.html | forgot-password.html
+========================================== */
+
+/* --- Base: nền Tenz full màn hình --- */
+body.auth-page {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.auth-bg {
+    position: fixed;
+    inset: 0;
+    background: url('../images/library/Tenz2.png') center top / cover no-repeat;
+    z-index: 0;
+}
+
+.auth-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0, 0, 0, 0.78)    0%,
+        rgba(10, 12, 16, 0.65) 50%,
+        rgba(0, 0, 0, 0.72)    100%
+    );
+}
+
+/* --- Brand: logo góc trái trên --- */
+.auth-brand {
+    position: fixed;
+    top: 1.4rem;
+    left: 1.8rem;
+    z-index: 10;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #fff;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-shadow: 0 0 12px rgba(255, 0, 60, 0.4);
+}
+.auth-brand:hover {
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 0, 60, 0.7);
+}
+
+/* --- Back link: nút trở về góc phải trên --- */
+.auth-back {
+    position: fixed;
+    top: 1.2rem;
+    right: 1.8rem;
+    z-index: 10;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.2s;
+}
+.auth-back:hover { color: #fff; }
+
+/* --- Wrap: container canh form --- */
+.auth-wrap {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.auth-wrap--right { justify-content: flex-end;   padding: 5rem 3rem 2rem 1rem; } /* login & forgot */
+.auth-wrap--left  { justify-content: flex-start;  padding: 5rem 1rem 2rem 3rem; } /* register */
+
+/* --- Panel: khung nổi, target cho hiệu ứng slide --- */
+.auth-panel {
+    width: 100%;
+    max-width: 400px;
+    will-change: transform, opacity;
+}
+
+/* --- Card: hộp form --- (dùng định nghĩa glassmorphism ở đầu file) */
+
+/* --- Tarik Modal: popup sau khi đăng nhập thành công --- */
+.tarik-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.tarik-modal.tarik-modal--visible { opacity: 1; }
+
+.tarik-modal__bg {
+    position: absolute;
+    inset: 0;
+    background: url('../images/library/Tarik.png') center / cover no-repeat;
+}
+.tarik-modal__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.80) 0%, rgba(10,12,16,0.68) 100%);
+}
+
+.tarik-modal__inner {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 3rem 2.5rem;
+    max-width: 540px;
+    transform: translateY(28px) scale(0.96);
+    opacity: 0;
+    transition:
+        transform 0.55s cubic-bezier(0.215, 0.61, 0.355, 1) 0.15s,
+        opacity   0.45s ease 0.15s;
+}
+.tarik-modal.tarik-modal--visible .tarik-modal__inner {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.tarik-modal__badge {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    color: #ff003c;
+    border: 1px solid rgba(255, 0, 60, 0.5);
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 1.4rem;
+    text-transform: uppercase;
+}
+
+.tarik-modal__name {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(255, 0, 60, 0.55), 0 2px 12px rgba(0,0,0,0.8);
+}
+
+.tarik-modal__divider {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #ff003c, transparent);
+    margin: 0 auto 1.4rem;
+}
+
+.tarik-modal__slogan {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.12rem);
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.75;
+    margin-bottom: 2.2rem;
+}
+.tarik-modal__slogan em { font-style: normal; color: #ff003c; font-weight: 600; }
+
+.tarik-modal__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(90deg, #ff003c, #c0001f);
+    border: none;
+    padding: 14px 36px;
+    border-radius: 4px;
+    text-decoration: none;
+    box-shadow: 0 4px 22px rgba(255, 0, 60, 0.45);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.tarik-modal__cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255, 0, 60, 0.65);
+    color: #fff;
+}
+
+.tarik-modal__close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 2;
+}
+.tarik-modal__close:hover { color: #ff003c; }
+/* #endregion */
+
+/* ==========================================
+   #region TENZ SUCCESS MODAL
+   Popup full-screen sau khi thanh toán thành công
+========================================== */
+.tenz-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+.tenz-modal.tenz-modal--visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Ảnh TenZ full background */
+.tenz-modal__bg {
+    position: absolute;
+    inset: 0;
+    background: url('../images/library/Tenz.png') center top / cover no-repeat;
+}
+.tenz-modal__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.35) 0%,
+        rgba(0, 0, 0, 0.55) 50%,
+        rgba(10, 12, 16, 0.92) 100%
+    );
+}
+
+/* Nội dung căn giữa phía dưới */
+.tenz-modal__inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem 2rem 3.5rem;
+    max-width: 600px;
+    width: 92%;
+    margin-top: auto;
+    align-self: flex-end;
+
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+        opacity   0.55s ease 0.3s,
+        transform 0.55s cubic-bezier(0.215, 0.61, 0.355, 1) 0.3s;
+}
+.tenz-modal.tenz-modal--visible .tenz-modal__inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Badge nhỏ */
+.tenz-modal__badge {
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #00e5ff;
+    border: 1px solid rgba(0, 229, 255, 0.45);
+    padding: 4px 16px;
+    border-radius: 2px;
+    margin-bottom: 1.4rem;
+}
+
+/* Slogan lớn */
+.tenz-modal__slogan {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+    font-weight: 900;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    margin-bottom: 2rem;
+    text-shadow:
+        0 0 40px rgba(255, 0, 60, 0.5),
+        0 2px 20px rgba(0, 0, 0, 0.8);
+}
+.tenz-modal__slogan span {
+    color: #ff003c;
+    display: block;
+}
+
+/* Nút đóng */
+.tenz-modal__close-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    background: transparent;
+    border: 2px solid #ff003c;
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    transition: color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 14px rgba(255, 0, 60, 0.35);
+}
+.tenz-modal__close-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #ff003c;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.tenz-modal__close-btn:hover::before { transform: scaleX(1); }
+.tenz-modal__close-btn:hover {
+    box-shadow: 0 0 28px rgba(255, 0, 60, 0.65);
+}
+/* #endregion */
