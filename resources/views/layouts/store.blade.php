@@ -23,6 +23,10 @@
         .store-filter-input:focus { border-color: var(--red); }
         .store-alert { border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px; color: #dbeafe; background: rgba(0,229,255,.07); }
         .store-alert--err { color: #fecdd3; background: rgba(255,0,60,.08); border-color: rgba(255,0,60,.25); }
+        .store-btn { border: 0; border-radius: 8px; padding: 10px 14px; color: #fff; background: var(--red); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .store-btn:hover { color: #fff; filter: brightness(1.06); }
+        .store-btn--ghost { border: 1px solid rgba(255,255,255,.14); background: transparent; color: #cbd5e1; }
+        .store-btn--ghost:hover { border-color: rgba(0,229,255,.35); color: #fff; }
     </style>
     @stack('styles')
 </head>
@@ -57,6 +61,8 @@
                     </li>
                     <li><a href="{{ route('products.index', ['tag' => 'hot']) }}" class="navbar__link">Bán chạy</a></li>
                     <li><a href="{{ route('products.index', ['tag' => 'sale']) }}" class="navbar__link">Sale</a></li>
+                    <li><a href="{{ route('static.setups') }}" class="navbar__link {{ request()->routeIs('static.setups') ? 'navbar__link--active' : '' }}">Setups</a></li>
+                    <li><a href="{{ route('static.about') }}" class="navbar__link {{ request()->routeIs('static.about') ? 'navbar__link--active' : '' }}">Gioi thieu</a></li>
                 </ul>
                 <div class="navbar__actions">
                     <a href="{{ route('products.index') }}" class="navbar__icon-btn" aria-label="Tìm kiếm"><i class="fa-solid fa-magnifying-glass"></i></a>
@@ -85,11 +91,14 @@
                         <li><a href="{{ route('products.index', ['category' => 'keyboard']) }}">Ban phim co</a></li>
                         <li><a href="{{ route('products.index', ['category' => 'mice']) }}">Chuot gaming</a></li>
                         <li><a href="{{ route('products.index', ['category' => 'mousepad']) }}">Lot chuot</a></li>
+                        <li><a href="{{ route('static.setups') }}">Setups gaming</a></li>
                     </ul>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                    <h6 class="site-footer__col-title">TAI KHOAN</h6>
+                    <h6 class="site-footer__col-title">HO TRO</h6>
                     <ul class="site-footer__links list-unstyled">
+                        <li><a href="{{ route('static.about') }}">Gioi thieu</a></li>
+                        <li><a href="{{ route('static.contact') }}">Lien he</a></li>
                         @auth
                             <li><a href="{{ route('profile.show') }}">Tai khoan cua toi</a></li>
                             <li>
