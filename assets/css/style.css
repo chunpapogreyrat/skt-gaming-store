@@ -21,6 +21,8 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* overflow-x: clip chặn tràn ngang do AOS translate / glow trang trí — an toàn với position:sticky (khác overflow:hidden) */
+html, body { overflow-x: clip; }
 body.dark-theme { background: var(--bg-dark); color: var(--text-main); font-family: var(--font-b); }
 img { max-width: 100%; display: block; }
 
