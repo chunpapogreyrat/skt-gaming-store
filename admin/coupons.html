@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý mã giảm giá - SKT Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body class="admin-body">
+<div class="admin-layout">
+
+    <!-- #region ADMIN SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-sidebar__brand">
+            <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
+            <span class="admin-sidebar__badge">v2.0</span>
+        </div>
+        <nav class="admin-sidebar__nav">
+            <p class="admin-sidebar__label">Tổng quan</p>
+            <a href="dashboard.html" class="admin-sidebar__link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <p class="admin-sidebar__label">Quản lý</p>
+            <a href="products.html" class="admin-sidebar__link"><i class="fa-solid fa-box"></i> Sản phẩm</a>
+            <a href="orders.html" class="admin-sidebar__link"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+            <a href="users.html" class="admin-sidebar__link"><i class="fa-solid fa-users"></i> Tài khoản</a>
+            <a href="coupons.html" class="admin-sidebar__link is-active"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
+        </nav>
+        <div class="admin-sidebar__foot">
+            <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
+        </div>
+    </aside>
+    <!-- #endregion -->
+
+    <div class="admin-main">
+
+        <!-- #region ADMIN TOPBAR -->
+        <header class="admin-topbar">
+            <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="admin-topbar__spacer"></div>
+            <button class="admin-topbar__icon-btn"><i class="fa-regular fa-bell"></i><span class="admin-topbar__dot"></span></button>
+            <div class="admin-topbar__user">
+                <img class="admin-topbar__avatar" src="../assets/images/avatars/truong.jpg" alt="Admin">
+                <div>
+                    <div class="admin-topbar__user-name">Admin SKT</div>
+                    <div class="admin-topbar__user-role">Quản trị viên</div>
+                </div>
+                <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+        <!-- #endregion -->
+
+        <main class="admin-content">
+            <h1 class="admin-page-title">Quản lý mã giảm giá</h1>
+            <p class="admin-page-sub">Tạo và theo dõi các chương trình khuyến mãi</p>
+
+            <div class="admin-grid-2">
+                <!-- #region COUPON TABLE -->
+                <section class="admin-table-wrap">
+                    <div class="admin-table-wrap__head">
+                        <h3 class="admin-panel__title">Mã đang hoạt động</h3>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr><th>Mã code</th><th>Giảm</th><th>Đã dùng</th><th>Hạn</th><th>Trạng thái</th><th></th></tr>
+                        </thead>
+                        <tbody>
+                            <tr class="admin-table__row">
+                                <td><strong>SKTSALE</strong></td>
+                                <td class="admin-table__price">10%</td>
+                                <td>124 / 500</td>
+                                <td>31/12/2026</td>
+                                <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                <td><div class="d-flex gap-2">
+                                    <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                                </div></td>
+                            </tr>
+                            <tr class="admin-table__row">
+                                <td><strong>FREESHIP</strong></td>
+                                <td class="admin-table__price">30.000đ</td>
+                                <td>89 / ∞</td>
+                                <td>30/06/2026</td>
+                                <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                <td><div class="d-flex gap-2">
+                                    <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                                </div></td>
+                            </tr>
+                            <tr class="admin-table__row">
+                                <td><strong>TET2026</strong></td>
+                                <td class="admin-table__price">15%</td>
+                                <td>500 / 500</td>
+                                <td>15/02/2026</td>
+                                <td><span class="admin-badge admin-badge--cancel">Hết lượt</span></td>
+                                <td><div class="d-flex gap-2">
+                                    <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                                </div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <!-- #endregion -->
+
+                <!-- #region COUPON FORM -->
+                <section class="admin-panel">
+                    <h3 class="admin-panel__title mb-3">Tạo mã mới</h3>
+                    <form>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Mã code</label>
+                            <input type="text" class="admin-field__input" placeholder="VD: SKTSALE" style="text-transform:uppercase">
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Loại giảm</label>
+                            <select class="admin-field__select">
+                                <option value="phan_tram">Phần trăm (%)</option>
+                                <option value="so_tien">Số tiền (đ)</option>
+                            </select>
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Giá trị</label>
+                            <input type="number" class="admin-field__input" placeholder="10">
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Đơn tối thiểu (đ)</label>
+                            <input type="number" class="admin-field__input" placeholder="500000">
+                        </div>
+                        <div class="admin-field__row">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Số lượt tối đa</label>
+                                <input type="number" class="admin-field__input" placeholder="500">
+                            </div>
+                            <div class="admin-field">
+                                <label class="admin-field__label">Ngày hết hạn</label>
+                                <input type="date" class="admin-field__input">
+                            </div>
+                        </div>
+                        <div class="admin-form__actions">
+                            <button type="submit" class="admin-btn admin-btn--primary"><i class="fa-solid fa-plus"></i> Tạo mã</button>
+                        </div>
+                    </form>
+                </section>
+                <!-- #endregion -->
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.getElementById('adminSidebar').classList.toggle('is-open');
+    });
+</script>
+</body>
+
+</html>

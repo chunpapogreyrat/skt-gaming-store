@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SKT Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body class="admin-body">
+<div class="admin-layout">
+
+    <!-- #region ADMIN SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-sidebar__brand">
+            <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
+            <span class="admin-sidebar__badge">v2.0</span>
+        </div>
+        <nav class="admin-sidebar__nav">
+            <p class="admin-sidebar__label">Tổng quan</p>
+            <a href="dashboard.html" class="admin-sidebar__link is-active"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <p class="admin-sidebar__label">Quản lý</p>
+            <a href="products.html" class="admin-sidebar__link"><i class="fa-solid fa-box"></i> Sản phẩm</a>
+            <a href="orders.html" class="admin-sidebar__link"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+            <a href="users.html" class="admin-sidebar__link"><i class="fa-solid fa-users"></i> Tài khoản</a>
+            <a href="coupons.html" class="admin-sidebar__link"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
+        </nav>
+        <div class="admin-sidebar__foot">
+            <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
+        </div>
+    </aside>
+    <!-- #endregion -->
+
+    <div class="admin-main">
+
+        <!-- #region ADMIN TOPBAR -->
+        <header class="admin-topbar">
+            <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="admin-topbar__search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Tìm kiếm sản phẩm, đơn hàng...">
+            </div>
+            <div class="admin-topbar__spacer"></div>
+            <button class="admin-topbar__icon-btn"><i class="fa-regular fa-bell"></i><span class="admin-topbar__dot"></span></button>
+            <div class="admin-topbar__user">
+                <img class="admin-topbar__avatar" src="../assets/images/avatars/truong.jpg" alt="Admin">
+                <div>
+                    <div class="admin-topbar__user-name">Admin SKT</div>
+                    <div class="admin-topbar__user-role">Quản trị viên</div>
+                </div>
+                <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+        <!-- #endregion -->
+
+        <main class="admin-content">
+            <h1 class="admin-page-title">Dashboard</h1>
+            <p class="admin-page-sub">Tổng quan hoạt động cửa hàng — cập nhật realtime</p>
+
+            <!-- #region STAT CARDS -->
+            <section class="admin-stats">
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--red"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--up"><i class="fa-solid fa-arrow-up"></i> 12.5%</span>
+                    </div>
+                    <div class="admin-stat__value">284.6M</div>
+                    <div class="admin-stat__label">Doanh thu tháng</div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--cyan"><i class="fa-solid fa-receipt"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--up"><i class="fa-solid fa-arrow-up"></i> 8.2%</span>
+                    </div>
+                    <div class="admin-stat__value">1.284</div>
+                    <div class="admin-stat__label">Đơn hàng</div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--green"><i class="fa-solid fa-box"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--up"><i class="fa-solid fa-arrow-up"></i> 3</span>
+                    </div>
+                    <div class="admin-stat__value">40</div>
+                    <div class="admin-stat__label">Sản phẩm</div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--amber"><i class="fa-solid fa-users"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--down"><i class="fa-solid fa-arrow-down"></i> 1.1%</span>
+                    </div>
+                    <div class="admin-stat__value">3.912</div>
+                    <div class="admin-stat__label">Người dùng</div>
+                </div>
+            </section>
+            <!-- #endregion -->
+
+            <!-- #region CHART + TOP PRODUCTS -->
+            <section class="admin-grid-2">
+                <div class="admin-panel">
+                    <div class="admin-panel__head">
+                        <h3 class="admin-panel__title">Doanh thu 7 ngày</h3>
+                        <select class="admin-status-select">
+                            <option>7 ngày</option><option>30 ngày</option><option>12 tháng</option>
+                        </select>
+                    </div>
+                    <div class="admin-chart">
+                        <div class="admin-chart__bar" style="height: 45%" data-label="T2"></div>
+                        <div class="admin-chart__bar" style="height: 68%" data-label="T3"></div>
+                        <div class="admin-chart__bar" style="height: 52%" data-label="T4"></div>
+                        <div class="admin-chart__bar" style="height: 80%" data-label="T5"></div>
+                        <div class="admin-chart__bar" style="height: 95%" data-label="T6"></div>
+                        <div class="admin-chart__bar" style="height: 72%" data-label="T7"></div>
+                        <div class="admin-chart__bar" style="height: 60%" data-label="CN"></div>
+                    </div>
+                </div>
+                <div class="admin-panel">
+                    <div class="admin-panel__head">
+                        <h3 class="admin-panel__title">Bán chạy nhất</h3>
+                    </div>
+                    <div class="admin-table__product mb-3">
+                        <img class="admin-table__thumb" src="../assets/images/products/mice/finalmouse-ulx/1.webp" alt="">
+                        <div><div class="admin-table__name">Finalmouse ULX</div><div class="admin-table__muted">128 đã bán</div></div>
+                    </div>
+                    <div class="admin-table__product mb-3">
+                        <img class="admin-table__thumb" src="../assets/images/products/keyboard/wooting/1.webp" alt="">
+                        <div><div class="admin-table__name">Wooting 60HE</div><div class="admin-table__muted">96 đã bán</div></div>
+                    </div>
+                    <div class="admin-table__product mb-3">
+                        <img class="admin-table__thumb" src="../assets/images/products/mice/maya-x/1.webp" alt="">
+                        <div><div class="admin-table__name">Maya X Wireless</div><div class="admin-table__muted">73 đã bán</div></div>
+                    </div>
+                    <div class="admin-table__product">
+                        <img class="admin-table__thumb" src="../assets/images/products/mousepad/hien/1.webp" alt="">
+                        <div><div class="admin-table__name">Hien Mousepad</div><div class="admin-table__muted">61 đã bán</div></div>
+                    </div>
+                </div>
+            </section>
+            <!-- #endregion -->
+
+            <!-- #region RECENT ORDERS -->
+            <section class="admin-table-wrap">
+                <div class="admin-table-wrap__head">
+                    <h3 class="admin-panel__title">Đơn hàng mới nhất</h3>
+                    <a href="orders.html" class="admin-btn admin-btn--ghost admin-btn--sm">Xem tất cả</a>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Mã đơn</th><th>Khách hàng</th><th>Sản phẩm</th><th>Tổng tiền</th><th>Trạng thái</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="admin-table__row">
+                            <td><strong>#SKT-284619</strong></td><td>Nguyễn Văn A</td><td>3 sản phẩm</td>
+                            <td class="admin-table__price">13.330.000đ</td>
+                            <td><span class="admin-badge admin-badge--pending"><i class="fa-solid fa-clock"></i> Chờ xác nhận</span></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><strong>#SKT-284618</strong></td><td>Trần Thị B</td><td>1 sản phẩm</td>
+                            <td class="admin-table__price">5.990.000đ</td>
+                            <td><span class="admin-badge admin-badge--shipping"><i class="fa-solid fa-truck"></i> Đang giao</span></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><strong>#SKT-284617</strong></td><td>Lê Văn C</td><td>2 sản phẩm</td>
+                            <td class="admin-table__price">7.340.000đ</td>
+                            <td><span class="admin-badge admin-badge--done"><i class="fa-solid fa-check"></i> Đã giao</span></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><strong>#SKT-284616</strong></td><td>Phạm Thị D</td><td>1 sản phẩm</td>
+                            <td class="admin-table__price">3.490.000đ</td>
+                            <td><span class="admin-badge admin-badge--cancel"><i class="fa-solid fa-xmark"></i> Đã hủy</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <!-- #endregion -->
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.getElementById('adminSidebar').classList.toggle('is-open');
+    });
+</script>
+</body>
+
+</html>

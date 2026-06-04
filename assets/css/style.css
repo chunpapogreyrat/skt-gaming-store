@@ -4777,3 +4777,55 @@ body.auth-page {
     box-shadow: 0 0 28px rgba(255, 0, 60, 0.65);
 }
 /* #endregion */
+
+/* #region UTILITIES */
+/* Utility class dùng chung cho Giỏ hàng / Thanh toán (Module 3, 4) */
+
+/* .txt-red đã định nghĩa phía trên (~dòng 3174) — giữ nguyên, không lặp lại */
+
+/* Chữ xanh neon — dùng cho trạng thái "Miễn phí", thành công */
+.txt-green {
+    color: #39ff14;
+    text-shadow: 0 0 12px rgba(57, 255, 20, .45);
+}
+
+/* Nút viền cyber — đồng bộ kích thước/hiệu ứng với .btn-main */
+.btn-outline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 35px;
+    font-family: var(--font-h);
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--cyber-cyan);
+    background: transparent;
+    border: 1px solid var(--cyber-cyan);
+    border-radius: var(--radius);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    transition: var(--trans);
+    box-shadow: 0 0 10px var(--cyber-cyan-glow);
+    text-decoration: none;
+}
+.btn-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    left: -100%;
+    background: var(--cyber-cyan);
+    z-index: -1;
+    transition: left .4s cubic-bezier(.25, .8, .25, 1);
+}
+.btn-outline:hover {
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--cyber-cyan-glow), 0 0 40px var(--cyber-cyan-glow);
+    transform: translateY(-2px);
+}
+.btn-outline:hover::before { left: 0; }
+/* #endregion */

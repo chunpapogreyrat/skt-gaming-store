@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý tài khoản - SKT Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body class="admin-body">
+<div class="admin-layout">
+
+    <!-- #region ADMIN SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-sidebar__brand">
+            <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
+            <span class="admin-sidebar__badge">v2.0</span>
+        </div>
+        <nav class="admin-sidebar__nav">
+            <p class="admin-sidebar__label">Tổng quan</p>
+            <a href="dashboard.html" class="admin-sidebar__link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <p class="admin-sidebar__label">Quản lý</p>
+            <a href="products.html" class="admin-sidebar__link"><i class="fa-solid fa-box"></i> Sản phẩm</a>
+            <a href="orders.html" class="admin-sidebar__link"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+            <a href="users.html" class="admin-sidebar__link is-active"><i class="fa-solid fa-users"></i> Tài khoản</a>
+            <a href="coupons.html" class="admin-sidebar__link"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
+        </nav>
+        <div class="admin-sidebar__foot">
+            <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
+        </div>
+    </aside>
+    <!-- #endregion -->
+
+    <div class="admin-main">
+
+        <!-- #region ADMIN TOPBAR -->
+        <header class="admin-topbar">
+            <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="admin-topbar__search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Tìm tài khoản, email...">
+            </div>
+            <div class="admin-topbar__spacer"></div>
+            <button class="admin-topbar__icon-btn"><i class="fa-regular fa-bell"></i><span class="admin-topbar__dot"></span></button>
+            <div class="admin-topbar__user">
+                <img class="admin-topbar__avatar" src="../assets/images/avatars/truong.jpg" alt="Admin">
+                <div>
+                    <div class="admin-topbar__user-name">Admin SKT</div>
+                    <div class="admin-topbar__user-role">Quản trị viên</div>
+                </div>
+                <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+        <!-- #endregion -->
+
+        <main class="admin-content">
+            <h1 class="admin-page-title">Quản lý tài khoản</h1>
+            <p class="admin-page-sub">3.912 người dùng · 2 quản trị viên</p>
+
+            <!-- #region USER TABLE -->
+            <section class="admin-table-wrap">
+                <div class="admin-table-wrap__head">
+                    <h3 class="admin-panel__title">Danh sách tài khoản</h3>
+                    <select class="admin-status-select">
+                        <option>Tất cả vai trò</option><option>Khách hàng</option><option>Quản trị viên</option>
+                    </select>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Người dùng</th><th>Email</th><th>SĐT</th><th>Vai trò</th><th>Trạng thái</th><th>Thao tác</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product">
+                                <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
+                                <div class="admin-table__name">Admin SKT</div>
+                            </div></td>
+                            <td>admin@skt.vn</td>
+                            <td>0900 000 001</td>
+                            <td><span class="admin-badge admin-badge--cancel">Admin</span></td>
+                            <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product">
+                                <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
+                                <div class="admin-table__name">Nguyễn Văn A</div>
+                            </div></td>
+                            <td>vana@gmail.com</td>
+                            <td>0901 234 567</td>
+                            <td><span class="admin-badge admin-badge--prep">Khách</span></td>
+                            <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product">
+                                <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
+                                <div class="admin-table__name">Trần Thị B</div>
+                            </div></td>
+                            <td>thib@gmail.com</td>
+                            <td>0912 345 678</td>
+                            <td><span class="admin-badge admin-badge--prep">Khách</span></td>
+                            <td><span class="admin-badge admin-badge--stock-out">Đã khóa</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-unlock"></i></button>
+                            </div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="admin-pagination">
+                    <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-left"></i></a>
+                    <a href="#" class="admin-pagination__btn is-active">1</a>
+                    <a href="#" class="admin-pagination__btn">2</a>
+                    <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-right"></i></a>
+                </div>
+            </section>
+            <!-- #endregion -->
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.getElementById('adminSidebar').classList.toggle('is-open');
+    });
+</script>
+</body>
+
+</html>

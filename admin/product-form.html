@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm / Sửa sản phẩm - SKT Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body class="admin-body">
+<div class="admin-layout">
+
+    <!-- #region ADMIN SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-sidebar__brand">
+            <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
+            <span class="admin-sidebar__badge">v2.0</span>
+        </div>
+        <nav class="admin-sidebar__nav">
+            <p class="admin-sidebar__label">Tổng quan</p>
+            <a href="dashboard.html" class="admin-sidebar__link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <p class="admin-sidebar__label">Quản lý</p>
+            <a href="products.html" class="admin-sidebar__link is-active"><i class="fa-solid fa-box"></i> Sản phẩm</a>
+            <a href="orders.html" class="admin-sidebar__link"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+            <a href="users.html" class="admin-sidebar__link"><i class="fa-solid fa-users"></i> Tài khoản</a>
+            <a href="coupons.html" class="admin-sidebar__link"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
+        </nav>
+        <div class="admin-sidebar__foot">
+            <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
+        </div>
+    </aside>
+    <!-- #endregion -->
+
+    <div class="admin-main">
+
+        <!-- #region ADMIN TOPBAR -->
+        <header class="admin-topbar">
+            <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="admin-topbar__spacer"></div>
+            <div class="admin-topbar__user">
+                <img class="admin-topbar__avatar" src="../assets/images/avatars/truong.jpg" alt="Admin">
+                <div>
+                    <div class="admin-topbar__user-name">Admin SKT</div>
+                    <div class="admin-topbar__user-role">Quản trị viên</div>
+                </div>
+                <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+        <!-- #endregion -->
+
+        <main class="admin-content">
+            <h1 class="admin-page-title">Thêm sản phẩm</h1>
+            <p class="admin-page-sub"><a href="products.html" class="admin-table__muted">Sản phẩm</a> / Thêm mới</p>
+
+            <!-- #region PRODUCT FORM -->
+            <form class="admin-form-grid">
+                <div>
+                    <div class="admin-panel mb-3">
+                        <h3 class="admin-panel__title mb-3">Thông tin cơ bản</h3>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Tên sản phẩm</label>
+                            <input type="text" class="admin-field__input" placeholder="VD: Finalmouse ULX Pro">
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Thương hiệu</label>
+                            <input type="text" class="admin-field__input" placeholder="VD: Finalmouse">
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Mô tả ngắn</label>
+                            <textarea class="admin-field__textarea" placeholder="Tóm tắt mô tả sản phẩm..."></textarea>
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Mô tả chi tiết</label>
+                            <textarea class="admin-field__textarea" placeholder="Thông số kỹ thuật, đặc điểm nổi bật..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="admin-panel">
+                        <h3 class="admin-panel__title mb-3">Hình ảnh sản phẩm</h3>
+                        <label class="admin-upload" for="imgUpload">
+                            <i class="fa-solid fa-cloud-arrow-up d-block"></i>
+                            Kéo thả hoặc bấm để chọn ảnh (.webp, .jpg)
+                            <input type="file" id="imgUpload" multiple accept="image/*" hidden>
+                        </label>
+                        <div class="admin-upload-preview">
+                            <div class="admin-upload-preview__item">
+                                <img src="../assets/images/products/mice/finalmouse-ulx/1.webp" alt="">
+                                <button type="button" class="admin-upload-preview__remove"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="admin-upload-preview__item">
+                                <img src="../assets/images/products/mice/finalmouse-ulx/2.webp" alt="">
+                                <button type="button" class="admin-upload-preview__remove"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <div class="admin-upload-preview__item">
+                                <img src="../assets/images/products/mice/finalmouse-ulx/3.webp" alt="">
+                                <button type="button" class="admin-upload-preview__remove"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="admin-panel mb-3">
+                        <h3 class="admin-panel__title mb-3">Giá & Kho</h3>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Giá bán (đ)</label>
+                            <input type="number" class="admin-field__input" placeholder="5990000">
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Giá nhập (đ)</label>
+                            <input type="number" class="admin-field__input" placeholder="4500000">
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Số lượng kho</label>
+                            <input type="number" class="admin-field__input" placeholder="24">
+                        </div>
+                    </div>
+
+                    <div class="admin-panel mb-3">
+                        <h3 class="admin-panel__title mb-3">Phân loại</h3>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Danh mục</label>
+                            <select class="admin-field__select">
+                                <option>Chuột</option><option>Bàn phím</option><option>Lót chuột</option><option>Phụ kiện</option>
+                            </select>
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Biến thể màu sắc</label>
+                            <div class="admin-color-chips">
+                                <span class="admin-color-chip"><span class="admin-color-chip__dot" style="background:#000"></span> Đen</span>
+                                <span class="admin-color-chip"><span class="admin-color-chip__dot" style="background:#fff"></span> Trắng</span>
+                                <span class="admin-color-chip"><i class="fa-solid fa-plus"></i> Thêm màu</span>
+                            </div>
+                        </div>
+                        <div class="admin-field">
+                            <label class="admin-field__label">Số sao đánh giá</label>
+                            <input type="number" class="admin-field__input" min="0" max="5" step="0.1" placeholder="4.8">
+                        </div>
+                    </div>
+
+                    <div class="admin-form__actions">
+                        <button type="submit" class="admin-btn admin-btn--primary"><i class="fa-solid fa-floppy-disk"></i> Lưu sản phẩm</button>
+                        <a href="products.html" class="admin-btn admin-btn--ghost">Hủy</a>
+                    </div>
+                </div>
+            </form>
+            <!-- #endregion -->
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+        document.getElementById('adminSidebar').classList.toggle('is-open');
+    });
+</script>
+</body>
+
+</html>
