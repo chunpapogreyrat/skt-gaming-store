@@ -152,7 +152,17 @@ function initCountdown() {
 ========================================== */
 function initAOS() {
     if (typeof AOS === 'undefined') return;
-    AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
+    AOS.init({
+        duration: 750,
+        easing: 'ease-out-cubic',
+        once: false,        // chạy lại mỗi lần phần tử vào khung nhìn
+        mirror: true,       // animate cả khi cuộn LÊN (phần tử rời khung nhìn)
+        offset: 80,
+        anchorPlacement: 'top-bottom'
+    });
+
+    // refresh khi ảnh/layout đổi để tính lại vị trí trigger
+    window.addEventListener('load', function () { AOS.refresh(); });
 }
 /* #endregion */
 
