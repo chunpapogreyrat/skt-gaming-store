@@ -1,0 +1,13 @@
+# SKT Gaming - Product info (key=value) -> dung de nhap database
+brand=
+name=Finalmouse ULX
+slug=finalmouse-ulx
+category=mice
+description=
+rating=
+price_import=
+price_sale=
+stock=
+hashtags=
+colors=
+images=1.webp;2.webp;3.webp;4.webp;5.webp

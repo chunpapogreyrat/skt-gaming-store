@@ -1,0 +1,13 @@
+# SKT Gaming - Product info (key=value) -> dung de nhap database
+brand=
+name=Corepad CTRL Dots
+slug=corepad-ctrl-dots
+category=accessory
+description=
+rating=
+price_import=
+price_sale=
+stock=
+hashtags=
+colors=
+images=1.webp;2.webp

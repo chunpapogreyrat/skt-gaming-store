@@ -1,0 +1,13 @@
+# SKT Gaming - Product info (key=value) -> dung de nhap database
+brand=
+name=MADE68 Ultra V2
+slug=made68-ultra-v2
+category=keyboard
+description=
+rating=
+price_import=
+price_sale=
+stock=
+hashtags=
+colors=
+images=1.webp;2.webp;3.webp
