@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 //  Thêm route vào codex.php hoặc claude.php tương ứng
 // ══════════════════════════════════════════════════════
 
-// Trang chủ tạm — sẽ chuyển vào codex.php khi HomeController sẵn sàng
+// Trang chủ
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
