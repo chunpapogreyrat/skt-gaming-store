@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     {{-- CSS dự án --}}
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
     @stack('styles')
 </head>
@@ -207,7 +207,7 @@
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 {{-- JS dự án --}}
-<script src="{{ asset('js/script.js') }}"></script>
+<script src="{{ asset('assets/js/script.js') }}"></script>
 
 @stack('scripts')
 
