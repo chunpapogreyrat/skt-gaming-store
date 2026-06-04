@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DonHangController;
 use App\Http\Controllers\GioHangController;
 use App\Http\Controllers\MaGiamGiaController;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +25,18 @@ Route::post('/gio-hang/coupon', [MaGiamGiaController::class, 'apDung'])->name('c
 Route::delete('/gio-hang/coupon', [MaGiamGiaController::class, 'huy'])->name('coupon.remove');
 
 // ──────────────────────────────────────────────────────
-// Module 4 — DonHang (sẽ thêm)
+// Module 4 — DonHang
 // ──────────────────────────────────────────────────────
+Route::get('/thanh-toan', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/thanh-toan', [CheckoutController::class, 'datHang'])->name('checkout.place');
+
+Route::get('/don-hang/thanh-cong/{ma}', [DonHangController::class, 'success'])->name('orders.success');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/don-hang', [DonHangController::class, 'index'])->name('orders.index');
+    Route::get('/don-hang/{ma}', [DonHangController::class, 'show'])->name('orders.show');
+    Route::post('/don-hang/{ma}/huy', [DonHangController::class, 'huy'])->name('orders.cancel');
+});
 
 // ──────────────────────────────────────────────────────
 // Module 6 — Admin (sẽ thêm)
