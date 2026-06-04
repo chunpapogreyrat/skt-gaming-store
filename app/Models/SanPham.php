@@ -82,6 +82,11 @@ class SanPham extends Model
         return $this->hasMany(ThongSoSanPham::class, 'san_pham_id')->orderBy('thu_tu');
     }
 
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'san_pham_id');
+    }
+
     public function mainImagePath(): string
     {
         $path = $this->hinhAnh->first()?->duong_dan;

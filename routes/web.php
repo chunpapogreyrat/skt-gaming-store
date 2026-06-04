@@ -5,7 +5,10 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DanhGiaController;
 use App\Http\Controllers\DanhMucController;
+use App\Http\Controllers\DiaChiController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SanPhamController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +34,18 @@ Route::middleware('guest.module')->group(function () {
 });
 
 Route::middleware('auth.module')->group(function () {
+    Route::get('/nguoi-dung', [ProfileController::class, 'show'])->name('profile.show');
+    Route::patch('/nguoi-dung/ho-so', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/nguoi-dung/mat-khau', [ProfileController::class, 'updatePassword'])->name('profile.password');
+
+    Route::post('/nguoi-dung/dia-chi', [DiaChiController::class, 'store'])->name('profile.addresses.store');
+    Route::patch('/nguoi-dung/dia-chi/{diaChi}', [DiaChiController::class, 'update'])->name('profile.addresses.update');
+    Route::delete('/nguoi-dung/dia-chi/{diaChi}', [DiaChiController::class, 'destroy'])->name('profile.addresses.destroy');
+    Route::patch('/nguoi-dung/dia-chi/{diaChi}/mac-dinh', [DiaChiController::class, 'makeDefault'])->name('profile.addresses.default');
+
+    Route::post('/products/{sanPham:slug}/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
+    Route::delete('/wishlist/{wishlist}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
     Route::post('/dang-xuat', [LoginController::class, 'logout'])->name('logout');
     Route::post('/products/{sanPham:slug}/reviews', [DanhGiaController::class, 'store'])->name('products.reviews.store');
 

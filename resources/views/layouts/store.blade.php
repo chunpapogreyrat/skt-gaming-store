@@ -61,7 +61,7 @@
                 <div class="navbar__actions">
                     <a href="{{ route('products.index') }}" class="navbar__icon-btn" aria-label="Tìm kiếm"><i class="fa-solid fa-magnifying-glass"></i></a>
                     @auth
-                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('products.index') }}" class="navbar__icon-btn" aria-label="Tài khoản"><i class="fa-regular fa-user"></i></a>
+                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.show') }}" class="navbar__icon-btn" aria-label="Tài khoản"><i class="fa-regular fa-user"></i></a>
                     @else
                         <a href="{{ route('login') }}" class="navbar__icon-btn" aria-label="Đăng nhập"><i class="fa-regular fa-user"></i></a>
                     @endauth
@@ -91,6 +91,7 @@
                     <h6 class="site-footer__col-title">TAI KHOAN</h6>
                     <ul class="site-footer__links list-unstyled">
                         @auth
+                            <li><a href="{{ route('profile.show') }}">Tai khoan cua toi</a></li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf

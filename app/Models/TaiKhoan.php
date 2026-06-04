@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TaiKhoan extends Authenticatable
@@ -37,6 +38,7 @@ class TaiKhoan extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'ngay_sinh' => 'date',
         'ngay_tao'          => 'datetime',
         'lan_dang_nhap_cuoi' => 'datetime',
         'is_active' => 'boolean',
@@ -56,5 +58,15 @@ class TaiKhoan extends Authenticatable
     public function isActive(): bool
     {
         return (bool) $this->is_active;
+    }
+
+    public function diaChi(): HasMany
+    {
+        return $this->hasMany(DiaChi::class, 'tai_khoan_id');
+    }
+
+    public function wishlists(): HasMany
+    {
+        return $this->hasMany(Wishlist::class, 'tai_khoan_id');
     }
 }

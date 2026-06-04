@@ -29,6 +29,8 @@ class DonHang extends Model
     protected $casts = [
         'tam_tinh' => 'float',
         'tong_tien' => 'float',
+        'ngay_tao' => 'datetime',
+        'ngay_cap_nhat' => 'datetime',
     ];
 
     public function chiTiet(): HasMany

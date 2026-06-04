@@ -109,6 +109,28 @@
                     <button class="detail-btn detail-btn--cart" id="detailAddCart" type="button">
                         <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
                     </button>
+                    @auth
+                        @if ($wishlistItem)
+                            <form action="{{ route('wishlist.destroy', $wishlistItem) }}" method="POST" class="m-0">
+                                @csrf
+                                @method('DELETE')
+                                <button class="detail-btn detail-btn--buy" type="submit">
+                                    <i class="fa-solid fa-heart-crack"></i> Bo yeu thich
+                                </button>
+                            </form>
+                        @else
+                            <form action="{{ route('wishlist.store', $product) }}" method="POST" class="m-0">
+                                @csrf
+                                <button class="detail-btn detail-btn--buy" type="submit">
+                                    <i class="fa-regular fa-heart"></i> Yeu thich
+                                </button>
+                            </form>
+                        @endif
+                    @else
+                        <a class="detail-btn detail-btn--buy text-decoration-none" href="{{ route('login') }}">
+                            <i class="fa-regular fa-heart"></i> Yeu thich
+                        </a>
+                    @endauth
                     <a class="detail-btn detail-btn--buy text-decoration-none" href="{{ route('products.index') }}">Mua tiếp</a>
                 </div>
 
