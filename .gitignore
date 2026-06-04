@@ -1,0 +1,10 @@
+# Editor / IDE
+.vscode/
+.vs/
+
+# AI assistant config
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store

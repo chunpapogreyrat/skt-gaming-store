@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gio hang - SKT Gaming Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body class="dark-theme">
+
+    <!-- #region ANNOUNCEMENT BAR -->
+    <div class="announcement-bar">
+        <div class="announcement-bar__track">
+            <span>MIEN PHI VAN CHUYEN don hang tu 500K &nbsp;&bull;&nbsp;</span>
+            <span>FLASH SALE MOI THU 6 - GIAM DEN 50% &nbsp;&bull;&nbsp;</span>
+            <span>BAO HANH CHINH HANG 24 THANG &nbsp;&bull;&nbsp;</span>
+            <span>SAN PHAM MOI: FINALMOUSE ULX VUA VE KHO &nbsp;&bull;&nbsp;</span>
+            <span>MIEN PHI VAN CHUYEN don hang tu 500K &nbsp;&bull;&nbsp;</span>
+            <span>FLASH SALE MOI THU 6 - GIAM DEN 50% &nbsp;&bull;&nbsp;</span>
+            <span>BAO HANH CHINH HANG 24 THANG &nbsp;&bull;&nbsp;</span>
+            <span>SAN PHAM MOI: FINALMOUSE ULX VUA VE KHO &nbsp;&bull;&nbsp;</span>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region NAVBAR -->
+    <nav class="navbar" id="mainNav">
+        <div class="navbar__container">
+            <a href="index.html" class="navbar__logo"><span class="navbar__logo-skt">SKT</span> GAMING</a>
+            <button class="navbar__toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="navbar__menu" id="navMenu">
+                <ul class="navbar__links">
+                    <li><a href="index.html" class="navbar__link">Gaming Gear</a></li>
+                    <li><a href="setups.html" class="navbar__link">Goc game thu</a></li>
+                    <li><a href="about.html" class="navbar__link">Gioi thieu ve chung tui</a></li>
+                    <li><a href="contact.html" class="navbar__link">Lien he</a></li>
+                </ul>
+                <div class="navbar__actions">
+                    <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openSearchBtn"
+                        aria-label="Tim kiem">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openCartBtn"
+                        aria-label="Gio hang">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="navbar__badge" id="cartBadge">3</span>
+                    </button>
+                    <a href="login.html" class="navbar__icon-btn" aria-label="Tai khoan"><i class="fa-regular fa-user"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- #endregion -->
+
+    <!-- #region CART PAGE -->
+    <main class="cart-page container-fluid px-4 px-xl-5">
+        <section class="cart-page__hero" data-aos="fade-up">
+            <span class="cart-page__eyebrow"><i class="fa-solid fa-cart-shopping"></i> SKT Checkout Lab</span>
+            <h1 class="cart-page__title">Gio hang</h1>
+            <p class="cart-page__subtitle" id="cartPageProgressNote">Ban duoc giao hang mien phi!</p>
+            <div class="cart-page__progress">
+                <span class="cart-page__progress-fill" id="cartPageProgressFill"></span>
+            </div>
+        </section>
+
+        <section class="cart-page__layout">
+            <div class="cart-page__list" data-aos="fade-right">
+                <div class="cart-page__head">
+                    <span>San pham</span>
+                    <span>So luong</span>
+                    <span>Tong</span>
+                </div>
+
+                <article class="cart-page__item" data-cart-row data-price="5990000">
+                    <a class="cart-page__media" href="detail.html">
+                        <img src="assets/images/Products/Mice/Finalmouse%20ULX/fnm1.webp" alt="Finalmouse ULX Pro">
+                    </a>
+                    <div class="cart-page__info">
+                        <span class="cart-page__brand">FINALMOUSE</span>
+                        <h2 class="cart-page__name"><a href="detail.html">Finalmouse ULX Pro - Chuot Esports</a></h2>
+                        <p class="cart-page__meta">Den / Medium / Wireless 4K</p>
+                        <span class="cart-page__price">5.990.000d</span>
+                    </div>
+                    <div class="cart-page__qty">
+                        <div class="cart-page__qty-box">
+                            <button type="button" class="cart-page__qty-btn" data-cart-minus aria-label="Giam so luong">-</button>
+                            <input class="cart-page__qty-input" type="text" value="1" readonly>
+                            <button type="button" class="cart-page__qty-btn" data-cart-plus aria-label="Tang so luong">+</button>
+                        </div>
+                        <button type="button" class="cart-page__remove">Bo</button>
+                    </div>
+                    <div class="cart-page__line-total">5.990.000d</div>
+                </article>
+
+                <article class="cart-page__item" data-cart-row data-price="3850000">
+                    <a class="cart-page__media" href="detail.html">
+                        <img src="assets/images/Products/Keyboard/Wooting/wt1.webp" alt="Wooting 60HE">
+                    </a>
+                    <div class="cart-page__info">
+                        <span class="cart-page__brand">WOOTING</span>
+                        <h2 class="cart-page__name"><a href="detail.html">Wooting 60HE Analog Keyboard</a></h2>
+                        <p class="cart-page__meta">Den / Lekker Switch / Rapid Trigger</p>
+                        <span class="cart-page__price">3.850.000d</span>
+                    </div>
+                    <div class="cart-page__qty">
+                        <div class="cart-page__qty-box">
+                            <button type="button" class="cart-page__qty-btn" data-cart-minus aria-label="Giam so luong">-</button>
+                            <input class="cart-page__qty-input" type="text" value="1" readonly>
+                            <button type="button" class="cart-page__qty-btn" data-cart-plus aria-label="Tang so luong">+</button>
+                        </div>
+                        <button type="button" class="cart-page__remove">Bo</button>
+                    </div>
+                    <div class="cart-page__line-total">3.850.000d</div>
+                </article>
+
+                <article class="cart-page__item" data-cart-row data-price="3490000">
+                    <a class="cart-page__media" href="detail.html">
+                        <img src="assets/images/Products/Mice/Maya%20X/mx1.webp" alt="Maya X Wireless">
+                    </a>
+                    <div class="cart-page__info">
+                        <span class="cart-page__brand">FINALMOUSE</span>
+                        <h2 class="cart-page__name"><a href="detail.html">Maya X Wireless - Chuot sieu nhe 38g</a></h2>
+                        <p class="cart-page__meta">Trang / Small / Magnesium frame</p>
+                        <span class="cart-page__price">3.490.000d</span>
+                    </div>
+                    <div class="cart-page__qty">
+                        <div class="cart-page__qty-box">
+                            <button type="button" class="cart-page__qty-btn" data-cart-minus aria-label="Giam so luong">-</button>
+                            <input class="cart-page__qty-input" type="text" value="1" readonly>
+                            <button type="button" class="cart-page__qty-btn" data-cart-plus aria-label="Tang so luong">+</button>
+                        </div>
+                        <button type="button" class="cart-page__remove">Bo</button>
+                    </div>
+                    <div class="cart-page__line-total">3.490.000d</div>
+                </article>
+
+                <div class="cart-page__empty" id="cartPageEmpty">
+                    <i class="fa-solid fa-box-open"></i>
+                    <strong>Gio hang dang trong</strong>
+                    <span>Quay lai cua hang va chon vu khi moi cho setup cua ban.</span>
+                </div>
+            </div>
+
+            <aside class="cart-page__summary" data-aos="fade-left">
+                <div class="cart-page__summary-glow"></div>
+                <h2 class="cart-page__summary-title">Tom tat don hang</h2>
+                <div class="cart-page__summary-row">
+                    <span>Tam tinh</span>
+                    <strong id="cartPageSubtotal">13.330.000d</strong>
+                </div>
+                <div class="cart-page__summary-row">
+                    <span>Uu dai</span>
+                    <strong class="txt-red">-0d</strong>
+                </div>
+                <div class="cart-page__total-row">
+                    <span>Tong</span>
+                    <strong id="cartPageTotal">13.330.000 VND</strong>
+                </div>
+                <p class="cart-page__tax">Da bao gom thue. Phi ship se duoc tinh khi thanh toan neu don khong dat moc mien phi.</p>
+
+                <label class="cart-page__label" for="cartNote">Ghi chu don hang</label>
+                <textarea id="cartNote" class="cart-page__note" placeholder="Vi du: goi ky, giao sau 18h, can tu van build..."></textarea>
+
+                <label class="cart-page__label" for="cartCoupon">Ma uu dai</label>
+                <div class="cart-page__coupon">
+                    <input id="cartCoupon" type="text" placeholder="SKTSALE">
+                    <button type="button">Ap dung</button>
+                </div>
+
+                <a href="checkout.html" class="cart-page__checkout">
+                    <i class="fa-solid fa-lock"></i>
+                    Thanh toan
+                </a>
+                <a href="index.html" class="cart-page__continue">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Tiep tuc mua sam
+                </a>
+            </aside>
+        </section>
+    </main>
+    <!-- #endregion -->
+
+    <!-- #region FOOTER -->
+    <footer class="site-footer mt-5">
+        <div class="container-fluid px-4 px-xl-5">
+            <div class="row g-4 site-footer__top">
+                <div class="col-lg-4 col-md-6">
+                    <a href="index.html" class="site-footer__logo"><span class="site-footer__logo-skt">SKT</span> GAMING STORE</a>
+                    <p class="site-footer__desc">Vu khi toi thuong cho game thu chuyen nghiep. Engineered for extreme performance.</p>
+                    <div class="site-footer__socials">
+                        <a href="#" class="social-btn social-btn--web"><i class="fa-solid fa-globe"></i></a>
+                        <a href="#" class="social-btn social-btn--yt"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="social-btn social-btn--fb"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="social-btn social-btn--dc"><i class="fa-brands fa-discord"></i></a>
+                        <a href="#" class="social-btn social-btn--tk"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="social-btn social-btn--ig"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-6">
+                    <h6 class="site-footer__col-title">SAN PHAM</h6>
+                    <ul class="site-footer__links list-unstyled">
+                        <li><a href="index.html">Ban phim co</a></li>
+                        <li><a href="index.html">Chuot gaming</a></li>
+                        <li><a href="index.html">Tai nghe</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-6">
+                    <h6 class="site-footer__col-title">HO TRO</h6>
+                    <ul class="site-footer__links list-unstyled">
+                        <li><a href="#">Chinh sach bao hanh</a></li>
+                        <li><a href="#">Giao hang hoa toc</a></li>
+                        <li><a href="contact.html">Lien he chung toi</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h6 class="site-footer__col-title">THANH TOAN</h6>
+                    <div class="site-footer__payments">
+                        <span class="pay-badge">VISA</span>
+                        <span class="pay-badge">MOMO</span>
+                        <span class="pay-badge">BANK</span>
+                    </div>
+                    <p class="site-footer__copyright">© 2024 SKT Gaming. Designed with Cyber-precision.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- #endregion -->
+
+    <!-- #region CONFIRM MODAL -->
+    <div class="confirm-modal" id="confirmModal">
+        <div class="confirm-modal__backdrop" id="confirmBackdrop"></div>
+        <div class="confirm-modal__box">
+            <div class="confirm-modal__icon"><i class="fa-solid fa-trash-can"></i></div>
+            <h6 class="confirm-modal__title">Xoa san pham?</h6>
+            <p class="confirm-modal__text" id="confirmText">Ban co chac chan muon xoa san pham nay khoi gio hang khong?</p>
+            <div class="confirm-modal__actions">
+                <button class="confirm-modal__btn confirm-modal__btn--cancel" id="confirmCancel">Huy bo</button>
+                <button class="confirm-modal__btn confirm-modal__btn--confirm" id="confirmOk">Xoa luon</button>
+            </div>
+        </div>
+    </div>
+    <!-- #endregion -->
+
+    <!-- #region SEARCH OVERLAY -->
+    <div class="search-overlay" id="searchOverlay" aria-hidden="true">
+        <div class="search-overlay__panel">
+            <div class="search-overlay__head">
+                <i class="fa-solid fa-magnifying-glass search-overlay__icon"></i>
+                <input type="text" id="searchInput" class="search-overlay__input"
+                    placeholder="Tim chuot, ban phim, tai nghe...">
+                <button class="search-overlay__close" id="closeSearchBtn" aria-label="Dong">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="search-overlay__divider"></div>
+            <div class="search-overlay__body">
+                <p class="search-overlay__label">Search menu</p>
+                <ul class="search-overlay__menu list-unstyled">
+                    <li><a href="index.html"><i class="fa-solid fa-computer-mouse"></i> Chuot Gaming</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-keyboard"></i> Ban Phim</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-grip"></i> Lot Chuot</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-headphones"></i> Tai Nghe</a></li>
+                    <li><a href="index.html"><i class="fa-solid fa-tag"></i> Khuyen Mai</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="search-overlay__backdrop" id="searchBackdrop"></div>
+    </div>
+    <!-- #endregion -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>
