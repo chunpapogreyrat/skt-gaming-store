@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Pulsar
-name=Pulsar eS Arm Sleeve
-slug=pulsar-es-arm-sleeve
-category=accessory
-description=Tay áo chống bám, giúp di chuột mượt, thoáng khí.
-rating=4.4
-price_import=180000
-price_sale=250000
-stock=40
-hashtags=Arm Sleeve;Mượt;Esports
-colors=Đen
-images=1.webp;2.webp;3.webp
+PULSAR ES ARM SLEEVE
+
+p1 - Tên thương hiệu: Pulsar
+p2 - Tên sản phẩm: Tay áo Pulsar eS Arm Sleeve
+p3 - Tóm tắt mô tả ngắn gọn: Tay áo chống bám giúp cẳng tay di chuyển mượt mà trên mặt bàn, hạn chế ma sát khi aim. Chất liệu thoáng khí, co giãn ôm tay, hỗ trợ thao tác chính xác trong thời gian dài.
+p4 - Số lượng sao: 4.4 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 250.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 40
+p7 - Hashtag: #Pulsar #eS #ArmSleeve #Esports #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black).
+
+[Dữ liệu hệ thống] slug=pulsar-es-arm-sleeve | category=accessory | images=1.webp;2.webp;3.webp

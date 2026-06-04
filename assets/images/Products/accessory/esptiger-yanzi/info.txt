@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=ESPTiger
-name=ESPTiger YanZi Skate
-slug=esptiger-yanzi
-category=accessory
-description=Feet chuột tốc độ, glide nhanh, hoàn thiện bo cạnh mịn.
-rating=4.6
-price_import=110000
-price_sale=170000
-stock=48
-hashtags=Skate;Speed;PTFE
-colors=Trắng
-images=1.webp;2.webp;3.webp
+ESPTIGER YANZI
+
+p1 - Tên thương hiệu: ESPTiger
+p2 - Tên sản phẩm: Feet chuột ESPTiger YanZi
+p3 - Tóm tắt mô tả ngắn gọn: Feet chuột thiên tốc độ, glide nhanh nhờ chất liệu PTFE nguyên chất, hoàn thiện tỉ mỉ ở từng đường bo. Lựa chọn cho game thủ yêu thích cảm giác lướt mượt và nhanh.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 170.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 48
+p7 - Hashtag: #ESPTiger #YanZi #MouseFeet #PTFE #Speed #GamingGear #PhongCachXanh
+p8 - Màu sắc: Trắng (White).
+
+[Dữ liệu hệ thống] slug=esptiger-yanzi | category=accessory | images=1.webp;2.webp;3.webp

@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=LUCE
-name=LUCE60 Custom
-slug=luce60
-category=keyboard
-description=Bàn phím 60% khung nhôm CNC, gasket mount, build cao cấp đậm chất custom.
-rating=4.6
-price_import=1800000
-price_sale=2500000
-stock=20
-hashtags=60%;Aluminum;Gasket;Custom
-colors=Bạc;Đen;Vàng
-images=1.webp;2.webp;3.webp
+LUCE60 CUSTOM 60%
+
+p1 - Tên thương hiệu: LUCE
+p2 - Tên sản phẩm: Bàn phím Custom LUCE60 (Layout 60%)
+p3 - Tóm tắt mô tả ngắn gọn: Khung nhôm CNC nguyên khối, gasket mount cho độ nảy êm ái, trọng lượng đầm tay sang trọng. Hỗ trợ hot-swap, build cao cấp dành cho dân chơi custom thực thụ.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.500.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 20
+p7 - Hashtag: #LUCE60 #CustomKeyboard #60Percent #Aluminum #GasketMount #Hotswap #GamingGear #PhongCachXanh
+p8 - Màu sắc: Bạc (Silver) / Đen (Black) / Vàng Gold.
+
+[Dữ liệu hệ thống] slug=luce60 | category=keyboard | images=1.webp;2.webp;3.webp

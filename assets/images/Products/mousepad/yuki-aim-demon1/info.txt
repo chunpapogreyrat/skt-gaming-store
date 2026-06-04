@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Yuki Aim
-name=Yuki Aim Demon1
-slug=yuki-aim-demon1
-category=mousepad
-description=Pad control bản giới hạn, thiết kế premium được săn đón.
-rating=4.8
-price_import=850000
-price_sale=1190000
-stock=14
-hashtags=Limited;Control;Premium
-colors=Tím;Đen
-images=1.webp;2.webp;3.webp
+YUKI AIM DEMON1
+
+p1 - Tên thương hiệu: Yuki Aim
+p2 - Tên sản phẩm: Lót chuột Yuki Aim Demon1 (Limited)
+p3 - Tóm tắt mô tả ngắn gọn: Pad control bản giới hạn với thiết kế premium được cộng đồng săn đón. Đường may cao cấp, đế bám chắc, bề mặt kiểm soát chuẩn xác — đẳng cấp của dòng Yuki Aim.
+p4 - Số lượng sao: 4.8 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 1.190.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 14
+p7 - Hashtag: #YukiAim #Demon1 #ControlPad #LimitedEdition #Premium #GamingGear #PhongCachXanh
+p8 - Màu sắc: Tím (Purple) / Đen (Black).
+
+[Dữ liệu hệ thống] slug=yuki-aim-demon1 | category=mousepad | images=1.webp;2.webp;3.webp

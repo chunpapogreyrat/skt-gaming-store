@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Unusual Way
-name=Unusual Way Black Fox
-slug=unusual-way-black-fox
-category=accessory
-description=Feet chuột premium control, glide êm, độ bền ấn tượng.
-rating=4.5
-price_import=130000
-price_sale=200000
-stock=28
-hashtags=Skate;Premium;Control
-colors=Đen
-images=1.webp
+UNUSUAL WAY BLACK FOX
+
+p1 - Tên thương hiệu: Unusual Way
+p2 - Tên sản phẩm: Feet chuột Unusual Way Black Fox
+p3 - Tóm tắt mô tả ngắn gọn: Feet premium thiên control với cảm giác glide êm và độ bền cao. Thương hiệu được cộng đồng đánh giá tốt về chất lượng hoàn thiện và sự ổn định khi sử dụng.
+p4 - Số lượng sao: 4.5 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 200.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 28
+p7 - Hashtag: #UnusualWay #BlackFox #MouseFeet #ControlFeet #Premium #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black).
+
+[Dữ liệu hệ thống] slug=unusual-way-black-fox | category=accessory | images=1.webp

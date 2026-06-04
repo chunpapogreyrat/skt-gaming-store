@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Razer
-name=Razer Viper V4 Pro
-slug=viperv4pro
-category=mice
-description=Chuột Esports đối xứng, Focus Pro 35K, 8K Hz, chuẩn thi đấu.
-rating=4.8
-price_import=2100000
-price_sale=2890000
-stock=24
-hashtags=Focus Pro 35K;8K Hz;Wireless;Esports
-colors=Đen;Trắng
-images=1.webp;2.webp;3.webp
+RAZER VIPER V4 PRO
+
+p1 - Tên thương hiệu: Razer
+p2 - Tên sản phẩm: Chuột không dây Razer Viper V4 Pro
+p3 - Tóm tắt mô tả ngắn gọn: Chuột Esports đối xứng đỉnh cao của Razer. Cảm biến Focus Pro 35K, polling 8.000 Hz, switch quang học Gen-3 — đạt chuẩn thi đấu chuyên nghiệp với độ chính xác tuyệt đối.
+p4 - Số lượng sao: 4.8 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.890.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 24
+p7 - Hashtag: #Razer #ViperV4Pro #FocusPro35K #8KHz #Wireless #Esports #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=viperv4pro | category=mice | images=1.webp;2.webp;3.webp

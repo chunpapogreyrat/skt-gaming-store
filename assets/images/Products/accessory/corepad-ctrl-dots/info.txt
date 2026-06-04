@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Corepad
-name=Corepad CTRL Dots
-slug=corepad-ctrl-dots
-category=accessory
-description=Feet chuột PTFE dạng dot, lướt mượt và kiểm soát tốt.
-rating=4.5
-price_import=90000
-price_sale=150000
-stock=60
-hashtags=Skate;Control;PTFE
-colors=Trắng
-images=1.webp;2.webp
+COREPAD CTRL DOTS 8.5-9.5MM
+
+p1 - Tên thương hiệu: Corepad
+p2 - Tên sản phẩm: Feet chuột Corepad Skatez CTRL Dots (Kích thước 8.5mm - 9.5mm)
+p3 - Tóm tắt mô tả ngắn gọn: Dòng feet chuột thay thế dạng tròn (Dots) cao cấp thuộc phân khúc CTRL (Control) từ thương hiệu Corepad danh tiếng của Đức. Được làm từ 100% chất liệu PTFE nguyên chất không pha tạp, bề mặt feet được xử lý nhiệt đặc biệt nhằm tăng ma sát, mang lại cảm giác di chuột đầm, mượt mà và cung cấp lực dừng (stopping power) tối đa cho game thủ FPS. Thiết kế dạng chấm tròn với kích thước linh hoạt từ 8.5mm đến 9.5mm cho phép sản phẩm tương thích hoàn hảo với mọi bề mặt đáy chuột, giúp người dùng dễ dàng tùy biến vị trí dán để tối ưu hóa cảm giác di và kiểm soát tâm ngắm theo thói quen cá nhân.
+p4 - Số lượng sao: 4.9 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 250.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 30
+p7 - Hashtag: #Corepad #CorepadSkatez #CTRLDots #PTFEFeet #MouseFeet #ControlFeet #GamingGear #PhongCachXanh
+p8 - Màu sắc: Milky White (Trắng sữa đặc trưng của chất liệu PTFE nguyên chất).
+
+[Dữ liệu hệ thống] slug=corepad-ctrl-dots | category=accessory | images=1.webp;2.webp

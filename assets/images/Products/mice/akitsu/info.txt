@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=WLMouse
-name=WLMouse Akitsu
-slug=akitsu
-category=mice
-description=Chuột không dây khung magnesium siêu nhẹ, sensor PAW3950 cao cấp.
-rating=4.6
-price_import=3200000
-price_sale=4500000
-stock=14
-hashtags=Wireless;Magnesium;Siêu nhẹ;PAW3950
-colors=Đen;Trắng
-images=1.webp;2.webp;3.webp
+WLMOUSE AKITSU
+
+p1 - Tên thương hiệu: WLMouse
+p2 - Tên sản phẩm: Chuột không dây WLMouse Akitsu
+p3 - Tóm tắt mô tả ngắn gọn: Khung magnesium siêu nhẹ với độ hoàn thiện cao cấp, trang bị cảm biến PAW3950 hàng đầu. Kết nối không dây độ trễ cực thấp, polling cao, dáng cầm thoải mái cho những trận thi đấu kéo dài.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 4.500.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 14
+p7 - Hashtag: #WLMouse #Akitsu #Wireless #Magnesium #PAW3950 #Lightweight #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=akitsu | category=mice | images=1.webp;2.webp;3.webp

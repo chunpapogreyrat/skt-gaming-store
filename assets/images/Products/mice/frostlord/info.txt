@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Incott
-name=Incott Frostlord
-slug=frostlord
-category=mice
-description=Chuột không dây nhẹ, polling 8K, giá tốt cho game thủ phong trào.
-rating=4.4
-price_import=1900000
-price_sale=2690000
-stock=18
-hashtags=Wireless;Nhẹ;8K Hz
-colors=Đen;Xanh
-images=1.webp;2.webp;3.webp
+INCOTT FROSTLORD
+
+p1 - Tên thương hiệu: Incott
+p2 - Tên sản phẩm: Chuột không dây Incott Frostlord
+p3 - Tóm tắt mô tả ngắn gọn: Chuột nhẹ, polling 8.000 Hz, cảm biến nhạy bén với mức giá hợp lý. Lựa chọn đáng cân nhắc cho game thủ phong trào muốn nâng cấp trải nghiệm.
+p4 - Số lượng sao: 4.4 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.690.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 18
+p7 - Hashtag: #Incott #Frostlord #Wireless #8KHz #Lightweight #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Xanh Băng (Ice Blue).
+
+[Dữ liệu hệ thống] slug=frostlord | category=mice | images=1.webp;2.webp;3.webp

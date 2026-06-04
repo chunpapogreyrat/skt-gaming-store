@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Pulsar
-name=Pulsar Supergrip
-slug=pulsar-supergrip
-category=accessory
-description=Grip tape pre-cut chống trượt, tăng độ bám cho mọi loại chuột.
-rating=4.7
-price_import=160000
-price_sale=250000
-stock=50
-hashtags=Grip Tape;Chống trượt;Pre-cut
-colors=Đen;Trắng
-images=1.webp;2.webp;3.webp
+PULSAR SUPERGRIP
+
+p1 - Tên thương hiệu: Pulsar
+p2 - Tên sản phẩm: Grip chuột Pulsar Supergrip
+p3 - Tóm tắt mô tả ngắn gọn: Grip tape pre-cut chống trượt của Pulsar, tăng độ bám rõ rệt cho nhiều dòng chuột. Cắt sẵn theo form, dễ dán, cải thiện khả năng kiểm soát mà không làm dày chuột.
+p4 - Số lượng sao: 4.7 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 250.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 50
+p7 - Hashtag: #Pulsar #Supergrip #GripTape #AntiSlip #PreCut #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=pulsar-supergrip | category=accessory | images=1.webp;2.webp;3.webp

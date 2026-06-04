@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=WLMouse
-name=WLMouse Beast X Max
-slug=beast-x-max
-category=mice
-description=Chuột Esports 8K Hz, siêu nhẹ, cảm biến đỉnh cao, hợp mọi cỡ tay.
-rating=4.7
-price_import=2000000
-price_sale=2890000
-stock=20
-hashtags=8K Hz;Wireless;Siêu nhẹ;PAW3395
-colors=Đen;Trắng
-images=1.webp;2.webp;3.webp
+WLMOUSE BEAST X MAX
+
+p1 - Tên thương hiệu: WLMouse
+p2 - Tên sản phẩm: Chuột không dây WLMouse Beast X Max (8K)
+p3 - Tóm tắt mô tả ngắn gọn: Chuột Esports siêu nhẹ với polling 8.000 Hz mượt mà. Cảm biến cao cấp, vỏ chắc chắn không ọp ẹp, dáng phù hợp nhiều kiểu cầm — đáng giá cho game thủ nghiêm túc.
+p4 - Số lượng sao: 4.7 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.890.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 20
+p7 - Hashtag: #WLMouse #BeastXMax #8KHz #Wireless #Lightweight #Esports #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=beast-x-max | category=mice | images=1.webp;2.webp;3.webp

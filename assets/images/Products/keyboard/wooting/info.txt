@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Wooting
-name=Wooting 60HE Analog
-slug=wooting
-category=keyboard
-description=Bàn phím Hall Effect huyền thoại với Rapid Trigger, công nghệ analog đỉnh cao cho game thủ Esports.
-rating=4.8
-price_import=2900000
-price_sale=3850000
-stock=25
-hashtags=Hall Effect;Rapid Trigger;8K Hz;60% Layout
-colors=Đen;Trắng
-images=1.webp;2.webp;3.webp
+WOOTING 60HE ANALOG
+
+p1 - Tên thương hiệu: Wooting
+p2 - Tên sản phẩm: Bàn phím cơ Wooting 60HE Analog (Layout 60%)
+p3 - Tóm tắt mô tả ngắn gọn: Dòng bàn phím Hall Effect huyền thoại đến từ Wooting, dẫn đầu phân khúc Esports. Công nghệ analog kết hợp Rapid Trigger cho phép tùy chỉnh điểm nhận phím (actuation) cực kỳ linh hoạt, phản hồi 8.000 Hz gần như tức thời. Build chắc chắn, lý tưởng cho các tựa FPS như Valorant, CS2.
+p4 - Số lượng sao: 4.8 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 3.850.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 25
+p7 - Hashtag: #Wooting #Wooting60HE #HallEffect #RapidTrigger #8KHz #60Percent #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=wooting | category=keyboard | images=1.webp;2.webp;3.webp

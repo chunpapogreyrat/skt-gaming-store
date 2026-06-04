@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Filco
-name=Filco Majestouch 2
-slug=majestouch
-category=keyboard
-description=Tượng đài bàn phím Cherry MX, độ bền vượt thời gian, gõ chắc tay.
-rating=4.7
-price_import=2100000
-price_sale=2990000
-stock=18
-hashtags=Cherry MX;TKL;Bền bỉ
-colors=Đen
-images=1.webp;2.webp;3.webp
+FILCO MAJESTOUCH 2 TKL
+
+p1 - Tên thương hiệu: Filco
+p2 - Tên sản phẩm: Bàn phím cơ Filco Majestouch 2 (TKL)
+p3 - Tóm tắt mô tả ngắn gọn: Tượng đài bàn phím cơ Cherry MX nguyên bản với độ bền huyền thoại. Layout TKL tiết kiệm không gian, cảm giác gõ chắc chắn và ổn định, phù hợp cả gaming lẫn làm việc lâu dài.
+p4 - Số lượng sao: 4.7 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.990.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 18
+p7 - Hashtag: #Filco #Majestouch #CherryMX #TKL #Durable #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black).
+
+[Dữ liệu hệ thống] slug=majestouch | category=keyboard | images=1.webp;2.webp;3.webp

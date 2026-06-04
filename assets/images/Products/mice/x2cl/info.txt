@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Pulsar
-name=Pulsar X2CL Pro
-slug=x2cl
-category=mice
-description=Chuột 52g, cảm biến PAW3950, không dây, dáng đối xứng quen tay.
-rating=4.6
-price_import=1550000
-price_sale=2190000
-stock=28
-hashtags=52g;PAW3950;Wireless;Đối xứng
-colors=Trắng;Đen;Đỏ
-images=1.webp;2.webp;3.webp
+PULSAR X2CL PRO
+
+p1 - Tên thương hiệu: Pulsar
+p2 - Tên sản phẩm: Chuột không dây Pulsar X2CL Pro (52g)
+p3 - Tóm tắt mô tả ngắn gọn: Trọng lượng khoảng 52g, cảm biến PAW3950, dáng đối xứng quen tay. Kết nối không dây độ trễ thấp, hoàn thiện tốt — cân bằng hoàn hảo giữa hiệu năng và giá.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.190.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 28
+p7 - Hashtag: #Pulsar #X2CL #Wireless #52g #PAW3950 #Esports #GamingGear #PhongCachXanh
+p8 - Màu sắc: Trắng (White) / Đen (Black) / Đỏ (Red).
+
+[Dữ liệu hệ thống] slug=x2cl | category=mice | images=1.webp;2.webp;3.webp

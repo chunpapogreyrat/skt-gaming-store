@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Razer
-name=Razer Huntsman Niko Edition
-slug=huntsman-niko
-category=keyboard
-description=Phiên bản nghệ thuật giới hạn, công tắc quang học thế hệ 2, RGB rực rỡ.
-rating=4.7
-price_import=2100000
-price_sale=2990000
-stock=15
-hashtags=Optical Switch;Limited;RGB;Linear
-colors=Đen
-images=1.webp;2.webp;3.webp
+RAZER HUNTSMAN NIKO
+
+p1 - Tên thương hiệu: Razer
+p2 - Tên sản phẩm: Bàn phím cơ Razer Huntsman Mini Niko Edition
+p3 - Tóm tắt mô tả ngắn gọn: Phiên bản nghệ thuật hợp tác giới hạn của Razer. Switch quang học Gen-2 tốc độ cao, độ bền tới 100 triệu lần nhấn, layout 60% gọn gàng, đèn RGB Chroma đồng bộ rực rỡ. Sản phẩm sưu tầm đáng giá.
+p4 - Số lượng sao: 4.7 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.990.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 15
+p7 - Hashtag: #Razer #Huntsman #NikoEdition #OpticalSwitch #LimitedEdition #RGBChroma #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (họa tiết Niko Edition).
+
+[Dữ liệu hệ thống] slug=huntsman-niko | category=keyboard | images=1.webp;2.webp;3.webp

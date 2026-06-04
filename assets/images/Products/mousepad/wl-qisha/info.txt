@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=WLMouse
-name=WLMouse Qisha Glass
-slug=wl-qisha
-category=mousepad
-description=Pad kính cao cấp, tốc độ cực nhanh, bền và dễ vệ sinh.
-rating=4.6
-price_import=900000
-price_sale=1290000
-stock=15
-hashtags=Glass Pad;Tốc độ;Bền
-colors=Đen;Trắng
-images=1.webp;2.webp;3.webp
+WLMOUSE QISHA GLASS
+
+p1 - Tên thương hiệu: WLMouse
+p2 - Tên sản phẩm: Lót chuột Kính WLMouse Qisha Glass
+p3 - Tóm tắt mô tả ngắn gọn: Pad kính cao cấp cho tốc độ glide cực nhanh, bề mặt đồng nhất. Độ bền cao và dễ lau chùi — dành cho người ưa tốc độ tối đa và sự ổn định.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 1.290.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 15
+p7 - Hashtag: #WLMouse #Qisha #GlassPad #FastGlide #Premium #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White).
+
+[Dữ liệu hệ thống] slug=wl-qisha | category=mousepad | images=1.webp;2.webp;3.webp

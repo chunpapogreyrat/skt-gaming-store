@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=AKKO
-name=AKKO Centauri
-slug=centauri
-category=keyboard
-description=Bàn phím không dây tri-mode, hot-swap, thiết kế nổi bật cho góc setup.
-rating=4.6
-price_import=1700000
-price_sale=2450000
-stock=40
-hashtags=Wireless;Tri-mode;Hot-swap;RGB
-colors=Đen;Trắng;Tím
-images=1.webp;2.webp;3.webp
+AKKO CENTAURI
+
+p1 - Tên thương hiệu: AKKO
+p2 - Tên sản phẩm: Bàn phím cơ AKKO Centauri
+p3 - Tóm tắt mô tả ngắn gọn: Kết nối tri-mode (có dây / Bluetooth / 2.4GHz) tiện lợi mọi thiết bị. Keycap PBT bền màu, hot-swap dễ nâng cấp, pin trâu, phối màu cá tính nổi bật cho góc setup gaming.
+p4 - Số lượng sao: 4.6 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 2.450.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 40
+p7 - Hashtag: #AKKO #Centauri #Wireless #Trimode #Hotswap #PBT #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Trắng (White) / Tím (Purple).
+
+[Dữ liệu hệ thống] slug=centauri | category=keyboard | images=1.webp;2.webp;3.webp

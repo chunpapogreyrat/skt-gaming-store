@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Unusual Way
-name=Unusual Way Silver Fox
-slug=unusual-way-silver-fox
-category=accessory
-description=Feet chuột premium speed, lướt nhanh, hoàn thiện cao cấp.
-rating=4.5
-price_import=130000
-price_sale=200000
-stock=26
-hashtags=Skate;Premium;Speed
-colors=Bạc
-images=1.webp;2.webp
+UNUSUAL WAY SILVER FOX
+
+p1 - Tên thương hiệu: Unusual Way
+p2 - Tên sản phẩm: Feet chuột Unusual Way Silver Fox
+p3 - Tóm tắt mô tả ngắn gọn: Feet premium thiên speed cho cảm giác lướt nhanh và mượt mà. Hoàn thiện cao cấp, độ bền tốt — lựa chọn cho người chơi ưa tốc độ và sự tinh tế.
+p4 - Số lượng sao: 4.5 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 200.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 26
+p7 - Hashtag: #UnusualWay #SilverFox #MouseFeet #SpeedFeet #Premium #GamingGear #PhongCachXanh
+p8 - Màu sắc: Bạc (Silver).
+
+[Dữ liệu hệ thống] slug=unusual-way-silver-fox | category=accessory | images=1.webp;2.webp

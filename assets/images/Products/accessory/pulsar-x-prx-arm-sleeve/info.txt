@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Pulsar
-name=Pulsar x PRX Arm Sleeve
-slug=pulsar-x-prx-arm-sleeve
-category=accessory
-description=Bản hợp tác PRX, tay áo Esports thoáng và mượt.
-rating=4.5
-price_import=200000
-price_sale=290000
-stock=30
-hashtags=Arm Sleeve;Collab;Esports
-colors=Đen;Đỏ
-images=1.webp;2.webp
+PULSAR X PRX ARM SLEEVE
+
+p1 - Tên thương hiệu: Pulsar
+p2 - Tên sản phẩm: Tay áo Pulsar x PRX Arm Sleeve (Collab)
+p3 - Tóm tắt mô tả ngắn gọn: Phiên bản hợp tác đặc biệt giữa Pulsar và tổ chức Esports PRX. Tay áo thoáng mượt, hỗ trợ di chuyển cánh tay nhẹ nhàng, mang đậm dấu ấn đội tuyển dành cho fan.
+p4 - Số lượng sao: 4.5 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 290.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 30
+p7 - Hashtag: #Pulsar #PRX #ArmSleeve #Collab #Esports #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black) / Đỏ (Red).
+
+[Dữ liệu hệ thống] slug=pulsar-x-prx-arm-sleeve | category=accessory | images=1.webp;2.webp

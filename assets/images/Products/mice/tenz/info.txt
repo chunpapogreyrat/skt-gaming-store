@@ -1,13 +1,15 @@
-# SKT Gaming - Product info (key=value) -> dung de nhap database
-brand=Finalmouse
-name=Finalmouse TenZ Signature
-slug=tenz
-category=mice
-description=Phiên bản chữ ký TenZ, giới hạn, không dây, thiết kế biểu tượng.
-rating=4.8
-price_import=2300000
-price_sale=3190000
-stock=12
-hashtags=Signature;Limited;Wireless
-colors=Trắng
-images=1.webp;2.webp;3.webp
+FINALMOUSE TENZ SIGNATURE
+
+p1 - Tên thương hiệu: Finalmouse
+p2 - Tên sản phẩm: Chuột Finalmouse TenZ Signature
+p3 - Tóm tắt mô tả ngắn gọn: Phiên bản chữ ký hợp tác cùng tuyển thủ TenZ huyền thoại. Bản giới hạn, kết nối không dây, thiết kế mang tính biểu tượng và cảm giác cầm cao cấp.
+p4 - Số lượng sao: 4.8 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 3.190.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 12
+p7 - Hashtag: #Finalmouse #TenZ #Signature #LimitedEdition #Wireless #GamingGear #PhongCachXanh
+p8 - Màu sắc: Trắng (White).
+
+[Dữ liệu hệ thống] slug=tenz | category=mice | images=1.webp;2.webp;3.webp
