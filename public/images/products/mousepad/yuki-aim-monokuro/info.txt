@@ -1,0 +1,15 @@
+YUKI AIM MONOKURO
+
+p1 - Tên thương hiệu: Yuki Aim
+p2 - Tên sản phẩm: Lót chuột Yuki Aim Monokuro (Limited)
+p3 - Tóm tắt mô tả ngắn gọn: Pad balanced bản giới hạn theo phong cách trắng-đen tối giản. Chất lượng hoàn thiện cao cấp, hàng hiếm được nhiều người chơi yêu thích sưu tầm.
+p4 - Số lượng sao: 4.8 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 1.430.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 12
+p7 - Hashtag: #YukiAim #Monokuro #BalancedPad #LimitedEdition #Premium #GamingGear #PhongCachXanh
+p8 - Màu sắc: Trắng (White) / Đen (Black).
+
+[Dữ liệu hệ thống] slug=yuki-aim-monokuro | category=mousepad | images=1.webp;2.webp;3.webp

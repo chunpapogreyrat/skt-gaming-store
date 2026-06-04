@@ -1,0 +1,15 @@
+MOONDROP NEON V2 XL
+
+p1 - Tên thương hiệu: Moondrop
+p2 - Tên sản phẩm: Lót chuột Moondrop Neon V2 (XL)
+p3 - Tóm tắt mô tả ngắn gọn: Pad control dày 4mm êm tay, kích thước XL phủ kín mặt bàn. Đường may chắc chắn chống sờn, đế chống trượt, mức giá hợp lý cho trải nghiệm cao cấp.
+p4 - Số lượng sao: 4.5 / 5 sao
+p5 - Giá nhập và giá bán:
+
+Giá bán: 890.000đ
+Giá nhập: Thông tin mật nội bộ kinh doanh (Ước tính mức chiết khấu đại lý dao động khoảng 20% - 25% trên giá bán).
+p6 - Số lượng sản phẩm: 25
+p7 - Hashtag: #Moondrop #NeonV2 #ControlPad #XL #4mm #GamingGear #PhongCachXanh
+p8 - Màu sắc: Đen (Black).
+
+[Dữ liệu hệ thống] slug=neon-v2-moondrop | category=mousepad | images=1.webp;2.webp;3.webp

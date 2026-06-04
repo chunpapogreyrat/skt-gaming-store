@@ -1,36 +1,19 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Route;
 
-// Trang chủ tạm (sẽ thay bằng HomeController sau)
+// ══════════════════════════════════════════════════════
+//  ENTRY POINT — KHÔNG CODE TRỰC TIẾP VÀO ĐÂY
+//  Thêm route vào codex.php hoặc claude.php tương ứng
+// ══════════════════════════════════════════════════════
+
+// Trang chủ tạm — sẽ chuyển vào codex.php khi HomeController sẵn sàng
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-// ──────────────────────────────────────────────
-// Auth — chỉ cho khách (chưa đăng nhập)
-// ──────────────────────────────────────────────
-Route::middleware('guest')->group(function () {
+// ── Codex routes (Module 1, 2, 5, 7) ──
+require __DIR__ . '/codex.php';
 
-    Route::get('/dang-nhap', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/dang-nhap', [AuthController::class, 'login']);
-
-    Route::get('/dang-ky', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/dang-ky', [AuthController::class, 'register']);
-
-    Route::get('/quen-mat-khau', [ForgotPasswordController::class, 'showForm'])->name('password.request');
-    Route::post('/quen-mat-khau', [ForgotPasswordController::class, 'sendResetLink'])->name('password.email');
-
-    Route::get('/dat-lai-mat-khau/{token}', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset');
-    Route::post('/dat-lai-mat-khau', [ForgotPasswordController::class, 'reset'])->name('password.update');
-
-});
-
-// ──────────────────────────────────────────────
-// Auth — cần đăng nhập
-// ──────────────────────────────────────────────
-Route::middleware('auth')->group(function () {
-    Route::post('/dang-xuat', [AuthController::class, 'logout'])->name('logout');
-});
+// ── Claude routes (Module 3, 4, 6) ──
+require __DIR__ . '/claude.php';
