@@ -14,8 +14,8 @@
     --text-main:    #ffffff;
     --text-muted:   #8b92a5;
     --text-dim:     #4a5568;
-    --font-h:       'Orbitron', sans-serif;
-    --font-b:       'Poppins', sans-serif;
+    --font-h:       'Rajdhani', sans-serif;
+    --font-b:       'Be Vietnam Pro', sans-serif;
     --radius:       8px;
     --trans:        all .3s cubic-bezier(.25,.8,.25,1);
 }
@@ -4892,7 +4892,7 @@ body.auth-page {
     top: 1.4rem;
     left: 1.8rem;
     z-index: 10;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 1.1rem;
     font-weight: 900;
     letter-spacing: 0.22em;
@@ -4912,7 +4912,7 @@ body.auth-page {
     top: 1.2rem;
     right: 1.8rem;
     z-index: 10;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Be Vietnam Pro', sans-serif;
     font-size: 0.82rem;
     text-decoration: none;
     color: rgba(255, 255, 255, 0.6);
@@ -4985,7 +4985,7 @@ body.auth-page {
 
 .tarik-modal__badge {
     display: inline-block;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 0.6rem;
     letter-spacing: 0.25em;
     color: #ff003c;
@@ -4997,7 +4997,7 @@ body.auth-page {
 }
 
 .tarik-modal__name {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 900;
     color: #fff;
@@ -5016,7 +5016,7 @@ body.auth-page {
 }
 
 .tarik-modal__slogan {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Be Vietnam Pro', sans-serif;
     font-size: clamp(0.95rem, 2vw, 1.12rem);
     color: rgba(255, 255, 255, 0.82);
     line-height: 1.75;
@@ -5028,7 +5028,7 @@ body.auth-page {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.14em;
@@ -5126,7 +5126,7 @@ body.auth-page {
 /* Badge nhỏ */
 .tenz-modal__badge {
     display: inline-block;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 0.6rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -5139,7 +5139,7 @@ body.auth-page {
 
 /* Slogan lớn */
 .tenz-modal__slogan {
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: clamp(1.6rem, 4.5vw, 2.8rem);
     font-weight: 900;
     color: #fff;
@@ -5162,7 +5162,7 @@ body.auth-page {
     align-items: center;
     gap: 10px;
     padding: 14px 40px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Rajdhani', sans-serif;
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 2px;
