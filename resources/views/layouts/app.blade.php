@@ -197,14 +197,19 @@
             <div class="cart-drawer__bar"><span class="cart-drawer__bar-fill"></span></div>
         </div>
         <div class="cart-drawer__list" id="cartList">
-            {{-- Được render bằng JS / AJAX --}}
+            {{-- Được render bằng JS / AJAX khi có items --}}
         </div>
         <footer class="cart-drawer__foot">
             <div class="cart-drawer__total">
-                Tổng cộng <span id="cartTotal">0đ</span>
+                <span class="cart-drawer__total-label">Tổng</span>
+                <span class="cart-drawer__total-value" id="cartTotal">0<sup>đ</sup></span>
             </div>
-            <a href="{{ route('cart.index') }}" class="btn-main w-100 text-center"><span>Xem giỏ hàng</span></a>
-            <a href="{{ route('checkout.index') }}" class="btn-outline w-100 text-center mt-2"><span>Thanh toán ngay</span></a>
+            <p class="cart-drawer__tax">Đã bao gồm thuế. <a href="#">Phí ship</a> sẽ được tính khi thanh toán</p>
+            <a href="#" class="cart-drawer__note-link"><i class="fa-solid fa-pen"></i> Thêm ghi chú</a>
+            <div class="cart-drawer__actions">
+                <a href="{{ route('cart.index') }}" class="cart-drawer__btn cart-drawer__btn--outline">Xem giỏ hàng</a>
+                <a href="{{ route('checkout.index') }}" class="cart-drawer__btn cart-drawer__btn--primary"><i class="fa-solid fa-lock"></i> Thanh toán</a>
+            </div>
         </footer>
     </aside>
 </div>

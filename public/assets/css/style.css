@@ -449,6 +449,8 @@ img { max-width: 100%; display: block; }
     visibility: visible;
     transform: translateY(0);
 }
+/* Dropdown trong navbar__actions (user menu) — align về phải để không tràn viewport */
+.navbar__actions .navbar__dropdown { left: auto; right: 0; min-width: 200px; }
 .navbar__drop-link {
     display: flex;
     align-items: center;
