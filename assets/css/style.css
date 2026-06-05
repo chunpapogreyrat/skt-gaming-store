@@ -683,32 +683,49 @@ img { max-width: 100%; display: block; }
     box-shadow: 0 0 12px var(--red-glow);
 }
 
-/* Badge "SALE" nhấp nháy RGB bên PHẢI — đối xứng với % */
-.sale-carousel .deal-card::after {
-    content: 'SALE';
+/* Con tem SALE tròn răng cưa 3D — nằm giữa ảnh sản phẩm */
+.deal-card__img { position: relative; }
+
+.deal-card__sale-stamp {
     position: absolute;
-    top: 8px;
-    right: 8px;
-    font-family: var(--font-h);
-    font-size: .62rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    padding: 2px 8px;
-    border-radius: 3px;
-    background: linear-gradient(90deg, #ff003c, #ff00aa, #a855f7, #ff00aa, #ff003c);
-    background-size: 300% 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    width: 72px;
+    height: 72px;
+    background: #e53935;
     color: #fff;
-    z-index: 2;
-    animation: sale-blink 1.4s ease-in-out infinite, sale-rgb-shift 3s linear infinite;
-    text-shadow: 0 0 6px rgba(255,255,255,.4);
+    font-family: var(--font-h);
+    font-size: .82rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 4;
+    pointer-events: none;
+    /* Răng cưa 12 điểm */
+    clip-path: polygon(
+        50% 0%, 56.7% 15.5%, 72.9% 6.7%, 69% 23.2%,
+        87.1% 20.7%, 77.5% 35.2%, 95.1% 39.3%, 80.9% 50%,
+        95.1% 60.7%, 77.5% 64.8%, 87.1% 79.3%, 69% 76.8%,
+        72.9% 93.3%, 56.7% 84.5%, 50% 100%, 43.3% 84.5%,
+        27.1% 93.3%, 31% 76.8%, 12.9% 79.3%, 22.5% 64.8%,
+        4.9% 60.7%, 19.1% 50%, 4.9% 39.3%, 22.5% 35.2%,
+        12.9% 20.7%, 31% 23.2%, 27.1% 6.7%, 43.3% 15.5%
+    );
+    /* Hiệu ứng 3D — bóng tối bên phải/dưới */
+    filter: drop-shadow(3px 4px 0px #b71c1c) drop-shadow(0 0 10px rgba(229,57,53,.55));
+    animation: stamp-spin 0.4s cubic-bezier(.22,1.6,.36,1) forwards,
+               stamp-pulse 2.5s ease-in-out 0.4s infinite;
 }
-@keyframes sale-blink {
-    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(255,0,60,.6), 0 0 14px rgba(168,85,247,.4); }
-    50%      { opacity: .55; transform: scale(.92); box-shadow: 0 0 4px rgba(255,0,60,.3); }
+@keyframes stamp-spin {
+    from { transform: translate(-50%, -50%) rotate(20deg) scale(0.4); opacity: 0; }
+    to   { transform: translate(-50%, -50%) rotate(-15deg) scale(1);  opacity: 1; }
 }
-@keyframes sale-rgb-shift {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+@keyframes stamp-pulse {
+    0%, 100% { filter: drop-shadow(3px 4px 0px #b71c1c) drop-shadow(0 0 10px rgba(229,57,53,.55)); }
+    50%      { filter: drop-shadow(3px 4px 0px #b71c1c) drop-shadow(0 0 18px rgba(229,57,53,.85)); }
 }
 .deal-card__img { height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
 .deal-card__img img { max-height: 185px; max-width: 96%; object-fit: contain; transition: transform .35s; }
