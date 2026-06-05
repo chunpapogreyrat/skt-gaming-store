@@ -1200,25 +1200,46 @@ img { max-width: 100%; display: block; }
 }
 .partners__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .partners__item {
+    position: relative;
     height: 70px;
-    background: var(--bg-panel);
-    border: 1px solid rgba(255,255,255,.05);
-    border-radius: 6px;
+    background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    padding: 6px;
-    opacity: .45;
-    filter: grayscale(1);
-    transition: var(--trans);
+    padding: 10px;
+    /* MÀU TỰ NHIÊN — không grayscale, không làm mờ, tôn trọng thương hiệu */
+    opacity: 1;
+    overflow: hidden;
+    transition: transform .35s cubic-bezier(.25,.8,.25,1), box-shadow .35s, border-color .35s, background .35s;
     cursor: pointer;
 }
-.partners__item:hover {
-    opacity: 1;
-    filter: grayscale(0);
-    border-color: var(--red-dim);
-    box-shadow: 0 0 14px var(--red-dim);
-    transform: translateY(-2px);
+/* Vệt sáng quét qua khi hover — sang trọng */
+.partners__item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -120%;
+    width: 60%; height: 100%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-18deg);
+    transition: left .6s ease;
+    pointer-events: none;
 }
-.partners__item img { max-height: 48px; max-width: 100%; object-fit: contain; }
+.partners__item:hover::before { left: 130%; }
+.partners__item:hover {
+    transform: translateY(-5px) scale(1.04);
+    border-color: rgba(0,229,255,.55);
+    background: linear-gradient(160deg, rgba(255,255,255,.12), rgba(255,255,255,.04));
+    box-shadow: 0 12px 26px rgba(0,0,0,.4), 0 0 18px rgba(0,229,255,.25);
+}
+.partners__item img {
+    max-height: 50px; max-width: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    transition: transform .35s cubic-bezier(.25,.8,.25,1);
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.35));
+}
+.partners__item:hover img { transform: scale(1.08); }
 
 /* ----- Col 3 — Ad blocks ----- */
 .ad-block {
