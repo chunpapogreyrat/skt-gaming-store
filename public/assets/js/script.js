@@ -1313,9 +1313,10 @@ function initAuthTransitions() {
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
-    initFakeAuth();
-    initAuthState();
-    initProductLinks();
+    // DISABLED — Laravel auth thật, không dùng fake auth/localStorage gating/hardcoded detail.html
+    // initFakeAuth();
+    // initAuthState();
+    // initProductLinks();
     initSetupsFilter();
     initCountUp();
     initCartPage();
