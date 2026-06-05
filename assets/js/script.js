@@ -1044,6 +1044,39 @@ function initCartPage() {
 /* #endregion */
 
 /* ==========================================
+   #region REGISTER (demo)
+========================================== */
+function initFakeRegister() {
+    var form = document.getElementById('registerForm');
+    if (!form) return;
+    var name  = document.getElementById('regName');
+    var email = document.getElementById('regEmail');
+    var p1    = document.getElementById('regPass');
+    var p2    = document.getElementById('regPass2');
+
+    var msg = document.createElement('div');
+    msg.className = 'auth-msg';
+    var submitBtn = form.querySelector('.auth-form__btn-submit');
+    if (submitBtn) form.insertBefore(msg, submitBtn);
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (p1.value !== p2.value) {
+            msg.className = 'auth-msg auth-msg--err';
+            msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Mật khẩu xác nhận không khớp!';
+            form.classList.add('auth-shake');
+            setTimeout(function () { form.classList.remove('auth-shake'); }, 500);
+            return;
+        }
+        msg.className = 'auth-msg auth-msg--ok';
+        msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Tạo tài khoản thành công! Đang đăng nhập...';
+        try { localStorage.setItem('skt_user', (email.value || name.value || '').trim()); } catch (err) {}
+        setTimeout(function () { window.location.href = 'index.html'; }, 1000);
+    });
+}
+/* #endregion */
+
+/* ==========================================
    #region FORGOT PASSWORD
 ========================================== */
 function initForgotPassword() {
@@ -1377,11 +1410,102 @@ function initAuthTransitions() {
 /* #endregion */
 
 /* ==========================================
+   #region AUTH SWITCHER (1 trang: login / register / forgot)
+   Đổi form tại chỗ — không reload, không delay
+========================================== */
+function initAuthSwitcher() {
+    var container = document.getElementById('authViews');
+    if (!container) return;
+
+    var views = container.querySelectorAll('.auth-view');
+    var ORDER = { login: 0, register: 1, forgot: 2 };
+    var current = 'login';
+    var animating = false;
+
+    function getView(name) {
+        return container.querySelector('.auth-view[data-view="' + name + '"]');
+    }
+
+    function switchTo(name) {
+        if (animating || name === current || !getView(name)) return;
+        animating = true;
+
+        var fromEl = getView(current);
+        var toEl   = getView(name);
+        // hướng trượt theo thứ tự view
+        var dir = ORDER[name] > ORDER[current] ? 1 : -1;
+
+        // khóa chiều cao hiện tại để animate mượt
+        var startH = container.offsetHeight;
+        container.style.height = startH + 'px';
+
+        // form cũ trượt ra
+        fromEl.style.transition = 'transform .32s ease, opacity .28s ease';
+        fromEl.style.transform  = 'translateX(' + (-40 * dir) + 'px)';
+        fromEl.style.opacity    = '0';
+
+        setTimeout(function () {
+            fromEl.classList.remove('is-active');
+            fromEl.style.cssText = ''; // reset
+
+            // form mới vào
+            toEl.classList.add('is-active');
+            toEl.style.transition = 'none';
+            toEl.style.transform  = 'translateX(' + (40 * dir) + 'px)';
+            toEl.style.opacity    = '0';
+
+            // đo chiều cao đích rồi animate
+            var endH = toEl.offsetHeight;
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    container.style.transition = 'height .34s ease';
+                    container.style.height = endH + 'px';
+                    toEl.style.transition = 'transform .34s ease, opacity .3s ease .04s';
+                    toEl.style.transform  = 'translateX(0)';
+                    toEl.style.opacity    = '1';
+                });
+            });
+
+            setTimeout(function () {
+                container.style.height = '';
+                container.style.transition = '';
+                toEl.style.cssText = '';
+                toEl.classList.add('is-active');
+                animating = false;
+            }, 360);
+
+            current = name;
+            // cập nhật hash (không nhảy trang)
+            try { history.replaceState(null, '', '#' + name); } catch (e) {}
+        }, 300);
+    }
+
+    // Bind các link chuyển view
+    container.querySelectorAll('[data-auth-view]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+            e.preventDefault();
+            switchTo(this.dataset.authView);
+        });
+    });
+
+    // Mở đúng view theo hash (#register / #forgot từ redirect)
+    var initial = (location.hash || '').replace('#', '');
+    if (initial && ORDER.hasOwnProperty(initial) && initial !== 'login') {
+        // hiện ngay không animate
+        getView('login').classList.remove('is-active');
+        getView(initial).classList.add('is-active');
+        current = initial;
+    }
+}
+/* #endregion */
+
+/* ==========================================
    INIT
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
     initFakeAuth();
+    initFakeRegister();
     initAuthState();
     initProductLinks();
     initSetupsFilter();
@@ -1406,4 +1530,5 @@ document.addEventListener('DOMContentLoaded', function () {
     initProfileTabs();
     initAuthParallax();
     initAuthTransitions();
+    initAuthSwitcher();
 });

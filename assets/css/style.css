@@ -144,6 +144,15 @@ img { max-width: 100%; display: block; }
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
+/* ===== Multi-view (login / register / forgot trong 1 card) ===== */
+.auth-card--multi { overflow: hidden; }
+.auth-views {
+    position: relative;
+    overflow: hidden;
+}
+.auth-view { display: none; }
+.auth-view.is-active { display: block; }
+
 .auth-card__title {
     color: var(--text-main);
     font-family: var(--font-h);
