@@ -11,11 +11,9 @@
 </head>
 <body class="dark-theme auth-page">
 
-    <!-- #region BACKGROUND -->
     <div class="auth-bg"></div>
-    <!-- #endregion -->
 
-    <!-- #region TARIK MODAL -->
+    <!-- TARIK MODAL -->
     <div id="tarikModal" class="tarik-modal" role="dialog" aria-modal="true">
         <div class="tarik-modal__bg"></div>
         <button class="tarik-modal__close" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
@@ -23,193 +21,122 @@
             <div class="tarik-modal__badge">SKT — Pro Pick</div>
             <h2 class="tarik-modal__name">Chào Mừng<br>Chiến Binh!</h2>
             <div class="tarik-modal__divider"></div>
-            <p class="tarik-modal__slogan">
-                <em>Tarik</em> đã được chọn được chuột,<br>còn bạn thì sao?
-            </p>
-            <a href="products.html" class="tarik-modal__cta">
-                <i class="fa-solid fa-bolt"></i> VÀO CHIẾN TRƯỜNG
-            </a>
+            <p class="tarik-modal__slogan"><em>Tarik</em> đã được chọn được chuột,<br>còn bạn thì sao?</p>
+            <a href="products.html" class="tarik-modal__cta"><i class="fa-solid fa-bolt"></i> VÀO CHIẾN TRƯỜNG</a>
         </div>
     </div>
-    <!-- #endregion -->
 
-    <!-- #region BRAND -->
     <a href="index.html" class="auth-brand">SKT</a>
-    <!-- #endregion -->
+    <a href="index.html" class="auth-back"><i class="fa-solid fa-arrow-left me-2"></i>TRỞ VỀ TRANG CHỦ</a>
 
-    <!-- #region BACK LINK -->
-    <a href="index.html" class="auth-back">
-        <i class="fa-solid fa-arrow-left me-2"></i>TRỞ VỀ TRANG CHỦ
-    </a>
-    <!-- #endregion -->
+    <!-- #region SLIDER AUTH (double-slider login/register + forgot) -->
+    <div class="slider-wrap">
+        <div class="slider-auth" id="sliderAuth">
 
-    <!-- #region AUTH (gộp 3 form: login / register / forgot) -->
-    <div class="auth-wrap auth-wrap--right">
-        <div id="authPanel" class="auth-panel">
-            <div class="auth-card auth-card--multi">
-                <div class="auth-views" id="authViews">
-                  <div class="auth-track" id="authTrack">
+            <!-- ===== FORM: ĐĂNG NHẬP ===== -->
+            <div class="slider-auth__form-box slider-auth__form-box--login">
+                <form id="loginForm" action="#" method="POST" class="slider-auth__form">
+                    <h2 class="slider-auth__title">Đăng Nhập</h2>
+                    <div class="slider-auth__socials">
+                        <button type="button" class="slider-auth__social"><i class="fa-brands fa-google"></i></button>
+                        <button type="button" class="slider-auth__social"><i class="fa-brands fa-facebook-f"></i></button>
+                    </div>
+                    <span class="slider-auth__hint">hoặc dùng tài khoản của bạn</span>
 
-                    <!-- ============ VIEW: LOGIN ============ -->
-                    <div class="auth-view is-active" data-view="login">
-                        <div class="text-center mb-4">
-                            <h2 class="auth-card__title">Đăng Nhập Hệ Thống</h2>
-                            <p class="auth-card__subtitle mt-2">Chào mừng chiến binh quay trở lại chiến trường.</p>
-                        </div>
-
-                        <form id="loginForm" action="#" method="POST" class="auth-form font-poppins">
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-regular fa-envelope"></i></span>
-                                <input type="text" id="loginEmail" class="auth-field__input" placeholder=" " required>
-                                <label for="loginEmail" class="auth-field__label">Email / Tài khoản</label>
-                            </div>
-
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-solid fa-lock"></i></span>
-                                <input type="password" id="loginPass" class="auth-field__input" placeholder=" " required>
-                                <label for="loginPass" class="auth-field__label">Mật khẩu</label>
-                                <button type="button" class="auth-field__toggle toggle-password" aria-label="Hiện mật khẩu">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                            </div>
-
-                            <div class="d-flex justify-content-between align-items-center mb-4">
-                                <div class="form-check auth-form__check">
-                                    <input class="form-check-input bg-dark border-secondary" type="checkbox" id="rememberMe">
-                                    <label class="form-check-label text-secondary" for="rememberMe" style="font-size:0.83rem;">
-                                        Ghi nhớ đăng nhập
-                                    </label>
-                                </div>
-                                <a href="#" data-auth-view="forgot" class="auth-form__forgot-link">Quên mật khẩu?</a>
-                            </div>
-
-                            <button type="submit" class="btn w-100 auth-form__btn-submit mb-4">ĐĂNG NHẬP</button>
-
-                            <div class="d-flex align-items-center mb-4">
-                                <hr class="flex-grow-1 border-secondary opacity-25">
-                                <span class="mx-3 small font-poppins text-muted">HOẶC</span>
-                                <hr class="flex-grow-1 border-secondary opacity-25">
-                            </div>
-
-                            <div class="row g-3 mb-4">
-                                <div class="col-6">
-                                    <button type="button" class="btn auth-form__btn-social btn-google w-100 py-2">
-                                        <i class="fa-brands fa-google me-2"></i>GOOGLE
-                                    </button>
-                                </div>
-                                <div class="col-6">
-                                    <button type="button" class="btn auth-form__btn-social btn-facebook w-100 py-2">
-                                        <i class="fa-brands fa-facebook-f me-2"></i>FACEBOOK
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="text-center font-poppins">
-                                <a href="#" data-auth-view="register" class="auth-form__register-link">
-                                    Chưa có tài khoản? <span>Đăng ký ngay</span>
-                                </a>
-                            </div>
-                        </form>
+                    <div class="slider-auth__field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="text" id="loginEmail" placeholder="Email / Tài khoản" required>
+                    </div>
+                    <div class="slider-auth__field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="loginPass" placeholder="Mật khẩu" required>
+                        <button type="button" class="slider-auth__eye toggle-password"><i class="fa-regular fa-eye"></i></button>
                     </div>
 
-                    <!-- ============ VIEW: REGISTER ============ -->
-                    <div class="auth-view" data-view="register">
-                        <div class="text-center mb-4">
-                            <h2 class="auth-card__title">Đăng Ký Tài Khoản</h2>
-                            <p class="auth-card__subtitle mt-2">Tạo tài khoản để nhận ưu đãi độc quyền.</p>
-                        </div>
+                    <a href="#" data-auth-view="forgot" class="slider-auth__link">Quên mật khẩu?</a>
+                    <button type="submit" class="slider-auth__btn">ĐĂNG NHẬP</button>
 
-                        <form id="registerForm" action="#" method="POST" class="auth-form font-poppins">
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-regular fa-user"></i></span>
-                                <input type="text" id="regName" class="auth-field__input" placeholder=" " required>
-                                <label for="regName" class="auth-field__label">Họ và tên</label>
-                            </div>
+                    <p class="slider-auth__mobile-switch">Chưa có tài khoản?
+                        <a href="#" data-auth-view="register">Đăng ký</a>
+                    </p>
+                </form>
+            </div>
 
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-regular fa-envelope"></i></span>
-                                <input type="email" id="regEmail" class="auth-field__input" placeholder=" " required>
-                                <label for="regEmail" class="auth-field__label">Email</label>
-                            </div>
+            <!-- ===== FORM: ĐĂNG KÝ ===== -->
+            <div class="slider-auth__form-box slider-auth__form-box--register">
+                <form id="registerForm" action="#" method="POST" class="slider-auth__form">
+                    <h2 class="slider-auth__title">Tạo Tài Khoản</h2>
+                    <div class="slider-auth__socials">
+                        <button type="button" class="slider-auth__social"><i class="fa-brands fa-google"></i></button>
+                        <button type="button" class="slider-auth__social"><i class="fa-brands fa-facebook-f"></i></button>
+                    </div>
+                    <span class="slider-auth__hint">hoặc đăng ký bằng email</span>
 
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-solid fa-lock"></i></span>
-                                <input type="password" id="regPass" class="auth-field__input" placeholder=" " required>
-                                <label for="regPass" class="auth-field__label">Mật khẩu</label>
-                                <button type="button" class="auth-field__toggle toggle-password" aria-label="Hiện mật khẩu">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                            </div>
-
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-solid fa-clock-rotate-left"></i></span>
-                                <input type="password" id="regPass2" class="auth-field__input" placeholder=" " required>
-                                <label for="regPass2" class="auth-field__label">Xác nhận mật khẩu</label>
-                                <button type="button" class="auth-field__toggle toggle-password" aria-label="Hiện mật khẩu">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                            </div>
-
-                            <button type="submit" class="btn w-100 auth-form__btn-submit mb-4">TẠO TÀI KHOẢN</button>
-
-                            <div class="d-flex align-items-center mb-4">
-                                <hr class="flex-grow-1 border-secondary opacity-25">
-                                <span class="mx-3 small font-poppins text-muted">HOẶC</span>
-                                <hr class="flex-grow-1 border-secondary opacity-25">
-                            </div>
-
-                            <div class="row g-3 mb-4">
-                                <div class="col-6">
-                                    <button type="button" class="btn auth-form__btn-social btn-google w-100 py-2">
-                                        <i class="fa-brands fa-google me-2"></i>GOOGLE
-                                    </button>
-                                </div>
-                                <div class="col-6">
-                                    <button type="button" class="btn auth-form__btn-social btn-facebook w-100 py-2">
-                                        <i class="fa-brands fa-facebook-f me-2"></i>FACEBOOK
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="text-center font-poppins">
-                                <a href="#" data-auth-view="login" class="auth-form__register-link">
-                                    Đã có tài khoản? <span>Đăng nhập</span>
-                                </a>
-                            </div>
-                        </form>
+                    <div class="slider-auth__field">
+                        <i class="fa-regular fa-user"></i>
+                        <input type="text" id="regName" placeholder="Họ và tên" required>
+                    </div>
+                    <div class="slider-auth__field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="regEmail" placeholder="Email" required>
+                    </div>
+                    <div class="slider-auth__field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="regPass" placeholder="Mật khẩu" required>
+                        <button type="button" class="slider-auth__eye toggle-password"><i class="fa-regular fa-eye"></i></button>
+                    </div>
+                    <div class="slider-auth__field">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <input type="password" id="regPass2" placeholder="Xác nhận mật khẩu" required>
+                        <button type="button" class="slider-auth__eye toggle-password"><i class="fa-regular fa-eye"></i></button>
                     </div>
 
-                  </div><!-- /auth-track -->
+                    <button type="submit" class="slider-auth__btn">TẠO TÀI KHOẢN</button>
 
-                    <!-- ============ VIEW: FORGOT (overlay, lật 3D) ============ -->
-                    <div class="auth-view auth-view--overlay" data-view="forgot">
-                        <div class="text-center mb-4">
-                            <div class="forgot-icon"><i class="fa-solid fa-key"></i></div>
-                            <h2 class="auth-card__title">Quên Mật Khẩu</h2>
-                            <p class="auth-card__subtitle mt-2">Nhập email đăng ký, chúng tôi sẽ gửi link đặt lại mật khẩu.</p>
-                        </div>
+                    <p class="slider-auth__mobile-switch">Đã có tài khoản?
+                        <a href="#" data-auth-view="login">Đăng nhập</a>
+                    </p>
+                </form>
+            </div>
 
-                        <form id="forgotForm" action="#" method="POST" class="auth-form font-poppins" onsubmit="return false;">
-                            <div class="auth-field">
-                                <span class="auth-field__icon"><i class="fa-regular fa-envelope"></i></span>
-                                <input type="email" id="forgotEmail" class="auth-field__input" placeholder=" " required>
-                                <label for="forgotEmail" class="auth-field__label">Email của bạn</label>
-                            </div>
+            <!-- ===== FORM: QUÊN MẬT KHẨU (phủ lên bên login) ===== -->
+            <div class="slider-auth__form-box slider-auth__form-box--forgot">
+                <form id="forgotForm" action="#" method="POST" class="slider-auth__form" onsubmit="return false;">
+                    <div class="slider-auth__key"><i class="fa-solid fa-key"></i></div>
+                    <h2 class="slider-auth__title">Quên Mật Khẩu</h2>
+                    <span class="slider-auth__hint">Nhập email, chúng tôi sẽ gửi link đặt lại</span>
 
-                            <div class="auth-msg" id="forgotMsg"></div>
-
-                            <button type="submit" class="btn w-100 auth-form__btn-submit mb-4">GỬI LINK ĐẶT LẠI</button>
-
-                            <div class="text-center font-poppins">
-                                <a href="#" data-auth-view="login" class="auth-form__register-link">
-                                    Nhớ ra mật khẩu rồi? <span>Đăng nhập</span>
-                                </a>
-                            </div>
-                        </form>
+                    <div class="slider-auth__field">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="forgotEmail" placeholder="Email của bạn" required>
                     </div>
+                    <div class="auth-msg" id="forgotMsg"></div>
 
+                    <button type="submit" class="slider-auth__btn">GỬI LINK ĐẶT LẠI</button>
+                    <a href="#" data-auth-view="login" class="slider-auth__link mt-3">
+                        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại đăng nhập
+                    </a>
+                </form>
+            </div>
+
+            <!-- ===== OVERLAY (panel màu trượt) ===== -->
+            <div class="slider-auth__overlay-box">
+                <div class="slider-auth__overlay">
+                    <!-- panel hiện khi đang ở REGISTER → mời quay lại login -->
+                    <div class="slider-auth__overlay-panel slider-auth__overlay-panel--left">
+                        <h2 class="slider-auth__overlay-title">Chào mừng trở lại!</h2>
+                        <p class="slider-auth__overlay-text">Đã có tài khoản? Đăng nhập để tiếp tục chinh phục chiến trường.</p>
+                        <button type="button" class="slider-auth__ghost" id="goLogin">ĐĂNG NHẬP</button>
+                    </div>
+                    <!-- panel hiện khi đang ở LOGIN → mời đăng ký -->
+                    <div class="slider-auth__overlay-panel slider-auth__overlay-panel--right">
+                        <h2 class="slider-auth__overlay-title">Chào, Chiến Binh!</h2>
+                        <p class="slider-auth__overlay-text">Chưa có tài khoản? Đăng ký ngay để nhận ưu đãi độc quyền.</p>
+                        <button type="button" class="slider-auth__ghost" id="goRegister">ĐĂNG KÝ</button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- #endregion -->

@@ -1312,30 +1312,31 @@ function initAuthTransitions() {
     var qs        = new URLSearchParams(location.search);
     var enterType = qs.get('_et') || 'slide-right';
     var panel     = document.getElementById('authPanel');
-    if (!panel) return;
 
-    /* --- enter animation khi trang load --- */
-    var startCSS = '';
-    if (enterType === 'slide-left')  startCSS = 'translateX(-110%)';
-    if (enterType === 'slide-right') startCSS = 'translateX(110%)';
-    if (enterType === 'spin')        startCSS = 'perspective(900px) rotateY(-90deg) scale(0.85)';
+    /* --- enter animation khi trang load (chỉ khi còn dùng #authPanel) --- */
+    if (panel) {
+        var startCSS = '';
+        if (enterType === 'slide-left')  startCSS = 'translateX(-110%)';
+        if (enterType === 'slide-right') startCSS = 'translateX(110%)';
+        if (enterType === 'spin')        startCSS = 'perspective(900px) rotateY(-90deg) scale(0.85)';
 
-    panel.style.transform  = startCSS;
-    panel.style.opacity    = '0';
-    panel.style.transition = 'none';
+        panel.style.transform  = startCSS;
+        panel.style.opacity    = '0';
+        panel.style.transition = 'none';
 
-    requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-            var dur = (enterType === 'spin') ? SPIN_MS : SLIDE_MS;
-            panel.style.transition =
-                'transform ' + dur + 'ms cubic-bezier(0.25,0.46,0.45,0.94),' +
-                'opacity '   + (dur * 0.55) + 'ms ease';
-            panel.style.transform = (enterType === 'spin')
-                ? 'perspective(900px) rotateY(0deg) scale(1)'
-                : 'translateX(0)';
-            panel.style.opacity = '1';
+            requestAnimationFrame(function () {
+                var dur = (enterType === 'spin') ? SPIN_MS : SLIDE_MS;
+                panel.style.transition =
+                    'transform ' + dur + 'ms cubic-bezier(0.25,0.46,0.45,0.94),' +
+                    'opacity '   + (dur * 0.55) + 'ms ease';
+                panel.style.transform = (enterType === 'spin')
+                    ? 'perspective(900px) rotateY(0deg) scale(1)'
+                    : 'translateX(0)';
+                panel.style.opacity = '1';
+            });
         });
-    });
+    }
 
     /* --- exit + navigate --- */
     function goTo(url, exitType) {
@@ -1410,162 +1411,37 @@ function initAuthTransitions() {
 /* #endregion */
 
 /* ==========================================
-   #region AUTH SWITCHER (1 trang: login / register / forgot)
-   Đổi form tại chỗ — không reload, không delay
+   #region AUTH SWITCHER — Double-slider (login ↔ register) + forgot
+   Panel màu trượt ngang; quên mật khẩu hiện đè lên form login.
 ========================================== */
 function initAuthSwitcher() {
-    var container = document.getElementById('authViews');
-    var track     = document.getElementById('authTrack');
-    if (!container || !track) return;
+    var box = document.getElementById('sliderAuth');
+    if (!box) return;
 
-    var SLIDE = 540, FLIP = 560;
-    var current = 'login';
-    var animating = false;
-
-    function v(name) { return container.querySelector('.auth-view[data-view="' + name + '"]'); }
-    function setHeight(px) { container.style.height = px + 'px'; }
-    function trackX(name) { return name === 'register' ? '-50%' : '0%'; }
-    function hash(name) { try { history.replaceState(null, '', '#' + name); } catch (e) {} }
-
-    /* Đặt chiều cao container = form đang hiển thị (vì track flex luôn cao = form cao nhất) */
-    function lockHeight(name) {
-        container.style.transition = 'none';
-        setHeight(v(name).offsetHeight);
+    function show(view) {
+        box.classList.remove('is-register', 'is-forgot');
+        if (view === 'register') box.classList.add('is-register');
+        else if (view === 'forgot') box.classList.add('is-forgot');
+        try { history.replaceState(null, '', '#' + view); } catch (e) {}
     }
 
-    /* ---- TRƯỢT NGANG: login ↔ register (2 toa tàu cạnh nhau) ---- */
-    function slideTrack(name) {
-        animating = true;
-        var fromEl = v(current), toEl = v(name);
-        var startH = container.offsetHeight, endH = toEl.offsetHeight;
+    // Nút ghost trên overlay
+    var goReg = document.getElementById('goRegister');
+    var goLog = document.getElementById('goLogin');
+    if (goReg) goReg.addEventListener('click', function () { show('register'); });
+    if (goLog) goLog.addEventListener('click', function () { show('login'); });
 
-        container.style.transition = 'none';
-        setHeight(startH);
-        void container.offsetHeight; // reflow
-
-        var ease = 'cubic-bezier(.6,.02,.2,1)';
-        track.style.transition = 'transform ' + SLIDE + 'ms ' + ease;
-        container.style.transition = 'height ' + SLIDE + 'ms ' + ease;
-        requestAnimationFrame(function () {
-            track.style.transform = 'translateX(' + trackX(name) + ')';
-            setHeight(endH);
-        });
-
-        fromEl.classList.remove('is-active');
-        toEl.classList.add('is-active');
-
-        setTimeout(function () {
-            container.style.transition = 'none';
-            current = name;
-            lockHeight(name);
-            animating = false;
-            hash(name);
-        }, SLIDE + 40);
-    }
-
-    /* ---- LẬT 3D TẠI CHỖ: login ↔ forgot ---- */
-    function flip(name) {
-        animating = true;
-        var leaving  = v(current);   // login (trong track) hoặc forgot (overlay)
-        var entering = v(name);
-        var enteringForgot = (name === 'forgot');
-
-        var startH = container.offsetHeight;
-        container.style.transition = 'none';
-        setHeight(startH);
-        container.style.perspective = '1400px';
-
-        // Nếu quay lại login: đảm bảo track hiện & đúng vị trí
-        if (!enteringForgot) {
-            track.style.transition = 'none';
-            track.style.transform = 'translateX(0%)';
-            track.style.visibility = 'visible';
-        }
-
-        // Đo chiều cao form sắp vào
-        entering.classList.add('is-active');
-        entering.style.visibility = 'hidden';
-        var endH = entering.offsetHeight;
-        entering.style.visibility = '';
-
-        // Transform khởi đầu
-        leaving.style.transition = 'none';
-        leaving.style.transform = 'perspective(1400px) rotateY(0deg)';
-        leaving.style.opacity = '1';
-        entering.style.transition = 'none';
-        entering.style.transform = 'perspective(1400px) rotateY(-90deg) scale(.92)';
-        entering.style.opacity = '0';
-        void container.offsetHeight; // reflow
-
-        var ease = 'cubic-bezier(.5,.05,.25,1)';
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                container.style.transition = 'height ' + FLIP + 'ms ' + ease;
-                setHeight(endH);
-                leaving.style.transition  = 'transform ' + FLIP + 'ms ' + ease + ', opacity ' + (FLIP * 0.5) + 'ms ease';
-                entering.style.transition = 'transform ' + FLIP + 'ms ' + ease + ', opacity ' + (FLIP * 0.5) + 'ms ease ' + (FLIP * 0.2) + 'ms';
-                leaving.style.transform  = 'perspective(1400px) rotateY(90deg) scale(.92)';
-                leaving.style.opacity = '0';
-                entering.style.transform = 'perspective(1400px) rotateY(0deg) scale(1)';
-                entering.style.opacity = '1';
-            });
-        });
-
-        setTimeout(function () {
-            leaving.classList.remove('is-active');
-            leaving.style.cssText = (leaving.classList.contains('auth-view--overlay')) ? '' : '';
-            leaving.style.transform = ''; leaving.style.transition = ''; leaving.style.opacity = '';
-            entering.style.transform = ''; entering.style.transition = ''; entering.style.opacity = ''; entering.style.visibility = '';
-            entering.classList.add('is-active');
-
-            // Vào forgot → ẩn track phía sau cho khỏi lộ
-            if (enteringForgot) track.style.visibility = 'hidden';
-
-            container.style.perspective = '';
-            container.style.transition = 'none';
-            current = name;
-            lockHeight(name);
-            animating = false;
-            hash(name);
-        }, FLIP + 50);
-    }
-
-    function switchTo(name) {
-        if (animating || name === current || !v(name)) return;
-        var pair = (current === 'login' && name === 'register') ||
-                   (current === 'register' && name === 'login');
-        if (pair) slideTrack(name);
-        else      flip(name);
-    }
-
-    // Bind link
-    container.querySelectorAll('[data-auth-view]').forEach(function (link) {
+    // Link trong form (mobile switch + quên mật khẩu + quay lại)
+    box.querySelectorAll('[data-auth-view]').forEach(function (link) {
         link.addEventListener('click', function (e) {
             e.preventDefault();
-            switchTo(this.dataset.authView);
+            show(this.dataset.authView);
         });
     });
 
-    // Hash ban đầu (#register / #forgot từ redirect)
+    // Hash ban đầu
     var initial = (location.hash || '').replace('#', '');
-    if (initial === 'register') {
-        v('login').classList.remove('is-active');
-        v('register').classList.add('is-active');
-        track.style.transition = 'none';
-        track.style.transform = 'translateX(-50%)';
-        current = 'register';
-    } else if (initial === 'forgot') {
-        v('login').classList.remove('is-active');
-        v('forgot').classList.add('is-active');
-        track.style.visibility = 'hidden';
-        current = 'forgot';
-    }
-
-    // Khóa chiều cao ban đầu + cập nhật khi resize
-    requestAnimationFrame(function () { lockHeight(current); });
-    window.addEventListener('resize', function () {
-        if (!animating) lockHeight(current);
-    });
+    if (initial === 'register' || initial === 'forgot') show(initial);
 }
 /* #endregion */
 
