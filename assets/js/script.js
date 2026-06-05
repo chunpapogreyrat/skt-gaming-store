@@ -819,7 +819,6 @@ function buildUserDropdown(userLink) {
         '<div class="user-menu__divider"></div>' +
         '<a href="order-history.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-box-archive"></i></span> Đơn hàng của tôi <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
         '<a href="profile.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-heart"></i></span> Sản phẩm yêu thích <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
-        '<a href="profile.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-gear"></i></span> Cài đặt tài khoản <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
         '<a href="contact.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-circle-question"></i></span> Trợ giúp & hỗ trợ <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
         '<div class="user-menu__divider"></div>' +
         '<button type="button" class="user-menu__item user-menu__item--logout" id="userMenuLogout"><span class="user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</button>' +
