@@ -1,4 +1,4 @@
-@extends('layouts.store')
+@extends('layouts.app')
 
 @section('title', 'Tai khoan cua toi - SKT Gaming Store')
 

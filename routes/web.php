@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 // ══════════════════════════════════════════════════════
@@ -7,10 +8,8 @@ use Illuminate\Support\Facades\Route;
 //  Thêm route vào codex.php hoặc claude.php tương ứng
 // ══════════════════════════════════════════════════════
 
-// Trang chủ
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// Trang chủ — hiển thị sản phẩm hot, sale, featured
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // ── Codex routes (Module 1, 2, 5, 7) ──
 require __DIR__ . '/codex.php';

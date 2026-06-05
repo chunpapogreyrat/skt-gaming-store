@@ -47,24 +47,28 @@
         <div class="navbar__menu" id="navMenu">
             <ul class="navbar__links">
                 <li class="navbar__item navbar__has-drop">
-                    <a href="{{ route('home') }}" class="navbar__link">Gaming Gear <i class="fa-solid fa-angle-down navbar__caret"></i></a>
+                    <a href="{{ route('products.index') }}" class="navbar__link {{ request()->routeIs('products.*') ? 'navbar__link--active' : '' }}">
+                        Gaming Gear <i class="fa-solid fa-angle-down navbar__caret"></i>
+                    </a>
                     <div class="navbar__dropdown">
-                        <a href="{{ route('products.index', ['danh-muc' => 'ban-phim']) }}" class="navbar__drop-link"><i class="fa-solid fa-keyboard"></i> Bàn Phím Cơ</a>
-                        <a href="{{ route('products.index', ['danh-muc' => 'chuot']) }}" class="navbar__drop-link"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a>
-                        <a href="{{ route('products.index', ['danh-muc' => 'phu-kien']) }}" class="navbar__drop-link"><i class="fa-solid fa-headphones"></i> Phụ Kiện</a>
-                        <a href="{{ route('products.index', ['danh-muc' => 'lot-chuot']) }}" class="navbar__drop-link"><i class="fa-solid fa-grip"></i> Lót Chuột</a>
+                        <a href="{{ route('products.index', ['category' => 'keyboard']) }}" class="navbar__drop-link"><i class="fa-solid fa-keyboard"></i> Bàn Phím Cơ</a>
+                        <a href="{{ route('products.index', ['category' => 'mice']) }}" class="navbar__drop-link"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a>
+                        <a href="{{ route('products.index', ['category' => 'accessory']) }}" class="navbar__drop-link"><i class="fa-solid fa-headphones"></i> Phụ Kiện</a>
+                        <a href="{{ route('products.index', ['category' => 'mousepad']) }}" class="navbar__drop-link"><i class="fa-solid fa-grip"></i> Lót Chuột</a>
                     </div>
                 </li>
                 <li class="navbar__item navbar__has-drop">
-                    <a href="{{ route('setups.index') }}" class="navbar__link">Góc game thủ <i class="fa-solid fa-angle-down navbar__caret"></i></a>
+                    <a href="{{ route('static.setups') }}" class="navbar__link {{ request()->routeIs('static.setups') ? 'navbar__link--active' : '' }}">
+                        Góc game thủ <i class="fa-solid fa-angle-down navbar__caret"></i>
+                    </a>
                     <div class="navbar__dropdown">
-                        <a href="{{ route('setups.index') }}" class="navbar__drop-link"><i class="fa-solid fa-display"></i> Setup đỉnh cao</a>
-                        <a href="{{ route('setups.index') }}" class="navbar__drop-link"><i class="fa-solid fa-gamepad"></i> Trải nghiệm sản phẩm</a>
-                        <a href="{{ route('setups.index') }}" class="navbar__drop-link"><i class="fa-solid fa-broom"></i> Vệ sinh thiết bị</a>
+                        <a href="{{ route('static.setups') }}" class="navbar__drop-link"><i class="fa-solid fa-display"></i> Setup đỉnh cao</a>
+                        <a href="{{ route('static.setups') }}" class="navbar__drop-link"><i class="fa-solid fa-gamepad"></i> Trải nghiệm sản phẩm</a>
+                        <a href="{{ route('static.setups') }}" class="navbar__drop-link"><i class="fa-solid fa-broom"></i> Vệ sinh thiết bị</a>
                     </div>
                 </li>
-                <li><a href="{{ route('about') }}" class="navbar__link">Giới thiệu về chúng tui</a></li>
-                <li><a href="{{ route('contact') }}" class="navbar__link">Liên hệ</a></li>
+                <li><a href="{{ route('static.about') }}" class="navbar__link {{ request()->routeIs('static.about') ? 'navbar__link--active' : '' }}">Giới thiệu về chúng tui</a></li>
+                <li><a href="{{ route('static.contact') }}" class="navbar__link {{ request()->routeIs('static.contact') ? 'navbar__link--active' : '' }}">Liên hệ</a></li>
             </ul>
             <div class="navbar__actions">
                 <button type="button" class="navbar__icon-btn navbar__icon-btn--btn" id="openSearchBtn" aria-label="Tìm kiếm">
@@ -76,10 +80,13 @@
                 </button>
                 @auth
                     <div class="navbar__item navbar__has-drop">
-                        <a href="{{ route('profile') }}" class="navbar__icon-btn"><i class="fa-regular fa-user"></i></a>
+                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.show') }}" class="navbar__icon-btn" aria-label="Tài khoản"><i class="fa-regular fa-user"></i></a>
                         <div class="navbar__dropdown">
-                            <a href="{{ route('profile') }}" class="navbar__drop-link"><i class="fa-solid fa-user"></i> Tài khoản</a>
+                            <a href="{{ route('profile.show') }}" class="navbar__drop-link"><i class="fa-solid fa-user"></i> Tài khoản</a>
                             <a href="{{ route('orders.index') }}" class="navbar__drop-link"><i class="fa-solid fa-box"></i> Đơn hàng</a>
+                            @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="navbar__drop-link"><i class="fa-solid fa-gauge-high"></i> Quản trị</a>
+                            @endif
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
                                 <button type="submit" class="navbar__drop-link w-100 text-start border-0 bg-transparent">
@@ -89,7 +96,7 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="navbar__icon-btn"><i class="fa-regular fa-user"></i></a>
+                    <a href="{{ route('login') }}" class="navbar__icon-btn" aria-label="Đăng nhập"><i class="fa-regular fa-user"></i></a>
                 @endauth
             </div>
         </div>
@@ -120,9 +127,10 @@
             <div class="col-lg-2 col-md-6 col-6">
                 <h6 class="site-footer__col-title">SẢN PHẨM</h6>
                 <ul class="site-footer__links list-unstyled">
-                    <li><a href="{{ route('products.index', ['danh-muc' => 'ban-phim']) }}">Bàn phím cơ</a></li>
-                    <li><a href="{{ route('products.index', ['danh-muc' => 'chuot']) }}">Chuột gaming</a></li>
-                    <li><a href="{{ route('products.index', ['danh-muc' => 'phu-kien']) }}">Tai nghe</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'keyboard']) }}">Bàn phím cơ</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'mice']) }}">Chuột gaming</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'accessory']) }}">Tai nghe</a></li>
+                    <li><a href="{{ route('products.index', ['category' => 'mousepad']) }}">Lót chuột</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6 col-6">
@@ -130,7 +138,8 @@
                 <ul class="site-footer__links list-unstyled">
                     <li><a href="#">Chính sách bảo hành</a></li>
                     <li><a href="#">Giao hàng hỏa tốc</a></li>
-                    <li><a href="{{ route('contact') }}">Liên hệ chúng tôi</a></li>
+                    <li><a href="{{ route('static.about') }}">Giới thiệu</a></li>
+                    <li><a href="{{ route('static.contact') }}">Liên hệ chúng tôi</a></li>
                 </ul>
             </div>
             <div class="col-lg-3 col-md-6">
@@ -142,7 +151,7 @@
                     <span class="pay-icon pay-icon--bank" title="Internet Banking"><i class="fa-solid fa-building-columns"></i></span>
                     <span class="pay-icon pay-icon--paypal" title="PayPal"><i class="fa-brands fa-paypal"></i></span>
                 </div>
-                <p class="site-footer__copyright">© 2024 SKT Gaming. Designed with Cyber-precision.</p>
+                <p class="site-footer__copyright">© 2026 SKT Gaming. Designed with Cyber-precision.</p>
             </div>
         </div>
     </div>
@@ -161,10 +170,11 @@
         <div class="search-overlay__body">
             <p class="search-overlay__label">Search menu</p>
             <ul class="search-overlay__menu list-unstyled">
-                <li><a href="{{ route('products.index', ['danh-muc' => 'chuot']) }}"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a></li>
-                <li><a href="{{ route('products.index', ['danh-muc' => 'ban-phim']) }}"><i class="fa-solid fa-keyboard"></i> Bàn Phím</a></li>
-                <li><a href="{{ route('products.index', ['danh-muc' => 'lot-chuot']) }}"><i class="fa-solid fa-grip"></i> Lót Chuột</a></li>
-                <li><a href="{{ route('products.index', ['danh-muc' => 'phu-kien']) }}"><i class="fa-solid fa-headphones"></i> Tai Nghe</a></li>
+                <li><a href="{{ route('products.index', ['category' => 'mice']) }}"><i class="fa-solid fa-computer-mouse"></i> Chuột Gaming</a></li>
+                <li><a href="{{ route('products.index', ['category' => 'keyboard']) }}"><i class="fa-solid fa-keyboard"></i> Bàn Phím</a></li>
+                <li><a href="{{ route('products.index', ['category' => 'mousepad']) }}"><i class="fa-solid fa-grip"></i> Lót Chuột</a></li>
+                <li><a href="{{ route('products.index', ['category' => 'accessory']) }}"><i class="fa-solid fa-headphones"></i> Tai Nghe</a></li>
+                <li><a href="{{ route('products.index', ['tag' => 'sale']) }}"><i class="fa-solid fa-tag"></i> Khuyến Mãi</a></li>
             </ul>
         </div>
     </div>
