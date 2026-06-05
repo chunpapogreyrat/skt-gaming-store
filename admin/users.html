@@ -278,7 +278,7 @@
                                     </div></td>
                                 </tr>
                                 <tr class="admin-table__row">
-                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Lê Văn Khoa','khoa@skt.vn','0911 222 333','Staff','active','../assets/images/avatars/khoa.jpg')" title="Bấm để chỉnh sửa">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Lê Văn Khoa','khoa@skt.vn','0911 222 333','Staff','active','../assets/images/avatars/khoa.jpg','orders,coupons,products')" title="Bấm để chỉnh sửa">
                                         <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
                                         <div><div class="admin-table__name">Lê Văn Khoa</div><div class="admin-table__muted">Nhân viên bán hàng</div></div>
                                     </div></td>
@@ -286,12 +286,12 @@
                                     <td><span class="admin-badge admin-badge--shipping">Sale</span></td>
                                     <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
                                     <td><div class="d-flex gap-2">
-                                        <button class="admin-icon-btn" onclick="openEditUser('Lê Văn Khoa','khoa@skt.vn','0911 222 333','Staff','active','../assets/images/avatars/khoa.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn" onclick="openEditUser('Lê Văn Khoa','khoa@skt.vn','0911 222 333','Staff','active','../assets/images/avatars/khoa.jpg','orders,coupons,products')"><i class="fa-solid fa-pen"></i></button>
                                         <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
                                     </div></td>
                                 </tr>
                                 <tr class="admin-table__row">
-                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Phạm Thị Mai','mai@skt.vn','0922 333 444','Staff','active','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')" title="Bấm để chỉnh sửa">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Phạm Thị Mai','mai@skt.vn','0922 333 444','Staff','active','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg','products,categories,suppliers')" title="Bấm để chỉnh sửa">
                                         <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
                                         <div><div class="admin-table__name">Phạm Thị Mai</div><div class="admin-table__muted">Kho hàng</div></div>
                                     </div></td>
@@ -299,12 +299,12 @@
                                     <td><span class="admin-badge admin-badge--amber" style="background:rgba(255,183,3,.12);color:#ffb703">Kho</span></td>
                                     <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
                                     <td><div class="d-flex gap-2">
-                                        <button class="admin-icon-btn" onclick="openEditUser('Phạm Thị Mai','mai@skt.vn','0922 333 444','Staff','active','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn" onclick="openEditUser('Phạm Thị Mai','mai@skt.vn','0922 333 444','Staff','active','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg','products,categories,suppliers')"><i class="fa-solid fa-pen"></i></button>
                                         <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
                                     </div></td>
                                 </tr>
                                 <tr class="admin-table__row">
-                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Nguyễn Hữu Trung','trung@skt.vn','0933 444 555','Staff','active','../assets/images/avatars/truong.jpg')" title="Bấm để chỉnh sửa">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Nguyễn Hữu Trung','trung@skt.vn','0933 444 555','Staff','active','../assets/images/avatars/truong.jpg','coupons,revenue')" title="Bấm để chỉnh sửa">
                                         <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
                                         <div><div class="admin-table__name">Nguyễn Hữu Trung</div><div class="admin-table__muted">Marketing</div></div>
                                     </div></td>
@@ -312,7 +312,7 @@
                                     <td><span class="admin-badge admin-badge--green" style="background:rgba(57,255,20,.1);color:#39ff14">Marketing</span></td>
                                     <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
                                     <td><div class="d-flex gap-2">
-                                        <button class="admin-icon-btn" onclick="openEditUser('Nguyễn Hữu Trung','trung@skt.vn','0933 444 555','Staff','active','../assets/images/avatars/truong.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn" onclick="openEditUser('Nguyễn Hữu Trung','trung@skt.vn','0933 444 555','Staff','active','../assets/images/avatars/truong.jpg','coupons,revenue')"><i class="fa-solid fa-pen"></i></button>
                                         <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
                                     </div></td>
                                 </tr>
@@ -328,7 +328,7 @@
 
 <!-- MODAL CHỈNH SỬA TÀI KHOẢN -->
 <div class="modal fade" id="modalEditUser" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content admin-modal">
             <div class="modal-header admin-modal__header">
                 <div class="d-flex align-items-center gap-3">
@@ -380,6 +380,27 @@
                                 <option value="active">Hoạt động</option>
                                 <option value="locked">Đã khóa</option>
                             </select></div>
+                    </div>
+
+                    <!-- PHÂN QUYỀN NHÂN VIÊN -->
+                    <div class="col-12" id="meu-perms-block" style="display:none">
+                        <div class="perm-panel">
+                            <div class="perm-panel__head">
+                                <div>
+                                    <div class="perm-panel__title"><i class="fa-solid fa-shield-halved"></i> Phân quyền nhân viên</div>
+                                    <div class="perm-panel__sub">Chọn các chức năng nhân viên được phép truy cập</div>
+                                </div>
+                                <div class="perm-presets">
+                                    <button type="button" class="perm-preset-btn" onclick="applyPermPreset('sale')">Nhân viên Sale</button>
+                                    <button type="button" class="perm-preset-btn" onclick="applyPermPreset('warehouse')">Kho</button>
+                                    <button type="button" class="perm-preset-btn" onclick="applyPermPreset('all')">Toàn quyền</button>
+                                    <button type="button" class="perm-preset-btn" onclick="applyPermPreset('none')">Bỏ chọn</button>
+                                </div>
+                            </div>
+                            <div class="perm-grid" id="meu-perm-grid">
+                                <!-- JS render -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -513,10 +534,53 @@
     window.addEventListener('load', initPill);
     window.addEventListener('resize', initPill);
 
+    /* ===== PHÂN QUYỀN NHÂN VIÊN ===== */
+    const PERM_MODULES = [
+        { key: 'products',  icon: 'fa-box',            label: 'Sản phẩm' },
+        { key: 'orders',    icon: 'fa-receipt',        label: 'Đơn hàng' },
+        { key: 'users',     icon: 'fa-users',          label: 'Tài khoản' },
+        { key: 'coupons',   icon: 'fa-ticket',         label: 'Mã giảm giá' },
+        { key: 'categories',icon: 'fa-tags',           label: 'Danh mục' },
+        { key: 'revenue',   icon: 'fa-chart-line',     label: 'Doanh thu' },
+        { key: 'suppliers', icon: 'fa-truck-ramp-box', label: 'Nhà phân phối' }
+    ];
+    const PERM_PRESETS = {
+        sale:      ['orders','coupons','products'],
+        warehouse: ['products','categories','suppliers'],
+        all:       PERM_MODULES.map(m => m.key),
+        none:      []
+    };
+
+    function renderPermGrid(active) {
+        active = active || [];
+        const grid = document.getElementById('meu-perm-grid');
+        grid.innerHTML = PERM_MODULES.map(m => {
+            const on = active.includes(m.key);
+            return '<label class="perm-item' + (on ? ' is-on' : '') + '" data-key="' + m.key + '">' +
+                '<span class="perm-item__ico"><i class="fa-solid ' + m.icon + '"></i></span>' +
+                '<span class="perm-item__label">' + m.label + '</span>' +
+                '<span class="perm-switch"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="togglePermItem(this)"><span class="perm-switch__slider"></span></span>' +
+            '</label>';
+        }).join('');
+    }
+    function togglePermItem(cb) {
+        cb.closest('.perm-item').classList.toggle('is-on', cb.checked);
+    }
+    function applyPermPreset(name) {
+        renderPermGrid(PERM_PRESETS[name] || []);
+    }
+    function getCheckedPerms() {
+        return [...document.querySelectorAll('#meu-perm-grid .perm-item.is-on')].map(el => el.dataset.key);
+    }
+    function togglePermsBlock() {
+        const role = document.getElementById('meu-role').value;
+        document.getElementById('meu-perms-block').style.display = (role === 'Staff') ? 'block' : 'none';
+    }
+
     /* ===== MODAL SỬA ===== */
     const _modalUser = new bootstrap.Modal(document.getElementById('modalEditUser'));
 
-    function openEditUser(name, email, phone, role, status, avatar) {
+    function openEditUser(name, email, phone, role, status, avatar, permsStr) {
         document.getElementById('meu-avatar').src = avatar;
         document.getElementById('meu-avatar-large').src = avatar;
         document.getElementById('meu-preview-wrap').style.display = 'flex';
@@ -526,8 +590,13 @@
         document.getElementById('meu-phone').value = phone;
         for (let o of document.getElementById('meu-role').options)   o.selected = o.value === role;
         for (let o of document.getElementById('meu-status').options) o.selected = o.value === status;
+        // quyền: Admin → toàn quyền; Staff → theo chuỗi perms truyền vào
+        const perms = permsStr ? permsStr.split(',') : [];
+        renderPermGrid(role === 'Admin' ? PERM_PRESETS.all : perms);
+        togglePermsBlock();
         _modalUser.show();
     }
+    document.getElementById('meu-role').addEventListener('change', togglePermsBlock);
     function previewUserAvatar(input) {
         if (!input.files?.[0]) return;
         const r = new FileReader();
@@ -545,7 +614,14 @@
         document.getElementById('meu-file').value = '';
     }
     function saveUser() {
-        alert('Đã lưu: ' + document.getElementById('meu-name').value);
+        const name = document.getElementById('meu-name').value;
+        const role = document.getElementById('meu-role').value;
+        let msg = 'Đã lưu: ' + name;
+        if (role === 'Staff') {
+            const perms = getCheckedPerms();
+            msg += '\nQuyền: ' + (perms.length ? perms.join(', ') : 'không có');
+        }
+        alert(msg);
         _modalUser.hide();
     }
 
