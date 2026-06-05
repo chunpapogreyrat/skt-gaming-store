@@ -235,7 +235,7 @@
         document.getElementById('meu-avatar').src = avatar;
         document.getElementById('meu-avatar-large').src = avatar;
         document.getElementById('meu-preview-wrap').style.display = 'flex';
-        document.getElementById('meu-dropzone').style.display = 'none';
+        document.getElementById('meu-dropzone').style.display = 'flex';
         // fields
         document.getElementById('meu-name').value  = name;
         document.getElementById('meu-email').value = email;
@@ -254,7 +254,6 @@
             document.getElementById('meu-avatar-large').src = e.target.result;
             document.getElementById('meu-avatar').src = e.target.result;
             document.getElementById('meu-preview-wrap').style.display = 'flex';
-            document.getElementById('meu-dropzone').style.display = 'none';
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -263,7 +262,6 @@
         document.getElementById('meu-avatar-large').src = '';
         document.getElementById('meu-avatar').src = '';
         document.getElementById('meu-preview-wrap').style.display = 'none';
-        document.getElementById('meu-dropzone').style.display = 'flex';
         document.getElementById('meu-file').value = '';
     }
 

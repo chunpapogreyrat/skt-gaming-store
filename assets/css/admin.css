@@ -531,7 +531,7 @@ strong.admin-table__clickable:hover {
 /* Vùng kéo thả / chọn ảnh mới */
 .admin-img-upload__zone {
     flex: 1;
-    min-width: 160px;
+    min-width: 180px;
     min-height: 110px;
     border: 2px dashed rgba(255,255,255,.15);
     border-radius: 10px;

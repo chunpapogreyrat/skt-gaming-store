@@ -258,12 +258,12 @@
     const _modalProd = new bootstrap.Modal(document.getElementById('modalEditProduct'));
 
     function openEditProduct(name, brand, cat, price, stock, status, img) {
-        // ảnh
+        // ảnh — luôn hiện cả preview lẫn dropzone
         const thumbLg = document.getElementById('mep-thumb-large');
         const thumbSm = document.getElementById('mep-thumb');
         thumbLg.src = img; thumbSm.src = img;
         document.getElementById('mep-preview-wrap').style.display = 'flex';
-        document.getElementById('mep-dropzone').style.display = 'none';
+        document.getElementById('mep-dropzone').style.display = 'flex';
         // fields
         document.getElementById('mep-name').value  = name;
         document.getElementById('mep-brand').value = brand;
@@ -283,7 +283,7 @@
             document.getElementById('mep-thumb-large').src = e.target.result;
             document.getElementById('mep-thumb').src = e.target.result;
             document.getElementById('mep-preview-wrap').style.display = 'flex';
-            document.getElementById('mep-dropzone').style.display = 'none';
+            // dropzone vẫn hiện để có thể chọn lại
         };
         reader.readAsDataURL(input.files[0]);
     }
@@ -292,7 +292,6 @@
         document.getElementById('mep-thumb-large').src = '';
         document.getElementById('mep-thumb').src = '';
         document.getElementById('mep-preview-wrap').style.display = 'none';
-        document.getElementById('mep-dropzone').style.display = 'flex';
         document.getElementById('mep-file').value = '';
     }
 
