@@ -351,7 +351,32 @@
         }
     });
 
-    // Quick add: click .p-card__quick → POST API → reload để re-render drawer
+    // Build cart-item HTML khớp với server-render (same markup)
+    function buildCartItemHTML(item) {
+        const sp = item.san_pham || {};
+        const img = (sp.hinh_anh && sp.hinh_anh[0]) ? sp.hinh_anh[0].duong_dan : 'assets/images/library/logo.png';
+        const price = Number(item.gia_tai_thoi_diem).toLocaleString('vi-VN') + 'đ';
+        const variant = item.mau_sac || 'Mặc định';
+        return `
+            <div class="cart-item" data-item-id="${item.id}">
+                <div class="cart-item__img"><img src="/${img}" alt=""></div>
+                <div class="cart-item__info">
+                    <h6 class="cart-item__name">${sp.ten || 'Sản phẩm'}</h6>
+                    <span class="cart-item__price">${price}</span>
+                    <p class="cart-item__variant">Phân loại: ${variant}</p>
+                </div>
+                <div class="cart-item__actions">
+                    <div class="qty-input">
+                        <button type="button" class="qty-input__btn" data-drawer-minus>−</button>
+                        <input type="text" value="${item.so_luong}" readonly>
+                        <button type="button" class="qty-input__btn" data-drawer-plus>+</button>
+                    </div>
+                    <button type="button" class="cart-item__remove" data-drawer-remove aria-label="Xóa"><i class="fa-solid fa-trash-can"></i></button>
+                </div>
+            </div>`;
+    }
+
+    // Quick add: animation + POST + DOM update (no reload)
     document.addEventListener('click', async function (e) {
         const btn = e.target.closest('.p-card__quick[data-product-id]');
         if (!btn) return;
@@ -359,18 +384,33 @@
         e.stopPropagation();
         const id = parseInt(btn.dataset.productId);
         if (!id) return;
-        btn.disabled = true;
-        const original = btn.innerHTML;
-        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang thêm...';
-        const res = await cartApi('/gio-hang', 'POST', { san_pham_id: id, so_luong: 1 });
-        btn.disabled = false;
-        btn.innerHTML = original;
-        if (res.success) {
-            // Reload để re-render drawer items từ server
-            window.location.reload();
-        } else {
-            alert(res.message || 'Không thêm được sản phẩm');
+
+        // Animation paper plane
+        if (typeof window.skSktFlyPaperPlane === 'function') {
+            window.skSktFlyPaperPlane(btn);
         }
+
+        const res = await cartApi('/gio-hang', 'POST', { san_pham_id: id, so_luong: 1 });
+        if (!res.success) {
+            alert(res.message || 'Không thêm được sản phẩm');
+            return;
+        }
+
+        // Cập nhật drawer DOM mà không reload
+        const list = document.getElementById('cartList');
+        const empty = document.getElementById('cartDrawerEmpty');
+        if (empty) empty.remove();
+
+        const existing = list?.querySelector(`.cart-item[data-item-id="${res.data.item.id}"]`);
+        if (existing) {
+            // Update qty
+            const input = existing.querySelector('.qty-input input');
+            if (input) input.value = res.data.item.so_luong;
+        } else {
+            // Append new
+            list.insertAdjacentHTML('beforeend', buildCartItemHTML(res.data.item));
+        }
+        updateBadgeAndTotal(res.data.cart_count, res.data.tong.tong_tien);
     }, true);
 })();
 </script>

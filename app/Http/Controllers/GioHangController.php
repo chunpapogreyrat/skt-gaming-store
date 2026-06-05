@@ -36,6 +36,7 @@ class GioHangController extends Controller
             'data' => [
                 'item' => $item,
                 'cart_count' => $this->gioHangService->demSoLuong(),
+                'tong' => $this->gioHangService->tinhTong(),
             ],
         ]);
     }

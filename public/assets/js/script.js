@@ -380,6 +380,8 @@ function flyPaperPlane(fromEl) {
         setTimeout(function () { cartIcon.classList.remove('cart-bouncing'); }, 500);
     }, 750);
 }
+// Expose cho Laravel layout dùng (giữ animation, gọi API riêng)
+window.skSktFlyPaperPlane = flyPaperPlane;
 
 /* Read product data from any card type */
 function readCardData(card) {

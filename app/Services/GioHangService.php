@@ -57,7 +57,7 @@ class GioHangService
             ]);
         }
 
-        return $item->load('sanPham');
+        return $item->load('sanPham.hinhAnh');
     }
 
     public function capNhatSoLuong(int $itemId, int $soLuong): ?GioHangItem
