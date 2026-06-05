@@ -727,7 +727,7 @@ function initFakeAuth() {
         if (u === FAKE_USER.username && p === FAKE_USER.password) {
             msg.className = 'auth-msg auth-msg--ok';
             msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang chuyển hướng...';
-            try { localStorage.setItem('skt_user', u); } catch (err) {}
+            try { localStorage.setItem('yuki_user', u); } catch (err) {}
             setTimeout(function () { window.location.href = 'index.html'; }, 900);
         } else {
             msg.className = 'auth-msg auth-msg--err';
@@ -743,12 +743,12 @@ function initFakeAuth() {
    #region AUTH STATE (gating đăng nhập)
 ========================================== */
 function isLoggedIn() {
-    try { return !!localStorage.getItem('skt_user'); } catch (e) { return false; }
+    try { return !!localStorage.getItem('yuki_user'); } catch (e) { return false; }
 }
 
 function getUserName() {
     try {
-        var u = localStorage.getItem('skt_user') || '';
+        var u = localStorage.getItem('yuki_user') || '';
         if (u.indexOf('@') > -1) u = u.split('@')[0];
         return u ? u.charAt(0).toUpperCase() + u.slice(1) : 'Game Thủ';
     } catch (e) { return 'Game Thủ'; }
@@ -782,13 +782,13 @@ function initAuthState() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            try { localStorage.removeItem('skt_user'); } catch (err) {}
+            try { localStorage.removeItem('yuki_user'); } catch (err) {}
             window.location.href = 'index.html';
         });
     }
 }
 
-/* ----- USER DROPDOWN (kiểu Facebook, phong cách SKT) ----- */
+/* ----- USER DROPDOWN (kiểu Facebook, phong cách YUKI) ----- */
 function buildUserDropdown(userLink) {
     var name = getUserName();
     var initial = name.charAt(0).toUpperCase();
@@ -812,7 +812,7 @@ function buildUserDropdown(userLink) {
             '<span class="user-menu__avatar user-menu__avatar--lg">' + initial + '</span>' +
             '<div class="user-menu__head-info">' +
                 '<div class="user-menu__name">' + name + '</div>' +
-                '<div class="user-menu__rank"><i class="fa-solid fa-bolt"></i> Game thủ SKT</div>' +
+                '<div class="user-menu__rank"><i class="fa-solid fa-bolt"></i> Game thủ YUKI</div>' +
             '</div>' +
         '</div>' +
         '<a href="profile.html" class="user-menu__profile-btn"><i class="fa-solid fa-id-badge"></i> Xem trang cá nhân</a>' +
@@ -822,7 +822,7 @@ function buildUserDropdown(userLink) {
         '<a href="contact.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-circle-question"></i></span> Trợ giúp & hỗ trợ <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
         '<div class="user-menu__divider"></div>' +
         '<button type="button" class="user-menu__item user-menu__item--logout" id="userMenuLogout"><span class="user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</button>' +
-        '<div class="user-menu__foot">SKT Gaming Store · v2.0</div>';
+        '<div class="user-menu__foot">YUKI Gaming Store · v2.0</div>';
 
     wrap.appendChild(trigger);
     wrap.appendChild(panel);
@@ -842,7 +842,7 @@ function buildUserDropdown(userLink) {
 
     // Logout
     panel.querySelector('#userMenuLogout').addEventListener('click', function () {
-        try { localStorage.removeItem('skt_user'); } catch (err) {}
+        try { localStorage.removeItem('yuki_user'); } catch (err) {}
         window.location.href = 'index.html';
     });
 }
@@ -1070,7 +1070,7 @@ function initFakeRegister() {
         }
         msg.className = 'auth-msg auth-msg--ok';
         msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Tạo tài khoản thành công! Đang đăng nhập...';
-        try { localStorage.setItem('skt_user', (email.value || name.value || '').trim()); } catch (err) {}
+        try { localStorage.setItem('yuki_user', (email.value || name.value || '').trim()); } catch (err) {}
         setTimeout(function () { window.location.href = 'index.html'; }, 1000);
     });
 }

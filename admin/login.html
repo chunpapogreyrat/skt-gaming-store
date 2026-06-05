@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng nhập quản trị - SKT Admin</title>
+    <title>Đăng nhập quản trị - YUKI Admin</title>
     <!-- Nếu đã đăng nhập admin thì vào thẳng dashboard -->
     <script>
-        try { if (localStorage.getItem('skt_admin')) location.replace('dashboard.html'); } catch (e) {}
+        try { if (localStorage.getItem('yuki_admin')) location.replace('dashboard.html'); } catch (e) {}
     </script>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -29,7 +29,7 @@
 
     <div class="auth-bg"></div>
 
-    <a href="../index.html" class="auth-brand">SKT</a>
+    <a href="../index.html" class="auth-brand">YUKI</a>
     <a href="../index.html" class="auth-back">
         <i class="fa-solid fa-arrow-left me-2"></i>TRỞ VỀ TRANG CHỦ
     </a>
@@ -40,7 +40,7 @@
                 <div class="text-center mb-4">
                     <span class="admin-login-badge"><i class="fa-solid fa-shield-halved"></i> Khu vực quản trị</span>
                     <h2 class="auth-card__title">Đăng Nhập Quản Trị</h2>
-                    <p class="auth-card__subtitle mt-2">Chỉ dành cho quản trị viên &amp; nhân viên SKT.</p>
+                    <p class="auth-card__subtitle mt-2">Chỉ dành cho quản trị viên &amp; nhân viên YUKI.</p>
                 </div>
 
                 <form id="adminLoginForm" action="#" method="POST" class="auth-form font-poppins">
@@ -92,7 +92,7 @@
                 msg.className = 'auth-msg auth-msg--ok';
                 msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang vào trang quản trị...';
                 try {
-                    localStorage.setItem('skt_admin', JSON.stringify({ user: u, role: 'Admin', at: Date.now() }));
+                    localStorage.setItem('yuki_admin', JSON.stringify({ user: u, role: 'Admin', at: Date.now() }));
                 } catch (err) {}
                 setTimeout(function () { location.href = 'dashboard.html'; }, 800);
             } else {

@@ -7,7 +7,7 @@
 ========================================== */
 (function () {
     var ok = false;
-    try { ok = !!localStorage.getItem('skt_admin'); } catch (e) { ok = false; }
+    try { ok = !!localStorage.getItem('yuki_admin'); } catch (e) { ok = false; }
     if (!ok) {
         // ẩn nội dung tránh nháy rồi chuyển hướng
         document.documentElement.style.visibility = 'hidden';

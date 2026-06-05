@@ -1,5 +1,5 @@
 /* ==========================================
-   SKT GAMING STORE — ADMIN PANEL
+   YUKI GAMING STORE — ADMIN PANEL
    Cyber dark theme · BEM-lite · dùng chung design tokens với style.css
    (KHÔNG phá style.css frontend — file này load SAU)
 ========================================== */
@@ -75,7 +75,7 @@ body.admin-body {
     letter-spacing: 1px;
     border-bottom: 1px solid var(--admin-line);
 }
-.admin-sidebar__brand-skt { color: var(--red); text-shadow: 0 0 14px var(--red-glow); }
+.admin-sidebar__brand-yuki { color: var(--red); text-shadow: 0 0 14px var(--red-glow); }
 .admin-sidebar__badge {
     margin-left: auto;
     font-family: var(--font-b);

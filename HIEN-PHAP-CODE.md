@@ -1,4 +1,4 @@
-# 📜 HIẾN PHÁP CODE — DỰ ÁN SKT GAMING STORE (v2.0)
+# 📜 HIẾN PHÁP CODE — DỰ ÁN YUKI GAMING STORE (v2.0)
 
 > Bộ quy tắc bắt buộc cho toàn nhóm. Đọc kỹ trước khi code & trước mỗi lần commit.
 
@@ -92,8 +92,8 @@
 - **Validation**: mọi input qua **Form Request**, không tin dữ liệu gửi lên (kể cả field ẩn, id, giá...).
 
 **6.4. Hiện trạng bản tĩnh (prototype)**
-- Session tách: `skt_user` (khách) ≠ `skt_admin` (quản trị) — lưu localStorage.
-- `admin/guard.js` gắn trong `<head>` mọi trang admin → chưa có `skt_admin` thì đá về `admin/login.html`.
+- Session tách: `yuki_user` (khách) ≠ `yuki_admin` (quản trị) — lưu localStorage.
+- `admin/guard.js` gắn trong `<head>` mọi trang admin → chưa có `yuki_admin` thì đá về `admin/login.html`.
 - ⚠️ Đây **chỉ là rào UX**. Khi lên Laravel phải thay bằng Middleware (mục 6.1).
 
 ---
@@ -133,8 +133,8 @@ p8 - Màu sắc: ...
 → Khi seed DB: mỗi `info.txt` = 1 row bảng `san_phams`; ảnh map theo thứ tự `1.webp, 2.webp...`.
 
 **Tài khoản demo** (chỉ dev — xem mục 6 Bảo mật)
-- Khách: `admin` / `12456` (trang `login.html`, session `skt_user`).
-- Quản trị: `admin` / `admin123` (trang `admin/login.html`, session `skt_admin`).
+- Khách: `admin` / `12456` (trang `login.html`, session `yuki_user`).
+- Quản trị: `admin` / `admin123` (trang `admin/login.html`, session `yuki_admin`).
 
 ---
 
@@ -164,4 +164,4 @@ p8 - Màu sắc: ...
 - Nếu lệch so với thiết kế → **sửa cho khớp**, không để "tạm vậy".
 
 ---
-*Cập nhật bởi nhóm 10 — SKT Gaming Store.*
+*Cập nhật bởi nhóm 10 — YUKI Gaming Store.*

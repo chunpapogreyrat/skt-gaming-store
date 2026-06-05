@@ -1,5 +1,5 @@
 /* ==========================================
-   SKT ADMIN — shared JS
+   YUKI ADMIN — shared JS
    Sidebar toggle + user dropdown menu
 ========================================== */
 (function () {
@@ -23,7 +23,7 @@
     var nameEl   = userBox.querySelector('.admin-topbar__user-name');
     var roleEl   = userBox.querySelector('.admin-topbar__user-role');
     var avatar = avatarEl ? avatarEl.getAttribute('src') : '../assets/images/avatars/truong.jpg';
-    var name   = nameEl ? nameEl.textContent.trim() : 'Admin SKT';
+    var name   = nameEl ? nameEl.textContent.trim() : 'Admin YUKI';
     var role   = roleEl ? roleEl.textContent.trim() : 'Quản trị viên';
 
     // Biến userBox thành trigger có thể bấm
@@ -52,7 +52,7 @@
         '<a href="revenue.html" class="admin-user-menu__item"><span class="admin-user-menu__ico"><i class="fa-solid fa-chart-line"></i></span> Báo cáo doanh thu <i class="fa-solid fa-chevron-right admin-user-menu__arr"></i></a>' +
         '<div class="admin-user-menu__divider"></div>' +
         '<a href="login.html" id="adminLogout" class="admin-user-menu__item admin-user-menu__item--logout"><span class="admin-user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</a>' +
-        '<div class="admin-user-menu__foot">SKT Admin Panel · v2.0</div>';
+        '<div class="admin-user-menu__foot">YUKI Admin Panel · v2.0</div>';
     userBox.appendChild(panel);
 
     // Đăng xuất admin: xóa session quản trị rồi về trang login admin
@@ -60,7 +60,7 @@
     if (logoutLink) {
         logoutLink.addEventListener('click', function (e) {
             e.preventDefault();
-            try { localStorage.removeItem('skt_admin'); } catch (err) {}
+            try { localStorage.removeItem('yuki_admin'); } catch (err) {}
             location.href = 'login.html';
         });
     }
