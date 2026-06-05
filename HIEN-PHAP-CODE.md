@@ -64,7 +64,41 @@
 
 ---
 
-## 6. Quy ước thực tế đã áp dụng cho phần Front-end
+## 6. Bảo mật (Security Rules) ⚠️
+
+> **Nguyên tắc vàng: KHÔNG BAO GIỜ tin tưởng phía client.** Mọi kiểm tra phía JS/HTML chỉ là lớp UX — bảo vệ thật **bắt buộc** nằm ở server (Laravel).
+
+**6.1. Phân tách & phân quyền Admin**
+- Khu vực admin (`/admin`) phải **tách biệt** khỏi khu khách: session/guard riêng, **không dùng chung** đăng nhập với khách.
+- Phân quyền bằng cột `role` trong bảng `tai_khoans` (`Admin` / `Staff` / `Khach`).
+- Gom toàn bộ route admin dưới prefix `/admin` + **Middleware** chặn server-side:
+  ```php
+  Route::middleware(['auth', 'can:access-admin'])->prefix('admin')->group(function () { ... });
+  // Gate::define('access-admin', fn($u) => in_array($u->role, ['Admin','Staff']));
+  ```
+- Nhân viên (`Staff`) chỉ thấy/đụng được các module được cấp quyền (kiểm tra bằng Gate/Policy, **không chỉ ẩn link**).
+- ❌ TUYỆT ĐỐI không "bảo vệ" admin chỉ bằng cách ẩn link hay redirect ở JS — client luôn bypass được.
+
+**6.2. Tài khoản & mật khẩu**
+- Mật khẩu **luôn hash** bằng `bcrypt`/`Hash::make()` — KHÔNG lưu plaintext, KHÔNG tự mã hóa thủ công.
+- KHÔNG commit thông tin nhạy cảm: `.env`, key, mật khẩu DB, token → phải nằm trong `.gitignore`.
+- Mật khẩu demo chỉ dùng môi trường dev, đổi ngay khi lên thật.
+
+**6.3. Chống tấn công cơ bản (bắt buộc)**
+- **CSRF**: mọi form `POST/PUT/DELETE` phải có `@csrf`.
+- **SQL Injection**: chỉ dùng Eloquent / Query Builder (đã bind sẵn) — KHÔNG nối chuỗi `DB::raw()` với input người dùng.
+- **XSS**: Blade dùng `{{ $var }}` (tự escape); chỉ dùng `{!! !!}` khi chắc chắn nội dung an toàn.
+- **Mass Assignment**: khai báo `$fillable` rõ ràng trong Model, không dùng `$guarded = []`.
+- **Validation**: mọi input qua **Form Request**, không tin dữ liệu gửi lên (kể cả field ẩn, id, giá...).
+
+**6.4. Hiện trạng bản tĩnh (prototype)**
+- Session tách: `skt_user` (khách) ≠ `skt_admin` (quản trị) — lưu localStorage.
+- `admin/guard.js` gắn trong `<head>` mọi trang admin → chưa có `skt_admin` thì đá về `admin/login.html`.
+- ⚠️ Đây **chỉ là rào UX**. Khi lên Laravel phải thay bằng Middleware (mục 6.1).
+
+---
+
+## 7. Quy ước thực tế đã áp dụng cho phần Front-end
 
 > Phần này ghi lại cách nhóm đã triển khai để giữ nhất quán.
 
@@ -73,8 +107,10 @@
 - Font: `--font-h: Orbitron` (tiêu đề), `--font-b: Poppins` (nội dung).
 - Bo góc/chuyển động: `--radius`, `--trans`.
 
-**Thư viện (CDN, không cài đặt)**
-- Bootstrap 5.3, Font Awesome 6.4, Owl Carousel 2.3, AOS 2.3, Animate.css 4.1, tsParticles (slim) 3.
+**Thư viện**
+- Dùng bản **local trong `assets/`** nếu có: Bootstrap 5.3, Owl Carousel 2.3, jQuery 3.7 (bản `.min`).
+- Còn lại dùng CDN (chưa có bản local): Font Awesome 6.4, AOS 2.3, Animate.css 4.1, tsParticles (slim) 3.
+- Quy tắc: **có file local thì ưu tiên local**, không gọi CDN trùng lặp.
 
 **Cấu trúc ảnh `assets/images/`** (đã chuẩn hóa kebab-case)
 - `Products/<category>/<product-slug>/` → `1.webp, 2.webp, ...` + `info.txt`
@@ -96,7 +132,9 @@ p8 - Màu sắc: ...
 ```
 → Khi seed DB: mỗi `info.txt` = 1 row bảng `san_phams`; ảnh map theo thứ tự `1.webp, 2.webp...`.
 
-**Tài khoản demo**: `admin` / `12456`.
+**Tài khoản demo** (chỉ dev — xem mục 6 Bảo mật)
+- Khách: `admin` / `12456` (trang `login.html`, session `skt_user`).
+- Quản trị: `admin` / `admin123` (trang `admin/login.html`, session `skt_admin`).
 
 ---
 *Cập nhật bởi nhóm 10 — SKT Gaming Store.*
