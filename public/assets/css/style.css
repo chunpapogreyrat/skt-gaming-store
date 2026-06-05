@@ -4832,6 +4832,15 @@ body.auth-page {
     transform: translateY(-2px);
 }
 .btn-outline:hover::before { left: 0; }
+
+/* Badge nhảy số khi thay đổi (dùng cho cart badge / count) */
+@keyframes badge-pop {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(1.45); }
+    65%  { transform: scale(.85); }
+    100% { transform: scale(1); }
+}
+.badge-pop { animation: badge-pop .45s cubic-bezier(.34,1.56,.64,1); }
 /* #endregion */
 
 /* #region ORDER HISTORY (Trang lịch sử đơn hàng) */

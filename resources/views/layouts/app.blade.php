@@ -276,7 +276,17 @@
     }
 
     function updateBadgeAndTotal(count, total) {
-        document.querySelectorAll('#cartBadge, #cartCount').forEach(b => b.textContent = count);
+        document.querySelectorAll('#cartBadge, #cartCount').forEach(b => {
+            // Clear inline display:none từ initCartDrawer cũ; ẩn nếu count = 0
+            b.style.display = count > 0 ? '' : 'none';
+            // Animation bounce khi đổi số
+            if (b.textContent !== String(count)) {
+                b.classList.remove('badge-pop');
+                void b.offsetWidth; // reflow để restart animation
+                b.classList.add('badge-pop');
+            }
+            b.textContent = count;
+        });
         const totalEl = document.getElementById('cartTotal');
         if (totalEl) totalEl.innerHTML = Number(total).toLocaleString('vi-VN') + '<sup>đ</sup>';
     }
