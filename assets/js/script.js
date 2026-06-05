@@ -1417,7 +1417,6 @@ function initAuthSwitcher() {
     var container = document.getElementById('authViews');
     if (!container) return;
 
-    var views = container.querySelectorAll('.auth-view');
     var ORDER = { login: 0, register: 1, forgot: 2 };
     var current = 'login';
     var animating = false;
@@ -1432,55 +1431,95 @@ function initAuthSwitcher() {
 
         var fromEl = getView(current);
         var toEl   = getView(name);
-        // hướng trượt theo thứ tự view
-        var dir = ORDER[name] > ORDER[current] ? 1 : -1;
 
-        // khóa chiều cao hiện tại để animate mượt
+        // Trượt ngang (như tàu) chỉ giữa login ↔ register; còn lại là xoay lật 3D
+        var slide = (current === 'login' && name === 'register') ||
+                    (current === 'register' && name === 'login');
+        var DUR = slide ? 520 : 560;
+
+        // Khóa chiều cao container để overlap 2 form
         var startH = container.offsetHeight;
         container.style.height = startH + 'px';
+        container.style.perspective = '1400px';
 
-        // form cũ trượt ra
-        fromEl.style.transition = 'transform .32s ease, opacity .28s ease';
-        fromEl.style.transform  = 'translateX(' + (-40 * dir) + 'px)';
-        fromEl.style.opacity    = '0';
+        // Cả 2 form chồng lên nhau khi animate
+        [fromEl, toEl].forEach(function (el) {
+            el.style.position = 'absolute';
+            el.style.top = '0';
+            el.style.left = '0';
+            el.style.width = '100%';
+        });
 
+        // Hiện toEl để đo chiều cao đích
+        toEl.classList.add('is-active');
+        toEl.style.visibility = 'hidden';
+        var endH = toEl.offsetHeight;
+        toEl.style.visibility = '';
+
+        // Thiết lập transform bắt đầu (chưa transition)
+        var fromStart, fromEnd, toStart, toEnd, toStartOpacity, fromEndOpacity;
+        if (slide) {
+            fromStart = 'translateX(0)';
+            toEnd     = 'translateX(0)';
+            toStartOpacity = '1'; fromEndOpacity = '1'; // trượt khối, không mờ
+            if (name === 'register') {
+                // login → register: cả khối chạy sang PHẢI
+                toStart = 'translateX(-100%)';
+                fromEnd = 'translateX(100%)';
+            } else {
+                // register → login: chạy ngược sang TRÁI
+                toStart = 'translateX(100%)';
+                fromEnd = 'translateX(-100%)';
+            }
+        } else {
+            // Xoay lật 3D tại chỗ (login ↔ forgot)
+            fromStart = 'perspective(1400px) rotateY(0deg)';
+            fromEnd   = 'perspective(1400px) rotateY(90deg) scale(.92)';
+            toStart   = 'perspective(1400px) rotateY(-90deg) scale(.92)';
+            toEnd     = 'perspective(1400px) rotateY(0deg) scale(1)';
+            toStartOpacity = '0'; fromEndOpacity = '0';
+        }
+
+        fromEl.style.transition = 'none';
+        toEl.style.transition   = 'none';
+        fromEl.style.transform  = fromStart;
+        toEl.style.transform    = toStart;
+        fromEl.style.opacity    = '1';
+        toEl.style.opacity      = toStartOpacity;
+
+        // Chạy animation
+        requestAnimationFrame(function () {
+            requestAnimationFrame(function () {
+                var ease = slide ? 'cubic-bezier(.6,.02,.2,1)' : 'cubic-bezier(.5,.05,.25,1)';
+                container.style.transition = 'height ' + DUR + 'ms ' + ease;
+                container.style.height = endH + 'px';
+
+                fromEl.style.transition = 'transform ' + DUR + 'ms ' + ease + ', opacity ' + (DUR * 0.55) + 'ms ease';
+                toEl.style.transition   = 'transform ' + DUR + 'ms ' + ease + ', opacity ' + (DUR * 0.55) + 'ms ease ' + (DUR * 0.15) + 'ms';
+
+                fromEl.style.transform = fromEnd;
+                fromEl.style.opacity   = fromEndOpacity;
+                toEl.style.transform   = toEnd;
+                toEl.style.opacity     = '1';
+            });
+        });
+
+        // Dọn dẹp
         setTimeout(function () {
             fromEl.classList.remove('is-active');
-            fromEl.style.cssText = ''; // reset
-
-            // form mới vào
+            fromEl.style.cssText = '';
+            toEl.style.cssText = '';
             toEl.classList.add('is-active');
-            toEl.style.transition = 'none';
-            toEl.style.transform  = 'translateX(' + (40 * dir) + 'px)';
-            toEl.style.opacity    = '0';
-
-            // đo chiều cao đích rồi animate
-            var endH = toEl.offsetHeight;
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    container.style.transition = 'height .34s ease';
-                    container.style.height = endH + 'px';
-                    toEl.style.transition = 'transform .34s ease, opacity .3s ease .04s';
-                    toEl.style.transform  = 'translateX(0)';
-                    toEl.style.opacity    = '1';
-                });
-            });
-
-            setTimeout(function () {
-                container.style.height = '';
-                container.style.transition = '';
-                toEl.style.cssText = '';
-                toEl.classList.add('is-active');
-                animating = false;
-            }, 360);
-
+            container.style.height = '';
+            container.style.transition = '';
+            container.style.perspective = '';
+            animating = false;
             current = name;
-            // cập nhật hash (không nhảy trang)
             try { history.replaceState(null, '', '#' + name); } catch (e) {}
-        }, 300);
+        }, DUR + 50);
     }
 
-    // Bind các link chuyển view
+    // Bind link chuyển view
     container.querySelectorAll('[data-auth-view]').forEach(function (link) {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -1491,7 +1530,6 @@ function initAuthSwitcher() {
     // Mở đúng view theo hash (#register / #forgot từ redirect)
     var initial = (location.hash || '').replace('#', '');
     if (initial && ORDER.hasOwnProperty(initial) && initial !== 'login') {
-        // hiện ngay không animate
         getView('login').classList.remove('is-active');
         getView(initial).classList.add('is-active');
         current = initial;
