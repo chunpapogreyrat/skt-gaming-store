@@ -48,7 +48,24 @@ function initAuthParallax() {
 /* ==========================================
    #region NAVBAR
 ========================================== */
+function initNavActive() {
+    // Lấy tên trang, bỏ query/hash/đuôi .html (server có thể bỏ .html)
+    function base(p) {
+        var name = (p || '').split('?')[0].split('#')[0].split('/').pop();
+        return (name || 'index').replace(/\.html$/i, '').toLowerCase() || 'index';
+    }
+    var cur = base(location.pathname);
+    // detail thuộc nhóm sản phẩm → sáng "Gaming Gear"
+    var map = { products: 'products', detail: 'products', setups: 'setups', about: 'about', contact: 'contact' };
+    var target = map[cur];
+    if (!target) return;
+    document.querySelectorAll('.navbar__link').forEach(function (a) {
+        if (base(a.getAttribute('href') || '') === target) a.classList.add('navbar__link--active');
+    });
+}
+
 function initNavbar() {
+    initNavActive();
     var toggle = document.getElementById('navToggle');
     var menu   = document.getElementById('navMenu');
     if (!toggle || !menu) return;
