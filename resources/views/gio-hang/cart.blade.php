@@ -151,18 +151,35 @@ document.addEventListener('DOMContentLoaded', function () {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
     function ajaxCart(url, method, data, onSuccess) {
+        console.log('[cart] ' + method + ' ' + url, data || '');
         fetch(url, {
             method: method,
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': csrfToken,
                 'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
             },
+            credentials: 'same-origin',
             body: data ? JSON.stringify(data) : null,
         })
-        .then(r => r.json())
-        .then(onSuccess)
-        .catch(err => console.error(err));
+        .then(async r => {
+            const text = await r.text();
+            try { return { ok: r.ok, status: r.status, data: JSON.parse(text) }; }
+            catch (e) { return { ok: false, status: r.status, data: { success: false, message: 'Server error ' + r.status, raw: text.substring(0, 200) } }; }
+        })
+        .then(result => {
+            console.log('[cart] response', result);
+            if (!result.ok) {
+                alert('Lỗi: ' + (result.data.message || result.status));
+                return;
+            }
+            onSuccess(result.data);
+        })
+        .catch(err => {
+            console.error('[cart] network error', err);
+            alert('Lỗi mạng: ' + err.message);
+        });
     }
 
     function updateTotals(tong) {
@@ -223,40 +240,51 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Delete with confirm modal
+    // Delete with confirm modal — fallback `confirm()` nếu modal lỗi
     let pendingDeleteId = null;
+    const modal = document.getElementById('confirmModal');
+
+    function performDelete(id) {
+        ajaxCart('/gio-hang/' + id, 'DELETE', null, function (res) {
+            if (res.success) {
+                const row = document.querySelector('[data-item-id="' + id + '"][data-cart-row]');
+                if (row) row.remove();
+                if (res.data && res.data.tong) updateTotals(res.data.tong);
+                if (res.data) updateBadge(res.data.cart_count);
+                if (res.data && res.data.cart_count === 0) {
+                    const empty = document.getElementById('cartPageEmpty');
+                    if (empty) empty.style.display = '';
+                }
+            } else {
+                alert(res.message || 'Không xóa được sản phẩm');
+            }
+        });
+    }
+
     document.querySelectorAll('[data-xoa-item]').forEach(btn => {
         btn.addEventListener('click', function () {
-            pendingDeleteId = this.dataset.xoaItem;
-            document.getElementById('confirmModal').classList.add('is-open');
-        });
-    });
-
-    document.getElementById('confirmCancel').addEventListener('click', function () {
-        pendingDeleteId = null;
-        document.getElementById('confirmModal').classList.remove('is-open');
-    });
-
-    document.getElementById('confirmBackdrop').addEventListener('click', function () {
-        pendingDeleteId = null;
-        document.getElementById('confirmModal').classList.remove('is-open');
-    });
-
-    document.getElementById('confirmOk').addEventListener('click', function () {
-        if (!pendingDeleteId) return;
-        ajaxCart('/gio-hang/' + pendingDeleteId, 'DELETE', null, function (res) {
-            if (res.success) {
-                const row = document.querySelector('[data-item-id="' + pendingDeleteId + '"][data-cart-row]');
-                if (row) row.remove();
-                updateTotals(res.data.tong);
-                updateBadge(res.data.cart_count);
-                if (res.data.cart_count === 0) {
-                    document.getElementById('cartPageEmpty').style.display = '';
-                }
+            const id = this.dataset.xoaItem;
+            if (modal) {
+                pendingDeleteId = id;
+                modal.classList.add('is-open');
+            } else {
+                if (confirm('Xóa sản phẩm này khỏi giỏ hàng?')) performDelete(id);
             }
-            pendingDeleteId = null;
-            document.getElementById('confirmModal').classList.remove('is-open');
         });
+    });
+
+    function closeModal() {
+        pendingDeleteId = null;
+        if (modal) modal.classList.remove('is-open');
+    }
+
+    document.getElementById('confirmCancel')?.addEventListener('click', closeModal);
+    document.getElementById('confirmBackdrop')?.addEventListener('click', closeModal);
+    document.getElementById('confirmOk')?.addEventListener('click', function () {
+        if (!pendingDeleteId) { closeModal(); return; }
+        const id = pendingDeleteId;
+        closeModal();
+        performDelete(id);
     });
 
     // Coupon
