@@ -158,6 +158,24 @@
             </div>
             <div class="modal-body p-4">
                 <div class="row g-3">
+                    <!-- AVATAR -->
+                    <div class="col-12">
+                        <label class="admin-field__label">Ảnh đại diện</label>
+                        <div class="admin-img-upload admin-img-upload--avatar">
+                            <div class="admin-img-upload__preview" id="meu-preview-wrap">
+                                <img id="meu-avatar-large" src="" alt="" class="admin-img-upload__img admin-img-upload__img--round">
+                                <button type="button" class="admin-img-upload__remove" onclick="removeUserAvatar()" title="Xóa ảnh">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                            <label class="admin-img-upload__zone" for="meu-file" id="meu-dropzone">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span>Kéo thả hoặc <u>chọn ảnh</u></span>
+                                <small>PNG, JPG — tối đa 2MB</small>
+                                <input type="file" id="meu-file" accept="image/*" style="display:none" onchange="previewUserAvatar(this)">
+                            </label>
+                        </div>
+                    </div>
                     <div class="col-12">
                         <div class="admin-field">
                             <label class="admin-field__label">Họ tên</label>
@@ -213,7 +231,12 @@
     const _modalUser = new bootstrap.Modal(document.getElementById('modalEditUser'));
 
     function openEditUser(name, email, phone, role, status, avatar) {
-        document.getElementById('meu-avatar').src  = avatar;
+        // avatar
+        document.getElementById('meu-avatar').src = avatar;
+        document.getElementById('meu-avatar-large').src = avatar;
+        document.getElementById('meu-preview-wrap').style.display = 'flex';
+        document.getElementById('meu-dropzone').style.display = 'none';
+        // fields
         document.getElementById('meu-name').value  = name;
         document.getElementById('meu-email').value = email;
         document.getElementById('meu-phone').value = phone;
@@ -222,6 +245,26 @@
         const stSel = document.getElementById('meu-status');
         for (let o of stSel.options) o.selected = o.value === status;
         _modalUser.show();
+    }
+
+    function previewUserAvatar(input) {
+        if (!input.files || !input.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+            document.getElementById('meu-avatar-large').src = e.target.result;
+            document.getElementById('meu-avatar').src = e.target.result;
+            document.getElementById('meu-preview-wrap').style.display = 'flex';
+            document.getElementById('meu-dropzone').style.display = 'none';
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+
+    function removeUserAvatar() {
+        document.getElementById('meu-avatar-large').src = '';
+        document.getElementById('meu-avatar').src = '';
+        document.getElementById('meu-preview-wrap').style.display = 'none';
+        document.getElementById('meu-dropzone').style.display = 'flex';
+        document.getElementById('meu-file').value = '';
     }
 
     function saveUser() {
