@@ -48,6 +48,7 @@
         <div id="authPanel" class="auth-panel">
             <div class="auth-card auth-card--multi">
                 <div class="auth-views" id="authViews">
+                  <div class="auth-track" id="authTrack">
 
                     <!-- ============ VIEW: LOGIN ============ -->
                     <div class="auth-view is-active" data-view="login">
@@ -178,8 +179,10 @@
                         </form>
                     </div>
 
-                    <!-- ============ VIEW: FORGOT ============ -->
-                    <div class="auth-view" data-view="forgot">
+                  </div><!-- /auth-track -->
+
+                    <!-- ============ VIEW: FORGOT (overlay, lật 3D) ============ -->
+                    <div class="auth-view auth-view--overlay" data-view="forgot">
                         <div class="text-center mb-4">
                             <div class="forgot-icon"><i class="fa-solid fa-key"></i></div>
                             <h2 class="auth-card__title">Quên Mật Khẩu</h2>

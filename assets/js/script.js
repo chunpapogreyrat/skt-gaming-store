@@ -1415,111 +1415,130 @@ function initAuthTransitions() {
 ========================================== */
 function initAuthSwitcher() {
     var container = document.getElementById('authViews');
-    if (!container) return;
+    var track     = document.getElementById('authTrack');
+    if (!container || !track) return;
 
-    var ORDER = { login: 0, register: 1, forgot: 2 };
+    var SLIDE = 540, FLIP = 560;
     var current = 'login';
     var animating = false;
 
-    function getView(name) {
-        return container.querySelector('.auth-view[data-view="' + name + '"]');
+    function v(name) { return container.querySelector('.auth-view[data-view="' + name + '"]'); }
+    function setHeight(px) { container.style.height = px + 'px'; }
+    function trackX(name) { return name === 'register' ? '-50%' : '0%'; }
+    function hash(name) { try { history.replaceState(null, '', '#' + name); } catch (e) {} }
+
+    /* Đặt chiều cao container = form đang hiển thị (vì track flex luôn cao = form cao nhất) */
+    function lockHeight(name) {
+        container.style.transition = 'none';
+        setHeight(v(name).offsetHeight);
     }
 
-    function switchTo(name) {
-        if (animating || name === current || !getView(name)) return;
+    /* ---- TRƯỢT NGANG: login ↔ register (2 toa tàu cạnh nhau) ---- */
+    function slideTrack(name) {
         animating = true;
+        var fromEl = v(current), toEl = v(name);
+        var startH = container.offsetHeight, endH = toEl.offsetHeight;
 
-        var fromEl = getView(current);
-        var toEl   = getView(name);
+        container.style.transition = 'none';
+        setHeight(startH);
+        void container.offsetHeight; // reflow
 
-        // Trượt ngang (như tàu) chỉ giữa login ↔ register; còn lại là xoay lật 3D
-        var slide = (current === 'login' && name === 'register') ||
-                    (current === 'register' && name === 'login');
-        var DUR = slide ? 520 : 560;
-
-        // Khóa chiều cao container để overlap 2 form
-        var startH = container.offsetHeight;
-        container.style.height = startH + 'px';
-        container.style.perspective = '1400px';
-
-        // Cả 2 form chồng lên nhau khi animate
-        [fromEl, toEl].forEach(function (el) {
-            el.style.position = 'absolute';
-            el.style.top = '0';
-            el.style.left = '0';
-            el.style.width = '100%';
+        var ease = 'cubic-bezier(.6,.02,.2,1)';
+        track.style.transition = 'transform ' + SLIDE + 'ms ' + ease;
+        container.style.transition = 'height ' + SLIDE + 'ms ' + ease;
+        requestAnimationFrame(function () {
+            track.style.transform = 'translateX(' + trackX(name) + ')';
+            setHeight(endH);
         });
 
-        // Hiện toEl để đo chiều cao đích
+        fromEl.classList.remove('is-active');
         toEl.classList.add('is-active');
-        toEl.style.visibility = 'hidden';
-        var endH = toEl.offsetHeight;
-        toEl.style.visibility = '';
 
-        // Thiết lập transform bắt đầu (chưa transition)
-        var fromStart, fromEnd, toStart, toEnd, toStartOpacity, fromEndOpacity;
-        if (slide) {
-            fromStart = 'translateX(0)';
-            toEnd     = 'translateX(0)';
-            toStartOpacity = '1'; fromEndOpacity = '1'; // trượt khối, không mờ
-            if (name === 'register') {
-                // login → register: cả khối chạy sang PHẢI
-                toStart = 'translateX(-100%)';
-                fromEnd = 'translateX(100%)';
-            } else {
-                // register → login: chạy ngược sang TRÁI
-                toStart = 'translateX(100%)';
-                fromEnd = 'translateX(-100%)';
-            }
-        } else {
-            // Xoay lật 3D tại chỗ (login ↔ forgot)
-            fromStart = 'perspective(1400px) rotateY(0deg)';
-            fromEnd   = 'perspective(1400px) rotateY(90deg) scale(.92)';
-            toStart   = 'perspective(1400px) rotateY(-90deg) scale(.92)';
-            toEnd     = 'perspective(1400px) rotateY(0deg) scale(1)';
-            toStartOpacity = '0'; fromEndOpacity = '0';
+        setTimeout(function () {
+            container.style.transition = 'none';
+            current = name;
+            lockHeight(name);
+            animating = false;
+            hash(name);
+        }, SLIDE + 40);
+    }
+
+    /* ---- LẬT 3D TẠI CHỖ: login ↔ forgot ---- */
+    function flip(name) {
+        animating = true;
+        var leaving  = v(current);   // login (trong track) hoặc forgot (overlay)
+        var entering = v(name);
+        var enteringForgot = (name === 'forgot');
+
+        var startH = container.offsetHeight;
+        container.style.transition = 'none';
+        setHeight(startH);
+        container.style.perspective = '1400px';
+
+        // Nếu quay lại login: đảm bảo track hiện & đúng vị trí
+        if (!enteringForgot) {
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(0%)';
+            track.style.visibility = 'visible';
         }
 
-        fromEl.style.transition = 'none';
-        toEl.style.transition   = 'none';
-        fromEl.style.transform  = fromStart;
-        toEl.style.transform    = toStart;
-        fromEl.style.opacity    = '1';
-        toEl.style.opacity      = toStartOpacity;
+        // Đo chiều cao form sắp vào
+        entering.classList.add('is-active');
+        entering.style.visibility = 'hidden';
+        var endH = entering.offsetHeight;
+        entering.style.visibility = '';
 
-        // Chạy animation
+        // Transform khởi đầu
+        leaving.style.transition = 'none';
+        leaving.style.transform = 'perspective(1400px) rotateY(0deg)';
+        leaving.style.opacity = '1';
+        entering.style.transition = 'none';
+        entering.style.transform = 'perspective(1400px) rotateY(-90deg) scale(.92)';
+        entering.style.opacity = '0';
+        void container.offsetHeight; // reflow
+
+        var ease = 'cubic-bezier(.5,.05,.25,1)';
         requestAnimationFrame(function () {
             requestAnimationFrame(function () {
-                var ease = slide ? 'cubic-bezier(.6,.02,.2,1)' : 'cubic-bezier(.5,.05,.25,1)';
-                container.style.transition = 'height ' + DUR + 'ms ' + ease;
-                container.style.height = endH + 'px';
-
-                fromEl.style.transition = 'transform ' + DUR + 'ms ' + ease + ', opacity ' + (DUR * 0.55) + 'ms ease';
-                toEl.style.transition   = 'transform ' + DUR + 'ms ' + ease + ', opacity ' + (DUR * 0.55) + 'ms ease ' + (DUR * 0.15) + 'ms';
-
-                fromEl.style.transform = fromEnd;
-                fromEl.style.opacity   = fromEndOpacity;
-                toEl.style.transform   = toEnd;
-                toEl.style.opacity     = '1';
+                container.style.transition = 'height ' + FLIP + 'ms ' + ease;
+                setHeight(endH);
+                leaving.style.transition  = 'transform ' + FLIP + 'ms ' + ease + ', opacity ' + (FLIP * 0.5) + 'ms ease';
+                entering.style.transition = 'transform ' + FLIP + 'ms ' + ease + ', opacity ' + (FLIP * 0.5) + 'ms ease ' + (FLIP * 0.2) + 'ms';
+                leaving.style.transform  = 'perspective(1400px) rotateY(90deg) scale(.92)';
+                leaving.style.opacity = '0';
+                entering.style.transform = 'perspective(1400px) rotateY(0deg) scale(1)';
+                entering.style.opacity = '1';
             });
         });
 
-        // Dọn dẹp
         setTimeout(function () {
-            fromEl.classList.remove('is-active');
-            fromEl.style.cssText = '';
-            toEl.style.cssText = '';
-            toEl.classList.add('is-active');
-            container.style.height = '';
-            container.style.transition = '';
+            leaving.classList.remove('is-active');
+            leaving.style.cssText = (leaving.classList.contains('auth-view--overlay')) ? '' : '';
+            leaving.style.transform = ''; leaving.style.transition = ''; leaving.style.opacity = '';
+            entering.style.transform = ''; entering.style.transition = ''; entering.style.opacity = ''; entering.style.visibility = '';
+            entering.classList.add('is-active');
+
+            // Vào forgot → ẩn track phía sau cho khỏi lộ
+            if (enteringForgot) track.style.visibility = 'hidden';
+
             container.style.perspective = '';
-            animating = false;
+            container.style.transition = 'none';
             current = name;
-            try { history.replaceState(null, '', '#' + name); } catch (e) {}
-        }, DUR + 50);
+            lockHeight(name);
+            animating = false;
+            hash(name);
+        }, FLIP + 50);
     }
 
-    // Bind link chuyển view
+    function switchTo(name) {
+        if (animating || name === current || !v(name)) return;
+        var pair = (current === 'login' && name === 'register') ||
+                   (current === 'register' && name === 'login');
+        if (pair) slideTrack(name);
+        else      flip(name);
+    }
+
+    // Bind link
     container.querySelectorAll('[data-auth-view]').forEach(function (link) {
         link.addEventListener('click', function (e) {
             e.preventDefault();
@@ -1527,13 +1546,26 @@ function initAuthSwitcher() {
         });
     });
 
-    // Mở đúng view theo hash (#register / #forgot từ redirect)
+    // Hash ban đầu (#register / #forgot từ redirect)
     var initial = (location.hash || '').replace('#', '');
-    if (initial && ORDER.hasOwnProperty(initial) && initial !== 'login') {
-        getView('login').classList.remove('is-active');
-        getView(initial).classList.add('is-active');
-        current = initial;
+    if (initial === 'register') {
+        v('login').classList.remove('is-active');
+        v('register').classList.add('is-active');
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(-50%)';
+        current = 'register';
+    } else if (initial === 'forgot') {
+        v('login').classList.remove('is-active');
+        v('forgot').classList.add('is-active');
+        track.style.visibility = 'hidden';
+        current = 'forgot';
     }
+
+    // Khóa chiều cao ban đầu + cập nhật khi resize
+    requestAnimationFrame(function () { lockHeight(current); });
+    window.addEventListener('resize', function () {
+        if (!animating) lockHeight(current);
+    });
 }
 /* #endregion */
 

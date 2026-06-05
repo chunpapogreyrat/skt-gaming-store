@@ -150,8 +150,35 @@ img { max-width: 100%; display: block; }
     position: relative;
     overflow: hidden;
 }
-.auth-view { display: none; }
-.auth-view.is-active { display: block; }
+
+/* Track chứa login + register nằm CẠNH NHAU (trượt ngang như toa tàu) */
+.auth-track {
+    display: flex;
+    width: 200%;
+    will-change: transform;
+}
+.auth-track .auth-view {
+    flex: 0 0 50%;       /* mỗi form = đúng 1 khung card */
+    display: block;       /* luôn hiển thị, không chồng đè */
+    align-self: flex-start;
+}
+
+/* Forgot là overlay phủ lên trên để lật 3D tại chỗ */
+.auth-view--overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    backface-visibility: hidden;
+}
+
+/* Trạng thái ẩn/hiện do JS điều khiển bằng inline style;
+   mặc định overlay ẩn */
+.auth-view--overlay:not(.is-active) {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
 
 .auth-card__title {
     color: var(--text-main);
