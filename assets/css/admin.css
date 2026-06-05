@@ -767,3 +767,159 @@ strong.admin-table__clickable:hover {
     .admin-table-wrap { overflow-x: auto; }
 }
 /* #endregion */
+
+/* #region ADMIN USER DROPDOWN */
+.admin-user-menu {
+    position: relative;
+    user-select: none;
+    transition: background .2s;
+    border-radius: 10px;
+}
+.admin-user-menu:hover { background: rgba(255,255,255,.03); }
+.admin-user-menu__caret {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: 4px;
+    transition: transform .3s, color .2s;
+}
+.admin-user-menu.is-open .admin-user-menu__caret { transform: rotate(180deg); color: var(--red); }
+
+.admin-user-menu__panel {
+    position: absolute;
+    top: calc(100% + 16px);
+    right: 0;
+    width: 290px;
+    background: rgba(16,18,25,.98);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 14px;
+    padding: 12px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.6), 0 0 0 1px rgba(255,0,60,.12), 0 0 36px rgba(255,0,60,.08);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px) scale(.97);
+    transform-origin: top right;
+    transition: opacity .25s, transform .25s, visibility .25s;
+    z-index: 200;
+}
+.admin-user-menu.is-open .admin-user-menu__panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+.admin-user-menu__panel::before {
+    content: '';
+    position: absolute;
+    top: -6px; right: 22px;
+    width: 12px; height: 12px;
+    background: rgba(16,18,25,.98);
+    border-left: 1px solid rgba(255,255,255,.1);
+    border-top: 1px solid rgba(255,255,255,.1);
+    transform: rotate(45deg);
+}
+
+.admin-user-menu__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 8px 14px;
+}
+.admin-user-menu__avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--red);
+    box-shadow: 0 0 12px var(--red-dim);
+    flex-shrink: 0;
+}
+.admin-user-menu__name {
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: 15px;
+    color: #fff;
+    line-height: 1.2;
+}
+.admin-user-menu__role {
+    font-size: 11px;
+    color: var(--cyber-cyan);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 3px;
+}
+
+.admin-user-menu__profile-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 9px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 9px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .2s, border-color .2s, box-shadow .2s;
+}
+.admin-user-menu__profile-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+    box-shadow: 0 0 16px var(--red-glow);
+}
+.admin-user-menu__profile-btn i { color: var(--red); transition: color .2s; }
+.admin-user-menu__profile-btn:hover i { color: #fff; }
+
+.admin-user-menu__divider {
+    height: 1px;
+    background: rgba(255,255,255,.07);
+    margin: 9px 4px;
+}
+.admin-user-menu__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 9px 8px;
+    border-radius: 9px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 500;
+    transition: background .2s, color .2s;
+}
+.admin-user-menu__item:hover { background: rgba(255,255,255,.06); }
+.admin-user-menu__ico {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    transition: background .2s, color .2s;
+}
+.admin-user-menu__item:hover .admin-user-menu__ico {
+    background: rgba(255,0,60,.18);
+    color: var(--red);
+}
+.admin-user-menu__arr {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--text-muted);
+}
+.admin-user-menu__item--logout { color: #ff5b78; }
+.admin-user-menu__item--logout:hover { background: rgba(255,0,60,.1); }
+.admin-user-menu__item--logout .admin-user-menu__ico { background: rgba(255,0,60,.14); color: #ff5b78; }
+.admin-user-menu__item--logout:hover .admin-user-menu__ico { background: var(--red); color: #fff; }
+.admin-user-menu__foot {
+    text-align: center;
+    font-size: 10.5px;
+    color: var(--text-muted);
+    padding: 11px 0 3px;
+    opacity: .6;
+}
+/* #endregion */

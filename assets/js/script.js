@@ -746,19 +746,28 @@ function isLoggedIn() {
     try { return !!localStorage.getItem('skt_user'); } catch (e) { return false; }
 }
 
+function getUserName() {
+    try {
+        var u = localStorage.getItem('skt_user') || '';
+        if (u.indexOf('@') > -1) u = u.split('@')[0];
+        return u ? u.charAt(0).toUpperCase() + u.slice(1) : 'Game Thủ';
+    } catch (e) { return 'Game Thủ'; }
+}
+
 function initAuthState() {
     var loggedIn = isLoggedIn();
 
-    // Icon profile: đã login -> profile.html, chưa login -> login.html
     var userLink = document.querySelector('.navbar__actions a.navbar__icon-btn');
     if (userLink) {
-        userLink.setAttribute('href', loggedIn ? 'profile.html' : 'login.html');
-        userLink.setAttribute('title', loggedIn ? 'Tài khoản của tôi' : 'Đăng nhập');
-        var icon = userLink.querySelector('i');
-        if (icon) {
-            icon.className = loggedIn ? 'fa-solid fa-user' : 'fa-regular fa-user';
+        if (loggedIn) {
+            buildUserDropdown(userLink);
+        } else {
+            // Chưa đăng nhập: giữ link tới login
+            userLink.setAttribute('href', 'login.html');
+            userLink.setAttribute('title', 'Đăng nhập');
+            var icon = userLink.querySelector('i');
+            if (icon) icon.className = 'fa-regular fa-user';
         }
-        userLink.classList.toggle('navbar__icon-btn--active', loggedIn);
     }
 
     // Bảo vệ trang profile: chưa đăng nhập thì đá về login
@@ -777,6 +786,66 @@ function initAuthState() {
             window.location.href = 'index.html';
         });
     }
+}
+
+/* ----- USER DROPDOWN (kiểu Facebook, phong cách SKT) ----- */
+function buildUserDropdown(userLink) {
+    var name = getUserName();
+    var initial = name.charAt(0).toUpperCase();
+
+    // Bọc lại trong wrapper
+    var wrap = document.createElement('div');
+    wrap.className = 'user-menu';
+
+    // Nút avatar
+    var trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'navbar__icon-btn user-menu__trigger';
+    trigger.setAttribute('aria-label', 'Tài khoản');
+    trigger.innerHTML = '<span class="user-menu__avatar">' + initial + '</span>';
+
+    // Panel
+    var panel = document.createElement('div');
+    panel.className = 'user-menu__panel';
+    panel.innerHTML =
+        '<div class="user-menu__head">' +
+            '<span class="user-menu__avatar user-menu__avatar--lg">' + initial + '</span>' +
+            '<div class="user-menu__head-info">' +
+                '<div class="user-menu__name">' + name + '</div>' +
+                '<div class="user-menu__rank"><i class="fa-solid fa-bolt"></i> Game thủ SKT</div>' +
+            '</div>' +
+        '</div>' +
+        '<a href="profile.html" class="user-menu__profile-btn"><i class="fa-solid fa-id-badge"></i> Xem trang cá nhân</a>' +
+        '<div class="user-menu__divider"></div>' +
+        '<a href="order-history.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-box-archive"></i></span> Đơn hàng của tôi <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<a href="profile.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-heart"></i></span> Sản phẩm yêu thích <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<a href="profile.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-gear"></i></span> Cài đặt tài khoản <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<a href="contact.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-circle-question"></i></span> Trợ giúp & hỗ trợ <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<div class="user-menu__divider"></div>' +
+        '<button type="button" class="user-menu__item user-menu__item--logout" id="userMenuLogout"><span class="user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</button>' +
+        '<div class="user-menu__foot">SKT Gaming Store · v2.0</div>';
+
+    wrap.appendChild(trigger);
+    wrap.appendChild(panel);
+    userLink.replaceWith(wrap);
+
+    // Toggle
+    trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        wrap.classList.toggle('is-open');
+    });
+    document.addEventListener('click', function (e) {
+        if (!wrap.contains(e.target)) wrap.classList.remove('is-open');
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') wrap.classList.remove('is-open');
+    });
+
+    // Logout
+    panel.querySelector('#userMenuLogout').addEventListener('click', function () {
+        try { localStorage.removeItem('skt_user'); } catch (err) {}
+        window.location.href = 'index.html';
+    });
 }
 /* #endregion */
 
