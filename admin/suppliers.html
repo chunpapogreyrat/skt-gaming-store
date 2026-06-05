@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nhà phân phối - SKT Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body class="admin-body">
+<div class="admin-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="adminSidebar">
+        <div class="admin-sidebar__brand">
+            <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
+            <span class="admin-sidebar__badge">v2.0</span>
+        </div>
+        <nav class="admin-sidebar__nav">
+            <p class="admin-sidebar__label">Tổng quan</p>
+            <a href="dashboard.html" class="admin-sidebar__link"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+            <p class="admin-sidebar__label">Quản lý</p>
+            <a href="products.html" class="admin-sidebar__link"><i class="fa-solid fa-box"></i> Sản phẩm</a>
+            <a href="orders.html" class="admin-sidebar__link"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
+            <a href="users.html" class="admin-sidebar__link"><i class="fa-solid fa-users"></i> Tài khoản</a>
+            <a href="coupons.html" class="admin-sidebar__link"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
+            <a href="categories.html" class="admin-sidebar__link"><i class="fa-solid fa-tags"></i> Danh mục</a>
+            <a href="revenue.html" class="admin-sidebar__link"><i class="fa-solid fa-chart-line"></i> Doanh thu</a>
+            <a href="suppliers.html" class="admin-sidebar__link is-active"><i class="fa-solid fa-truck-ramp-box"></i> Nhà phân phối</a>
+        </nav>
+        <div class="admin-sidebar__foot">
+            <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
+        </div>
+    </aside>
+
+    <div class="admin-main">
+        <!-- TOPBAR -->
+        <header class="admin-topbar">
+            <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
+            <div class="admin-topbar__search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Tìm nhà phân phối...">
+            </div>
+            <div class="admin-topbar__spacer"></div>
+            <button class="admin-topbar__icon-btn"><i class="fa-regular fa-bell"></i><span class="admin-topbar__dot"></span></button>
+            <div class="admin-topbar__user">
+                <img class="admin-topbar__avatar" src="../assets/images/avatars/truong.jpg" alt="Admin">
+                <div>
+                    <div class="admin-topbar__user-name">Admin SKT</div>
+                    <div class="admin-topbar__user-role">Quản trị viên</div>
+                </div>
+                <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        </header>
+
+        <main class="admin-content">
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div>
+                    <h1 class="admin-page-title">Nhà phân phối</h1>
+                    <p class="admin-page-sub">6 nhà phân phối · 4 đang hợp tác</p>
+                </div>
+                <button class="admin-btn admin-btn--primary" onclick="openAddSupplier()">
+                    <i class="fa-solid fa-plus"></i> Thêm nhà phân phối
+                </button>
+            </div>
+
+            <!-- STAT CARDS -->
+            <div class="admin-stats" style="grid-template-columns:repeat(4,1fr);margin-bottom:24px">
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--cyan"><i class="fa-solid fa-handshake"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--up">+1 tháng này</span>
+                    </div>
+                    <div class="admin-stat__value">4</div>
+                    <div class="admin-stat__label">Đang hợp tác</div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--amber"><i class="fa-solid fa-box-open"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--up">+5%</span>
+                    </div>
+                    <div class="admin-stat__value">248</div>
+                    <div class="admin-stat__label">SKU đang nhập</div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--red"><i class="fa-solid fa-money-bill-wave"></i></div>
+                        <span class="admin-stat__trend admin-stat__trend--up">+12%</span>
+                    </div>
+                    <div class="admin-stat__value">2.4 tỷ</div>
+                    <div class="admin-stat__label">Tổng nhập quý này</div>
+                </div>
+                <div class="admin-card">
+                    <div class="admin-stat__top">
+                        <div class="admin-stat__icon admin-stat__icon--green"><i class="fa-solid fa-truck"></i></div>
+                        <span class="admin-stat__trend">Trung bình</span>
+                    </div>
+                    <div class="admin-stat__value">3.2 ngày</div>
+                    <div class="admin-stat__label">Thời gian giao hàng</div>
+                </div>
+            </div>
+
+            <!-- TABLE -->
+            <section class="admin-table-wrap">
+                <div class="admin-table-wrap__head">
+                    <h3 class="admin-panel__title">Danh sách nhà phân phối</h3>
+                    <select class="admin-status-select">
+                        <option>Tất cả trạng thái</option>
+                        <option>Đang hợp tác</option>
+                        <option>Tạm dừng</option>
+                        <option>Đã kết thúc</option>
+                    </select>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>Nhà phân phối</th><th>Liên hệ</th><th>Quốc gia</th><th>SKU</th><th>Hợp đồng đến</th><th>Trạng thái</th><th>Thao tác</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditSupplier('Finalmouse Inc.','contact@finalmouse.com','0800 100 200','Mỹ','40','31/12/2026','active')"
+                                     title="Bấm để chỉnh sửa">
+                                <div class="admin-supplier-logo"><i class="fa-solid fa-computer-mouse"></i></div>
+                                <div><div class="admin-table__name">Finalmouse Inc.</div><div class="admin-table__muted">Chuột gaming cao cấp</div></div>
+                            </div></td>
+                            <td>contact@finalmouse.com<div class="admin-table__muted">0800 100 200</div></td>
+                            <td>🇺🇸 Mỹ</td>
+                            <td><span class="admin-badge admin-badge--prep">40 SKU</span></td>
+                            <td>31/12/2026</td>
+                            <td><span class="admin-badge admin-badge--done">Đang hợp tác</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn" onclick="openEditSupplier('Finalmouse Inc.','contact@finalmouse.com','0800 100 200','Mỹ','40','31/12/2026','active')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditSupplier('Wooting B.V.','info@wooting.io','0800 200 300','Hà Lan','28','30/06/2026','active')"
+                                     title="Bấm để chỉnh sửa">
+                                <div class="admin-supplier-logo"><i class="fa-solid fa-keyboard"></i></div>
+                                <div><div class="admin-table__name">Wooting B.V.</div><div class="admin-table__muted">Bàn phím analog</div></div>
+                            </div></td>
+                            <td>info@wooting.io<div class="admin-table__muted">0800 200 300</div></td>
+                            <td>🇳🇱 Hà Lan</td>
+                            <td><span class="admin-badge admin-badge--prep">28 SKU</span></td>
+                            <td>30/06/2026</td>
+                            <td><span class="admin-badge admin-badge--done">Đang hợp tác</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn" onclick="openEditSupplier('Wooting B.V.','info@wooting.io','0800 200 300','Hà Lan','28','30/06/2026','active')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditSupplier('Pulsar Gaming Gear','support@pulsargaminggear.com','0800 300 400','Hàn Quốc','35','31/03/2027','active')"
+                                     title="Bấm để chỉnh sửa">
+                                <div class="admin-supplier-logo"><i class="fa-solid fa-computer-mouse"></i></div>
+                                <div><div class="admin-table__name">Pulsar Gaming Gear</div><div class="admin-table__muted">Chuột & phụ kiện</div></div>
+                            </div></td>
+                            <td>support@pulsargaminggear.com<div class="admin-table__muted">0800 300 400</div></td>
+                            <td>🇰🇷 Hàn Quốc</td>
+                            <td><span class="admin-badge admin-badge--prep">35 SKU</span></td>
+                            <td>31/03/2027</td>
+                            <td><span class="admin-badge admin-badge--done">Đang hợp tác</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn" onclick="openEditSupplier('Pulsar Gaming Gear','support@pulsargaminggear.com','0800 300 400','Hàn Quốc','35','31/03/2027','active')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditSupplier('Endgame Gear','hello@endgamegear.com','0800 400 500','Đức','22','31/12/2025','active')"
+                                     title="Bấm để chỉnh sửa">
+                                <div class="admin-supplier-logo"><i class="fa-solid fa-square"></i></div>
+                                <div><div class="admin-table__name">Endgame Gear</div><div class="admin-table__muted">Lót chuột & phụ kiện</div></div>
+                            </div></td>
+                            <td>hello@endgamegear.com<div class="admin-table__muted">0800 400 500</div></td>
+                            <td>🇩🇪 Đức</td>
+                            <td><span class="admin-badge admin-badge--prep">22 SKU</span></td>
+                            <td>31/12/2025</td>
+                            <td><span class="admin-badge admin-badge--done">Đang hợp tác</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn" onclick="openEditSupplier('Endgame Gear','hello@endgamegear.com','0800 400 500','Đức','22','31/12/2025','active')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditSupplier('Razer Inc.','biz@razer.com','0800 500 600','Singapore','18','30/06/2025','paused')"
+                                     title="Bấm để chỉnh sửa">
+                                <div class="admin-supplier-logo" style="background:rgba(57,255,20,.1);color:#39ff14"><i class="fa-solid fa-bolt"></i></div>
+                                <div><div class="admin-table__name">Razer Inc.</div><div class="admin-table__muted">Gaming peripherals</div></div>
+                            </div></td>
+                            <td>biz@razer.com<div class="admin-table__muted">0800 500 600</div></td>
+                            <td>🇸🇬 Singapore</td>
+                            <td><span class="admin-badge admin-badge--pending">18 SKU</span></td>
+                            <td>30/06/2025</td>
+                            <td><span class="admin-badge admin-badge--pending">Tạm dừng</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn" onclick="openEditSupplier('Razer Inc.','biz@razer.com','0800 500 600','Singapore','18','30/06/2025','paused')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </div></td>
+                        </tr>
+                        <tr class="admin-table__row">
+                            <td><div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditSupplier('SteelSeries ApS','partner@steelseries.com','0800 600 700','Đan Mạch','15','31/01/2025','ended')"
+                                     title="Bấm để chỉnh sửa">
+                                <div class="admin-supplier-logo" style="background:rgba(255,0,60,.08);color:var(--red)"><i class="fa-solid fa-gamepad"></i></div>
+                                <div><div class="admin-table__name">SteelSeries ApS</div><div class="admin-table__muted">Peripheral gaming</div></div>
+                            </div></td>
+                            <td>partner@steelseries.com<div class="admin-table__muted">0800 600 700</div></td>
+                            <td>🇩🇰 Đan Mạch</td>
+                            <td><span class="admin-badge admin-badge--cancel">15 SKU</span></td>
+                            <td>31/01/2025</td>
+                            <td><span class="admin-badge admin-badge--cancel">Đã kết thúc</span></td>
+                            <td><div class="d-flex gap-2">
+                                <button class="admin-icon-btn" onclick="openEditSupplier('SteelSeries ApS','partner@steelseries.com','0800 600 700','Đan Mạch','15','31/01/2025','ended')"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
+                            </div></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="admin-pagination">
+                    <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-left"></i></a>
+                    <a href="#" class="admin-pagination__btn is-active">1</a>
+                    <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-right"></i></a>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+<!-- MODAL CHỈNH SỬA NHÀ PHÂN PHỐI -->
+<div class="modal fade" id="modalEditSupplier" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-truck-ramp-box me-2" style="color:var(--red)"></i>Chỉnh sửa nhà phân phối — <span id="mes-name-title"></span></h5>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div class="admin-field"><label class="admin-field__label">Tên nhà phân phối</label>
+                            <input type="text" id="mes-name" class="admin-field__input"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Quốc gia</label>
+                            <input type="text" id="mes-country" class="admin-field__input"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="admin-field"><label class="admin-field__label">Email liên hệ</label>
+                            <input type="email" id="mes-email" class="admin-field__input"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="admin-field"><label class="admin-field__label">Số điện thoại</label>
+                            <input type="text" id="mes-phone" class="admin-field__input"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Số SKU</label>
+                            <input type="number" id="mes-sku" class="admin-field__input" min="0"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Hợp đồng đến</label>
+                            <input type="text" id="mes-contract" class="admin-field__input" placeholder="dd/mm/yyyy"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Trạng thái</label>
+                            <select id="mes-status" class="admin-field__select">
+                                <option value="active">Đang hợp tác</option>
+                                <option value="paused">Tạm dừng</option>
+                                <option value="ended">Đã kết thúc</option>
+                            </select></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer admin-modal__footer">
+                <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="admin-btn admin-btn--primary" onclick="saveSupplier()"><i class="fa-solid fa-floppy-disk me-1"></i>Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL THÊM NHÀ PHÂN PHỐI -->
+<div class="modal fade" id="modalAddSupplier" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-plus me-2" style="color:var(--admin-green)"></i>Thêm nhà phân phối mới</h5>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div class="admin-field"><label class="admin-field__label">Tên nhà phân phối</label>
+                            <input type="text" id="mas-name" class="admin-field__input" placeholder="VD: Finalmouse Inc."></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Quốc gia</label>
+                            <input type="text" id="mas-country" class="admin-field__input" placeholder="VD: Mỹ"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="admin-field"><label class="admin-field__label">Email liên hệ</label>
+                            <input type="email" id="mas-email" class="admin-field__input" placeholder="contact@supplier.com"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="admin-field"><label class="admin-field__label">Số điện thoại</label>
+                            <input type="text" id="mas-phone" class="admin-field__input" placeholder="+1 800 xxx xxxx"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Số SKU dự kiến</label>
+                            <input type="number" id="mas-sku" class="admin-field__input" min="0" placeholder="0"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Hợp đồng đến</label>
+                            <input type="text" id="mas-contract" class="admin-field__input" placeholder="dd/mm/yyyy"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field"><label class="admin-field__label">Trạng thái</label>
+                            <select id="mas-status" class="admin-field__select">
+                                <option value="active">Đang hợp tác</option>
+                                <option value="paused">Tạm dừng</option>
+                            </select></div>
+                    </div>
+                    <div class="col-12">
+                        <div class="admin-field"><label class="admin-field__label">Ghi chú</label>
+                            <textarea id="mas-note" class="admin-field__input" rows="3" placeholder="Điều khoản, mặt hàng chuyên cung cấp..."></textarea></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer admin-modal__footer">
+                <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="admin-btn admin-btn--primary" onclick="saveNewSupplier()"><i class="fa-solid fa-plus me-1"></i>Thêm nhà phân phối</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.admin-supplier-logo {
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    background: rgba(0,255,255,.08);
+    color: var(--cyber-cyan);
+    display: grid; place-items: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.getElementById('sidebarToggle')?.addEventListener('click', () => {
+        document.getElementById('adminSidebar').classList.toggle('is-open');
+    });
+
+    const _modalEditSup = new bootstrap.Modal(document.getElementById('modalEditSupplier'));
+    const _modalAddSup  = new bootstrap.Modal(document.getElementById('modalAddSupplier'));
+
+    function openEditSupplier(name, email, phone, country, sku, contract, status) {
+        document.getElementById('mes-name-title').textContent = name;
+        document.getElementById('mes-name').value     = name;
+        document.getElementById('mes-email').value    = email;
+        document.getElementById('mes-phone').value    = phone;
+        document.getElementById('mes-country').value  = country;
+        document.getElementById('mes-sku').value      = sku;
+        document.getElementById('mes-contract').value = contract;
+        for (let o of document.getElementById('mes-status').options) o.selected = o.value === status;
+        _modalEditSup.show();
+    }
+
+    function saveSupplier() {
+        alert('Đã lưu: ' + document.getElementById('mes-name').value);
+        _modalEditSup.hide();
+    }
+
+    function openAddSupplier() {
+        ['mas-name','mas-email','mas-phone','mas-country','mas-sku','mas-contract','mas-note'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
+        });
+        _modalAddSup.show();
+    }
+
+    function saveNewSupplier() {
+        const name = document.getElementById('mas-name').value.trim();
+        if (!name) { alert('Vui lòng nhập tên nhà phân phối!'); return; }
+        alert('Đã thêm: ' + name);
+        _modalAddSup.hide();
+    }
+</script>
+</body>
+</html>

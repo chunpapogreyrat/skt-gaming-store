@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +9,117 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        /* ===== USER TAB TOGGLE ===== */
+        .user-tab-bar {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .user-tab-switch {
+            position: relative;
+            display: inline-flex;
+            background: rgba(255,255,255,.05);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 12px;
+            padding: 4px;
+            gap: 0;
+        }
+        /* Pill trượt */
+        .user-tab-switch__pill {
+            position: absolute;
+            top: 4px; left: 4px;
+            height: calc(100% - 8px);
+            border-radius: 9px;
+            background: var(--red);
+            box-shadow: 0 0 16px rgba(255,0,60,.4);
+            transition: transform .35s cubic-bezier(.4,0,.2,1), width .35s cubic-bezier(.4,0,.2,1);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .user-tab-switch__btn {
+            position: relative;
+            z-index: 1;
+            background: none;
+            border: none;
+            border-radius: 9px;
+            padding: 8px 20px;
+            font-family: var(--font-h);
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .8px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color .3s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .user-tab-switch__btn.is-active { color: #fff; }
+        .user-tab-switch__count {
+            background: rgba(255,255,255,.15);
+            border-radius: 999px;
+            padding: 1px 7px;
+            font-size: .65rem;
+            font-weight: 600;
+        }
+        .user-tab-switch__btn.is-active .user-tab-switch__count {
+            background: rgba(255,255,255,.25);
+        }
+
+        /* ===== SLIDING PANELS ===== */
+        .user-panels-wrap {
+            position: relative;
+            overflow: hidden;
+        }
+        .user-panel {
+            width: 100%;
+            transition: transform .4s cubic-bezier(.4,0,.2,1), opacity .35s;
+        }
+        .user-panel.is-active {
+            position: relative;
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .user-panel.slide-out-left {
+            position: absolute;
+            top: 0; left: 0;
+            transform: translateX(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .user-panel.slide-out-right {
+            position: absolute;
+            top: 0; left: 0;
+            transform: translateX(100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+        .user-panel.slide-in-left {
+            position: relative;
+            animation: slideInFromLeft .38s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        .user-panel.slide-in-right {
+            position: relative;
+            animation: slideInFromRight .38s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        @keyframes slideInFromRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to   { transform: translateX(0);    opacity: 1; }
+        }
+        @keyframes slideInFromLeft {
+            from { transform: translateX(-100%); opacity: 0; }
+            to   { transform: translateX(0);     opacity: 1; }
+        }
+    </style>
 </head>
 
 <body class="admin-body">
 <div class="admin-layout">
 
-    <!-- #region ADMIN SIDEBAR -->
+    <!-- SIDEBAR -->
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="admin-sidebar__brand">
             <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
@@ -31,16 +135,15 @@
             <a href="coupons.html" class="admin-sidebar__link"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
             <a href="categories.html" class="admin-sidebar__link"><i class="fa-solid fa-tags"></i> Danh mục</a>
             <a href="revenue.html" class="admin-sidebar__link"><i class="fa-solid fa-chart-line"></i> Doanh thu</a>
+            <a href="suppliers.html" class="admin-sidebar__link"><i class="fa-solid fa-truck-ramp-box"></i> Nhà phân phối</a>
         </nav>
         <div class="admin-sidebar__foot">
             <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
         </div>
     </aside>
-    <!-- #endregion -->
 
     <div class="admin-main">
-
-        <!-- #region ADMIN TOPBAR -->
+        <!-- TOPBAR -->
         <header class="admin-topbar">
             <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
             <div class="admin-topbar__search">
@@ -58,89 +161,167 @@
                 <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
             </div>
         </header>
-        <!-- #endregion -->
 
         <main class="admin-content">
-            <h1 class="admin-page-title">Quản lý tài khoản</h1>
-            <p class="admin-page-sub">3.912 người dùng · 2 quản trị viên</p>
+            <!-- Header + toggle -->
+            <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+                <div>
+                    <h1 class="admin-page-title">Quản lý tài khoản</h1>
+                    <p class="admin-page-sub" style="margin:0">3.910 khách hàng · 4 nhân viên</p>
+                </div>
+                <div class="user-tab-bar">
+                    <!-- TOGGLE SWITCH -->
+                    <div class="user-tab-switch" id="tabSwitch">
+                        <div class="user-tab-switch__pill" id="tabPill"></div>
+                        <button class="user-tab-switch__btn is-active" id="btnCustomers" onclick="switchTab('customers')">
+                            <i class="fa-solid fa-users"></i> Khách hàng
+                            <span class="user-tab-switch__count">3.910</span>
+                        </button>
+                        <button class="user-tab-switch__btn" id="btnStaff" onclick="switchTab('staff')">
+                            <i class="fa-solid fa-user-tie"></i> Nhân viên
+                            <span class="user-tab-switch__count">4</span>
+                        </button>
+                    </div>
+                    <button class="admin-btn admin-btn--primary" onclick="openAddUser()">
+                        <i class="fa-solid fa-user-plus"></i> Thêm tài khoản
+                    </button>
+                </div>
+            </div>
 
-            <!-- #region USER TABLE -->
-            <section class="admin-table-wrap">
-                <div class="admin-table-wrap__head">
-                    <h3 class="admin-panel__title">Danh sách tài khoản</h3>
-                    <select class="admin-status-select">
-                        <option>Tất cả vai trò</option><option>Khách hàng</option><option>Quản trị viên</option>
-                    </select>
-                </div>
-                <table class="admin-table">
-                    <thead>
-                        <tr><th>Người dùng</th><th>Email</th><th>SĐT</th><th>Vai trò</th><th>Trạng thái</th><th>Thao tác</th></tr>
-                    </thead>
-                    <tbody>
-                        <tr class="admin-table__row">
-                            <td>
-                                <div class="admin-table__product admin-table__clickable"
-                                     onclick="openEditUser('Admin SKT','admin@skt.vn','0900 000 001','Admin','active','../assets/images/avatars/truong.jpg')"
-                                     title="Bấm để chỉnh sửa">
-                                    <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
-                                    <div class="admin-table__name">Admin SKT</div>
-                                </div>
-                            </td>
-                            <td>admin@skt.vn</td>
-                            <td>0900 000 001</td>
-                            <td><span class="admin-badge admin-badge--cancel">Admin</span></td>
-                            <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
-                            <td><div class="d-flex gap-2">
-                                <button class="admin-icon-btn" onclick="openEditUser('Admin SKT','admin@skt.vn','0900 000 001','Admin','active','../assets/images/avatars/truong.jpg')"><i class="fa-solid fa-pen"></i></button>
-                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
-                            </div></td>
-                        </tr>
-                        <tr class="admin-table__row">
-                            <td>
-                                <div class="admin-table__product admin-table__clickable"
-                                     onclick="openEditUser('Nguyễn Văn A','vana@gmail.com','0901 234 567','Khách','active','../assets/images/avatars/khoa.jpg')"
-                                     title="Bấm để chỉnh sửa">
-                                    <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
-                                    <div class="admin-table__name">Nguyễn Văn A</div>
-                                </div>
-                            </td>
-                            <td>vana@gmail.com</td>
-                            <td>0901 234 567</td>
-                            <td><span class="admin-badge admin-badge--prep">Khách</span></td>
-                            <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
-                            <td><div class="d-flex gap-2">
-                                <button class="admin-icon-btn" onclick="openEditUser('Nguyễn Văn A','vana@gmail.com','0901 234 567','Khách','active','../assets/images/avatars/khoa.jpg')"><i class="fa-solid fa-pen"></i></button>
-                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
-                            </div></td>
-                        </tr>
-                        <tr class="admin-table__row">
-                            <td>
-                                <div class="admin-table__product admin-table__clickable"
-                                     onclick="openEditUser('Trần Thị B','thib@gmail.com','0912 345 678','Khách','locked','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"
-                                     title="Bấm để chỉnh sửa">
-                                    <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
-                                    <div class="admin-table__name">Trần Thị B</div>
-                                </div>
-                            </td>
-                            <td>thib@gmail.com</td>
-                            <td>0912 345 678</td>
-                            <td><span class="admin-badge admin-badge--prep">Khách</span></td>
-                            <td><span class="admin-badge admin-badge--stock-out">Đã khóa</span></td>
-                            <td><div class="d-flex gap-2">
-                                <button class="admin-icon-btn" onclick="openEditUser('Trần Thị B','thib@gmail.com','0912 345 678','Khách','locked','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"><i class="fa-solid fa-pen"></i></button>
-                                <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-unlock"></i></button>
-                            </div></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="admin-pagination">
-                    <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-left"></i></a>
-                    <a href="#" class="admin-pagination__btn is-active">1</a>
-                    <a href="#" class="admin-pagination__btn">2</a>
-                    <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-right"></i></a>
-                </div>
-            </section>
-            <!-- #endregion -->
+            <!-- SLIDING PANELS -->
+            <div class="user-panels-wrap">
+
+                <!-- PANEL: KHÁCH HÀNG -->
+                <section class="user-panel is-active" id="panel-customers">
+                    <div class="admin-table-wrap">
+                        <div class="admin-table-wrap__head">
+                            <h3 class="admin-panel__title"><i class="fa-solid fa-users me-2" style="color:var(--cyber-cyan)"></i>Khách hàng</h3>
+                        </div>
+                        <table class="admin-table">
+                            <thead>
+                                <tr><th>Người dùng</th><th>Email</th><th>SĐT</th><th>Đơn hàng</th><th>Trạng thái</th><th>Thao tác</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Nguyễn Văn A','vana@gmail.com','0901 234 567','Khách','active','../assets/images/avatars/khoa.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
+                                        <div><div class="admin-table__name">Nguyễn Văn A</div><div class="admin-table__muted">Khách hàng thân thiết</div></div>
+                                    </div></td>
+                                    <td>vana@gmail.com</td><td>0901 234 567</td>
+                                    <td><span class="admin-badge admin-badge--prep">12 đơn</span></td>
+                                    <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Nguyễn Văn A','vana@gmail.com','0901 234 567','Khách','active','../assets/images/avatars/khoa.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                                    </div></td>
+                                </tr>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Trần Thị B','thib@gmail.com','0912 345 678','Khách','locked','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
+                                        <div><div class="admin-table__name">Trần Thị B</div><div class="admin-table__muted">Khách hàng</div></div>
+                                    </div></td>
+                                    <td>thib@gmail.com</td><td>0912 345 678</td>
+                                    <td><span class="admin-badge admin-badge--prep">3 đơn</span></td>
+                                    <td><span class="admin-badge admin-badge--stock-out">Đã khóa</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Trần Thị B','thib@gmail.com','0912 345 678','Khách','locked','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-unlock"></i></button>
+                                    </div></td>
+                                </tr>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Lê Văn C','levanc@gmail.com','0987 654 321','Khách','active','../assets/images/avatars/truong.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
+                                        <div><div class="admin-table__name">Lê Văn C</div><div class="admin-table__muted">Khách hàng</div></div>
+                                    </div></td>
+                                    <td>levanc@gmail.com</td><td>0987 654 321</td>
+                                    <td><span class="admin-badge admin-badge--prep">7 đơn</span></td>
+                                    <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Lê Văn C','levanc@gmail.com','0987 654 321','Khách','active','../assets/images/avatars/truong.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                                    </div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="admin-pagination">
+                            <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-left"></i></a>
+                            <a href="#" class="admin-pagination__btn is-active">1</a>
+                            <a href="#" class="admin-pagination__btn">2</a>
+                            <a href="#" class="admin-pagination__btn">3</a>
+                            <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PANEL: NHÂN VIÊN -->
+                <section class="user-panel slide-out-right" id="panel-staff">
+                    <div class="admin-table-wrap">
+                        <div class="admin-table-wrap__head">
+                            <h3 class="admin-panel__title"><i class="fa-solid fa-user-tie me-2" style="color:var(--red)"></i>Nhân viên</h3>
+                        </div>
+                        <table class="admin-table">
+                            <thead>
+                                <tr><th>Nhân viên</th><th>Email</th><th>SĐT</th><th>Chức vụ</th><th>Trạng thái</th><th>Thao tác</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Admin SKT','admin@skt.vn','0900 000 001','Admin','active','../assets/images/avatars/truong.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
+                                        <div><div class="admin-table__name">Admin SKT</div><div class="admin-table__muted">Quản trị viên</div></div>
+                                    </div></td>
+                                    <td>admin@skt.vn</td><td>0900 000 001</td>
+                                    <td><span class="admin-badge admin-badge--cancel">Admin</span></td>
+                                    <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Admin SKT','admin@skt.vn','0900 000 001','Admin','active','../assets/images/avatars/truong.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                                    </div></td>
+                                </tr>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Lê Văn Khoa','khoa@skt.vn','0911 222 333','Staff','active','../assets/images/avatars/khoa.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
+                                        <div><div class="admin-table__name">Lê Văn Khoa</div><div class="admin-table__muted">Nhân viên bán hàng</div></div>
+                                    </div></td>
+                                    <td>khoa@skt.vn</td><td>0911 222 333</td>
+                                    <td><span class="admin-badge admin-badge--shipping">Sale</span></td>
+                                    <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Lê Văn Khoa','khoa@skt.vn','0911 222 333','Staff','active','../assets/images/avatars/khoa.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                                    </div></td>
+                                </tr>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Phạm Thị Mai','mai@skt.vn','0922 333 444','Staff','active','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
+                                        <div><div class="admin-table__name">Phạm Thị Mai</div><div class="admin-table__muted">Kho hàng</div></div>
+                                    </div></td>
+                                    <td>mai@skt.vn</td><td>0922 333 444</td>
+                                    <td><span class="admin-badge admin-badge--amber" style="background:rgba(255,183,3,.12);color:#ffb703">Kho</span></td>
+                                    <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Phạm Thị Mai','mai@skt.vn','0922 333 444','Staff','active','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                                    </div></td>
+                                </tr>
+                                <tr class="admin-table__row">
+                                    <td><div class="admin-table__product admin-table__clickable" onclick="openEditUser('Nguyễn Hữu Trung','trung@skt.vn','0933 444 555','Staff','active','../assets/images/avatars/truong.jpg')" title="Bấm để chỉnh sửa">
+                                        <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
+                                        <div><div class="admin-table__name">Nguyễn Hữu Trung</div><div class="admin-table__muted">Marketing</div></div>
+                                    </div></td>
+                                    <td>trung@skt.vn</td><td>0933 444 555</td>
+                                    <td><span class="admin-badge admin-badge--green" style="background:rgba(57,255,20,.1);color:#39ff14">Marketing</span></td>
+                                    <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
+                                    <td><div class="d-flex gap-2">
+                                        <button class="admin-icon-btn" onclick="openEditUser('Nguyễn Hữu Trung','trung@skt.vn','0933 444 555','Staff','active','../assets/images/avatars/truong.jpg')"><i class="fa-solid fa-pen"></i></button>
+                                        <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
+                                    </div></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </div><!-- end panels-wrap -->
         </main>
     </div>
 </div>
@@ -158,15 +339,12 @@
             </div>
             <div class="modal-body p-4">
                 <div class="row g-3">
-                    <!-- AVATAR -->
                     <div class="col-12">
                         <label class="admin-field__label">Ảnh đại diện</label>
-                        <div class="admin-img-upload admin-img-upload--avatar">
+                        <div class="admin-img-upload">
                             <div class="admin-img-upload__preview" id="meu-preview-wrap">
                                 <img id="meu-avatar-large" src="" alt="" class="admin-img-upload__img admin-img-upload__img--round">
-                                <button type="button" class="admin-img-upload__remove" onclick="removeUserAvatar()" title="Xóa ảnh">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
+                                <button type="button" class="admin-img-upload__remove" onclick="removeUserAvatar()" title="Xóa ảnh"><i class="fa-solid fa-xmark"></i></button>
                             </div>
                             <label class="admin-img-upload__zone" for="meu-file" id="meu-dropzone">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -177,40 +355,31 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Họ tên</label>
-                            <input type="text" id="meu-name" class="admin-field__input">
-                        </div>
+                        <div class="admin-field"><label class="admin-field__label">Họ tên</label>
+                            <input type="text" id="meu-name" class="admin-field__input"></div>
                     </div>
                     <div class="col-md-7">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Email</label>
-                            <input type="email" id="meu-email" class="admin-field__input">
-                        </div>
+                        <div class="admin-field"><label class="admin-field__label">Email</label>
+                            <input type="email" id="meu-email" class="admin-field__input"></div>
                     </div>
                     <div class="col-md-5">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Số điện thoại</label>
-                            <input type="text" id="meu-phone" class="admin-field__input">
-                        </div>
+                        <div class="admin-field"><label class="admin-field__label">Số điện thoại</label>
+                            <input type="text" id="meu-phone" class="admin-field__input"></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Vai trò</label>
+                        <div class="admin-field"><label class="admin-field__label">Vai trò</label>
                             <select id="meu-role" class="admin-field__select">
                                 <option value="Khách">Khách hàng</option>
+                                <option value="Staff">Nhân viên</option>
                                 <option value="Admin">Quản trị viên</option>
-                            </select>
-                        </div>
+                            </select></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Trạng thái</label>
+                        <div class="admin-field"><label class="admin-field__label">Trạng thái</label>
                             <select id="meu-status" class="admin-field__select">
                                 <option value="active">Hoạt động</option>
                                 <option value="locked">Đã khóa</option>
-                            </select>
-                        </div>
+                            </select></div>
                     </div>
                 </div>
             </div>
@@ -222,54 +391,193 @@
     </div>
 </div>
 
+<!-- MODAL THÊM TÀI KHOẢN -->
+<div class="modal fade" id="modalAddUser" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-user-plus me-2" style="color:var(--admin-green)"></i>Thêm tài khoản mới</h5>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="admin-field__label">Ảnh đại diện</label>
+                        <div class="admin-img-upload">
+                            <div class="admin-img-upload__preview" id="mau-preview-wrap" style="display:none">
+                                <img id="mau-avatar" src="" alt="" class="admin-img-upload__img admin-img-upload__img--round">
+                                <button type="button" class="admin-img-upload__remove" onclick="removeAddUserAvatar()"><i class="fa-solid fa-xmark"></i></button>
+                            </div>
+                            <label class="admin-img-upload__zone" for="mau-file">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                <span>Kéo thả hoặc <u>chọn ảnh</u></span>
+                                <small>PNG, JPG — tối đa 2MB</small>
+                                <input type="file" id="mau-file" accept="image/*" style="display:none" onchange="previewAddUserAvatar(this)">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="admin-field"><label class="admin-field__label">Họ tên</label>
+                            <input type="text" id="mau-name" class="admin-field__input" placeholder="Nguyễn Văn A"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="admin-field"><label class="admin-field__label">Email</label>
+                            <input type="email" id="mau-email" class="admin-field__input" placeholder="email@example.com"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="admin-field"><label class="admin-field__label">SĐT</label>
+                            <input type="text" id="mau-phone" class="admin-field__input" placeholder="09xx xxx xxx"></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field"><label class="admin-field__label">Vai trò</label>
+                            <select id="mau-role" class="admin-field__select">
+                                <option value="Khách">Khách hàng</option>
+                                <option value="Staff">Nhân viên</option>
+                                <option value="Admin">Quản trị viên</option>
+                            </select></div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field"><label class="admin-field__label">Mật khẩu tạm</label>
+                            <input type="password" id="mau-pass" class="admin-field__input" placeholder="••••••••"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer admin-modal__footer">
+                <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="admin-btn admin-btn--primary" onclick="saveNewUser()"><i class="fa-solid fa-user-plus me-1"></i>Tạo tài khoản</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    document.getElementById('sidebarToggle')?.addEventListener('click', function () {
+    /* ===== SIDEBAR ===== */
+    document.getElementById('sidebarToggle')?.addEventListener('click', () => {
         document.getElementById('adminSidebar').classList.toggle('is-open');
     });
 
+    /* ===== TAB SLIDING ===== */
+    let currentTab = 'customers';
+
+    function initPill() {
+        const activeBtn = document.querySelector('.user-tab-switch__btn.is-active');
+        const pill = document.getElementById('tabPill');
+        pill.style.width  = activeBtn.offsetWidth + 'px';
+        pill.style.transform = 'translateX(0)';
+    }
+
+    function switchTab(tab) {
+        if (tab === currentTab) return;
+        const btnC = document.getElementById('btnCustomers');
+        const btnS = document.getElementById('btnStaff');
+        const panelC = document.getElementById('panel-customers');
+        const panelS = document.getElementById('panel-staff');
+        const pill   = document.getElementById('tabPill');
+
+        const goingRight = (tab === 'staff'); // staff là bên phải
+
+        // Di chuyển pill
+        if (goingRight) {
+            pill.style.transform = `translateX(${btnS.offsetLeft - btnC.offsetLeft}px)`;
+            pill.style.width = btnS.offsetWidth + 'px';
+            btnC.classList.remove('is-active');
+            btnS.classList.add('is-active');
+            // Slide panels
+            panelC.className = 'user-panel slide-out-left';
+            panelS.className = 'user-panel slide-in-right';
+        } else {
+            pill.style.transform = 'translateX(0)';
+            pill.style.width = btnC.offsetWidth + 'px';
+            btnS.classList.remove('is-active');
+            btnC.classList.add('is-active');
+            panelS.className = 'user-panel slide-out-right';
+            panelC.className = 'user-panel slide-in-left';
+        }
+
+        // Sau animation, đặt lại class cho gọn
+        setTimeout(() => {
+            if (goingRight) {
+                panelC.className = 'user-panel slide-out-left';
+                panelS.className = 'user-panel is-active';
+            } else {
+                panelS.className = 'user-panel slide-out-right';
+                panelC.className = 'user-panel is-active';
+            }
+        }, 400);
+
+        currentTab = tab;
+    }
+
+    window.addEventListener('load', initPill);
+    window.addEventListener('resize', initPill);
+
+    /* ===== MODAL SỬA ===== */
     const _modalUser = new bootstrap.Modal(document.getElementById('modalEditUser'));
 
     function openEditUser(name, email, phone, role, status, avatar) {
-        // avatar
         document.getElementById('meu-avatar').src = avatar;
         document.getElementById('meu-avatar-large').src = avatar;
         document.getElementById('meu-preview-wrap').style.display = 'flex';
         document.getElementById('meu-dropzone').style.display = 'flex';
-        // fields
         document.getElementById('meu-name').value  = name;
         document.getElementById('meu-email').value = email;
         document.getElementById('meu-phone').value = phone;
-        const roleSel = document.getElementById('meu-role');
-        for (let o of roleSel.options) o.selected = o.value === role;
-        const stSel = document.getElementById('meu-status');
-        for (let o of stSel.options) o.selected = o.value === status;
+        for (let o of document.getElementById('meu-role').options)   o.selected = o.value === role;
+        for (let o of document.getElementById('meu-status').options) o.selected = o.value === status;
         _modalUser.show();
     }
-
     function previewUserAvatar(input) {
-        if (!input.files || !input.files[0]) return;
-        const reader = new FileReader();
-        reader.onload = e => {
+        if (!input.files?.[0]) return;
+        const r = new FileReader();
+        r.onload = e => {
             document.getElementById('meu-avatar-large').src = e.target.result;
             document.getElementById('meu-avatar').src = e.target.result;
             document.getElementById('meu-preview-wrap').style.display = 'flex';
         };
-        reader.readAsDataURL(input.files[0]);
+        r.readAsDataURL(input.files[0]);
     }
-
     function removeUserAvatar() {
         document.getElementById('meu-avatar-large').src = '';
         document.getElementById('meu-avatar').src = '';
         document.getElementById('meu-preview-wrap').style.display = 'none';
         document.getElementById('meu-file').value = '';
     }
-
     function saveUser() {
         alert('Đã lưu: ' + document.getElementById('meu-name').value);
         _modalUser.hide();
     }
+
+    /* ===== MODAL THÊM ===== */
+    const _modalAddUser = new bootstrap.Modal(document.getElementById('modalAddUser'));
+
+    function openAddUser() {
+        ['mau-name','mau-email','mau-phone','mau-pass'].forEach(id => document.getElementById(id).value = '');
+        document.getElementById('mau-avatar').src = '';
+        document.getElementById('mau-preview-wrap').style.display = 'none';
+        document.getElementById('mau-file').value = '';
+        _modalAddUser.show();
+    }
+    function previewAddUserAvatar(input) {
+        if (!input.files?.[0]) return;
+        const r = new FileReader();
+        r.onload = e => {
+            document.getElementById('mau-avatar').src = e.target.result;
+            document.getElementById('mau-preview-wrap').style.display = 'flex';
+        };
+        r.readAsDataURL(input.files[0]);
+    }
+    function removeAddUserAvatar() {
+        document.getElementById('mau-avatar').src = '';
+        document.getElementById('mau-preview-wrap').style.display = 'none';
+        document.getElementById('mau-file').value = '';
+    }
+    function saveNewUser() {
+        const name = document.getElementById('mau-name').value.trim();
+        if (!name) { alert('Vui lòng nhập họ tên!'); return; }
+        alert('Đã tạo tài khoản: ' + name);
+        _modalAddUser.hide();
+    }
 </script>
 </body>
-
 </html>
