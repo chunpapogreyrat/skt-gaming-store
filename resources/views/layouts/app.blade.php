@@ -350,6 +350,28 @@
             updateBadgeAndTotal(res.data.cart_count, res.data.tong.tong_tien);
         }
     });
+
+    // Quick add: click .p-card__quick → POST API → reload để re-render drawer
+    document.addEventListener('click', async function (e) {
+        const btn = e.target.closest('.p-card__quick[data-product-id]');
+        if (!btn) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const id = parseInt(btn.dataset.productId);
+        if (!id) return;
+        btn.disabled = true;
+        const original = btn.innerHTML;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang thêm...';
+        const res = await cartApi('/gio-hang', 'POST', { san_pham_id: id, so_luong: 1 });
+        btn.disabled = false;
+        btn.innerHTML = original;
+        if (res.success) {
+            // Reload để re-render drawer items từ server
+            window.location.reload();
+        } else {
+            alert(res.message || 'Không thêm được sản phẩm');
+        }
+    }, true);
 })();
 </script>
 {{-- #endregion --}}

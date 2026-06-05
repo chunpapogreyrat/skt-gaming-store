@@ -1334,7 +1334,8 @@ document.addEventListener('DOMContentLoaded', function () {
     initAOS();
     initSearchOverlay();
     initCartDrawer();
-    initFlyToCart();
+    // DISABLED — initFlyToCart cũ chỉ append DOM, không sync Laravel; xử lý trong layout/app
+    // initFlyToCart();
     initDetailPage();
     initProfileTabs();
     initAuthParallax();
