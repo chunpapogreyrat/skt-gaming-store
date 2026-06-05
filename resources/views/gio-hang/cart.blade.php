@@ -129,20 +129,7 @@
 </main>
 {{-- #endregion --}}
 
-{{-- #region CONFIRM MODAL --}}
-<div class="confirm-modal" id="confirmModal">
-    <div class="confirm-modal__backdrop" id="confirmBackdrop"></div>
-    <div class="confirm-modal__box">
-        <div class="confirm-modal__icon"><i class="fa-solid fa-trash-can"></i></div>
-        <h6 class="confirm-modal__title">Xóa sản phẩm?</h6>
-        <p class="confirm-modal__text" id="confirmText">Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?</p>
-        <div class="confirm-modal__actions">
-            <button class="confirm-modal__btn confirm-modal__btn--cancel" id="confirmCancel">Hủy bỏ</button>
-            <button class="confirm-modal__btn confirm-modal__btn--confirm" id="confirmOk">Xóa luôn</button>
-        </div>
-    </div>
-</div>
-{{-- #endregion --}}
+{{-- Confirm modal đã ở trong layouts/app.blade.php (dùng chung mọi trang) --}}
 @endsection
 
 @push('scripts')
@@ -240,51 +227,27 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Delete with confirm modal — fallback `confirm()` nếu modal lỗi
-    let pendingDeleteId = null;
-    const modal = document.getElementById('confirmModal');
-
-    function performDelete(id) {
-        ajaxCart('/gio-hang/' + id, 'DELETE', null, function (res) {
-            if (res.success) {
-                const row = document.querySelector('[data-item-id="' + id + '"][data-cart-row]');
-                if (row) row.remove();
-                if (res.data && res.data.tong) updateTotals(res.data.tong);
-                if (res.data) updateBadge(res.data.cart_count);
-                if (res.data && res.data.cart_count === 0) {
-                    const empty = document.getElementById('cartPageEmpty');
-                    if (empty) empty.style.display = '';
-                }
-            } else {
-                alert(res.message || 'Không xóa được sản phẩm');
-            }
-        });
-    }
-
+    // Delete — dùng skSktConfirm dùng chung từ layouts.app
     document.querySelectorAll('[data-xoa-item]').forEach(btn => {
-        btn.addEventListener('click', function () {
+        btn.addEventListener('click', async function () {
             const id = this.dataset.xoaItem;
-            if (modal) {
-                pendingDeleteId = id;
-                modal.classList.add('is-open');
-            } else {
-                if (confirm('Xóa sản phẩm này khỏi giỏ hàng?')) performDelete(id);
-            }
+            const row = document.querySelector('[data-item-id="' + id + '"][data-cart-row]');
+            const name = row?.querySelector('.cart-page__name')?.textContent.trim();
+            const ok = await window.skSktConfirm(name);
+            if (!ok) return;
+            ajaxCart('/gio-hang/' + id, 'DELETE', null, function (res) {
+                if (res.success) {
+                    if (row) row.remove();
+                    if (res.data?.tong) updateTotals(res.data.tong);
+                    if (res.data) updateBadge(res.data.cart_count);
+                    if (res.data?.cart_count === 0) {
+                        document.getElementById('cartPageEmpty').style.display = '';
+                    }
+                } else {
+                    alert(res.message || 'Không xóa được sản phẩm');
+                }
+            });
         });
-    });
-
-    function closeModal() {
-        pendingDeleteId = null;
-        if (modal) modal.classList.remove('is-open');
-    }
-
-    document.getElementById('confirmCancel')?.addEventListener('click', closeModal);
-    document.getElementById('confirmBackdrop')?.addEventListener('click', closeModal);
-    document.getElementById('confirmOk')?.addEventListener('click', function () {
-        if (!pendingDeleteId) { closeModal(); return; }
-        const id = pendingDeleteId;
-        closeModal();
-        performDelete(id);
     });
 
     // Coupon
