@@ -51,9 +51,19 @@
         '<a href="../profile.html" class="admin-user-menu__item"><span class="admin-user-menu__ico"><i class="fa-solid fa-id-badge"></i></span> Hồ sơ cá nhân <i class="fa-solid fa-chevron-right admin-user-menu__arr"></i></a>' +
         '<a href="revenue.html" class="admin-user-menu__item"><span class="admin-user-menu__ico"><i class="fa-solid fa-chart-line"></i></span> Báo cáo doanh thu <i class="fa-solid fa-chevron-right admin-user-menu__arr"></i></a>' +
         '<div class="admin-user-menu__divider"></div>' +
-        '<a href="../login.html" class="admin-user-menu__item admin-user-menu__item--logout"><span class="admin-user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</a>' +
+        '<a href="login.html" id="adminLogout" class="admin-user-menu__item admin-user-menu__item--logout"><span class="admin-user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</a>' +
         '<div class="admin-user-menu__foot">SKT Admin Panel · v2.0</div>';
     userBox.appendChild(panel);
+
+    // Đăng xuất admin: xóa session quản trị rồi về trang login admin
+    var logoutLink = panel.querySelector('#adminLogout');
+    if (logoutLink) {
+        logoutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            try { localStorage.removeItem('skt_admin'); } catch (err) {}
+            location.href = 'login.html';
+        });
+    }
 
     // Bỏ link logout cũ (đã có trong panel)
     var oldLogout = userBox.querySelector('.admin-topbar__logout');

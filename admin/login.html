@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập quản trị - SKT Admin</title>
+    <!-- Nếu đã đăng nhập admin thì vào thẳng dashboard -->
+    <script>
+        try { if (localStorage.getItem('skt_admin')) location.replace('dashboard.html'); } catch (e) {}
+    </script>
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .admin-login-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-family: var(--font-h); font-weight: 700; letter-spacing: 2px;
+            font-size: .7rem; color: var(--red);
+            border: 1px solid var(--red-dim); border-radius: 999px;
+            padding: 6px 16px; margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+        .admin-login-badge i { font-size: .8rem; }
+    </style>
+</head>
+<body class="dark-theme auth-page">
+
+    <div class="auth-bg"></div>
+
+    <a href="../index.html" class="auth-brand">SKT</a>
+    <a href="../index.html" class="auth-back">
+        <i class="fa-solid fa-arrow-left me-2"></i>TRỞ VỀ TRANG CHỦ
+    </a>
+
+    <div class="auth-wrap auth-wrap--right">
+        <div id="authPanel" class="auth-panel">
+            <div class="auth-card">
+                <div class="text-center mb-4">
+                    <span class="admin-login-badge"><i class="fa-solid fa-shield-halved"></i> Khu vực quản trị</span>
+                    <h2 class="auth-card__title">Đăng Nhập Quản Trị</h2>
+                    <p class="auth-card__subtitle mt-2">Chỉ dành cho quản trị viên &amp; nhân viên SKT.</p>
+                </div>
+
+                <form id="adminLoginForm" action="#" method="POST" class="auth-form font-poppins">
+                    <div class="auth-field">
+                        <span class="auth-field__icon"><i class="fa-regular fa-user"></i></span>
+                        <input type="text" id="adminUser" class="auth-field__input" placeholder=" " required>
+                        <label for="adminUser" class="auth-field__label">Tài khoản quản trị</label>
+                    </div>
+
+                    <div class="auth-field">
+                        <span class="auth-field__icon"><i class="fa-solid fa-lock"></i></span>
+                        <input type="password" id="adminPass" class="auth-field__input" placeholder=" " required>
+                        <label for="adminPass" class="auth-field__label">Mật khẩu</label>
+                        <button type="button" class="auth-field__toggle" id="adminPassToggle" aria-label="Hiện mật khẩu">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <div class="auth-msg" id="adminMsg"></div>
+
+                    <button type="submit" class="btn w-100 auth-form__btn-submit mb-3">ĐĂNG NHẬP QUẢN TRỊ</button>
+
+                    <p class="text-center text-muted" style="font-size:.78rem;">
+                        <i class="fa-solid fa-circle-info me-1"></i> Demo: <strong>admin</strong> / <strong>admin123</strong>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hiện/ẩn mật khẩu
+        document.getElementById('adminPassToggle').addEventListener('click', function () {
+            var inp = document.getElementById('adminPass');
+            var ic  = this.querySelector('i');
+            if (inp.type === 'password') { inp.type = 'text';  ic.className = 'fa-regular fa-eye-slash'; }
+            else                          { inp.type = 'password'; ic.className = 'fa-regular fa-eye'; }
+        });
+
+        // Đăng nhập admin (demo)
+        var ADMIN_CRED = { user: 'admin', pass: 'admin123' };
+        document.getElementById('adminLoginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var u = document.getElementById('adminUser').value.trim();
+            var p = document.getElementById('adminPass').value;
+            var msg = document.getElementById('adminMsg');
+
+            if (u === ADMIN_CRED.user && p === ADMIN_CRED.pass) {
+                msg.className = 'auth-msg auth-msg--ok';
+                msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang vào trang quản trị...';
+                try {
+                    localStorage.setItem('skt_admin', JSON.stringify({ user: u, role: 'Admin', at: Date.now() }));
+                } catch (err) {}
+                setTimeout(function () { location.href = 'dashboard.html'; }, 800);
+            } else {
+                msg.className = 'auth-msg auth-msg--err';
+                msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Sai tài khoản hoặc mật khẩu quản trị!';
+                this.classList.add('auth-shake');
+                var f = this;
+                setTimeout(function () { f.classList.remove('auth-shake'); }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
