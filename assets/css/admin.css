@@ -570,6 +570,48 @@ body.admin-body {
 .admin-pagination__btn.is-active { background: var(--red); color: #fff; border-color: var(--red); }
 /* #endregion */
 
+/* #region CLICK IMAGE/NAME TO EDIT */
+.admin-table__edit-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+.admin-table__edit-link:hover .admin-table__name {
+    color: var(--cyber-cyan);
+    text-decoration: underline;
+}
+.admin-table__edit-link:hover .admin-table__thumb {
+    border-color: var(--cyber-cyan);
+    box-shadow: 0 0 10px rgba(0, 255, 255, .25);
+}
+/* #endregion */
+
+/* #region ADMIN CATEGORY ICON */
+.admin-cat__icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 6px;
+    background: var(--red-subtle);
+    color: var(--red);
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    border: 1px solid var(--admin-line);
+    flex-shrink: 0;
+}
+.admin-slug {
+    font-family: var(--font-b);
+    font-size: 12px;
+    color: var(--cyber-cyan);
+    background: rgba(0, 255, 255, .07);
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+/* #endregion */
+
 /* #region ADMIN RESPONSIVE */
 @media (max-width: 1100px) {
     .admin-stats { grid-template-columns: repeat(2, 1fr); }
