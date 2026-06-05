@@ -228,18 +228,18 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-xoa-item]').forEach(btn => {
         btn.addEventListener('click', function () {
             pendingDeleteId = this.dataset.xoaItem;
-            document.getElementById('confirmModal').classList.add('confirm-modal--show');
+            document.getElementById('confirmModal').classList.add('is-open');
         });
     });
 
     document.getElementById('confirmCancel').addEventListener('click', function () {
         pendingDeleteId = null;
-        document.getElementById('confirmModal').classList.remove('confirm-modal--show');
+        document.getElementById('confirmModal').classList.remove('is-open');
     });
 
     document.getElementById('confirmBackdrop').addEventListener('click', function () {
         pendingDeleteId = null;
-        document.getElementById('confirmModal').classList.remove('confirm-modal--show');
+        document.getElementById('confirmModal').classList.remove('is-open');
     });
 
     document.getElementById('confirmOk').addEventListener('click', function () {
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
             pendingDeleteId = null;
-            document.getElementById('confirmModal').classList.remove('confirm-modal--show');
+            document.getElementById('confirmModal').classList.remove('is-open');
         });
     });
 
