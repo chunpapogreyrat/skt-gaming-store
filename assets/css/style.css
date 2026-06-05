@@ -519,11 +519,20 @@ img { max-width: 100%; display: block; }
 .hero-card::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.6); opacity: 0; transition: opacity .5s ease-in-out; }
 .hero-card:nth-child(1), .hero-card:nth-child(2) { top: 0; left: 0; transform: translate(0,0); width: 100%; height: 100%; border-radius: 0; box-shadow: none; }
 .hero-card:nth-child(1)::after, .hero-card:nth-child(2)::after { opacity: 1; }
-.hero-card:nth-child(3) { left: 50%; }
-.hero-card:nth-child(4) { left: calc(50% + 190px); }
-.hero-card:nth-child(5) { left: calc(50% + 380px); }
-.hero-card:nth-child(6) { left: calc(50% + 570px); }
-.hero-card:nth-child(n+7) { left: calc(50% + 760px); opacity: 0; }
+/* Card ACTIVE giữa — to lên thành portrait lớn (giống khung đỏ user vẽ) */
+.hero-card:nth-child(3) {
+    left: 50%;
+    width: 380px;
+    height: 540px;
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0,0,0,.7), 0 0 40px rgba(255,0,60,.25);
+}
+/* 3 card nhỏ kế tiếp — dời sang phải hơn (cách card lớn xa hơn) */
+.hero-card:nth-child(4) { left: calc(50% + 420px); }
+.hero-card:nth-child(5) { left: calc(50% + 610px); }
+.hero-card:nth-child(6) { left: calc(50% + 800px); }
+/* Ẩn card thứ 7 trở đi — chỉ giữ 3 card nhỏ */
+.hero-card:nth-child(n+7) { opacity: 0; pointer-events: none; }
 .hero-nav { position: absolute; bottom: 30px; width: 100%; text-align: center; z-index: 20; }
 .hero-nav button { width: 40px; height: 40px; border-radius: 8px; border: 1px solid var(--red-dim); cursor: pointer; margin: 0 5px; background: rgba(10,12,16,.75); color: var(--text-main); transition: .3s; font-size: 20px; font-weight: bold; backdrop-filter: blur(8px); }
 .hero-nav button:hover { background: var(--red); border-color: var(--red); color: #fff; box-shadow: 0 0 20px var(--red-glow); }
@@ -619,9 +628,86 @@ img { max-width: 100%; display: block; }
 .sale-box__nav button:hover { background: var(--red); border-color: var(--red); box-shadow: 0 0 12px var(--red-glow); }
 
 /* Owl Carousel cards */
-.sale-carousel .deal-card { background: #0f1116; border: 1px solid rgba(255,255,255,.04); border-radius: 6px; padding: 10px 12px 12px; position: relative; text-align: center; transition: var(--trans); cursor: pointer; }
-.sale-carousel .deal-card:hover { border-color: var(--red-dim); box-shadow: 0 0 15px rgba(255,0,60,.3); transform: translateY(-3px); }
-.deal-card__badge { position: absolute; top: 8px; left: 8px; background: var(--red); color: #fff; font-size: .62rem; font-weight: 800; padding: 2px 8px; border-radius: 3px; font-family: var(--font-h); letter-spacing: .5px; }
+.sale-carousel .deal-card {
+    background: #0f1116;
+    border-radius: 10px;
+    padding: 10px 12px 12px;
+    position: relative;
+    text-align: center;
+    transition: transform .35s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+    z-index: 0;
+    isolation: isolate;
+}
+.sale-carousel .deal-card:hover { transform: translateY(-4px); }
+
+/* LED RGB chạy xung quanh khung — đỏ + tím xoay vòng */
+.sale-carousel .deal-card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 12px;
+    padding: 2px;
+    background: conic-gradient(from var(--rgb-angle, 0deg),
+        #ff003c, #ff00aa, #a855f7, #ff00aa, #ff003c, #ff003c);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    z-index: -1;
+    animation: rgb-rotate 3.5s linear infinite;
+    filter: drop-shadow(0 0 6px rgba(255,0,60,.55)) drop-shadow(0 0 10px rgba(168,85,247,.45));
+}
+@property --rgb-angle { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+@keyframes rgb-rotate { to { --rgb-angle: 360deg; } }
+/* Fallback cho browser chưa hỗ trợ @property — vẫn có viền sáng */
+@supports not (background: conic-gradient(from 0deg, red)) {
+    .sale-carousel .deal-card::before { background: linear-gradient(90deg, #ff003c, #a855f7); }
+}
+
+/* Badge giảm giá bên TRÁI */
+.deal-card__badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: var(--red);
+    color: #fff;
+    font-size: .62rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: var(--font-h);
+    letter-spacing: .5px;
+    z-index: 2;
+    box-shadow: 0 0 12px var(--red-glow);
+}
+
+/* Badge "SALE" nhấp nháy RGB bên PHẢI — đối xứng với % */
+.sale-carousel .deal-card::after {
+    content: 'SALE';
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-family: var(--font-h);
+    font-size: .62rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #ff003c, #ff00aa, #a855f7, #ff00aa, #ff003c);
+    background-size: 300% 100%;
+    color: #fff;
+    z-index: 2;
+    animation: sale-blink 1.4s ease-in-out infinite, sale-rgb-shift 3s linear infinite;
+    text-shadow: 0 0 6px rgba(255,255,255,.4);
+}
+@keyframes sale-blink {
+    0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px rgba(255,0,60,.6), 0 0 14px rgba(168,85,247,.4); }
+    50%      { opacity: .55; transform: scale(.92); box-shadow: 0 0 4px rgba(255,0,60,.3); }
+}
+@keyframes sale-rgb-shift {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
 .deal-card__img { height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
 .deal-card__img img { max-height: 140px; max-width: 96%; object-fit: contain; transition: transform .35s; }
 .sale-carousel .deal-card:hover .deal-card__img img { transform: scale(1.08); }
