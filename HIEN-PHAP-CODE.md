@@ -137,4 +137,31 @@ p8 - Màu sắc: ...
 - Quản trị: `admin` / `admin123` (trang `admin/login.html`, session `skt_admin`).
 
 ---
+
+## 8. Tôn trọng thiết kế (Design Fidelity) 🎨
+
+> **Giao diện đã thiết kế là "bản hợp đồng".** Khi dựng backend Laravel, code phải phục vụ thiết kế — KHÔNG được tự ý phá vỡ công sức của người làm giao diện.
+
+**8.1. Nguyên tắc**
+- Bản HTML/CSS/JS tĩnh trong dự án này là **thiết kế chuẩn (source of truth)** về giao diện.
+- Khi chuyển sang Blade/Laravel: **giữ nguyên** cấu trúc HTML, class CSS (BEM), biến màu, font, hiệu ứng. Chỉ thay phần dữ liệu tĩnh bằng `{{ $bien }}` / `@foreach`.
+- ❌ KHÔNG sửa layout, đổi màu, bỏ animation, hay "code lại cho nhanh" làm khác thiết kế gốc.
+- Cần thay đổi giao diện → **bàn với người thiết kế trước**, không tự quyết.
+
+**8.2. Cách chuyển HTML → Blade đúng**
+- Mỗi khối `/* #region */` → tách thành **Blade Component** (`resources/views/components/`), giữ y nguyên markup.
+- Vòng lặp dữ liệu: thay 1 card mẫu bằng `@foreach`, **không đổi class/cấu trúc** của card.
+- Giữ nguyên đường dẫn asset & tên class để CSS/JS hiện có chạy đúng.
+
+**8.3. Bắt buộc check lại sau khi code (Definition of Done)**
+- Sau khi gắn dữ liệu động, **mở trình duyệt so sánh trực tiếp** trang Laravel với bản thiết kế tĩnh.
+- Checklist trước khi báo "xong":
+  - [ ] Layout, khoảng cách, bố cục **khớp** bản thiết kế (so trên cả desktop & mobile).
+  - [ ] Màu sắc, font, bo góc, đổ bóng đúng Design System (mục 7).
+  - [ ] Hiệu ứng hover/animation/slider/modal **vẫn chạy** như bản tĩnh.
+  - [ ] Không vỡ giao diện khi dữ liệu thật dài/ngắn/thiếu (tên dài, hết hàng, ảnh lỗi...).
+  - [ ] Console **không có lỗi** JS/CSS 404.
+- Nếu lệch so với thiết kế → **sửa cho khớp**, không để "tạm vậy".
+
+---
 *Cập nhật bởi nhóm 10 — SKT Gaming Store.*
