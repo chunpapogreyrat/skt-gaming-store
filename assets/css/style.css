@@ -159,15 +159,15 @@ img { max-width: 100%; display: block; }
 .slider-auth {
     position: relative;
     width: 100%;
-    max-width: 840px;
-    min-height: 560px;
-    background: rgba(10,12,16,.72);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,.08);
+    max-width: 900px;
+    min-height: 80vh;
+    background: rgba(10,12,16,.28);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,.1);
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 30px 70px rgba(0,0,0,.6), 0 0 40px rgba(255,0,60,.1);
+    box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 40px rgba(255,0,60,.12);
 }
 
 /* --- Khung form (mỗi cái chiếm nửa) --- */
@@ -200,7 +200,9 @@ img { max-width: 100%; display: block; }
     color: #fff;
     margin-bottom: 14px;
     text-transform: uppercase;
+    text-shadow: 0 2px 14px rgba(0,0,0,.7);
 }
+.slider-auth__hint { text-shadow: 0 1px 6px rgba(0,0,0,.6); }
 .slider-auth__socials { display: flex; gap: 12px; margin-bottom: 14px; }
 .slider-auth__social {
     width: 42px; height: 42px;
@@ -308,7 +310,10 @@ img { max-width: 100%; display: block; }
     width: 200%; height: 100%;
     transform: translateX(0);
     transition: transform .6s ease-in-out;
-    background: linear-gradient(135deg, #ff003c 0%, #a21caf 55%, #6d28d9 100%);
+    /* bán trong suốt để nhìn xuyên thấy ảnh nền TenZ */
+    background: linear-gradient(135deg, rgba(255,0,60,.55) 0%, rgba(162,28,175,.48) 55%, rgba(109,40,217,.52) 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
     color: #fff;
 }
 .slider-auth.is-register .slider-auth__overlay { transform: translateX(50%); }
