@@ -5,7 +5,7 @@
 
 @section('content')
 <h1 class="admin-page-title">{{ $sanPham->exists ? 'Sửa' : 'Thêm' }} sản phẩm</h1>
-<p class="admin-page-sub"><a href="{{ route('admin.products.index') }}" class="admin-table__muted">Sản phẩm</a> / {{ $sanPham->exists ? $sanPham->ten_san_pham : 'Thêm mới' }}</p>
+<p class="admin-page-sub"><a href="{{ route('admin.products.index') }}" class="admin-table__muted">Sản phẩm</a> / {{ $sanPham->exists ? $sanPham->ten : 'Thêm mới' }}</p>
 
 <form method="POST" action="{{ $sanPham->exists ? route('admin.products.update', $sanPham->id) : route('admin.products.store') }}" enctype="multipart/form-data" class="admin-form-grid">
     @csrf
@@ -16,17 +16,22 @@
             <h3 class="admin-panel__title mb-3">Thông tin cơ bản</h3>
             <div class="admin-field">
                 <label class="admin-field__label">Tên sản phẩm</label>
-                <input type="text" name="ten_san_pham" class="admin-field__input" value="{{ old('ten_san_pham', $sanPham->ten_san_pham) }}" required>
-                @error('ten_san_pham')<p class="txt-red small">{{ $message }}</p>@enderror
+                <input type="text" name="ten" class="admin-field__input" value="{{ old('ten', $sanPham->ten) }}" required>
+                @error('ten')<p class="txt-red small">{{ $message }}</p>@enderror
             </div>
             <div class="admin-field__row">
                 <div class="admin-field">
-                    <label class="admin-field__label">Thương hiệu</label>
-                    <input type="text" name="thuong_hieu" class="admin-field__input" value="{{ old('thuong_hieu', $sanPham->thuong_hieu) }}">
+                    <label class="admin-field__label">Slug (tự sinh nếu trống)</label>
+                    <input type="text" name="slug" class="admin-field__input" value="{{ old('slug', $sanPham->slug) }}">
                 </div>
                 <div class="admin-field">
-                    <label class="admin-field__label">Slug</label>
-                    <input type="text" name="slug" class="admin-field__input" value="{{ old('slug', $sanPham->slug) }}">
+                    <label class="admin-field__label">Thương hiệu</label>
+                    <select name="thuong_hieu_id" class="admin-field__select">
+                        <option value="">— Không —</option>
+                        @foreach($thuongHieus as $th)
+                        <option value="{{ $th->id }}" @selected(old('thuong_hieu_id', $sanPham->thuong_hieu_id)==$th->id)>{{ $th->ten }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="admin-field">
@@ -35,7 +40,7 @@
             </div>
             <div class="admin-field">
                 <label class="admin-field__label">Mô tả chi tiết</label>
-                <textarea name="mo_ta" class="admin-field__textarea">{{ old('mo_ta', $sanPham->mo_ta) }}</textarea>
+                <textarea name="mo_ta_day_du" class="admin-field__textarea" rows="6">{{ old('mo_ta_day_du', $sanPham->mo_ta_day_du) }}</textarea>
             </div>
         </div>
     </div>
@@ -49,28 +54,40 @@
                 @error('gia_ban')<p class="txt-red small">{{ $message }}</p>@enderror
             </div>
             <div class="admin-field">
-                <label class="admin-field__label">Giá nhập (đ)</label>
-                <input type="number" name="gia_nhap" class="admin-field__input" value="{{ old('gia_nhap', $sanPham->gia_nhap) }}">
+                <label class="admin-field__label">Giá gốc — gạch ngang (đ)</label>
+                <input type="number" name="gia_goc" class="admin-field__input" value="{{ old('gia_goc', $sanPham->gia_goc) }}">
             </div>
             <div class="admin-field">
-                <label class="admin-field__label">Số lượng kho</label>
-                <input type="number" name="so_luong_kho" class="admin-field__input" value="{{ old('so_luong_kho', $sanPham->so_luong_kho) }}" required>
+                <label class="admin-field__label">Số lượng tồn</label>
+                <input type="number" name="so_luong_ton" class="admin-field__input" value="{{ old('so_luong_ton', $sanPham->so_luong_ton ?? 0) }}" required>
             </div>
         </div>
 
         <div class="admin-panel mb-3">
-            <h3 class="admin-panel__title mb-3">Phân loại</h3>
+            <h3 class="admin-panel__title mb-3">Phân loại & Trạng thái</h3>
             <div class="admin-field">
                 <label class="admin-field__label">Danh mục</label>
                 <select name="danh_muc_id" class="admin-field__select" required>
+                    <option value="">— Chọn —</option>
                     @foreach($danhMucs as $dm)
-                    <option value="{{ $dm->id }}" @selected(old('danh_muc_id', $sanPham->danh_muc_id)==$dm->id)>{{ $dm->ten_danh_muc ?? $dm->ten ?? $dm->id }}</option>
+                    <option value="{{ $dm->id }}" @selected(old('danh_muc_id', $sanPham->danh_muc_id)==$dm->id)>{{ $dm->ten }}</option>
                     @endforeach
                 </select>
+                @error('danh_muc_id')<p class="txt-red small">{{ $message }}</p>@enderror
             </div>
             <div class="admin-field">
-                <label class="admin-field__label">Số sao (0-5)</label>
-                <input type="number" name="so_sao" class="admin-field__input" min="0" max="5" step="0.1" value="{{ old('so_sao', $sanPham->so_sao) }}">
+                <label class="admin-field__label d-flex align-items-center gap-2">
+                    <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $sanPham->is_active ?? true))>
+                    Hiển thị (active)
+                </label>
+                <label class="admin-field__label d-flex align-items-center gap-2">
+                    <input type="checkbox" name="is_hot" value="1" @checked(old('is_hot', $sanPham->is_hot ?? false))>
+                    Sản phẩm HOT
+                </label>
+                <label class="admin-field__label d-flex align-items-center gap-2">
+                    <input type="checkbox" name="is_sale" value="1" @checked(old('is_sale', $sanPham->is_sale ?? false))>
+                    Đang giảm giá (SALE)
+                </label>
             </div>
         </div>
 

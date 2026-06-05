@@ -3,44 +3,47 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\SanPham;
 use App\Models\DanhMuc;
+use App\Models\SanPham;
+use App\Models\ThuongHieu;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
- * Admin CRUD sản phẩm.
- * PHỤ THUỘC: App\Models\SanPham, App\Models\DanhMuc (Module 2 — Codex).
- * Khi Codex hoàn tất model + migration san_phams/danh_mucs, controller này chạy được ngay.
- * Field giả định: ten_san_pham, thuong_hieu, slug, gia_ban, gia_nhap,
- *                 so_luong_kho, danh_muc_id, mo_ta_ngan, mo_ta, so_sao.
+ * Admin CRUD sản phẩm — khớp schema thực của Codex (Module 2):
+ * SanPham: ten, slug, danh_muc_id, thuong_hieu_id, gia_ban, gia_goc,
+ *          so_luong_ton, diem_danh_gia, is_hot, is_sale, is_active,
+ *          mo_ta_ngan, mo_ta_day_du.
  */
 class SanPhamController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = SanPham::with('danhMuc')->latest();
+        $query = SanPham::with(['danhMuc', 'thuongHieu'])->orderByDesc('ngay_tao');
 
         if ($danhMucId = $request->query('danh_muc')) {
             $query->where('danh_muc_id', $danhMucId);
         }
 
         if ($tuKhoa = $request->query('q')) {
-            $query->where('ten_san_pham', 'like', "%{$tuKhoa}%");
+            $query->where('ten', 'like', "%{$tuKhoa}%");
         }
 
         $sanPhams = $query->paginate(15)->withQueryString();
-        $danhMucs = DanhMuc::all();
+        $danhMucs = DanhMuc::orderBy('thu_tu')->get();
 
         return view('admin.san-pham.index', compact('sanPhams', 'danhMucs'));
     }
 
     public function create(): View
     {
-        $danhMucs = DanhMuc::all();
-
-        return view('admin.san-pham.form', ['sanPham' => new SanPham(), 'danhMucs' => $danhMucs]);
+        return view('admin.san-pham.form', [
+            'sanPham' => new SanPham(),
+            'danhMucs' => DanhMuc::orderBy('thu_tu')->get(),
+            'thuongHieus' => ThuongHieu::where('is_active', true)->get(),
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -53,10 +56,11 @@ class SanPhamController extends Controller
 
     public function edit(int $id): View
     {
-        $sanPham = SanPham::findOrFail($id);
-        $danhMucs = DanhMuc::all();
-
-        return view('admin.san-pham.form', compact('sanPham', 'danhMucs'));
+        return view('admin.san-pham.form', [
+            'sanPham' => SanPham::findOrFail($id),
+            'danhMucs' => DanhMuc::orderBy('thu_tu')->get(),
+            'thuongHieus' => ThuongHieu::where('is_active', true)->get(),
+        ]);
     }
 
     public function update(Request $request, int $id): RedirectResponse
@@ -77,17 +81,30 @@ class SanPhamController extends Controller
 
     private function validateData(Request $request): array
     {
-        return $request->validate([
-            'ten_san_pham' => 'required|string|max:200',
-            'thuong_hieu' => 'nullable|string|max:100',
-            'slug' => 'nullable|string|max:200',
-            'danh_muc_id' => 'required|integer',
+        $data = $request->validate([
+            'ten' => 'required|string|max:200',
+            'slug' => 'nullable|string|max:220',
+            'danh_muc_id' => 'required|exists:danh_mucs,id',
+            'thuong_hieu_id' => 'nullable|exists:thuong_hieu,id',
             'gia_ban' => 'required|numeric|min:0',
-            'gia_nhap' => 'nullable|numeric|min:0',
-            'so_luong_kho' => 'required|integer|min:0',
-            'so_sao' => 'nullable|numeric|min:0|max:5',
+            'gia_goc' => 'nullable|numeric|min:0',
+            'so_luong_ton' => 'required|integer|min:0',
             'mo_ta_ngan' => 'nullable|string|max:500',
-            'mo_ta' => 'nullable|string',
+            'mo_ta_day_du' => 'nullable|string',
+            'is_hot' => 'sometimes|boolean',
+            'is_sale' => 'sometimes|boolean',
+            'is_active' => 'sometimes|boolean',
         ]);
+
+        // Auto slug nếu trống
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['ten']);
+        }
+
+        $data['is_hot'] = $request->boolean('is_hot');
+        $data['is_sale'] = $request->boolean('is_sale');
+        $data['is_active'] = $request->boolean('is_active', true);
+
+        return $data;
     }
 }

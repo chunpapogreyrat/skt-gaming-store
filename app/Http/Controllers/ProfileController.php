@@ -30,9 +30,10 @@ class ProfileController extends Controller
             ->orderByDesc('ngay_tao')
             ->get();
 
+        // DonHang dùng schema Module 4 (Claude): created_at + chi_tiet_don_hangs (số nhiều)
         $orders = DonHang::where('tai_khoan_id', $user->id)
             ->with(['chiTiet.sanPham'])
-            ->orderByDesc('ngay_tao')
+            ->latest()
             ->limit(10)
             ->get();
 
