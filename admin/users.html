@@ -78,44 +78,56 @@
                     </thead>
                     <tbody>
                         <tr class="admin-table__row">
-                            <td><a href="#" class="admin-table__edit-link" onclick="return false;">
-                                <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
-                                <div class="admin-table__name">Admin SKT</div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditUser('Admin SKT','admin@skt.vn','0900 000 001','Admin','active','../assets/images/avatars/truong.jpg')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/truong.jpg" alt="">
+                                    <div class="admin-table__name">Admin SKT</div>
+                                </div>
+                            </td>
                             <td>admin@skt.vn</td>
                             <td>0900 000 001</td>
                             <td><span class="admin-badge admin-badge--cancel">Admin</span></td>
                             <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
                             <td><div class="d-flex gap-2">
-                                <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn" onclick="openEditUser('Admin SKT','admin@skt.vn','0900 000 001','Admin','active','../assets/images/avatars/truong.jpg')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
                             </div></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><a href="#" class="admin-table__edit-link" onclick="return false;">
-                                <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
-                                <div class="admin-table__name">Nguyễn Văn A</div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditUser('Nguyễn Văn A','vana@gmail.com','0901 234 567','Khách','active','../assets/images/avatars/khoa.jpg')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/avatars/khoa.jpg" alt="">
+                                    <div class="admin-table__name">Nguyễn Văn A</div>
+                                </div>
+                            </td>
                             <td>vana@gmail.com</td>
                             <td>0901 234 567</td>
                             <td><span class="admin-badge admin-badge--prep">Khách</span></td>
                             <td><span class="admin-badge admin-badge--done">Hoạt động</span></td>
                             <td><div class="d-flex gap-2">
-                                <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn" onclick="openEditUser('Nguyễn Văn A','vana@gmail.com','0901 234 567','Khách','active','../assets/images/avatars/khoa.jpg')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-ban"></i></button>
                             </div></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><a href="#" class="admin-table__edit-link" onclick="return false;">
-                                <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
-                                <div class="admin-table__name">Trần Thị B</div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditUser('Trần Thị B','thib@gmail.com','0912 345 678','Khách','locked','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" style="border-radius:50%" src="../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg" alt="">
+                                    <div class="admin-table__name">Trần Thị B</div>
+                                </div>
+                            </td>
                             <td>thib@gmail.com</td>
                             <td>0912 345 678</td>
                             <td><span class="admin-badge admin-badge--prep">Khách</span></td>
                             <td><span class="admin-badge admin-badge--stock-out">Đã khóa</span></td>
                             <td><div class="d-flex gap-2">
-                                <button class="admin-icon-btn"><i class="fa-solid fa-pen"></i></button>
+                                <button class="admin-icon-btn" onclick="openEditUser('Trần Thị B','thib@gmail.com','0912 345 678','Khách','locked','../assets/images/users/1767064697_hinh-anh-gai-xinh-deo-mat-kinh-cute.jpg')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-unlock"></i></button>
                             </div></td>
                         </tr>
@@ -133,11 +145,89 @@
     </div>
 </div>
 
+<!-- MODAL CHỈNH SỬA TÀI KHOẢN -->
+<div class="modal fade" id="modalEditUser" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <div class="d-flex align-items-center gap-3">
+                    <img id="meu-avatar" src="" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--red)">
+                    <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-user-pen me-2" style="color:var(--red)"></i>Chỉnh sửa tài khoản</h5>
+                </div>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Họ tên</label>
+                            <input type="text" id="meu-name" class="admin-field__input">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Email</label>
+                            <input type="email" id="meu-email" class="admin-field__input">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Số điện thoại</label>
+                            <input type="text" id="meu-phone" class="admin-field__input">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Vai trò</label>
+                            <select id="meu-role" class="admin-field__select">
+                                <option value="Khách">Khách hàng</option>
+                                <option value="Admin">Quản trị viên</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Trạng thái</label>
+                            <select id="meu-status" class="admin-field__select">
+                                <option value="active">Hoạt động</option>
+                                <option value="locked">Đã khóa</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer admin-modal__footer">
+                <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="admin-btn admin-btn--primary" onclick="saveUser()"><i class="fa-solid fa-floppy-disk me-1"></i>Lưu thay đổi</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById('sidebarToggle')?.addEventListener('click', function () {
         document.getElementById('adminSidebar').classList.toggle('is-open');
     });
+
+    const _modalUser = new bootstrap.Modal(document.getElementById('modalEditUser'));
+
+    function openEditUser(name, email, phone, role, status, avatar) {
+        document.getElementById('meu-avatar').src  = avatar;
+        document.getElementById('meu-name').value  = name;
+        document.getElementById('meu-email').value = email;
+        document.getElementById('meu-phone').value = phone;
+        const roleSel = document.getElementById('meu-role');
+        for (let o of roleSel.options) o.selected = o.value === role;
+        const stSel = document.getElementById('meu-status');
+        for (let o of stSel.options) o.selected = o.value === status;
+        _modalUser.show();
+    }
+
+    function saveUser() {
+        alert('Đã lưu: ' + document.getElementById('meu-name').value);
+        _modalUser.hide();
+    }
 </script>
 </body>
 

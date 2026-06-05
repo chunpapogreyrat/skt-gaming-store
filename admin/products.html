@@ -15,7 +15,7 @@
 <body class="admin-body">
 <div class="admin-layout">
 
-    <!-- #region ADMIN SIDEBAR -->
+    <!-- SIDEBAR -->
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="admin-sidebar__brand">
             <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
@@ -36,11 +36,9 @@
             <a href="../index.html" class="admin-sidebar__link"><i class="fa-solid fa-arrow-left"></i> Về cửa hàng</a>
         </div>
     </aside>
-    <!-- #endregion -->
 
     <div class="admin-main">
-
-        <!-- #region ADMIN TOPBAR -->
+        <!-- TOPBAR -->
         <header class="admin-topbar">
             <button class="admin-topbar__toggle" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
             <div class="admin-topbar__search">
@@ -58,7 +56,6 @@
                 <a href="../login.html" class="admin-topbar__logout" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></a>
             </div>
         </header>
-        <!-- #endregion -->
 
         <main class="admin-content">
             <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
@@ -69,7 +66,7 @@
                 <a href="product-form.html" class="admin-btn admin-btn--primary"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</a>
             </div>
 
-            <!-- #region PRODUCT TABLE -->
+            <!-- PRODUCT TABLE -->
             <section class="admin-table-wrap">
                 <div class="admin-table-wrap__head">
                     <h3 class="admin-panel__title">Danh sách sản phẩm</h3>
@@ -83,58 +80,74 @@
                     </thead>
                     <tbody>
                         <tr class="admin-table__row">
-                            <td><a href="product-form.html" class="admin-table__edit-link">
-                                <img class="admin-table__thumb" src="../assets/images/products/mice/finalmouse-ulx/1.webp" alt="">
-                                <div><div class="admin-table__name">Finalmouse ULX Pro</div><div class="admin-table__muted">FINALMOUSE</div></div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditProduct('Finalmouse ULX Pro','FINALMOUSE','Chuột','5.990.000','24','stock-ok','../assets/images/products/mice/finalmouse-ulx/1.webp')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" src="../assets/images/products/mice/finalmouse-ulx/1.webp" alt="">
+                                    <div><div class="admin-table__name">Finalmouse ULX Pro</div><div class="admin-table__muted">FINALMOUSE</div></div>
+                                </div>
+                            </td>
                             <td>Chuột</td>
                             <td class="admin-table__price">5.990.000đ</td>
                             <td>24</td>
                             <td><span class="admin-badge admin-badge--stock-ok">Còn hàng</span></td>
                             <td><div class="d-flex gap-2">
-                                <a href="product-form.html" class="admin-icon-btn"><i class="fa-solid fa-pen"></i></a>
+                                <button class="admin-icon-btn" onclick="openEditProduct('Finalmouse ULX Pro','FINALMOUSE','Chuột','5.990.000','24','stock-ok','../assets/images/products/mice/finalmouse-ulx/1.webp')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
                             </div></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><a href="product-form.html" class="admin-table__edit-link">
-                                <img class="admin-table__thumb" src="../assets/images/products/keyboard/wooting/1.webp" alt="">
-                                <div><div class="admin-table__name">Wooting 60HE</div><div class="admin-table__muted">WOOTING</div></div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditProduct('Wooting 60HE','WOOTING','Bàn phím','3.850.000','8','stock-low','../assets/images/products/keyboard/wooting/1.webp')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" src="../assets/images/products/keyboard/wooting/1.webp" alt="">
+                                    <div><div class="admin-table__name">Wooting 60HE</div><div class="admin-table__muted">WOOTING</div></div>
+                                </div>
+                            </td>
                             <td>Bàn phím</td>
                             <td class="admin-table__price">3.850.000đ</td>
                             <td>8</td>
                             <td><span class="admin-badge admin-badge--stock-low">Sắp hết</span></td>
                             <td><div class="d-flex gap-2">
-                                <a href="product-form.html" class="admin-icon-btn"><i class="fa-solid fa-pen"></i></a>
+                                <button class="admin-icon-btn" onclick="openEditProduct('Wooting 60HE','WOOTING','Bàn phím','3.850.000','8','stock-low','../assets/images/products/keyboard/wooting/1.webp')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
                             </div></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><a href="product-form.html" class="admin-table__edit-link">
-                                <img class="admin-table__thumb" src="../assets/images/products/mice/maya-x/1.webp" alt="">
-                                <div><div class="admin-table__name">Maya X Wireless</div><div class="admin-table__muted">FINALMOUSE</div></div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditProduct('Maya X Wireless','FINALMOUSE','Chuột','3.490.000','0','stock-out','../assets/images/products/mice/maya-x/1.webp')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" src="../assets/images/products/mice/maya-x/1.webp" alt="">
+                                    <div><div class="admin-table__name">Maya X Wireless</div><div class="admin-table__muted">FINALMOUSE</div></div>
+                                </div>
+                            </td>
                             <td>Chuột</td>
                             <td class="admin-table__price">3.490.000đ</td>
                             <td>0</td>
                             <td><span class="admin-badge admin-badge--stock-out">Hết hàng</span></td>
                             <td><div class="d-flex gap-2">
-                                <a href="product-form.html" class="admin-icon-btn"><i class="fa-solid fa-pen"></i></a>
+                                <button class="admin-icon-btn" onclick="openEditProduct('Maya X Wireless','FINALMOUSE','Chuột','3.490.000','0','stock-out','../assets/images/products/mice/maya-x/1.webp')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
                             </div></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><a href="product-form.html" class="admin-table__edit-link">
-                                <img class="admin-table__thumb" src="../assets/images/products/mousepad/hien/1.webp" alt="">
-                                <div><div class="admin-table__name">Hien Mousepad</div><div class="admin-table__muted">SKT</div></div>
-                            </a></td>
+                            <td>
+                                <div class="admin-table__product admin-table__clickable"
+                                     onclick="openEditProduct('Hien Mousepad','SKT','Lót chuột','890.000','56','stock-ok','../assets/images/products/mousepad/hien/1.webp')"
+                                     title="Bấm để chỉnh sửa">
+                                    <img class="admin-table__thumb" src="../assets/images/products/mousepad/hien/1.webp" alt="">
+                                    <div><div class="admin-table__name">Hien Mousepad</div><div class="admin-table__muted">SKT</div></div>
+                                </div>
+                            </td>
                             <td>Lót chuột</td>
                             <td class="admin-table__price">890.000đ</td>
                             <td>56</td>
                             <td><span class="admin-badge admin-badge--stock-ok">Còn hàng</span></td>
                             <td><div class="d-flex gap-2">
-                                <a href="product-form.html" class="admin-icon-btn"><i class="fa-solid fa-pen"></i></a>
+                                <button class="admin-icon-btn" onclick="openEditProduct('Hien Mousepad','SKT','Lót chuột','890.000','56','stock-ok','../assets/images/products/mousepad/hien/1.webp')"><i class="fa-solid fa-pen"></i></button>
                                 <button class="admin-icon-btn admin-icon-btn--danger"><i class="fa-solid fa-trash-can"></i></button>
                             </div></td>
                         </tr>
@@ -148,8 +161,72 @@
                     <a href="#" class="admin-pagination__btn"><i class="fa-solid fa-angle-right"></i></a>
                 </div>
             </section>
-            <!-- #endregion -->
         </main>
+    </div>
+</div>
+
+<!-- MODAL CHỈNH SỬA SẢN PHẨM -->
+<div class="modal fade" id="modalEditProduct" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <div class="d-flex align-items-center gap-3">
+                    <img id="mep-thumb" src="" alt="" style="width:52px;height:52px;border-radius:8px;object-fit:cover;border:1px solid rgba(255,255,255,.1)">
+                    <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-pen me-2" style="color:var(--red)"></i>Chỉnh sửa sản phẩm</h5>
+                </div>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Tên sản phẩm</label>
+                            <input type="text" id="mep-name" class="admin-field__input">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Thương hiệu</label>
+                            <input type="text" id="mep-brand" class="admin-field__input">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Danh mục</label>
+                            <select id="mep-cat" class="admin-field__select">
+                                <option>Chuột</option><option>Bàn phím</option><option>Lót chuột</option><option>Phụ kiện</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Giá bán (đ)</label>
+                            <input type="text" id="mep-price" class="admin-field__input">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Tồn kho</label>
+                            <input type="number" id="mep-stock" class="admin-field__input" min="0">
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Trạng thái</label>
+                            <select id="mep-status" class="admin-field__select">
+                                <option value="stock-ok">Còn hàng</option>
+                                <option value="stock-low">Sắp hết</option>
+                                <option value="stock-out">Hết hàng</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer admin-modal__footer">
+                <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="admin-btn admin-btn--primary" onclick="saveProduct()"><i class="fa-solid fa-floppy-disk me-1"></i>Lưu thay đổi</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -158,7 +235,26 @@
     document.getElementById('sidebarToggle')?.addEventListener('click', function () {
         document.getElementById('adminSidebar').classList.toggle('is-open');
     });
+
+    const _modalProd = new bootstrap.Modal(document.getElementById('modalEditProduct'));
+
+    function openEditProduct(name, brand, cat, price, stock, status, img) {
+        document.getElementById('mep-thumb').src  = img;
+        document.getElementById('mep-name').value  = name;
+        document.getElementById('mep-brand').value = brand;
+        document.getElementById('mep-price').value = price;
+        document.getElementById('mep-stock').value = stock;
+        const catSel = document.getElementById('mep-cat');
+        for (let o of catSel.options) o.selected = o.text === cat;
+        const stSel = document.getElementById('mep-status');
+        for (let o of stSel.options) o.selected = o.value === status;
+        _modalProd.show();
+    }
+
+    function saveProduct() {
+        alert('Đã lưu: ' + document.getElementById('mep-name').value);
+        _modalProd.hide();
+    }
 </script>
 </body>
-
 </html>

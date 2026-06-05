@@ -107,7 +107,7 @@ function initHeroSlider() {
         track.prepend(items[items.length - 1]);
         updateHero();
     });
-    setInterval(function () { next.click(); }, 6000);
+    setInterval(function () { next.click(); }, 2500);
     updateHero();
 }
 /* #endregion */

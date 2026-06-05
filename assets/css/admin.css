@@ -427,6 +427,60 @@ body.admin-body {
 .admin-icon-btn--danger:hover { color: var(--red); border-color: var(--red); }
 /* #endregion */
 
+/* #region CLICK-TO-EDIT */
+.admin-table__clickable {
+    cursor: pointer;
+    transition: color .2s;
+}
+.admin-table__product.admin-table__clickable:hover .admin-table__name,
+td.admin-table__clickable:hover,
+strong.admin-table__clickable:hover {
+    color: var(--cyber-cyan);
+    text-decoration: underline;
+}
+.admin-table__product.admin-table__clickable:hover .admin-table__thumb {
+    border-color: var(--cyber-cyan);
+    box-shadow: 0 0 10px rgba(0,255,255,.3);
+}
+/* #endregion */
+
+/* #region ADMIN MODAL */
+.admin-modal {
+    background: var(--bg-panel);
+    border: 1px solid rgba(255,255,255,.1);
+    color: var(--text-main);
+    border-radius: 14px;
+}
+.admin-modal__header {
+    background: rgba(255,255,255,.03);
+    border-bottom: 1px solid rgba(255,255,255,.06);
+    padding: 18px 22px;
+}
+.admin-modal__title {
+    font-family: var(--font-h);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    color: var(--text-main);
+    margin: 0;
+}
+.admin-modal__close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 18px;
+    cursor: pointer;
+    transition: color .2s;
+    padding: 0;
+}
+.admin-modal__close:hover { color: var(--red); }
+.admin-modal__footer {
+    background: rgba(255,255,255,.02);
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding: 14px 22px;
+}
+/* #endregion */
+
 /* #region ADMIN FORM */
 .admin-form-grid {
     display: grid;

@@ -78,8 +78,8 @@
                     </thead>
                     <tbody>
                         <tr class="admin-table__row">
-                            <td><strong>#SKT-284619</strong></td>
-                            <td>Nguyễn Văn A<div class="admin-table__muted">0901 234 567</div></td>
+                            <td><strong class="admin-table__clickable" onclick="openEditOrder('#SKT-284619','Nguyễn Văn A','0901 234 567','05/06/2026','13.330.000đ','COD','Chờ xác nhận')" title="Bấm để xem/sửa đơn">#SKT-284619</strong></td>
+                            <td class="admin-table__clickable" onclick="openEditOrder('#SKT-284619','Nguyễn Văn A','0901 234 567','05/06/2026','13.330.000đ','COD','Chờ xác nhận')" title="Bấm để xem/sửa đơn">Nguyễn Văn A<div class="admin-table__muted">0901 234 567</div></td>
                             <td>05/06/2026</td>
                             <td class="admin-table__price">13.330.000đ</td>
                             <td><span class="admin-badge admin-badge--pending">COD</span></td>
@@ -88,8 +88,8 @@
                             </select></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><strong>#SKT-284618</strong></td>
-                            <td>Trần Thị B<div class="admin-table__muted">0912 345 678</div></td>
+                            <td><strong class="admin-table__clickable" onclick="openEditOrder('#SKT-284618','Trần Thị B','0912 345 678','05/06/2026','5.990.000đ','MoMo','Đang giao')" title="Bấm để xem/sửa đơn">#SKT-284618</strong></td>
+                            <td class="admin-table__clickable" onclick="openEditOrder('#SKT-284618','Trần Thị B','0912 345 678','05/06/2026','5.990.000đ','MoMo','Đang giao')" title="Bấm để xem/sửa đơn">Trần Thị B<div class="admin-table__muted">0912 345 678</div></td>
                             <td>05/06/2026</td>
                             <td class="admin-table__price">5.990.000đ</td>
                             <td><span class="admin-badge admin-badge--done">MoMo</span></td>
@@ -98,8 +98,8 @@
                             </select></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><strong>#SKT-284617</strong></td>
-                            <td>Lê Văn C<div class="admin-table__muted">0987 654 321</div></td>
+                            <td><strong class="admin-table__clickable" onclick="openEditOrder('#SKT-284617','Lê Văn C','0987 654 321','04/06/2026','7.340.000đ','VNPay','Đã giao')" title="Bấm để xem/sửa đơn">#SKT-284617</strong></td>
+                            <td class="admin-table__clickable" onclick="openEditOrder('#SKT-284617','Lê Văn C','0987 654 321','04/06/2026','7.340.000đ','VNPay','Đã giao')" title="Bấm để xem/sửa đơn">Lê Văn C<div class="admin-table__muted">0987 654 321</div></td>
                             <td>04/06/2026</td>
                             <td class="admin-table__price">7.340.000đ</td>
                             <td><span class="admin-badge admin-badge--done">VNPay</span></td>
@@ -108,8 +108,8 @@
                             </select></td>
                         </tr>
                         <tr class="admin-table__row">
-                            <td><strong>#SKT-284616</strong></td>
-                            <td>Phạm Thị D<div class="admin-table__muted">0933 222 111</div></td>
+                            <td><strong class="admin-table__clickable" onclick="openEditOrder('#SKT-284616','Phạm Thị D','0933 222 111','04/06/2026','3.490.000đ','COD','Đã hủy')" title="Bấm để xem/sửa đơn">#SKT-284616</strong></td>
+                            <td class="admin-table__clickable" onclick="openEditOrder('#SKT-284616','Phạm Thị D','0933 222 111','04/06/2026','3.490.000đ','COD','Đã hủy')" title="Bấm để xem/sửa đơn">Phạm Thị D<div class="admin-table__muted">0933 222 111</div></td>
                             <td>04/06/2026</td>
                             <td class="admin-table__price">3.490.000đ</td>
                             <td><span class="admin-badge admin-badge--cancel">COD</span></td>
@@ -132,11 +132,92 @@
     </div>
 </div>
 
+<!-- MODAL CHI TIẾT / SỬA ĐƠN HÀNG -->
+<div class="modal fade" id="modalEditOrder" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-receipt me-2" style="color:var(--red)"></i>Chi tiết đơn hàng — <span id="meo-id"></span></h5>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row g-3">
+                    <div class="col-md-7">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Khách hàng</label>
+                            <input type="text" id="meo-customer" class="admin-field__input" readonly style="opacity:.7">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="admin-field">
+                            <label class="admin-field__label">SĐT</label>
+                            <input type="text" id="meo-phone" class="admin-field__input" readonly style="opacity:.7">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Ngày đặt</label>
+                            <input type="text" id="meo-date" class="admin-field__input" readonly style="opacity:.7">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Tổng tiền</label>
+                            <input type="text" id="meo-total" class="admin-field__input" readonly style="opacity:.7;color:var(--red);font-weight:700">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Thanh toán</label>
+                            <input type="text" id="meo-payment" class="admin-field__input" readonly style="opacity:.7">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="admin-field">
+                            <label class="admin-field__label">Trạng thái đơn</label>
+                            <select id="meo-status" class="admin-field__select">
+                                <option>Chờ xác nhận</option>
+                                <option>Đang chuẩn bị</option>
+                                <option>Đang giao</option>
+                                <option>Đã giao</option>
+                                <option>Đã hủy</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer admin-modal__footer">
+                <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Đóng</button>
+                <button type="button" class="admin-btn admin-btn--primary" onclick="saveOrder()"><i class="fa-solid fa-floppy-disk me-1"></i>Cập nhật trạng thái</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     document.getElementById('sidebarToggle')?.addEventListener('click', function () {
         document.getElementById('adminSidebar').classList.toggle('is-open');
     });
+
+    const _modalOrder = new bootstrap.Modal(document.getElementById('modalEditOrder'));
+
+    function openEditOrder(id, customer, phone, date, total, payment, status) {
+        document.getElementById('meo-id').textContent        = id;
+        document.getElementById('meo-customer').value       = customer;
+        document.getElementById('meo-phone').value          = phone;
+        document.getElementById('meo-date').value           = date;
+        document.getElementById('meo-total').value          = total;
+        document.getElementById('meo-payment').value        = payment;
+        const stSel = document.getElementById('meo-status');
+        for (let o of stSel.options) o.selected = o.text === status;
+        _modalOrder.show();
+    }
+
+    function saveOrder() {
+        alert('Đã cập nhật trạng thái đơn: ' + document.getElementById('meo-status').value);
+        _modalOrder.hide();
+    }
 </script>
 </body>
 
