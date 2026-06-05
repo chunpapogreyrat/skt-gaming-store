@@ -603,7 +603,7 @@ img { max-width: 100%; display: block; }
     background: var(--bg-panel);
     border: 1px solid var(--red-dim);
     border-radius: var(--radius);
-    padding: 1rem 1.2rem 1.2rem;
+    padding: 1.4rem 1.8rem 1.8rem;
     box-shadow: 0 0 18px rgba(255,0,60,.06);
     position: relative;
     overflow: hidden;
@@ -629,7 +629,7 @@ img { max-width: 100%; display: block; }
 .sale-carousel .deal-card {
     background: #0f1116;
     border-radius: 10px;
-    padding: 10px 12px 12px;
+    padding: 16px 18px 18px;
     position: relative;
     text-align: center;
     transition: transform .35s cubic-bezier(.25,.8,.25,1);
@@ -706,11 +706,11 @@ img { max-width: 100%; display: block; }
     0%   { background-position: 0% 50%; }
     100% { background-position: 100% 50%; }
 }
-.deal-card__img { height: 150px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
-.deal-card__img img { max-height: 140px; max-width: 96%; object-fit: contain; transition: transform .35s; }
+.deal-card__img { height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.deal-card__img img { max-height: 185px; max-width: 96%; object-fit: contain; transition: transform .35s; }
 .sale-carousel .deal-card:hover .deal-card__img img { transform: scale(1.08); }
-.deal-card__name { font-size: .76rem; color: #e2e8f0; font-weight: 500; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.deal-card__price { color: var(--red); font-family: var(--font-h); font-weight: 700; font-size: .82rem; }
+.deal-card__name { font-size: .9rem; color: #e2e8f0; font-weight: 500; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.deal-card__price { color: var(--red); font-family: var(--font-h); font-weight: 700; font-size: 1rem; }
 
 /* Owl skin */
 .owl-theme .owl-nav, .owl-theme .owl-dots { display: none !important; }
