@@ -234,22 +234,60 @@
 </div>
 <!-- #endregion -->
 
+<!-- #region TENZ SUCCESS MODAL -->
+<div class="tenz-modal" id="tenzModal" role="dialog" aria-modal="true">
+    <div class="tenz-modal__bg"></div>
+    <div class="tenz-modal__inner">
+        <div class="tenz-modal__badge">⚡ Order Confirmed · YUKI</div>
+        <p class="tenz-modal__slogan">
+            Chuột đã trên tay,<br>
+            <span>Aim ngang TenZ thôi nào!!</span>
+        </p>
+        <button class="tenz-modal__close-btn" id="tenzModalClose">
+            <i class="fa-solid fa-xmark"></i> ĐÓNG
+        </button>
+    </div>
+</div>
+<!-- #endregion -->
+
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3/tsparticles.slim.bundle.min.js"></script>
 <script src="assets/js/script.js"></script>
 <script>
-    // Box thông báo đặt hàng thành công — không tự tắt, bấm màn hình để đóng
-    document.addEventListener('DOMContentLoaded', function () {
+    (function () {
+        var modal = document.getElementById('tenzModal');
+        var closeBtn = document.getElementById('tenzModalClose');
+
+        var autoCloseTimer = null;
+
+        // Hiện modal sau 400ms để trang load xong
         setTimeout(function () {
-            showNotify({
-                icon: 'fa-circle-check',
-                title: 'Đặt hàng thành công!',
-                msg: 'Chuột đã trên tay — aim ngang TenZ thôi nào! 🎯'
+            modal.style.display = 'flex';
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    modal.classList.add('tenz-modal--visible');
+                    // Tự đóng sau 60 giây
+                    autoCloseTimer = setTimeout(closeModal, 60000);
+                });
             });
-        }, 500);
-    });
+        }, 400);
+
+        // Đóng modal
+        function closeModal() {
+            clearTimeout(autoCloseTimer);
+            modal.classList.remove('tenz-modal--visible');
+            setTimeout(function () { modal.style.display = 'none'; }, 500);
+        }
+
+        closeBtn.addEventListener('click', closeModal);
+
+        // Click vào nền cũng đóng
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeModal();
+        });
+    })();
 </script>
 </body>
 </html>
