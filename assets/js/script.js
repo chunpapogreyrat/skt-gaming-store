@@ -742,10 +742,20 @@ function initFakeAuth() {
         var p = passEl.value;
 
         if (u === FAKE_USER.username && p === FAKE_USER.password) {
-            msg.className = 'auth-msg auth-msg--ok';
-            msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang chuyển hướng...';
             try { localStorage.setItem('yuki_user', u); } catch (err) {}
-            setTimeout(function () { window.location.href = 'index.html'; }, 900);
+            // Hiện modal Tarik chào mừng — KHÔNG tự tắt, bấm màn hình mới đóng rồi về trang chủ
+            var m = document.getElementById('tarikModal');
+            if (!m) { window.location.href = 'index.html'; return; }
+            m.style.display = 'flex';
+            setTimeout(function () { m.classList.add('tarik-modal--visible'); }, 20);
+            setTimeout(function () {
+                document.addEventListener('click', function onClk(e) {
+                    if (e.target.closest('.tarik-modal__cta')) return; // nút CTA tự điều hướng
+                    document.removeEventListener('click', onClk);
+                    m.classList.remove('tarik-modal--visible');
+                    setTimeout(function () { m.style.display = 'none'; window.location.href = 'index.html'; }, 400);
+                });
+            }, 120);
         } else {
             msg.className = 'auth-msg auth-msg--err';
             msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Sai tài khoản hoặc mật khẩu! (admin / 12456)';
@@ -1393,37 +1403,6 @@ function initAuthTransitions() {
         });
     });
 
-    /* --- Tarik modal sau khi đăng nhập --- */
-    var loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var m = document.getElementById('tarikModal');
-            if (!m) return;
-            m.style.display = 'flex';
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    m.classList.add('tarik-modal--visible');
-                    // Tự đóng sau 60 giây
-                    var autoClose = setTimeout(function () { closeTarikModal(m); }, 60000);
-                    m._autoClose = autoClose;
-                });
-            });
-        });
-    }
-
-    function closeTarikModal(m) {
-        if (!m) return;
-        clearTimeout(m._autoClose);
-        m.classList.remove('tarik-modal--visible');
-        setTimeout(function () { m.style.display = 'none'; }, 400);
-    }
-
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.tarik-modal__close') || e.target.id === 'tarikModal') {
-            closeTarikModal(document.getElementById('tarikModal'));
-        }
-    });
 }
 /* #endregion */
 

@@ -260,33 +260,20 @@
         var modal = document.getElementById('tenzModal');
         var closeBtn = document.getElementById('tenzModalClose');
 
-        var autoCloseTimer = null;
-
-        // Hiện modal sau 400ms để trang load xong
+        // Hiện modal sau 400ms — KHÔNG tự tắt, chỉ đóng khi bấm màn hình
         setTimeout(function () {
             modal.style.display = 'flex';
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    modal.classList.add('tenz-modal--visible');
-                    // Tự đóng sau 60 giây
-                    autoCloseTimer = setTimeout(closeModal, 60000);
-                });
-            });
+            setTimeout(function () { modal.classList.add('tenz-modal--visible'); }, 20);
         }, 400);
 
-        // Đóng modal
         function closeModal() {
-            clearTimeout(autoCloseTimer);
             modal.classList.remove('tenz-modal--visible');
             setTimeout(function () { modal.style.display = 'none'; }, 500);
         }
 
         closeBtn.addEventListener('click', closeModal);
-
-        // Click vào nền cũng đóng
-        modal.addEventListener('click', function (e) {
-            if (e.target === modal) closeModal();
-        });
+        // Bấm bất kỳ đâu trên màn hình đều đóng
+        modal.addEventListener('click', closeModal);
     })();
 </script>
 </body>
