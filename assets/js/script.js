@@ -720,6 +720,52 @@ function initProfileTabs() {
 /* #endregion */
 
 /* ==========================================
+   #region NOTIFY BOX (thông báo — KHÔNG tự tắt, bấm màn hình để đóng)
+========================================== */
+function showNotify(opts) {
+    opts = opts || {};
+    var old = document.getElementById('appNotify');
+    if (old) old.remove();
+
+    var box = document.createElement('div');
+    box.id = 'appNotify';
+    box.className = 'app-notify';
+    box.innerHTML =
+        '<div class="app-notify__card">' +
+            '<div class="app-notify__icon"><i class="fa-solid ' + (opts.icon || 'fa-circle-check') + '"></i></div>' +
+            '<h3 class="app-notify__title">' + (opts.title || 'Thành công!') + '</h3>' +
+            '<p class="app-notify__msg">' + (opts.msg || '') + '</p>' +
+            '<span class="app-notify__hint"><i class="fa-solid fa-hand-pointer"></i> Bấm vào màn hình để đóng</span>' +
+        '</div>';
+    document.body.appendChild(box);
+    void box.offsetWidth; // reflow để transition chạy
+    setTimeout(function () { box.classList.add('is-open'); }, 20);
+
+    var closed = false;
+    function close() {
+        if (closed) return;
+        closed = true;
+        box.classList.remove('is-open');
+        document.removeEventListener('click', onClick, true);
+        document.removeEventListener('keydown', onKey);
+        setTimeout(function () {
+            box.remove();
+            if (opts.redirect) window.location.href = opts.redirect;
+        }, 320);
+    }
+    function onClick() { close(); }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    // chờ 1 nhịp để chính cú click/submit hiện tại không đóng box ngay
+    setTimeout(function () {
+        document.addEventListener('click', onClick, true);
+        document.addEventListener('keydown', onKey);
+    }, 80);
+
+    return close;
+}
+/* #endregion */
+
+/* ==========================================
    #region FAKE AUTH (demo: admin / 12456)
 ========================================== */
 var FAKE_USER = { username: 'admin', password: '12456' };
@@ -731,7 +777,7 @@ function initFakeAuth() {
     var form = emailEl.closest('form');
     if (!form) return;
 
-    var submitBtn = form.querySelector('.auth-form__btn-submit');
+    var submitBtn = form.querySelector('.auth-form__btn-submit, .slider-auth__btn');
     var msg = document.createElement('div');
     msg.className = 'auth-msg';
     if (submitBtn) form.insertBefore(msg, submitBtn);
@@ -742,10 +788,14 @@ function initFakeAuth() {
         var p = passEl.value;
 
         if (u === FAKE_USER.username && p === FAKE_USER.password) {
-            msg.className = 'auth-msg auth-msg--ok';
-            msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang chuyển hướng...';
             try { localStorage.setItem('yuki_user', u); } catch (err) {}
-            setTimeout(function () { window.location.href = 'index.html'; }, 900);
+            // Box thông báo: không tự tắt, bấm màn hình mới đóng rồi chuyển trang
+            showNotify({
+                icon: 'fa-circle-check',
+                title: 'Đăng nhập thành công!',
+                msg: 'Chào mừng trở lại, chiến binh 🎮',
+                redirect: 'index.html'
+            });
         } else {
             msg.className = 'auth-msg auth-msg--err';
             msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Sai tài khoản hoặc mật khẩu! (admin / 12456)';
@@ -1393,37 +1443,6 @@ function initAuthTransitions() {
         });
     });
 
-    /* --- Tarik modal sau khi đăng nhập --- */
-    var loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
-            e.preventDefault();
-            var m = document.getElementById('tarikModal');
-            if (!m) return;
-            m.style.display = 'flex';
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    m.classList.add('tarik-modal--visible');
-                    // Tự đóng sau 15 giây
-                    var autoClose = setTimeout(function () { closeTarikModal(m); }, 15000);
-                    m._autoClose = autoClose;
-                });
-            });
-        });
-    }
-
-    function closeTarikModal(m) {
-        if (!m) return;
-        clearTimeout(m._autoClose);
-        m.classList.remove('tarik-modal--visible');
-        setTimeout(function () { m.style.display = 'none'; }, 400);
-    }
-
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.tarik-modal__close') || e.target.id === 'tarikModal') {
-            closeTarikModal(document.getElementById('tarikModal'));
-        }
-    });
 }
 /* #endregion */
 

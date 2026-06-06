@@ -5586,3 +5586,69 @@ body.auth-page {
     .user-menu__panel { width: 280px; }
 }
 /* #endregion */
+
+/* ==========================================
+   #region APP NOTIFY BOX (thông báo bấm-để-đóng)
+========================================== */
+.app-notify {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 8, 12, .55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease, visibility .3s ease;
+    cursor: pointer;
+}
+.app-notify.is-open { opacity: 1; visibility: visible; }
+.app-notify__card {
+    background: rgba(16, 18, 25, .97);
+    border: 1px solid rgba(255, 0, 60, .35);
+    border-radius: 16px;
+    padding: 30px 34px;
+    width: min(360px, 86vw);
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .6), 0 0 30px rgba(255, 0, 60, .2);
+    transform: translateY(16px) scale(.94);
+    transition: transform .35s cubic-bezier(.22, 1.4, .36, 1);
+}
+.app-notify.is-open .app-notify__card { transform: translateY(0) scale(1); }
+.app-notify__icon {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 0, 60, .14);
+    color: var(--red);
+    display: grid; place-items: center;
+    font-size: 1.6rem;
+    margin: 0 auto 14px;
+    box-shadow: 0 0 0 6px rgba(255, 0, 60, .06);
+}
+.app-notify.is-open .app-notify__icon { animation: notify-pop .45s cubic-bezier(.22, 1.5, .36, 1) both; }
+@keyframes notify-pop { from { transform: scale(.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.app-notify__title {
+    font-family: var(--font-h);
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #fff;
+    margin: 0 0 6px;
+}
+.app-notify__msg {
+    font-size: .9rem;
+    color: var(--text-muted);
+    margin: 0 0 16px;
+    line-height: 1.55;
+}
+.app-notify__hint {
+    font-size: .72rem;
+    color: var(--text-dim);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: .7;
+}
+/* #endregion */
