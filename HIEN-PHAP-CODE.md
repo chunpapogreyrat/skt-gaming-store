@@ -164,4 +164,39 @@ p8 - Màu sắc: ...
 - Nếu lệch so với thiết kế → **sửa cho khớp**, không để "tạm vậy".
 
 ---
+
+## 9. Lời nhắn Thiết kế → Dev (Handoff) 🤝
+
+> Gửi bạn dev sẽ dựng backend Laravel. Thiết kế đã xong & nhất quán — dưới đây là những điểm **bắt buộc nắm** để bê lên Laravel không vỡ. Đọc kèm mục 6 (Bảo mật) và mục 8 (Tôn trọng thiết kế).
+
+**9.1. Component dùng chung — cắt 1 lần, dùng mọi nơi**
+- Navbar & site-footer đã **giống hệt nhau byte-for-byte** trên 13 trang → cắt thành `<x-navbar/>` và `<x-footer/>` rồi `@include`/component. Đừng copy-paste mỗi trang.
+- **Active menu**: bản tĩnh xử lý bằng JS (`initNavActive` theo tên trang). Lên Laravel nên đổi sang server-side cho chuẩn SEO: `{{ request()->routeIs('products.*') ? 'navbar__link--active' : '' }}`.
+- Link danh mục đang dùng `products.html?cat=keyboard|mice|accessory|mousepad` → map sang route `route('products.index', ['cat' => 'keyboard'])`, controller lọc theo `cat`.
+
+**9.2. JS hành vi — phải giữ chạy sau khi render động**
+- `assets/js/script.js` & `admin.js` chạy dựa trên **class/id sẵn có**. Giữ nguyên `id`/class thì JS chạy tiếp, KHÔNG cần viết lại: hero slider, owl carousel (sale), AOS, tsParticles, đếm ngược, toggle mật khẩu, cart drawer, search overlay, fly-to-cart, auth double-slider, dropdown user.
+- Phần tử render bằng `@foreach` vẫn phải có đúng class JS đang hook (vd `.p-card`, `.deal-card`, `.hero-card`, `.toggle-password`).
+
+**9.3. Auth — KHÔNG tách 3 trang**
+- Login/Register/Forgot nằm CHUNG 1 trang (`login.html`, hiệu ứng double-slider). Lên Laravel **giữ 1 route view**, submit bằng **AJAX/fetch** trả JSON — đừng tách 3 route redirect (sẽ mất hiệu ứng + bị delay, đúng lỗi nhóm muốn tránh).
+- Admin login tách riêng (`admin/login.html`), session/guard riêng (mục 6.1).
+
+**9.4. Dữ liệu tĩnh → động (các điểm cần bind)**
+- Hero slider: `data-title` / `data-desc` / `background-image` mỗi `.hero-card` → từ bảng banner/sản phẩm nổi bật.
+- Card sản phẩm, sale carousel, "CÁC HÃNG HỢP TÁC", grid featured → `@foreach` từ DB.
+- Admin: bảng + modal (sản phẩm/đơn/user/coupon/danh mục/NPP/doanh thu) → CRUD thật; phân quyền nhân viên theo module (mục 6.1).
+- Logo thương hiệu đối tác: **giữ màu tự nhiên** (đã bỏ grayscale) — tôn trọng nhận diện đối tác.
+
+**9.5. Đừng đụng (trừ khi bàn với thiết kế)**
+- Biến CSS gốc (`--red`, `--cyber-cyan`, `--font-h`, `--font-b`...), tên class BEM, đường dẫn `assets/`, bộ font (Rajdhani + Be Vietnam Pro), các `@keyframes`/hiệu ứng.
+- Asset ưu tiên **bản local** trong `assets/` (mục 7), chỉ CDN khi không có local.
+
+**9.6. Trước khi báo "xong" 1 trang**
+- Làm theo checklist mục 8.3 (so trực tiếp với bản tĩnh, test cả mobile, console sạch lỗi).
+- Mình (thiết kế) đã test responsive 375px: không trang nào tràn ngang, navbar/sidebar gập đúng, bảng cuộn trong khung. Giữ được như vậy là đạt.
+
+> TL;DR: **Giữ markup + class + id + asset y nguyên, chỉ thay data tĩnh bằng dữ liệu DB, chặn bảo mật ở server.** Làm đúng vậy là giao diện tự khớp, JS tự chạy. Cảm ơn bạn dev! 🙌
+
+---
 *Cập nhật bởi nhóm 10 — YUKI Gaming Store.*
