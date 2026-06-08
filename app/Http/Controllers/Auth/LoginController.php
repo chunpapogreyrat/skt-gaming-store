@@ -28,11 +28,15 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
-        if ($taiKhoan->isAdmin()) {
-            return redirect()->route('admin.dashboard');
+        $target = $taiKhoan->isAdmin()
+            ? route('admin.dashboard')
+            : redirect()->intended(route('home'))->getTargetUrl();
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'redirect' => $target]);
         }
 
-        return redirect()->intended(route('home'));
+        return redirect()->to($target);
     }
 
     public function logout(Request $request, AuthService $authService)

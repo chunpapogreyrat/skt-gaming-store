@@ -48,7 +48,24 @@ function initAuthParallax() {
 /* ==========================================
    #region NAVBAR
 ========================================== */
+function initNavActive() {
+    // Lấy tên trang, bỏ query/hash/đuôi .html (server có thể bỏ .html)
+    function base(p) {
+        var name = (p || '').split('?')[0].split('#')[0].split('/').pop();
+        return (name || 'index').replace(/\.html$/i, '').toLowerCase() || 'index';
+    }
+    var cur = base(location.pathname);
+    // detail thuộc nhóm sản phẩm → sáng "Gaming Gear"
+    var map = { products: 'products', detail: 'products', setups: 'setups', about: 'about', contact: 'contact' };
+    var target = map[cur];
+    if (!target) return;
+    document.querySelectorAll('.navbar__link').forEach(function (a) {
+        if (base(a.getAttribute('href') || '') === target) a.classList.add('navbar__link--active');
+    });
+}
+
 function initNavbar() {
+    initNavActive();
     var toggle = document.getElementById('navToggle');
     var menu   = document.getElementById('navMenu');
     if (!toggle || !menu) return;
@@ -107,7 +124,7 @@ function initHeroSlider() {
         track.prepend(items[items.length - 1]);
         updateHero();
     });
-    setInterval(function () { next.click(); }, 6000);
+    setInterval(function () { next.click(); }, 2500);
     updateHero();
 }
 /* #endregion */
@@ -380,8 +397,6 @@ function flyPaperPlane(fromEl) {
         setTimeout(function () { cartIcon.classList.remove('cart-bouncing'); }, 500);
     }, 750);
 }
-// Expose cho Laravel layout dùng (giữ animation, gọi API riêng)
-window.skSktFlyPaperPlane = flyPaperPlane;
 
 /* Read product data from any card type */
 function readCardData(card) {
@@ -727,10 +742,20 @@ function initFakeAuth() {
         var p = passEl.value;
 
         if (u === FAKE_USER.username && p === FAKE_USER.password) {
-            msg.className = 'auth-msg auth-msg--ok';
-            msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Đăng nhập thành công! Đang chuyển hướng...';
-            try { localStorage.setItem('skt_user', u); } catch (err) {}
-            setTimeout(function () { window.location.href = 'index.html'; }, 900);
+            try { localStorage.setItem('yuki_user', u); } catch (err) {}
+            // Hiện modal Tarik chào mừng — KHÔNG tự tắt, bấm màn hình mới đóng rồi về trang chủ
+            var m = document.getElementById('tarikModal');
+            if (!m) { window.location.href = 'index.html'; return; }
+            m.style.display = 'flex';
+            setTimeout(function () { m.classList.add('tarik-modal--visible'); }, 20);
+            setTimeout(function () {
+                document.addEventListener('click', function onClk(e) {
+                    if (e.target.closest('.tarik-modal__cta')) return; // nút CTA tự điều hướng
+                    document.removeEventListener('click', onClk);
+                    m.classList.remove('tarik-modal--visible');
+                    setTimeout(function () { m.style.display = 'none'; window.location.href = 'index.html'; }, 400);
+                });
+            }, 120);
         } else {
             msg.className = 'auth-msg auth-msg--err';
             msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Sai tài khoản hoặc mật khẩu! (admin / 12456)';
@@ -745,22 +770,31 @@ function initFakeAuth() {
    #region AUTH STATE (gating đăng nhập)
 ========================================== */
 function isLoggedIn() {
-    try { return !!localStorage.getItem('skt_user'); } catch (e) { return false; }
+    try { return !!localStorage.getItem('yuki_user'); } catch (e) { return false; }
+}
+
+function getUserName() {
+    try {
+        var u = localStorage.getItem('yuki_user') || '';
+        if (u.indexOf('@') > -1) u = u.split('@')[0];
+        return u ? u.charAt(0).toUpperCase() + u.slice(1) : 'Game Thủ';
+    } catch (e) { return 'Game Thủ'; }
 }
 
 function initAuthState() {
     var loggedIn = isLoggedIn();
 
-    // Icon profile: đã login -> profile.html, chưa login -> login.html
     var userLink = document.querySelector('.navbar__actions a.navbar__icon-btn');
     if (userLink) {
-        userLink.setAttribute('href', loggedIn ? 'profile.html' : 'login.html');
-        userLink.setAttribute('title', loggedIn ? 'Tài khoản của tôi' : 'Đăng nhập');
-        var icon = userLink.querySelector('i');
-        if (icon) {
-            icon.className = loggedIn ? 'fa-solid fa-user' : 'fa-regular fa-user';
+        if (loggedIn) {
+            buildUserDropdown(userLink);
+        } else {
+            // Chưa đăng nhập: giữ link tới login
+            userLink.setAttribute('href', 'login.html');
+            userLink.setAttribute('title', 'Đăng nhập');
+            var icon = userLink.querySelector('i');
+            if (icon) icon.className = 'fa-regular fa-user';
         }
-        userLink.classList.toggle('navbar__icon-btn--active', loggedIn);
     }
 
     // Bảo vệ trang profile: chưa đăng nhập thì đá về login
@@ -775,10 +809,69 @@ function initAuthState() {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', function (e) {
             e.preventDefault();
-            try { localStorage.removeItem('skt_user'); } catch (err) {}
+            try { localStorage.removeItem('yuki_user'); } catch (err) {}
             window.location.href = 'index.html';
         });
     }
+}
+
+/* ----- USER DROPDOWN (kiểu Facebook, phong cách YUKI) ----- */
+function buildUserDropdown(userLink) {
+    var name = getUserName();
+    var initial = name.charAt(0).toUpperCase();
+
+    // Bọc lại trong wrapper
+    var wrap = document.createElement('div');
+    wrap.className = 'user-menu';
+
+    // Nút avatar
+    var trigger = document.createElement('button');
+    trigger.type = 'button';
+    trigger.className = 'navbar__icon-btn user-menu__trigger';
+    trigger.setAttribute('aria-label', 'Tài khoản');
+    trigger.innerHTML = '<span class="user-menu__avatar">' + initial + '</span>';
+
+    // Panel
+    var panel = document.createElement('div');
+    panel.className = 'user-menu__panel';
+    panel.innerHTML =
+        '<div class="user-menu__head">' +
+            '<span class="user-menu__avatar user-menu__avatar--lg">' + initial + '</span>' +
+            '<div class="user-menu__head-info">' +
+                '<div class="user-menu__name">' + name + '</div>' +
+                '<div class="user-menu__rank"><i class="fa-solid fa-bolt"></i> Game thủ YUKI</div>' +
+            '</div>' +
+        '</div>' +
+        '<a href="profile.html" class="user-menu__profile-btn"><i class="fa-solid fa-id-badge"></i> Xem trang cá nhân</a>' +
+        '<div class="user-menu__divider"></div>' +
+        '<a href="order-history.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-box-archive"></i></span> Đơn hàng của tôi <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<a href="profile.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-heart"></i></span> Sản phẩm yêu thích <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<a href="contact.html" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-circle-question"></i></span> Trợ giúp & hỗ trợ <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>' +
+        '<div class="user-menu__divider"></div>' +
+        '<button type="button" class="user-menu__item user-menu__item--logout" id="userMenuLogout"><span class="user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</button>' +
+        '<div class="user-menu__foot">YUKI Gaming Store · v2.0</div>';
+
+    wrap.appendChild(trigger);
+    wrap.appendChild(panel);
+    userLink.replaceWith(wrap);
+
+    // Toggle
+    trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        wrap.classList.toggle('is-open');
+    });
+    document.addEventListener('click', function (e) {
+        if (!wrap.contains(e.target)) wrap.classList.remove('is-open');
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') wrap.classList.remove('is-open');
+    });
+
+    // Logout
+    panel.querySelector('#userMenuLogout').addEventListener('click', function () {
+        try { localStorage.removeItem('yuki_user'); } catch (err) {}
+        window.location.href = 'index.html';
+    });
 }
 /* #endregion */
 
@@ -974,6 +1067,39 @@ function initCartPage() {
     }
 
     recompute();
+}
+/* #endregion */
+
+/* ==========================================
+   #region REGISTER (demo)
+========================================== */
+function initFakeRegister() {
+    var form = document.getElementById('registerForm');
+    if (!form) return;
+    var name  = document.getElementById('regName');
+    var email = document.getElementById('regEmail');
+    var p1    = document.getElementById('regPass');
+    var p2    = document.getElementById('regPass2');
+
+    var msg = document.createElement('div');
+    msg.className = 'auth-msg';
+    var submitBtn = form.querySelector('.auth-form__btn-submit');
+    if (submitBtn) form.insertBefore(msg, submitBtn);
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (p1.value !== p2.value) {
+            msg.className = 'auth-msg auth-msg--err';
+            msg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Mật khẩu xác nhận không khớp!';
+            form.classList.add('auth-shake');
+            setTimeout(function () { form.classList.remove('auth-shake'); }, 500);
+            return;
+        }
+        msg.className = 'auth-msg auth-msg--ok';
+        msg.innerHTML = '<i class="fa-solid fa-circle-check"></i> Tạo tài khoản thành công! Đang đăng nhập...';
+        try { localStorage.setItem('yuki_user', (email.value || name.value || '').trim()); } catch (err) {}
+        setTimeout(function () { window.location.href = 'index.html'; }, 1000);
+    });
 }
 /* #endregion */
 
@@ -1213,30 +1339,31 @@ function initAuthTransitions() {
     var qs        = new URLSearchParams(location.search);
     var enterType = qs.get('_et') || 'slide-right';
     var panel     = document.getElementById('authPanel');
-    if (!panel) return;
 
-    /* --- enter animation khi trang load --- */
-    var startCSS = '';
-    if (enterType === 'slide-left')  startCSS = 'translateX(-110%)';
-    if (enterType === 'slide-right') startCSS = 'translateX(110%)';
-    if (enterType === 'spin')        startCSS = 'perspective(900px) rotateY(-90deg) scale(0.85)';
+    /* --- enter animation khi trang load (chỉ khi còn dùng #authPanel) --- */
+    if (panel) {
+        var startCSS = '';
+        if (enterType === 'slide-left')  startCSS = 'translateX(-110%)';
+        if (enterType === 'slide-right') startCSS = 'translateX(110%)';
+        if (enterType === 'spin')        startCSS = 'perspective(900px) rotateY(-90deg) scale(0.85)';
 
-    panel.style.transform  = startCSS;
-    panel.style.opacity    = '0';
-    panel.style.transition = 'none';
+        panel.style.transform  = startCSS;
+        panel.style.opacity    = '0';
+        panel.style.transition = 'none';
 
-    requestAnimationFrame(function () {
         requestAnimationFrame(function () {
-            var dur = (enterType === 'spin') ? SPIN_MS : SLIDE_MS;
-            panel.style.transition =
-                'transform ' + dur + 'ms cubic-bezier(0.25,0.46,0.45,0.94),' +
-                'opacity '   + (dur * 0.55) + 'ms ease';
-            panel.style.transform = (enterType === 'spin')
-                ? 'perspective(900px) rotateY(0deg) scale(1)'
-                : 'translateX(0)';
-            panel.style.opacity = '1';
+            requestAnimationFrame(function () {
+                var dur = (enterType === 'spin') ? SPIN_MS : SLIDE_MS;
+                panel.style.transition =
+                    'transform ' + dur + 'ms cubic-bezier(0.25,0.46,0.45,0.94),' +
+                    'opacity '   + (dur * 0.55) + 'ms ease';
+                panel.style.transform = (enterType === 'spin')
+                    ? 'perspective(900px) rotateY(0deg) scale(1)'
+                    : 'translateX(0)';
+                panel.style.opacity = '1';
+            });
         });
-    });
+    }
 
     /* --- exit + navigate --- */
     function goTo(url, exitType) {
@@ -1276,37 +1403,41 @@ function initAuthTransitions() {
         });
     });
 
-    /* --- Tarik modal sau khi đăng nhập --- */
-    var loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', function (e) {
+}
+/* #endregion */
+
+/* ==========================================
+   #region AUTH SWITCHER — Double-slider (login ↔ register) + forgot
+   Panel màu trượt ngang; quên mật khẩu hiện đè lên form login.
+========================================== */
+function initAuthSwitcher() {
+    var box = document.getElementById('sliderAuth');
+    if (!box) return;
+
+    function show(view) {
+        box.classList.remove('is-register', 'is-forgot');
+        if (view === 'register') box.classList.add('is-register');
+        else if (view === 'forgot') box.classList.add('is-forgot');
+        try { history.replaceState(null, '', '#' + view); } catch (e) {}
+    }
+
+    // Nút ghost trên overlay
+    var goReg = document.getElementById('goRegister');
+    var goLog = document.getElementById('goLogin');
+    if (goReg) goReg.addEventListener('click', function () { show('register'); });
+    if (goLog) goLog.addEventListener('click', function () { show('login'); });
+
+    // Link trong form (mobile switch + quên mật khẩu + quay lại)
+    box.querySelectorAll('[data-auth-view]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
-            var m = document.getElementById('tarikModal');
-            if (!m) return;
-            m.style.display = 'flex';
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    m.classList.add('tarik-modal--visible');
-                    // Tự đóng sau 15 giây
-                    var autoClose = setTimeout(function () { closeTarikModal(m); }, 15000);
-                    m._autoClose = autoClose;
-                });
-            });
+            show(this.dataset.authView);
         });
-    }
-
-    function closeTarikModal(m) {
-        if (!m) return;
-        clearTimeout(m._autoClose);
-        m.classList.remove('tarik-modal--visible');
-        setTimeout(function () { m.style.display = 'none'; }, 400);
-    }
-
-    document.addEventListener('click', function (e) {
-        if (e.target.closest('.tarik-modal__close') || e.target.id === 'tarikModal') {
-            closeTarikModal(document.getElementById('tarikModal'));
-        }
     });
+
+    // Hash ban đầu
+    var initial = (location.hash || '').replace('#', '');
+    if (initial === 'register' || initial === 'forgot') show(initial);
 }
 /* #endregion */
 
@@ -1315,10 +1446,10 @@ function initAuthTransitions() {
 ========================================== */
 document.addEventListener('DOMContentLoaded', function () {
     initTogglePassword();
-    // DISABLED — Laravel auth thật, không dùng fake auth/localStorage gating/hardcoded detail.html
-    // initFakeAuth();
-    // initAuthState();
-    // initProductLinks();
+    initFakeAuth();
+    initFakeRegister();
+    initAuthState();
+    initProductLinks();
     initSetupsFilter();
     initCountUp();
     initCartPage();
@@ -1336,10 +1467,10 @@ document.addEventListener('DOMContentLoaded', function () {
     initAOS();
     initSearchOverlay();
     initCartDrawer();
-    // DISABLED — initFlyToCart cũ chỉ append DOM, không sync Laravel; xử lý trong layout/app
-    // initFlyToCart();
+    initFlyToCart();
     initDetailPage();
     initProfileTabs();
     initAuthParallax();
     initAuthTransitions();
+    initAuthSwitcher();
 });

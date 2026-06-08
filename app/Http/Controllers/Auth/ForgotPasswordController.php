@@ -10,7 +10,8 @@ class ForgotPasswordController extends Controller
 {
     public function showForm()
     {
-        return view('auth.forgot-password');
+        // Auth gộp 1 trang double-slider (Hiến pháp §9.3) → mở panel quên mật khẩu qua hash
+        return redirect()->to(route('login') . '#forgot');
     }
 
     public function sendResetLink(Request $request, AuthService $authService)
@@ -25,7 +26,13 @@ class ForgotPasswordController extends Controller
 
         $authService->sendPasswordResetLink($validated['email']);
 
-        return back()->with('success', 'Link dat lai mat khau da duoc gui toi email cua ban.');
+        $thongBao = 'Link dat lai mat khau da duoc gui toi email cua ban.';
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'message' => $thongBao]);
+        }
+
+        return back()->with('success', $thongBao);
     }
 
     public function showResetForm(Request $request, string $token)

@@ -10,7 +10,8 @@ class RegisterController extends Controller
 {
     public function showRegister()
     {
-        return view('auth.register');
+        // Auth gộp 1 trang double-slider (Hiến pháp §9.3) → mở panel đăng ký qua hash
+        return redirect()->to(route('login') . '#register');
     }
 
     public function register(Request $request, AuthService $authService)
@@ -33,6 +34,10 @@ class RegisterController extends Controller
         $authService->register($validated);
 
         $request->session()->regenerate();
+
+        if ($request->expectsJson()) {
+            return response()->json(['success' => true, 'redirect' => route('home')]);
+        }
 
         return redirect()->route('home')->with('success', 'Dang ky thanh cong.');
     }

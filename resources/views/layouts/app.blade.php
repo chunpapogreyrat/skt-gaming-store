@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'SKT Gaming Store - Đỉnh Cao Trải Nghiệm')</title>
+    <title>@yield('title', 'YUKI Gaming Store - Đỉnh Cao Trải Nghiệm')</title>
 
     {{-- CSS CDN --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
@@ -42,7 +42,7 @@
 {{-- #region NAVBAR --}}
 <nav class="navbar" id="mainNav">
     <div class="navbar__container">
-        <a href="{{ route('home') }}" class="navbar__logo"><span class="navbar__logo-skt">SKT</span> GAMING</a>
+        <a href="{{ route('home') }}" class="navbar__logo"><span class="navbar__logo-yuki">YUKI</span> GAMING</a>
         <button class="navbar__toggle" id="navToggle"><i class="fa-solid fa-bars"></i></button>
         <div class="navbar__menu" id="navMenu">
             <ul class="navbar__links">
@@ -113,7 +113,7 @@
     <div class="container-fluid px-4 px-xl-5">
         <div class="row g-4 site-footer__top">
             <div class="col-lg-4 col-md-6">
-                <a href="{{ route('home') }}" class="site-footer__logo"><span class="site-footer__logo-skt">SKT</span> GAMING STORE</a>
+                <a href="{{ route('home') }}" class="site-footer__logo"><span class="site-footer__logo-yuki">YUKI</span> GAMING STORE</a>
                 <p class="site-footer__desc">Vũ khí tối thượng cho game thủ chuyên nghiệp. Engineered for extreme performance.</p>
                 <div class="site-footer__socials">
                     <a href="#" class="social-btn social-btn--web"><i class="fa-solid fa-globe"></i></a>
@@ -151,7 +151,7 @@
                     <span class="pay-icon pay-icon--bank" title="Internet Banking"><i class="fa-solid fa-building-columns"></i></span>
                     <span class="pay-icon pay-icon--paypal" title="PayPal"><i class="fa-brands fa-paypal"></i></span>
                 </div>
-                <p class="site-footer__copyright">© 2026 SKT Gaming. Designed with Cyber-precision.</p>
+                <p class="site-footer__copyright">© 2026 YUKI Gaming. Designed with Cyber-precision.</p>
             </div>
         </div>
     </div>

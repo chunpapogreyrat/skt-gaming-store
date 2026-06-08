@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'SKT Gaming Store - Đỉnh Cao Trải Nghiệm')
+@section('title', 'YUKI Gaming Store - Đỉnh Cao Trải Nghiệm')
 
 @section('content')
 
