@@ -47,7 +47,7 @@
         <div class="navbar__menu" id="navMenu">
             <ul class="navbar__links">
                 <li class="navbar__item navbar__has-drop">
-                    <a href="{{ route('products.index') }}" class="navbar__link {{ request()->routeIs('products.*') ? 'navbar__link--active' : '' }}">
+                    <a href="{{ route('home') }}" class="navbar__link {{ request()->routeIs('home') ? 'navbar__link--active' : '' }}">
                         Gaming Gear <i class="fa-solid fa-angle-down navbar__caret"></i>
                     </a>
                     <div class="navbar__dropdown">
@@ -394,6 +394,7 @@
         e.stopPropagation();
         const id = parseInt(btn.dataset.productId);
         if (!id) return;
+        e.stopImmediatePropagation(); // chặn initFlyToCart (script.js) thêm giỏ client-side lần 2
 
         // Animation paper plane
         if (typeof window.skSktFlyPaperPlane === 'function') {
@@ -431,9 +432,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3/tsparticles.slim.bundle.min.js"></script>
 
 {{-- JS dự án --}}
 <script src="{{ asset('assets/js/script.js') }}"></script>
+
+{{-- AOS fix: script.js init với once:false/mirror:true + tính sai khi ảnh chưa load → nội dung trên màn bị ẩn (opacity:0) tới khi cuộn.
+     Sau khi load xong, ép hiện mọi phần tử [data-aos] (vẫn giữ animation cho phần dưới khi cuộn). --}}
+<script>
+(function () {
+    function fixAos() {
+        // Re-init once:true (script.js để once:false/mirror:true gỡ aos-animate khỏi section cao -> ẩn grid con)
+        if (window.AOS) AOS.init({ once: true, duration: 700, offset: 0, mirror: false });
+        document.querySelectorAll('[data-aos]').forEach(function (el) {
+            el.classList.add('aos-animate');
+        });
+    }
+    // chạy SAU handler load nội bộ của AOS
+    window.addEventListener('load', function () { setTimeout(fixAos, 80); });
+    setTimeout(fixAos, 1200); // fallback nếu load đã xong
+})();
+</script>
 
 @stack('scripts')
 

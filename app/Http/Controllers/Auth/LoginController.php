@@ -28,9 +28,10 @@ class LoginController extends Controller
 
         $request->session()->regenerate();
 
+        // Admin -> trang quản trị; khách -> thẳng trang chủ (không dùng intended)
         $target = $taiKhoan->isAdmin()
             ? route('admin.dashboard')
-            : redirect()->intended(route('home'))->getTargetUrl();
+            : route('home');
 
         if ($request->expectsJson()) {
             return response()->json(['success' => true, 'redirect' => $target]);

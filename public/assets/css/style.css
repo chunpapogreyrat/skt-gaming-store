@@ -25,6 +25,7 @@
 html, body { overflow-x: clip; }
 body.dark-theme { background: var(--bg-dark); color: var(--text-main); font-family: var(--font-b); }
 img { max-width: 100%; display: block; }
+a { text-decoration: none; }
 
 /* ==========================================
    #region AUTH (Login / Register) — Cyber UI

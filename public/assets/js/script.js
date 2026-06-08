@@ -458,16 +458,10 @@ function addToCart(data) {
 }
 
 function initFlyToCart() {
-    // Event delegation: hoạt động kể cả với card thêm sau, không phụ thuộc thứ tự init
-    document.addEventListener('click', function (e) {
-        var btn = e.target.closest('.p-card__quick');
-        if (!btn) return;
-        e.preventDefault();
-        e.stopPropagation();
-        flyPaperPlane(btn);
-        var card = btn.closest('.p-card');
-        setTimeout(function () { addToCart(readCardData(card)); }, 400);
-    }, true); // capture phase: chạy TRƯỚC handler điều hướng của .p-card
+    // LARAVEL OVERRIDE: giỏ hàng do server xử lý (handler [data-product-id] trong app.blade.php).
+    // Tắt thêm-giỏ client-side ở đây để tránh: (1) thêm trùng 2 lần khi "Chọn nhanh",
+    // (2) nút "Chi tiết" trên trang sản phẩm bị chặn điều hướng + fake-add. Animation do app.blade lo.
+    return;
 }
 /* #endregion */
 
