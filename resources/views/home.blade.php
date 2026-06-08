@@ -132,11 +132,14 @@
                 </div>
                 <div class="sale-carousel owl-carousel">
                     @forelse($sanPhamSale as $sp)
-                    <a href="{{ route('products.show', $sp->slug) }}" class="deal-card" style="text-decoration:none;color:inherit">
+                    <a href="{{ route('products.show', $sp->slug) }}" class="deal-card">
                         @if($sp->discountPercent())
                         <span class="deal-card__badge">-{{ $sp->discountPercent() }}%</span>
                         @endif
-                        <div class="deal-card__img"><img src="{{ asset($sp->mainImagePath()) }}" alt="{{ $sp->ten }}"></div>
+                        <div class="deal-card__img">
+                            <img src="{{ asset($sp->mainImagePath()) }}" alt="{{ $sp->ten }}">
+                            <span class="deal-card__sale-stamp">SALE</span>
+                        </div>
                         <p class="deal-card__name">{{ $sp->ten }}</p>
                         <span class="deal-card__price">{{ $sp->formattedPrice() }}</span>
                     </a>
