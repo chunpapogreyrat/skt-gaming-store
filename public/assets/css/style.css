@@ -970,7 +970,7 @@ a { text-decoration: none; }
     0%, 100% { filter: drop-shadow(3px 4px 0px #b71c1c) drop-shadow(0 0 10px rgba(229,57,53,.55)); }
     50%      { filter: drop-shadow(3px 4px 0px #b71c1c) drop-shadow(0 0 18px rgba(229,57,53,.85)); }
 }
-.deal-card__img { height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.deal-card__img { height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; background: #f4f5f7; border-radius: 8px; padding: 10px; }
 .deal-card__img img { max-height: 185px; max-width: 96%; object-fit: contain; transition: transform .35s; }
 .sale-carousel .deal-card:hover .deal-card__img img { transform: scale(1.08); }
 .deal-card__name { font-size: .9rem; color: #e2e8f0; font-weight: 500; margin-bottom: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -1050,7 +1050,7 @@ a { text-decoration: none; }
 .p-card__media {
     position: relative;
     height: 230px;
-    background: linear-gradient(135deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.025) 100%);
+    background: #f4f5f7; /* khung nền sáng cho ảnh sản phẩm (ảnh thật nền trắng blend gọn) */
     display: flex;
     align-items: center;
     justify-content: center;
