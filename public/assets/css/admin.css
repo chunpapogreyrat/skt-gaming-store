@@ -703,6 +703,22 @@ strong.admin-table__clickable:hover {
 }
 .admin-pagination__btn:hover { color: var(--text-main); border-color: rgba(255,255,255,.18); }
 .admin-pagination__btn.is-active { background: var(--red); color: #fff; border-color: var(--red); }
+
+/* Bootstrap paginator (Laravel ->links()) trong khu admin -> style như nút admin */
+.admin-pagination .pagination { display: flex; gap: 6px; margin: 0; padding: 0; list-style: none; align-items: center; }
+.admin-pagination .page-item { margin: 0; }
+.admin-pagination .page-link {
+    min-width: 34px; height: 34px; padding: 0 10px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 6px; border: 1px solid var(--admin-line);
+    background: transparent; color: var(--text-muted);
+    text-decoration: none; font-size: 13px; transition: var(--trans); cursor: pointer;
+}
+.admin-pagination .page-link:hover { color: var(--text-main); border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.05); }
+.admin-pagination .page-item.active .page-link { background: var(--red); color: #fff; border-color: var(--red); box-shadow: 0 0 12px var(--red-dim); }
+.admin-pagination .page-item.disabled .page-link { opacity: .4; pointer-events: none; }
+.admin-pagination p, .admin-pagination .text-muted.small { display: none !important; }
+.admin-pagination nav { width: 100%; display: flex; justify-content: flex-end; }
 /* #endregion */
 
 /* #region CLICK IMAGE/NAME TO EDIT */

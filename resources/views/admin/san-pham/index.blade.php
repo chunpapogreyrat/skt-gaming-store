@@ -15,7 +15,7 @@
 <section class="admin-table-wrap">
     <div class="admin-table-wrap__head">
         <h3 class="admin-panel__title">Danh sách sản phẩm</h3>
-        <form method="GET" class="d-flex gap-2">
+        <form method="GET" action="{{ route('admin.products.index') }}" class="d-flex gap-2 flex-wrap align-items-center">
             <input name="q" value="{{ request('q') }}" class="admin-status-select" placeholder="Tìm tên sản phẩm...">
             <select name="danh_muc" class="admin-status-select" onchange="this.form.submit()">
                 <option value="">Tất cả danh mục</option>
@@ -23,6 +23,10 @@
                 <option value="{{ $dm->id }}" @selected(request('danh_muc')==$dm->id)>{{ $dm->ten }}</option>
                 @endforeach
             </select>
+            <button type="submit" class="admin-btn admin-btn--primary" title="Tìm"><i class="fa-solid fa-magnifying-glass"></i></button>
+            @if(request('q') || request('danh_muc'))
+                <a href="{{ route('admin.products.index') }}" class="admin-btn admin-btn--ghost" title="Xóa lọc"><i class="fa-solid fa-xmark"></i></a>
+            @endif
         </form>
     </div>
     <table class="admin-table">

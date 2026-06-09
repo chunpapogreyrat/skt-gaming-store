@@ -61,8 +61,13 @@
                 <p class="admin-table__muted small mb-3">Tick ô góc phải mỗi ảnh để xóa khi lưu.</p>
             @endif
             <div class="admin-field">
-                <label class="admin-field__label">Thêm ảnh (chọn nhiều)</label>
-                <input type="file" name="hinh_anh[]" class="admin-field__input" multiple accept="image/*">
+                <label class="admin-field__label">Thêm ảnh sản phẩm (cho slider chi tiết)</label>
+                <div id="imgDropzone" class="img-dropzone">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p><strong>Kéo &amp; thả ảnh vào đây</strong><br><span>hoặc bấm để chọn — có thể thêm nhiều ảnh</span></p>
+                    <input type="file" name="hinh_anh[]" id="imgInput" multiple accept="image/*" hidden>
+                </div>
+                <div id="imgPreview" class="img-preview"></div>
                 @error('hinh_anh.*')<p class="txt-red small">{{ $message }}</p>@enderror
             </div>
         </div>
@@ -121,3 +126,84 @@
     </div>
 </form>
 @endsection
+
+@push('styles')
+<style>
+    .img-dropzone { border: 2px dashed rgba(255,255,255,.18); border-radius: 10px; padding: 24px 16px; text-align: center; cursor: pointer; transition: .2s; color: var(--text-muted); }
+    .img-dropzone:hover, .img-dropzone.is-drag { border-color: var(--red); background: rgba(255,0,60,.06); color: #fff; }
+    .img-dropzone i { font-size: 1.7rem; color: var(--red); }
+    .img-dropzone p { margin: 8px 0 0; font-size: .85rem; }
+    .img-dropzone span { font-size: .78rem; opacity: .7; }
+    .img-preview { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .img-preview__item { position: relative; width: 80px; height: 80px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background:#fff; }
+    .img-preview__item img { width: 100%; height: 100%; object-fit: contain; }
+    .img-preview__rm { position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: rgba(0,0,0,.7); color: #fff; cursor: pointer; line-height: 18px; font-size: 14px; padding: 0; }
+</style>
+@endpush
+
+@push('scripts')
+<script>
+(function () {
+    var dz = document.getElementById('imgDropzone');
+    var input = document.getElementById('imgInput');
+    var preview = document.getElementById('imgPreview');
+    if (!dz || !input) return;
+    var store = new DataTransfer();
+
+    function render() {
+        preview.innerHTML = '';
+        Array.from(store.files).forEach(function (file, idx) {
+            var url = URL.createObjectURL(file);
+            var item = document.createElement('div');
+            item.className = 'img-preview__item';
+            item.innerHTML = '<img src="' + url + '" alt=""><button type="button" class="img-preview__rm" data-idx="' + idx + '">&times;</button>';
+            preview.appendChild(item);
+        });
+    }
+    function addFiles(files) {
+        Array.from(files).forEach(function (f) { if (f.type.indexOf('image/') === 0) store.items.add(f); });
+        input.files = store.files;
+        render();
+    }
+
+    dz.addEventListener('click', function () { input.click(); });
+    input.addEventListener('change', function () {
+        // file lấy từ hộp thoại -> gom vào store rồi gán lại
+        var picked = Array.from(input.files);
+        // tránh đệ quy: chỉ thêm file chưa có trong store
+        var current = Array.from(store.files);
+        if (picked.length && picked !== current) {
+            picked.forEach(function (f) {
+                var dup = current.some(function (c) { return c.name === f.name && c.size === f.size; });
+                if (!dup && f.type.indexOf('image/') === 0) store.items.add(f);
+            });
+            input.files = store.files;
+            render();
+        }
+    });
+
+    ['dragover', 'dragenter'].forEach(function (ev) {
+        dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.add('is-drag'); });
+    });
+    ['dragleave', 'dragend'].forEach(function (ev) {
+        dz.addEventListener(ev, function (e) { e.preventDefault(); dz.classList.remove('is-drag'); });
+    });
+    dz.addEventListener('drop', function (e) {
+        e.preventDefault();
+        dz.classList.remove('is-drag');
+        addFiles(e.dataTransfer.files);
+    });
+
+    preview.addEventListener('click', function (e) {
+        var btn = e.target.closest('.img-preview__rm');
+        if (!btn) return;
+        var idx = parseInt(btn.dataset.idx);
+        var nt = new DataTransfer();
+        Array.from(store.files).forEach(function (f, i) { if (i !== idx) nt.items.add(f); });
+        store = nt;
+        input.files = store.files;
+        render();
+    });
+})();
+</script>
+@endpush
