@@ -9,13 +9,14 @@ class BannerSeeder extends Seeder
 {
     public function run(): void
     {
+        // Title/mô tả khớp ĐÚNG với từng ảnh (theo bản thiết kế gốc index.html)
         $banners = [
-            ['tieu_de' => 'Gaming Gear Đỉnh Cao', 'mo_ta' => 'Trang bị vũ khí — chinh phục mọi chiến trường', 'hinh_anh' => 'assets/images/slider/1.jpg'],
-            ['tieu_de' => 'Chuột Gaming Pro', 'mo_ta' => 'Cảm biến quang học bậc nhất — phản xạ 0 độ trễ', 'hinh_anh' => 'assets/images/slider/2.jpg'],
-            ['tieu_de' => 'Bàn Phím Cơ Custom', 'mo_ta' => 'Hall Effect & Rapid Trigger — cú bấm hoàn hảo nhất', 'hinh_anh' => 'assets/images/slider/3.jpg'],
-            ['tieu_de' => 'Màn Hình Esports 360Hz', 'mo_ta' => 'Từng khung hình là lợi thế — DyAc+ không bóng mờ', 'hinh_anh' => 'assets/images/slider/4.jpg'],
-            ['tieu_de' => 'Setup RGB Cá Tính', 'mo_ta' => 'Góc chơi game nổi bật — đồng bộ từ bàn phím đến lót chuột', 'hinh_anh' => 'assets/images/slider/5.png'],
-            ['tieu_de' => 'Màn Hình Gaming Sắc Nét', 'mo_ta' => 'Hiển thị mượt mà — tối ưu từng pha xử lý tốc độ cao', 'hinh_anh' => 'assets/images/slider/screen.png'],
+            ['tieu_de' => 'Lót Chuột Anime Cỡ Lớn', 'mo_ta' => 'Deskmat khổ rộng in sắc nét — nâng tầm góc chơi game', 'hinh_anh' => 'assets/images/slider/1.jpg'],
+            ['tieu_de' => 'Finalmouse Prophecy', 'mo_ta' => 'Chuột siêu nhẹ vân tổ ong — 4 phiên bản màu sưu tầm', 'hinh_anh' => 'assets/images/slider/2.jpg'],
+            ['tieu_de' => 'Arbiter Studio Akitsu', 'mo_ta' => 'Chuột gaming siêu nhẹ — khắc hoạ tiết thủ công độc bản', 'hinh_anh' => 'assets/images/slider/3.jpg'],
+            ['tieu_de' => 'Wooting 60HE', 'mo_ta' => 'Bàn phím Hall Effect — Rapid Trigger phản hồi tức thì', 'hinh_anh' => 'assets/images/slider/4.jpg'],
+            ['tieu_de' => 'Yuki Aim × Demon1', 'mo_ta' => 'Lót chuột Glass & Cloth — đặt trước phiên bản giới hạn', 'hinh_anh' => 'assets/images/slider/5.png'],
+            ['tieu_de' => 'Setup Gaming RGB', 'mo_ta' => 'Góc chiến đồng bộ ánh sáng — từ PC đến phụ kiện', 'hinh_anh' => 'assets/images/slider/screen.png'],
         ];
 
         foreach ($banners as $i => $b) {
