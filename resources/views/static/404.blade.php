@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', '404 - SKT Gaming Store')
+@section('title', '404 - YUKI Gaming Store')
 
 @push('styles')
 <style>
@@ -29,7 +29,7 @@
         <section>
             <div class="notfound-code">404</div>
             <h1 class="notfound-title">Trang khong ton tai.</h1>
-            <p class="notfound-text">Duong dan ban mo da bi doi, bi xoa hoac khong co trong SKT Gaming Store. Quay lai danh sach san pham de tiep tuc mua sam.</p>
+            <p class="notfound-text">Duong dan ban mo da bi doi, bi xoa hoac khong co trong YUKI Gaming Store. Quay lai danh sach san pham de tiep tuc mua sam.</p>
             <div class="notfound-actions">
                 <a class="store-btn" href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Trang chu</a>
                 <a class="store-btn store-btn--ghost" href="{{ route('products.index') }}"><i class="fa-solid fa-bag-shopping"></i> San pham</a>

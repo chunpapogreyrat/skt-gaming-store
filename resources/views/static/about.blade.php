@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Gioi thieu - SKT Gaming Store')
+@section('title', 'Gioi thieu - YUKI Gaming Store')
 
 @push('styles')
 <style>
@@ -30,7 +30,7 @@
 @section('content')
 <section class="static-hero">
     <div class="container-fluid px-4 px-xl-5">
-        <span class="static-hero__eyebrow">SKT Gaming Store</span>
+        <span class="static-hero__eyebrow">YUKI Gaming Store</span>
         <h1 class="static-hero__title">Gear chuan thi dau cho ban gaming nghiem tuc.</h1>
         <p class="static-hero__text">SKT tap trung vao chuot, ban phim, lot chuot, man hinh va phu kien co hieu nang that, phu hop ca FPS lan setup lam viec hang ngay.</p>
         <a class="store-btn mt-3" href="{{ route('products.index') }}"><i class="fa-solid fa-bag-shopping"></i> Xem san pham</a>

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'SKT Admin')</title>
+    <title>@yield('title', 'YUKI Admin')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
@@ -20,7 +20,7 @@
     {{-- #region ADMIN SIDEBAR --}}
     <aside class="admin-sidebar" id="adminSidebar">
         <div class="admin-sidebar__brand">
-            <span class="admin-sidebar__brand-skt">SKT</span> ADMIN
+            <span class="admin-sidebar__brand-yuki">YUKI</span> ADMIN
             <span class="admin-sidebar__badge">v2.0</span>
         </div>
         <nav class="admin-sidebar__nav">
@@ -53,7 +53,7 @@
             <div class="admin-topbar__user">
                 <img class="admin-topbar__avatar" src="{{ asset('assets/images/avatars/truong.jpg') }}" alt="Admin">
                 <div>
-                    <div class="admin-topbar__user-name">{{ auth()->user()->ho_ten ?? 'Admin SKT' }}</div>
+                    <div class="admin-topbar__user-name">{{ auth()->user()->ho_ten ?? 'Admin YUKI' }}</div>
                     <div class="admin-topbar__user-role">Quản trị viên</div>
                 </div>
                 <form action="{{ route('logout') }}" method="POST" class="d-inline">

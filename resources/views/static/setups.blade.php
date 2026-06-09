@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Setups gaming - SKT Gaming Store')
+@section('title', 'Setups gaming - YUKI Gaming Store')
 
 @push('styles')
 <style>

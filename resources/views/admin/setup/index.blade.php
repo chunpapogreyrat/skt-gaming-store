@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản lý setup - SKT Admin')
+@section('title', 'Quản lý setup - YUKI Admin')
 @section('nav-setups', 'is-active')
 
 @section('content')

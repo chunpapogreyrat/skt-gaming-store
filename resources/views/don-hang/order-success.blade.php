@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Đặt hàng thành công - SKT Gaming Store')
+@section('title', 'Đặt hàng thành công - YUKI Gaming Store')
 
 @section('content')
 {{-- #region ORDER SUCCESS PAGE --}}

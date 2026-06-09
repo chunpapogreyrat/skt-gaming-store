@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', ($sanPham->exists ? 'Sửa' : 'Thêm') . ' sản phẩm - SKT Admin')
+@section('title', ($sanPham->exists ? 'Sửa' : 'Thêm') . ' sản phẩm - YUKI Admin')
 @section('nav-products', 'is-active')
 
 @section('content')

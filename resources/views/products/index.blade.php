@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Sản Phẩm - SKT Gaming Store')
+@section('title', 'Sản Phẩm - YUKI Gaming Store')
 
 @section('content')
 <nav class="breadcrumb-bar container-fluid px-4 px-xl-5">

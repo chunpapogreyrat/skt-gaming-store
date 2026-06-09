@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản lý đơn hàng - SKT Admin')
+@section('title', 'Quản lý đơn hàng - YUKI Admin')
 @section('nav-orders', 'is-active')
 
 @php

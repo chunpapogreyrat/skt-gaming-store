@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Chi tiết đơn ' . $donHang->ma_don_hang . ' - SKT Admin')
+@section('title', 'Chi tiết đơn ' . $donHang->ma_don_hang . ' - YUKI Admin')
 @section('nav-orders', 'is-active')
 
 @section('content')

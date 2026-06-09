@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Giỏ hàng - SKT Gaming Store')
+@section('title', 'Giỏ hàng - YUKI Gaming Store')
 
 @section('content')
 {{-- #region BREADCRUMB --}}

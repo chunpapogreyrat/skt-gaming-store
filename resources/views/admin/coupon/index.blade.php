@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Quản lý mã giảm giá - SKT Admin')
+@section('title', 'Quản lý mã giảm giá - YUKI Admin')
 @section('nav-coupons', 'is-active')
 
 @section('content')

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Lien he - SKT Gaming Store')
+@section('title', 'Lien he - YUKI Gaming Store')
 
 @push('styles')
 <style>
@@ -90,7 +90,7 @@
             <div class="contact-map">
                 <div>
                     <i class="fa-solid fa-map-location-dot fa-2x mb-2"></i>
-                    <div>SKT Gaming Store · Quan 1 · TP HCM</div>
+                    <div>YUKI Gaming Store · Quan 1 · TP HCM</div>
                 </div>
             </div>
         </div>

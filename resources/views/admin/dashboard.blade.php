@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Dashboard - SKT Admin')
+@section('title', 'Dashboard - YUKI Admin')
 @section('nav-dashboard', 'is-active')
 
 @section('content')
