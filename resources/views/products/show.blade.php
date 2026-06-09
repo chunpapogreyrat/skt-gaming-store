@@ -221,9 +221,9 @@
     </section>
 
     @if ($relatedProducts->count())
-        <section class="review-section mt-5" data-aos="fade-up">
-            <h3 class="review-section__title"><i class="fa-solid fa-link"></i> Sản phẩm liên quan</h3>
-            <div class="shop-grid">
+        <section class="related-section mt-5 mb-5" data-aos="fade-up">
+            <h3 class="related-section__title"><i class="fa-solid fa-layer-group"></i> Sản Phẩm Tương Tự</h3>
+            <div class="related-carousel owl-carousel">
                 @foreach ($relatedProducts as $product)
                     @include('products._card', ['product' => $product])
                 @endforeach

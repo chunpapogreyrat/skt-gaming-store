@@ -19,60 +19,54 @@
     <div class="row g-4">
         <aside class="col-lg-3" data-aos="fade-right">
             <div class="shop-filter">
-                <form method="GET" action="{{ route('products.index') }}" class="store-filter-form">
-                    <h5 class="shop-filter__title"><i class="fa-solid fa-magnifying-glass"></i> Tìm kiếm</h5>
-                    <input class="store-filter-input" type="search" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Tên sản phẩm, thương hiệu...">
+                @php
+                    $catIcons = ['keyboard' => 'fa-keyboard', 'mice' => 'fa-computer-mouse', 'mousepad' => 'fa-grip', 'accessory' => 'fa-plug'];
+                    $pmin = $filters['price_min'] ?? null;
+                    $pmax = $filters['price_max'] ?? null;
+                    $priceRanges = [
+                        ['label' => 'Tất cả mức giá', 'min' => null, 'max' => null],
+                        ['label' => 'Dưới 1 triệu',   'min' => null, 'max' => 1000000],
+                        ['label' => '1 - 3 triệu',    'min' => 1000000, 'max' => 3000000],
+                        ['label' => '3 - 5 triệu',    'min' => 3000000, 'max' => 5000000],
+                        ['label' => 'Trên 5 triệu',   'min' => 5000000, 'max' => null],
+                    ];
+                    $priceBase = request()->except('price_min', 'price_max', 'page');
+                @endphp
 
-                    <h5 class="shop-filter__title mt-4"><i class="fa-solid fa-filter"></i> Danh mục</h5>
-                    <ul class="shop-filter__cats list-unstyled">
+                <h5 class="shop-filter__title"><i class="fa-solid fa-filter"></i> Danh Mục</h5>
+                <ul class="shop-filter__cats list-unstyled">
+                    <li>
+                        <a class="shop-cat {{ empty($filters['category']) ? 'is-active' : '' }}" href="{{ route('products.index', request()->except('category', 'page')) }}">
+                            Tất cả <span>{{ $categories->sum('products_count') }}</span>
+                        </a>
+                    </li>
+                    @foreach ($categories as $category)
                         <li>
-                            <a class="shop-cat {{ empty($filters['category']) || ($filters['category'] ?? '') === 'all' ? 'is-active' : '' }}" href="{{ route('products.index', request()->except('category', 'page')) }}">
-                                Tất cả <span>{{ $categories->sum('products_count') }}</span>
+                            <a class="shop-cat {{ ($filters['category'] ?? '') === $category->slug ? 'is-active' : '' }}" href="{{ route('products.index', array_merge(request()->except('page'), ['category' => $category->slug])) }}">
+                                <i class="fa-solid {{ $catIcons[$category->slug] ?? 'fa-layer-group' }}"></i> {{ $category->ten }} <span>{{ $category->products_count }}</span>
                             </a>
                         </li>
-                        @foreach ($categories as $category)
-                            <li>
-                                <a class="shop-cat {{ ($filters['category'] ?? '') === $category->slug ? 'is-active' : '' }}" href="{{ route('products.index', array_merge(request()->except('page'), ['category' => $category->slug])) }}">
-                                    <i class="fa-solid fa-layer-group"></i> {{ $category->ten }} <span>{{ $category->products_count }}</span>
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
+                    @endforeach
+                </ul>
 
-                    <h5 class="shop-filter__title mt-4"><i class="fa-solid fa-copyright"></i> Thương hiệu</h5>
-                    <select class="store-filter-input" name="brand">
-                        <option value="">Tất cả thương hiệu</option>
-                        @foreach ($brands as $brand)
-                            <option value="{{ $brand->slug }}" @selected(($filters['brand'] ?? '') === $brand->slug)>
-                                {{ $brand->ten }} ({{ $brand->products_count }})
-                            </option>
-                        @endforeach
-                    </select>
-
-                    <h5 class="shop-filter__title mt-4"><i class="fa-solid fa-tags"></i> Khoảng giá</h5>
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <input class="store-filter-input" type="number" name="price_min" value="{{ $filters['price_min'] ?? '' }}" placeholder="Từ">
-                        </div>
-                        <div class="col-6">
-                            <input class="store-filter-input" type="number" name="price_max" value="{{ $filters['price_max'] ?? '' }}" placeholder="Đến">
-                        </div>
-                    </div>
-
-                    <h5 class="shop-filter__title mt-4"><i class="fa-solid fa-bolt"></i> Nhãn</h5>
-                    <select class="store-filter-input" name="tag">
-                        <option value="">Tất cả</option>
-                        <option value="hot" @selected(($filters['tag'] ?? '') === 'hot')>Bán chạy / HOT</option>
-                        <option value="sale" @selected(($filters['tag'] ?? '') === 'sale')>Đang giảm giá</option>
-                    </select>
-
-                    <button class="review-form__submit mt-3" type="submit">Áp dụng lọc</button>
-                    <a class="shop-cat justify-content-center" href="{{ route('products.index') }}">Xóa bộ lọc</a>
-                </form>
+                <h5 class="shop-filter__title mt-4"><i class="fa-solid fa-tags"></i> Khoảng Giá</h5>
+                <ul class="shop-filter__cats list-unstyled">
+                    @foreach ($priceRanges as $r)
+                        @php
+                            $active = ((string) ($pmin ?? '')) === ((string) ($r['min'] ?? '')) && ((string) ($pmax ?? '')) === ((string) ($r['max'] ?? ''));
+                            $params = $priceBase;
+                            if ($r['min'] !== null) { $params['price_min'] = $r['min']; }
+                            if ($r['max'] !== null) { $params['price_max'] = $r['max']; }
+                        @endphp
+                        <li>
+                            <a class="shop-cat {{ $active ? 'is-active' : '' }}" href="{{ route('products.index', $params) }}">{{ $r['label'] }}</a>
+                        </li>
+                    @endforeach
+                </ul>
 
                 <div class="shop-filter__promo">
                     <i class="fa-solid fa-gift"></i>
-                    <p>Nhập mã <strong>YUKISALE</strong> giảm 10% toàn bộ đơn hàng.</p>
+                    <p>Nhập mã <strong>YUKISALE</strong> giảm 10% toàn bộ đơn hàng!</p>
                 </div>
             </div>
         </aside>
