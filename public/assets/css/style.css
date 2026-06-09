@@ -5591,3 +5591,77 @@ body.auth-page {
     .user-menu__panel { width: 280px; }
 }
 /* #endregion */
+
+/* ==========================================
+   #region PAGINATION — phong cách YUKI (cyber/dark)
+========================================== */
+.store-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+/* Căn giữa paginator Bootstrap + ẩn dòng "Showing x to y" (đã có "Hiển thị N sản phẩm" ở toolbar) */
+.store-pagination nav { display: flex; justify-content: center; width: 100%; }
+.store-pagination .d-sm-flex { justify-content: center !important; }
+.store-pagination p, .store-pagination .text-muted.small { display: none !important; }
+.store-pagination .pagination {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px;
+    margin: 0;
+    background: var(--bg-panel);
+    border: 1px solid rgba(255,255,255,.07);
+    border-radius: 14px;
+    list-style: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+.store-pagination .page-item { margin: 0; }
+.store-pagination .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-h);
+    font-weight: 600;
+    font-size: .92rem;
+    line-height: 1;
+    text-decoration: none;
+    transition: all .22s cubic-bezier(.25,.8,.25,1);
+    box-shadow: none;
+}
+.store-pagination .page-link:hover {
+    color: #fff;
+    background: rgba(255,0,60,.12);
+    border-color: rgba(255,0,60,.5);
+    box-shadow: 0 0 14px var(--red-dim);
+    transform: translateY(-1px);
+}
+.store-pagination .page-item.active .page-link {
+    color: #fff;
+    background: linear-gradient(135deg, var(--red), #ff315d);
+    border-color: var(--red);
+    box-shadow: 0 0 16px var(--red-glow);
+}
+.store-pagination .page-item.disabled .page-link {
+    color: var(--text-dim);
+    opacity: .45;
+    pointer-events: none;
+    background: transparent;
+}
+.store-pagination .page-link:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--red-dim);
+}
+/* Ẩn dòng "Showing x to y" trên mobile của paginator Bootstrap */
+@media (max-width: 575.98px) {
+    .store-pagination .pagination { gap: 3px; padding: 4px; }
+    .store-pagination .page-link { min-width: 34px; height: 34px; font-size: .82rem; }
+}
+/* #endregion */
