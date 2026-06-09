@@ -41,14 +41,14 @@
             @forelse($gioHang->items as $item)
             <article class="cart-page__item" data-cart-row data-item-id="{{ $item->id }}" data-price="{{ $item->gia_tai_thoi_diem }}">
                 <a class="cart-page__media" href="{{ route('products.show', $item->sanPham->slug ?? $item->san_pham_id) }}">
-                    <img src="{{ asset('assets/images/products/' . ($item->sanPham->danh_muc->slug ?? 'mice') . '/' . ($item->sanPham->slug ?? '') . '/1.webp') }}"
-                         alt="{{ $item->sanPham->ten_san_pham ?? '' }}">
+                    <img src="{{ asset($item->sanPham?->mainImagePath() ?? 'assets/images/library/logo.png') }}"
+                         alt="{{ $item->sanPham?->ten ?? '' }}">
                 </a>
                 <div class="cart-page__info">
-                    <span class="cart-page__brand">{{ $item->sanPham->thuong_hieu ?? '' }}</span>
+                    <span class="cart-page__brand">{{ $item->sanPham?->thuongHieu?->ten ?? '' }}</span>
                     <h2 class="cart-page__name">
                         <a href="{{ route('products.show', $item->sanPham->slug ?? $item->san_pham_id) }}">
-                            {{ $item->sanPham->ten_san_pham ?? 'Sản phẩm' }}
+                            {{ $item->sanPham?->ten ?? 'Sản phẩm' }}
                         </a>
                     </h2>
                     @if($item->mau_sac)
