@@ -692,6 +692,9 @@ a { text-decoration: none; }
     visibility: visible;
     transform: translateY(0);
 }
+/* Dropdown của icon user (sát mép phải) -> căn phải để không tràn ngoài màn hình */
+.navbar__actions .navbar__has-drop { position: relative; }
+.navbar__actions .navbar__dropdown { left: auto; right: 0; }
 .navbar__drop-link {
     display: flex;
     align-items: center;

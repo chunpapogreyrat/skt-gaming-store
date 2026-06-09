@@ -459,9 +459,9 @@ function addToCart(data) {
 
 function initFlyToCart() {
     // LARAVEL OVERRIDE: giỏ hàng do server xử lý (handler [data-product-id] trong app.blade.php).
-    // Tắt thêm-giỏ client-side ở đây để tránh: (1) thêm trùng 2 lần khi "Chọn nhanh",
-    // (2) nút "Chi tiết" trên trang sản phẩm bị chặn điều hướng + fake-add. Animation do app.blade lo.
-    return;
+    // KHÔNG tự thêm giỏ client-side (tránh thêm trùng 2 lần + chặn nút "Chi tiết").
+    // CHỈ export animation bay-vào-giỏ để app.blade.php gọi sau khi POST thành công.
+    window.skSktFlyPaperPlane = flyPaperPlane;
 }
 /* #endregion */
 
@@ -776,6 +776,10 @@ function getUserName() {
 }
 
 function initAuthState() {
+    // LARAVEL OVERRIDE: auth do server (session) quản lý, navbar @auth render sẵn user dropdown.
+    // Bỏ qua logic localStorage (yuki_user) để không ghi đè link user về login.html.
+    return;
+    /* eslint-disable no-unreachable */
     var loggedIn = isLoggedIn();
 
     var userLink = document.querySelector('.navbar__actions a.navbar__icon-btn');

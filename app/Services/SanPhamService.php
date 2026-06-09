@@ -121,11 +121,11 @@ class SanPhamService
     {
         return DonHang::query()
             ->where('tai_khoan_id', $taiKhoanId)
-            ->where('trang_thai', 'da_giao')
+            ->where('trang_thai_don_hang', 'da_giao')
             ->whereHas('chiTiet', function ($query) use ($sanPhamId) {
                 $query->where('san_pham_id', $sanPhamId);
             })
-            ->latest('ngay_tao')
+            ->latest()
             ->first();
     }
 
