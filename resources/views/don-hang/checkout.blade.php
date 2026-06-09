@@ -209,7 +209,7 @@
 
                     <div class="co-summary__row"><span>Tạm tính</span><strong>{{ number_format($tongTien['tam_tinh']) }}đ</strong></div>
                     <div class="co-summary__row"><span>Phí vận chuyển</span>
-                        <strong>
+                        <strong id="coShip">
                             @if($tongTien['phi_ship'] == 0)
                                 <span class="txt-green">Miễn phí</span>
                             @else
@@ -220,7 +220,7 @@
                     @if($tongTien['giam_gia'] > 0)
                     <div class="co-summary__row"><span>Ưu đãi</span><strong class="txt-red">-{{ number_format($tongTien['giam_gia']) }}đ</strong></div>
                     @endif
-                    <div class="co-summary__total"><span>Tổng cộng</span><strong>{{ number_format($tongTien['tong_tien']) }}đ</strong></div>
+                    <div class="co-summary__total"><span>Tổng cộng</span><strong id="coTotal">{{ number_format($tongTien['tong_tien']) }}đ</strong></div>
 
                     <button type="submit" class="co-place-btn">
                         <i class="fa-solid fa-lock"></i> ĐẶT HÀNG NGAY
@@ -243,14 +243,29 @@
 @push('scripts')
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Highlight option được chọn
+    // Highlight option được chọn + cập nhật tổng khi đổi vận chuyển
     document.querySelectorAll('.co-options').forEach(group => {
         group.addEventListener('change', function (e) {
             if (e.target.type !== 'radio') return;
             group.querySelectorAll('.co-option').forEach(o => o.classList.remove('is-selected'));
             e.target.closest('.co-option').classList.add('is-selected');
+            if (e.target.name === 'phi_ship') recomputeTong();
         });
     });
+
+    // Tự cập nhật phí vận chuyển + tổng cộng theo phương thức ship đã chọn
+    var TAM_TINH = {{ (int) $tongTien['tam_tinh'] }};
+    var GIAM_GIA = {{ (int) $tongTien['giam_gia'] }};
+    function fmtVnd(n) { return n.toLocaleString('vi-VN') + 'đ'; }
+    function recomputeTong() {
+        var sel = document.querySelector('input[name="phi_ship"]:checked');
+        var ship = sel ? (parseInt(sel.value, 10) || 0) : 0;
+        var shipEl = document.getElementById('coShip');
+        var totEl = document.getElementById('coTotal');
+        if (shipEl) shipEl.innerHTML = ship === 0 ? '<span class="txt-green">Miễn phí</span>' : fmtVnd(ship);
+        if (totEl) totEl.textContent = fmtVnd(Math.max(0, TAM_TINH + ship - GIAM_GIA));
+    }
+    recomputeTong();
 
     // Áp mã giảm giá -> gọi API rồi reload để tính lại tổng
     var couponBtn = document.getElementById('coCouponBtn');

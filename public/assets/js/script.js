@@ -1213,6 +1213,11 @@ function initCheckout() {
     var form = document.getElementById('checkoutForm');
     if (!form) return; // chỉ chạy ở checkout.html
 
+    // [YUKI] Vô hiệu hoá handler demo tĩnh: trang checkout dùng JS RIÊNG trong blade
+    // (submit thật lên server, coupon AJAX thật, tự cập nhật phí ship). Tránh xung đột
+    // (handler cũ preventDefault submit + đọc sai name="ship" + coupon giả).
+    return;
+
     var FREE_SHIP_MIN = 500000;
     var discountRate = 0;
     var fmt = function (n) { return n.toLocaleString('vi-VN') + 'đ'; };
