@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\DonHangXacNhanMail;
 use App\Models\DonHang;
 use App\Models\ChiTietDonHang;
 use App\Models\ThanhToan;
@@ -10,6 +11,7 @@ use App\Models\SanPham;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class DonHangService
 {
@@ -19,7 +21,7 @@ class DonHangService
 
     public function taoDonHang(array $data): DonHang
     {
-        return DB::transaction(function () use ($data) {
+        $donHang = DB::transaction(function () use ($data) {
             $gioHang = $this->gioHangService->layGioHang();
 
             if ($gioHang->items->isEmpty()) {
@@ -61,6 +63,7 @@ class DonHangService
                 'ma_giam_gia_id' => $maGiamGiaId,
                 'ten_nguoi_nhan' => $data['ten_nguoi_nhan'],
                 'sdt_nguoi_nhan' => $data['sdt_nguoi_nhan'],
+                'email_nguoi_nhan' => $data['email'] ?? Auth::user()?->email,
                 'dia_chi_giao_hang' => $data['dia_chi_giao_hang'],
                 'tinh_thanh' => $data['tinh_thanh'] ?? null,
                 'quan_huyen' => $data['quan_huyen'] ?? null,
@@ -106,10 +109,14 @@ class DonHangService
             $gioHang->delete();
             session()->forget('ma_giam_gia_id');
 
-            $this->guiEmailXacNhan($donHang);
-
-            return $donHang->load('chiTiet', 'thanhToan');
+            return $donHang;
         });
+
+        // Gửi email xác nhận SAU khi transaction commit (SMTP chậm, không giữ transaction)
+        $donHang->load('chiTiet', 'thanhToan');
+        $this->guiEmailXacNhan($donHang);
+
+        return $donHang;
     }
 
     public function huyDonHang(DonHang $donHang, ?string $lyDo = null): bool
@@ -188,11 +195,20 @@ class DonHangService
 
     protected function guiEmailXacNhan(DonHang $donHang): void
     {
+        $email = $donHang->email_nguoi_nhan ?: $donHang->taiKhoan?->email;
+
+        if (! $email) {
+            Log::info("Đơn {$donHang->ma_don_hang}: không có email người nhận → bỏ qua gửi mail.");
+
+            return;
+        }
+
         try {
-            // TODO: gửi Mailable thực tế khi cấu hình SMTP xong
-            Log::info("Email xác nhận đơn {$donHang->ma_don_hang} gửi tới: " . ($donHang->taiKhoan?->email ?? 'guest'));
+            Mail::to($email)->send(new DonHangXacNhanMail($donHang));
+            Log::info("Đã gửi email xác nhận đơn {$donHang->ma_don_hang} tới {$email}");
         } catch (\Throwable $e) {
-            Log::warning("Không gửi được email: {$e->getMessage()}");
+            // Không để lỗi mail làm hỏng việc đặt hàng
+            Log::warning("Không gửi được email xác nhận đơn {$donHang->ma_don_hang}: {$e->getMessage()}");
         }
     }
 }
