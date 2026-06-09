@@ -14,12 +14,20 @@
 {{-- #endregion --}}
 
 {{-- #region CHECKOUT PAGE --}}
-<main class="co-page container-fluid px-4 px-xl-5">
-    <header class="co-page__head" data-aos="fade-up">
-        <span class="co-page__eyebrow"><i class="fa-solid fa-lock"></i> SKT Secure Checkout</span>
-        <h1 class="co-page__title">Thanh toán</h1>
-        <p class="co-page__subtitle">Hoàn tất đơn hàng của bạn — bảo mật SSL · Đổi trả 7 ngày</p>
+<main class="checkout-page container-fluid px-4 px-xl-5">
+    <header class="checkout-head" data-aos="fade-up">
+        <span class="checkout-head__eyebrow"><i class="fa-solid fa-lock"></i> THANH TOÁN AN TOÀN</span>
+        <h1 class="checkout-head__title">Hoàn Tất Đơn Hàng</h1>
     </header>
+
+    {{-- Tiến trình 3 bước --}}
+    <div class="checkout-steps" data-aos="fade-up" data-aos-delay="60">
+        <div class="checkout-step is-done"><span class="checkout-step__num"><i class="fa-solid fa-check"></i></span> Giỏ hàng</div>
+        <div class="checkout-step__line is-done"></div>
+        <div class="checkout-step is-active"><span class="checkout-step__num">2</span> Thông tin &amp; Thanh toán</div>
+        <div class="checkout-step__line"></div>
+        <div class="checkout-step"><span class="checkout-step__num">3</span> Hoàn tất</div>
+    </div>
 
     @if(session('error'))
     <div class="alert alert-danger">{{ session('error') }}</div>
@@ -175,12 +183,12 @@
                         @foreach($gioHang->items as $item)
                         <div class="co-sum-item" data-price="{{ $item->gia_tai_thoi_diem }}">
                             <div class="co-sum-item__img">
-                                <img src="{{ asset('assets/images/products/' . ($item->sanPham->danh_muc->slug ?? 'mice') . '/' . ($item->sanPham->slug ?? '') . '/1.webp') }}"
-                                     alt="{{ $item->sanPham->ten_san_pham ?? '' }}">
+                                <img src="{{ asset($item->sanPham?->mainImagePath() ?? 'assets/images/library/logo.png') }}"
+                                     alt="{{ $item->sanPham?->ten ?? '' }}">
                                 <span class="co-sum-item__qty">{{ $item->so_luong }}</span>
                             </div>
                             <div class="co-sum-item__info">
-                                <p class="co-sum-item__name">{{ $item->sanPham->ten_san_pham ?? 'Sản phẩm' }}</p>
+                                <p class="co-sum-item__name">{{ $item->sanPham?->ten ?? 'Sản phẩm' }}</p>
                                 @if($item->mau_sac)
                                 <span class="co-sum-item__meta">{{ $item->mau_sac }}</span>
                                 @endif
@@ -189,6 +197,13 @@
                         </div>
                         @endforeach
                     </div>
+
+                    {{-- Mã ưu đãi --}}
+                    <div class="co-coupon">
+                        <input type="text" id="coCoupon" placeholder="Mã ưu đãi (YUKISALE)">
+                        <button type="button" id="coCouponBtn">Áp dụng</button>
+                    </div>
+                    <p class="co-coupon-msg" id="coCouponMsg"></p>
 
                     <div class="co-summary__row"><span>Tạm tính</span><strong>{{ number_format($tongTien['tam_tinh']) }}đ</strong></div>
                     <div class="co-summary__row"><span>Phí vận chuyển</span>
@@ -234,6 +249,31 @@ document.addEventListener('DOMContentLoaded', function () {
             e.target.closest('.co-option').classList.add('is-selected');
         });
     });
+
+    // Áp mã giảm giá -> gọi API rồi reload để tính lại tổng
+    var couponBtn = document.getElementById('coCouponBtn');
+    if (couponBtn) {
+        couponBtn.addEventListener('click', function () {
+            var code = (document.getElementById('coCoupon').value || '').trim();
+            var msg = document.getElementById('coCouponMsg');
+            if (!code) { msg.textContent = 'Vui lòng nhập mã'; msg.className = 'co-coupon-msg txt-red'; return; }
+            couponBtn.disabled = true;
+            fetch("{{ route('coupon.apply') }}", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': '{{ csrf_token() }}', 'Accept': 'application/json' },
+                body: JSON.stringify({ ma_code: code })
+            })
+            .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+            .then(function (res) {
+                var success = res.ok && res.d.success !== false;
+                msg.textContent = res.d.message || (success ? 'Áp dụng thành công' : 'Mã không hợp lệ');
+                msg.className = 'co-coupon-msg ' + (success ? 'txt-green' : 'txt-red');
+                if (success) { setTimeout(function () { location.reload(); }, 700); }
+                else { couponBtn.disabled = false; }
+            })
+            .catch(function () { msg.textContent = 'Có lỗi xảy ra, thử lại'; msg.className = 'co-coupon-msg txt-red'; couponBtn.disabled = false; });
+        });
+    }
 });
 </script>
 @endpush

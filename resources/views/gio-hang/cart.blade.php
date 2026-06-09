@@ -15,7 +15,7 @@
 {{-- #region CART PAGE --}}
 <main class="cart-page container-fluid px-4 px-xl-5">
     <section class="cart-page__hero" data-aos="fade-up">
-        <span class="cart-page__eyebrow"><i class="fa-solid fa-cart-shopping"></i> SKT Checkout Lab</span>
+        <span class="cart-page__eyebrow"><i class="fa-solid fa-cart-shopping"></i> YUKI Checkout Lab</span>
         <h1 class="cart-page__title">Giỏ hàng</h1>
         <p class="cart-page__subtitle" id="cartPageProgressNote">
             @if($tongTien['tam_tinh'] >= 500000)
@@ -111,7 +111,7 @@
 
             <label class="cart-page__label" for="cartCoupon">Mã ưu đãi</label>
             <div class="cart-page__coupon">
-                <input id="cartCoupon" type="text" placeholder="SKTSALE">
+                <input id="cartCoupon" type="text" placeholder="YUKISALE">
                 <button type="button" id="cartCouponBtn">Áp dụng</button>
             </div>
             <p class="cart-page__coupon-msg" id="cartCouponMsg"></p>

@@ -10,7 +10,7 @@
         <span class="success-page__eyebrow">ĐƠN HÀNG #{{ $donHang->ma_don_hang }}</span>
         <h1 class="success-page__title">Đặt hàng thành công!</h1>
         <p class="success-page__desc">
-            Cảm ơn bạn đã tin tưởng SKT. Đơn hàng đang được xử lý và sẽ sớm lên đường đến tay bạn.
+            Cảm ơn bạn đã tin tưởng YUKI. Đơn hàng đang được xử lý và sẽ sớm lên đường đến tay bạn.
             Thông tin chi tiết đã được gửi qua email.
         </p>
 
@@ -75,7 +75,7 @@
 <div class="tenz-modal" id="tenzModal" role="dialog" aria-modal="true">
     <div class="tenz-modal__bg"></div>
     <div class="tenz-modal__inner">
-        <div class="tenz-modal__badge">⚡ Order Confirmed · SKT</div>
+        <div class="tenz-modal__badge">⚡ Order Confirmed · YUKI</div>
         <p class="tenz-modal__slogan">
             Chuột đã trên tay,<br>
             <span>Aim ngang TenZ thôi nào!!</span>
@@ -93,20 +93,18 @@
 (function () {
     var modal = document.getElementById('tenzModal');
     var closeBtn = document.getElementById('tenzModalClose');
-    var autoCloseTimer = null;
 
     setTimeout(function () {
         modal.style.display = 'flex';
         requestAnimationFrame(function () {
             requestAnimationFrame(function () {
                 modal.classList.add('tenz-modal--visible');
-                autoCloseTimer = setTimeout(closeModal, 15000);
             });
         });
     }, 400);
 
+    // Modal KHÔNG tự đóng — chỉ đóng khi bấm nút X hoặc bấm ra nền (CART-06)
     function closeModal() {
-        clearTimeout(autoCloseTimer);
         modal.classList.remove('tenz-modal--visible');
         setTimeout(function () { modal.style.display = 'none'; }, 500);
     }
