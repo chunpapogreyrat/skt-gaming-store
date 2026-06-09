@@ -173,6 +173,23 @@
         if (data && data.errors) { for (var k in data.errors) { return data.errors[k][0]; } }
         return (data && data.message) || 'Có lỗi xảy ra, vui lòng thử lại.';
     }
+    // Modal chào mừng "Tarik" sau khi đăng nhập/đăng ký → chạm màn hình mới về trang chủ
+    function showTarikModal(url) {
+        var m = document.getElementById('tarikModal');
+        if (!m) { window.location.href = url; return; }
+        var cta = m.querySelector('.tarik-modal__cta');
+        if (cta) { cta.setAttribute('href', url); }
+        m.style.display = 'flex';
+        setTimeout(function () { m.classList.add('tarik-modal--visible'); }, 20);
+        setTimeout(function () {
+            document.addEventListener('click', function onClk(e) {
+                if (e.target.closest('.tarik-modal__cta')) return; // bấm CTA tự điều hướng
+                document.removeEventListener('click', onClk);
+                m.classList.remove('tarik-modal--visible');
+                setTimeout(function () { window.location.href = url; }, 400);
+            });
+        }, 150);
+    }
 
     document.addEventListener('submit', function (e) {
         var form = e.target;
@@ -195,7 +212,7 @@
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, data: d }; }); })
         .then(function (res) {
             if (res.ok && res.data.redirect) {
-                window.location.href = res.data.redirect;
+                showTarikModal(res.data.redirect); // hiện modal chào → chạm để vào trang chủ
                 return;
             }
             if (res.ok && res.data.success) {
