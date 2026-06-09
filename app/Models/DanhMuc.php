@@ -15,6 +15,8 @@ class DanhMuc extends Model
     protected $fillable = [
         'ten',
         'slug',
+        'icon',
+        'mo_ta',
         'hinh_anh',
         'thu_tu',
         'is_active',

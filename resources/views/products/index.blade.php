@@ -43,7 +43,7 @@
                     @foreach ($categories as $category)
                         <li>
                             <a class="shop-cat {{ ($filters['category'] ?? '') === $category->slug ? 'is-active' : '' }}" href="{{ route('products.index', array_merge(request()->except('page'), ['category' => $category->slug])) }}">
-                                <i class="fa-solid {{ $catIcons[$category->slug] ?? 'fa-layer-group' }}"></i> {{ $category->ten }} <span>{{ $category->products_count }}</span>
+                                <i class="fa-solid {{ $category->icon ?: ($catIcons[$category->slug] ?? 'fa-layer-group') }}"></i> {{ $category->ten }} <span>{{ $category->products_count }}</span>
                             </a>
                         </li>
                     @endforeach

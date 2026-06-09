@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LuuDanhMucRequest;
 use App\Models\DanhMuc;
+use App\Models\SanPham;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -17,7 +18,10 @@ class DanhMucController extends Controller
             ->orderBy('ten')
             ->paginate(15);
 
-        return view('admin.danh-muc.index', compact('danhMucs'));
+        $tongDanhMuc = DanhMuc::count();
+        $tongSanPham = SanPham::count();
+
+        return view('admin.danh-muc.index', compact('danhMucs', 'tongDanhMuc', 'tongSanPham'));
     }
 
     public function store(LuuDanhMucRequest $request): RedirectResponse

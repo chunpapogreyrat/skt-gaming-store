@@ -29,6 +29,8 @@ class LuuDanhMucRequest extends FormRequest
         return [
             'ten' => ['required', 'string', 'max:100'],
             'slug' => ['required', 'string', 'max:120', Rule::unique('danh_mucs', 'slug')->ignore($id)],
+            'icon' => ['nullable', 'string', 'max:60'],
+            'mo_ta' => ['nullable', 'string', 'max:255'],
             'hinh_anh' => ['nullable', 'string', 'max:255'],
             'thu_tu' => ['nullable', 'integer', 'min:0'],
             'is_active' => ['boolean'],
