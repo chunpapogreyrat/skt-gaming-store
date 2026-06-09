@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xác nhận đơn hàng {{ $donHang->ma_don_hang }}</title>
 </head>
+@php
+    $assetBase = rtrim(config('services.mail_asset_url'), '/');
+    $imgUrl = fn ($p) => $assetBase . '/' . ltrim($p ?: 'assets/images/library/logo.png', '/');
+    $daThanhToan = $donHang->trang_thai_thanh_toan === 'da_thanh_toan';
+@endphp
 <body style="margin:0;padding:0;background:#0f1115;font-family:Arial,Helvetica,sans-serif;color:#e7e9ee;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0f1115;padding:24px 0;">
         <tr>
@@ -34,7 +39,7 @@
                                 @foreach($donHang->chiTiet as $ct)
                                 <tr>
                                     <td style="padding:10px 0;border-bottom:1px solid #262b36;" width="56">
-                                        <img src="{{ asset($ct->anh_san_pham ?: 'assets/images/library/logo.png') }}" width="48" height="48" alt="" style="border-radius:8px;background:#fff;object-fit:contain;">
+                                        <img src="{{ $imgUrl($ct->anh_san_pham) }}" width="48" height="48" alt="" style="border-radius:8px;background:#fff;object-fit:contain;">
                                     </td>
                                     <td style="padding:10px 10px;border-bottom:1px solid #262b36;font-size:13px;color:#e7e9ee;">
                                         {{ $ct->ten_san_pham }}
@@ -73,6 +78,11 @@
                                     {{ $donHang->ten_nguoi_nhan }} — {{ $donHang->sdt_nguoi_nhan }}<br>
                                     {{ implode(', ', $diaChiParts) }}<br>
                                     Thanh toán: <strong>{{ $donHang->tenPhuongThuc() }}</strong>
+                                    @if($daThanhToan)
+                                        <span style="color:#39ff14;font-weight:bold;"> — ✓ Đã thanh toán</span>
+                                    @else
+                                        <span style="color:#ffb703;"> — Chưa thanh toán</span>
+                                    @endif
                                 </p>
                             </div>
                         </td>

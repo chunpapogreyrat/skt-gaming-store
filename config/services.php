@@ -37,6 +37,14 @@ return [
     | Khi lên production: đăng ký merchant tại business.momo.vn rồi đặt
     | MOMO_PARTNER_CODE / MOMO_ACCESS_KEY / MOMO_SECRET_KEY trong .env.
     */
+    /*
+    | Base URL cho ẢNH trong EMAIL. Vì email mở trên thiết bị khác (điện thoại),
+    | không thể dùng http://127.0.0.1 (localhost của máy chủ). Mặc định trỏ tới
+    | ảnh public trên GitHub repo (đã commit) để mở được ở mọi nơi.
+    | Production: đặt MAIL_ASSET_URL = domain thật của shop.
+    */
+    'mail_asset_url' => env('MAIL_ASSET_URL', 'https://raw.githubusercontent.com/chunpapogreyrat/skt-gaming-store/master/public'),
+
     'momo' => [
         'partner_code' => env('MOMO_PARTNER_CODE', 'MOMO'),
         'access_key' => env('MOMO_ACCESS_KEY', 'F8BBA842ECF85'),

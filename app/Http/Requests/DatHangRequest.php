@@ -21,7 +21,7 @@ class DatHangRequest extends FormRequest
             'tinh_thanh' => 'required|string|max:100',
             'quan_huyen' => 'required|string|max:100',
             'phuong_xa' => 'nullable|string|max:100',
-            'phuong_thuc_thanh_toan' => 'required|in:cod,momo,vnpay',
+            'phuong_thuc_thanh_toan' => 'required|in:cod,momo', // vnpay tạm ẩn
             'phi_ship' => 'nullable|numeric|min:0',
             'ghi_chu' => 'nullable|string|max:500',
         ];

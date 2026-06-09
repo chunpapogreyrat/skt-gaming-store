@@ -112,9 +112,13 @@ class DonHangService
             return $donHang;
         });
 
-        // Gửi email xác nhận SAU khi transaction commit (SMTP chậm, không giữ transaction)
+        // Gửi email xác nhận SAU khi transaction commit (SMTP chậm, không giữ transaction).
+        // MoMo: KHÔNG gửi lúc này — đợi thanh toán xong mới gửi (xem danhDauDaThanhToan).
+        // COD và phương thức khác: gửi xác nhận ngay khi tạo đơn.
         $donHang->load('chiTiet', 'thanhToan');
-        $this->guiEmailXacNhan($donHang);
+        if ($donHang->phuong_thuc_thanh_toan !== 'momo') {
+            $this->guiEmailXacNhan($donHang);
+        }
 
         return $donHang;
     }
@@ -158,6 +162,10 @@ class DonHangService
             'thoi_gian_thanh_toan' => now(),
             'du_lieu_callback' => $callback ?: null,
         ]);
+
+        // Thanh toán online (MoMo) xong → gửi email xác nhận kèm trạng thái "đã thanh toán"
+        $donHang->loadMissing('chiTiet', 'thanhToan');
+        $this->guiEmailXacNhan($donHang);
     }
 
     /**

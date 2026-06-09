@@ -160,6 +160,7 @@
                                 <small>Quét mã QR thanh toán nhanh</small>
                             </span>
                         </label>
+                        {{-- VNPay tạm ẩn — sẽ nâng cấp sau
                         <label class="co-option">
                             <input type="radio" name="phuong_thuc_thanh_toan" value="vnpay">
                             <span class="co-option__radio"></span>
@@ -169,6 +170,7 @@
                                 <small>Internet Banking · Visa · Mastercard</small>
                             </span>
                         </label>
+                        --}}
                     </div>
                 </section>
             </div>
