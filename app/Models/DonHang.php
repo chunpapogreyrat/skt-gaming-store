@@ -91,6 +91,6 @@ class DonHang extends Model
 
     public static function taoMaDonHang(): string
     {
-        return 'SKT-' . str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
+        return 'YUKI-' . str_pad(random_int(1, 999999), 6, '0', STR_PAD_LEFT);
     }
 }

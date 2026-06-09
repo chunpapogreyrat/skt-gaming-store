@@ -41,7 +41,7 @@ class MoMoService
     public function taoThanhToan(DonHang $donHang): ?string
     {
         // orderId gửi MoMo phải DUY NHẤT mỗi lần → gắn thêm hậu tố.
-        // Mã đơn dạng "SKT-123456" (không có "_") nên tách lại dễ dàng.
+        // Mã đơn dạng "YUKI-123456" (không có "_") nên tách lại dễ dàng.
         $orderId = $donHang->ma_don_hang . '_' . Str::lower(Str::random(8));
         $requestId = (string) Str::uuid();
         $amount = (string) (int) round($donHang->tong_tien);
@@ -129,7 +129,7 @@ class MoMoService
     }
 
     /**
-     * Tách mã đơn (ma_don_hang) từ orderId đã gửi cho MoMo ("SKT-123456_abc123" → "SKT-123456").
+     * Tách mã đơn (ma_don_hang) từ orderId đã gửi cho MoMo ("YUKI-123456_abc123" → "YUKI-123456").
      */
     public function layMaDonHang(string $momoOrderId): string
     {
