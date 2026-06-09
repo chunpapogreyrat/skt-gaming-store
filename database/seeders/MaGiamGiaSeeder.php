@@ -69,6 +69,40 @@ class MaGiamGiaSeeder extends Seeder
                 'ngay_het_han' => Carbon::now()->addYear(),
                 'trang_thai' => true,
             ],
+            // Thêm vài mã nữa cho đủ dữ liệu (demo phân trang)
+            [
+                'ma_code' => 'FREESHIP',
+                'loai' => 'so_tien',
+                'gia_tri' => 30000,
+                'gia_tri_don_toi_thieu' => 0,
+                'so_lan_su_dung_toi_da' => null,
+                'so_lan_da_dung' => 0,
+                'ngay_bat_dau' => Carbon::now()->subDays(2),
+                'ngay_het_han' => Carbon::now()->addMonths(6),
+                'trang_thai' => true,
+            ],
+            [
+                'ma_code' => 'NEWBIE10',
+                'loai' => 'phan_tram',
+                'gia_tri' => 10,
+                'gia_tri_don_toi_thieu' => 0,
+                'so_lan_su_dung_toi_da' => 200,
+                'so_lan_da_dung' => 0,
+                'ngay_bat_dau' => Carbon::now()->subDays(1),
+                'ngay_het_han' => Carbon::now()->addMonths(2),
+                'trang_thai' => true,
+            ],
+            [
+                'ma_code' => 'TET2026',
+                'loai' => 'phan_tram',
+                'gia_tri' => 25,
+                'gia_tri_don_toi_thieu' => 1000000,
+                'so_lan_su_dung_toi_da' => 500,
+                'so_lan_da_dung' => 0,
+                'ngay_bat_dau' => Carbon::now()->addMonths(6),  // chưa tới ngày bắt đầu
+                'ngay_het_han' => Carbon::now()->addMonths(8),
+                'trang_thai' => true,
+            ],
         ];
 
         foreach ($ma as $row) {

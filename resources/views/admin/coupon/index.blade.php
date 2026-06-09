@@ -7,95 +7,47 @@
 <h1 class="admin-page-title">Quản lý mã giảm giá</h1>
 <p class="admin-page-sub">Tạo và theo dõi chương trình khuyến mãi</p>
 
-@if (session('success'))
-    <div class="alert alert-success py-2 small my-3"><i class="fa-solid fa-circle-check me-1"></i>{{ session('success') }}</div>
-@endif
-@if (session('error'))
-    <div class="alert alert-danger py-2 small my-3"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ session('error') }}</div>
-@endif
+<div id="couponToast" class="alert d-none py-2 small my-3"></div>
 
 <div class="admin-grid-2">
     <section class="admin-table-wrap">
-        <div class="admin-table-wrap__head"><h3 class="admin-panel__title">Danh sách mã</h3></div>
-        <table class="admin-table">
-            <thead><tr><th>Mã code</th><th>Giảm</th><th>Đã dùng</th><th>Hạn</th><th>Trạng thái</th><th></th></tr></thead>
-            <tbody>
-                @forelse($maGiamGias as $ma)
-                @php
-                    $attrs = "openEditModal(" . $ma->id
-                        . ", " . json_encode($ma->ma_code)
-                        . ", " . json_encode($ma->loai)
-                        . ", " . json_encode((float) $ma->gia_tri)
-                        . ", " . json_encode((float) $ma->gia_tri_don_toi_thieu)
-                        . ", " . json_encode($ma->so_lan_su_dung_toi_da)
-                        . ", " . json_encode(optional($ma->ngay_bat_dau)->format('Y-m-d'))
-                        . ", " . json_encode(optional($ma->ngay_het_han)->format('Y-m-d'))
-                        . ", " . ($ma->trang_thai ? 1 : 0) . ")";
-                @endphp
-                @php
-                    $hetHan = $ma->ngay_het_han && $ma->ngay_het_han->isPast();
-                    $hetLuot = $ma->so_lan_su_dung_toi_da && $ma->so_lan_da_dung >= $ma->so_lan_su_dung_toi_da;
-                    $trangThaiText = !$ma->trang_thai ? 'Ngừng' : ($hetHan ? 'Hết hạn' : ($hetLuot ? 'Hết lượt' : 'Hoạt động'));
-                @endphp
-                <tr class="admin-table__row">
-                    <td><strong class="admin-table__clickable" data-bs-toggle="modal" data-bs-target="#couponModal" onclick='{{ $attrs }}' title="Bấm để sửa">{{ $ma->ma_code }}</strong></td>
-                    <td class="admin-table__price">{{ $ma->loai=='phan_tram' ? rtrim(rtrim(number_format($ma->gia_tri,2),'0'),'.').'%' : number_format($ma->gia_tri).'đ' }}</td>
-                    <td>{{ $ma->so_lan_da_dung }} / {{ $ma->so_lan_su_dung_toi_da ?? '∞' }}</td>
-                    <td>{{ $ma->ngay_het_han?->format('d/m/Y') ?? '—' }}</td>
-                    <td><span class="admin-badge admin-badge--{{ $ma->conHieuLuc()?'done':'cancel' }}">{{ $trangThaiText }}</span></td>
-                    <td>
-                        <div class="d-flex gap-2">
-                            <button class="admin-icon-btn" title="Sửa" data-bs-toggle="modal" data-bs-target="#couponModal" onclick='{{ $attrs }}'>
-                                <i class="fa-solid fa-pen"></i>
-                            </button>
-                            <form method="POST" action="{{ route('admin.coupons.destroy', $ma->id) }}" onsubmit="return confirm('Xóa mã {{ $ma->ma_code }}?')" class="d-inline">
-                                @csrf @method('DELETE')
-                                <button class="admin-icon-btn admin-icon-btn--danger" title="Xóa"><i class="fa-solid fa-trash-can"></i></button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-                @empty
-                <tr class="admin-table__row"><td colspan="6" class="admin-table__muted">Chưa có mã giảm giá</td></tr>
-                @endforelse
-            </tbody>
-        </table>
-        <div class="admin-pagination">{{ $maGiamGias->links() }}</div>
+        <div class="admin-table-wrap__head"><h3 class="admin-panel__title">Mã đang hoạt động</h3></div>
+        <div id="couponList">
+            @include('admin.coupon._table')
+        </div>
     </section>
 
     <section class="admin-panel">
         <h3 class="admin-panel__title mb-3">Tạo mã mới</h3>
-        <form method="POST" action="{{ route('admin.coupons.store') }}">
+        <form id="couponCreateForm">
             @csrf
             <div class="admin-field">
                 <label class="admin-field__label">Mã code</label>
-                <input type="text" name="ma_code" class="admin-field__input" style="text-transform:uppercase" value="{{ old('ma_code') }}" required>
-                @error('ma_code')<p class="txt-red small">{{ $message }}</p>@enderror
+                <input type="text" name="ma_code" class="admin-field__input" style="text-transform:uppercase" placeholder="VD: YUKISALE" required>
             </div>
             <div class="admin-field">
                 <label class="admin-field__label">Loại giảm</label>
                 <select name="loai" class="admin-field__select">
-                    <option value="phan_tram" @selected(old('loai')==='phan_tram')>Phần trăm (%)</option>
-                    <option value="so_tien" @selected(old('loai')==='so_tien')>Số tiền (đ)</option>
+                    <option value="phan_tram">Phần trăm (%)</option>
+                    <option value="so_tien">Số tiền (đ)</option>
                 </select>
             </div>
             <div class="admin-field">
                 <label class="admin-field__label">Giá trị</label>
-                <input type="number" name="gia_tri" class="admin-field__input" value="{{ old('gia_tri') }}" required>
-                @error('gia_tri')<p class="txt-red small">{{ $message }}</p>@enderror
+                <input type="number" name="gia_tri" class="admin-field__input" placeholder="10" required>
             </div>
             <div class="admin-field">
                 <label class="admin-field__label">Đơn tối thiểu (đ)</label>
-                <input type="number" name="gia_tri_don_toi_thieu" class="admin-field__input" value="{{ old('gia_tri_don_toi_thieu', 0) }}">
+                <input type="number" name="gia_tri_don_toi_thieu" class="admin-field__input" value="0">
             </div>
             <div class="admin-field__row">
                 <div class="admin-field">
                     <label class="admin-field__label">Số lượt tối đa</label>
-                    <input type="number" name="so_lan_su_dung_toi_da" class="admin-field__input" placeholder="Trống = ∞" value="{{ old('so_lan_su_dung_toi_da') }}">
+                    <input type="number" name="so_lan_su_dung_toi_da" class="admin-field__input" placeholder="Trống = ∞">
                 </div>
                 <div class="admin-field">
                     <label class="admin-field__label">Ngày hết hạn</label>
-                    <input type="date" name="ngay_het_han" class="admin-field__input" value="{{ old('ngay_het_han') }}">
+                    <input type="date" name="ngay_het_han" class="admin-field__input">
                 </div>
             </div>
             <div class="admin-field">
@@ -112,65 +64,78 @@
     </section>
 </div>
 
-{{-- #region MODAL SỬA MÃ GIẢM GIÁ --}}
+{{-- #region MODAL SỬA — dùng admin-modal khớp thiết kế --}}
 <div class="modal fade" id="couponModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content" style="background: var(--bg-panel); border: 1px solid rgba(255,255,255,.08); color: var(--text-main);">
-            <div class="modal-header" style="border-bottom: 1px solid rgba(255,255,255,.06);">
-                <h5 class="modal-title admin-panel__title">Sửa mã giảm giá</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content admin-modal">
+            <div class="modal-header admin-modal__header">
+                <h5 class="modal-title admin-modal__title"><i class="fa-solid fa-ticket me-2" style="color:var(--red)"></i>Chỉnh sửa mã — <span id="edit_title"></span></h5>
+                <button type="button" class="admin-modal__close" data-bs-dismiss="modal"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="modal-body">
-                <form id="couponEditForm" method="POST">
+            <div class="modal-body p-4">
+                <form id="couponEditForm">
                     @csrf
-                    @method('PUT')
-                    <div class="admin-field">
-                        <label class="admin-field__label">Mã code</label>
-                        <input type="text" name="ma_code" id="edit_ma_code" class="admin-field__input" style="text-transform:uppercase" required>
+                    <input type="hidden" name="_method" value="PUT">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Mã code</label>
+                                <input type="text" name="ma_code" id="edit_ma_code" class="admin-field__input" style="text-transform:uppercase" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Loại giảm</label>
+                                <select name="loai" id="edit_loai" class="admin-field__select">
+                                    <option value="phan_tram">Phần trăm (%)</option>
+                                    <option value="so_tien">Số tiền (đ)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Giá trị</label>
+                                <input type="number" name="gia_tri" id="edit_gia_tri" class="admin-field__input" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Đơn tối thiểu (đ)</label>
+                                <input type="number" name="gia_tri_don_toi_thieu" id="edit_don_toi_thieu" class="admin-field__input">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Số lượt tối đa</label>
+                                <input type="number" name="so_lan_su_dung_toi_da" id="edit_so_lan" class="admin-field__input" placeholder="Trống = ∞">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Trạng thái</label>
+                                <select name="trang_thai" id="edit_trang_thai" class="admin-field__select">
+                                    <option value="1">Hoạt động</option>
+                                    <option value="0">Ngừng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Ngày bắt đầu</label>
+                                <input type="date" name="ngay_bat_dau" id="edit_ngay_bat_dau" class="admin-field__input">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="admin-field">
+                                <label class="admin-field__label">Ngày hết hạn</label>
+                                <input type="date" name="ngay_het_han" id="edit_ngay_het_han" class="admin-field__input">
+                            </div>
+                        </div>
                     </div>
-                    <div class="admin-field__row">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Loại giảm</label>
-                            <select name="loai" id="edit_loai" class="admin-field__select">
-                                <option value="phan_tram">Phần trăm (%)</option>
-                                <option value="so_tien">Số tiền (đ)</option>
-                            </select>
-                        </div>
-                        <div class="admin-field">
-                            <label class="admin-field__label">Giá trị</label>
-                            <input type="number" name="gia_tri" id="edit_gia_tri" class="admin-field__input" required>
-                        </div>
-                    </div>
-                    <div class="admin-field">
-                        <label class="admin-field__label">Đơn tối thiểu (đ)</label>
-                        <input type="number" name="gia_tri_don_toi_thieu" id="edit_don_toi_thieu" class="admin-field__input">
-                    </div>
-                    <div class="admin-field__row">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Số lượt tối đa</label>
-                            <input type="number" name="so_lan_su_dung_toi_da" id="edit_so_lan" class="admin-field__input" placeholder="Trống = ∞">
-                        </div>
-                        <div class="admin-field">
-                            <label class="admin-field__label">Trạng thái</label>
-                            <select name="trang_thai" id="edit_trang_thai" class="admin-field__select">
-                                <option value="1">Hoạt động</option>
-                                <option value="0">Ngừng</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="admin-field__row">
-                        <div class="admin-field">
-                            <label class="admin-field__label">Ngày bắt đầu</label>
-                            <input type="date" name="ngay_bat_dau" id="edit_ngay_bat_dau" class="admin-field__input">
-                        </div>
-                        <div class="admin-field">
-                            <label class="admin-field__label">Ngày hết hạn</label>
-                            <input type="date" name="ngay_het_han" id="edit_ngay_het_han" class="admin-field__input">
-                        </div>
-                    </div>
+                    <p class="txt-red small mt-2 mb-0 d-none" id="edit_error"></p>
                 </form>
             </div>
-            <div class="modal-footer" style="border-top: 1px solid rgba(255,255,255,.06);">
+            <div class="modal-footer admin-modal__footer" style="border-top:1px solid rgba(255,255,255,.06)">
                 <button type="button" class="admin-btn admin-btn--ghost" data-bs-dismiss="modal">Hủy</button>
                 <button type="submit" form="couponEditForm" class="admin-btn admin-btn--primary"><i class="fa-solid fa-floppy-disk"></i> Lưu</button>
             </div>
@@ -182,11 +147,41 @@
 
 @push('scripts')
 <script>
-    var couponForm = document.getElementById('couponEditForm');
-    var couponBaseUrl = @json(url('/admin/ma-giam-gia'));
+(function () {
+    var indexUrl = @json(route('admin.coupons.index'));
+    var storeUrl = @json(route('admin.coupons.store'));
+    var baseUrl  = @json(url('/admin/ma-giam-gia'));
+    var token    = document.querySelector('#couponCreateForm input[name="_token"]').value;
+    var listEl   = document.getElementById('couponList');
+    var toastEl  = document.getElementById('couponToast');
+    var modalEl  = document.getElementById('couponModal');
+    var bsModal  = new bootstrap.Modal(modalEl);
 
-    function openEditModal(id, code, loai, giaTri, donToiThieu, soLan, ngayBatDau, ngayHetHan, active) {
-        couponForm.setAttribute('action', couponBaseUrl + '/' + id);
+    function toast(msg, ok) {
+        toastEl.className = 'alert py-2 small my-3 ' + (ok ? 'alert-success' : 'alert-danger');
+        toastEl.textContent = msg;
+        setTimeout(function () { toastEl.classList.add('d-none'); }, 3500);
+    }
+
+    function send(url, formData) {
+        return fetch(url, {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': token, 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' },
+            body: formData,
+        }).then(function (r) { return r.json().then(function (d) { return { ok: r.ok, status: r.status, d: d }; }); });
+    }
+
+    function reloadTable(url) {
+        fetch(url || indexUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' } })
+            .then(function (r) { return r.json(); })
+            .then(function (res) { if (res.html) listEl.innerHTML = res.html; });
+    }
+
+    // Mở modal sửa (gọi từ onclick trong bảng)
+    window.openEditModal = function (id, code, loai, giaTri, donToiThieu, soLan, ngayBatDau, ngayHetHan, active) {
+        var f = document.getElementById('couponEditForm');
+        f.setAttribute('data-url', baseUrl + '/' + id);
+        document.getElementById('edit_title').textContent = code || '';
         document.getElementById('edit_ma_code').value = code || '';
         document.getElementById('edit_loai').value = loai || 'phan_tram';
         document.getElementById('edit_gia_tri').value = giaTri ?? '';
@@ -195,6 +190,66 @@
         document.getElementById('edit_ngay_bat_dau').value = ngayBatDau || '';
         document.getElementById('edit_ngay_het_han').value = ngayHetHan || '';
         document.getElementById('edit_trang_thai').value = active ? '1' : '0';
+        document.getElementById('edit_error').classList.add('d-none');
+        bsModal.show();
+    };
+
+    // Tạo mã (AJAX)
+    document.getElementById('couponCreateForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var form = this;
+        send(storeUrl, new FormData(form)).then(function (res) {
+            if (res.ok && res.d.success) {
+                form.reset();
+                reloadTable();
+                toast(res.d.message || 'Đã tạo mã', true);
+            } else {
+                toast(firstError(res.d) || 'Tạo mã thất bại', false);
+            }
+        }).catch(function () { toast('Lỗi mạng', false); });
+    });
+
+    // Sửa mã (AJAX)
+    document.getElementById('couponEditForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var form = this;
+        send(form.getAttribute('data-url'), new FormData(form)).then(function (res) {
+            if (res.ok && res.d.success) {
+                bsModal.hide();
+                reloadTable();
+                toast(res.d.message || 'Đã cập nhật', true);
+            } else {
+                var err = document.getElementById('edit_error');
+                err.textContent = firstError(res.d) || 'Cập nhật thất bại';
+                err.classList.remove('d-none');
+            }
+        }).catch(function () { toast('Lỗi mạng', false); });
+    });
+
+    // Xóa + chuyển trang (event delegation trên container — vẫn chạy sau khi reload AJAX)
+    listEl.addEventListener('click', function (e) {
+        var del = e.target.closest('[data-delete-coupon]');
+        if (del) {
+            var code = del.getAttribute('data-code');
+            if (!confirm('Xóa mã ' + code + '?')) return;
+            var fd = new FormData(); fd.append('_method', 'DELETE'); fd.append('_token', token);
+            send(baseUrl + '/' + del.getAttribute('data-delete-coupon'), fd).then(function (res) {
+                if (res.ok && res.d.success) { reloadTable(); toast(res.d.message || 'Đã xóa', true); }
+                else { toast('Xóa thất bại', false); }
+            });
+            return;
+        }
+        var page = e.target.closest('.admin-pagination a');
+        if (page) {
+            e.preventDefault();
+            reloadTable(page.getAttribute('href'));
+        }
+    });
+
+    function firstError(d) {
+        if (d && d.errors) { for (var k in d.errors) return d.errors[k][0]; }
+        return d && d.message;
     }
+})();
 </script>
 @endpush
