@@ -42,5 +42,8 @@ class DatabaseSeeder extends Seeder
 
         // ── Banner hero slider trang chủ ──
         $this->call(BannerSeeder::class);
+
+        // ── Mã giảm giá demo ──
+        $this->call(MaGiamGiaSeeder::class);
     }
 }
