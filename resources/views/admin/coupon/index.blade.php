@@ -18,7 +18,7 @@
     <section class="admin-table-wrap">
         <div class="admin-table-wrap__head"><h3 class="admin-panel__title">Danh sách mã</h3></div>
         <table class="admin-table">
-            <thead><tr><th>Mã code</th><th>Giảm</th><th>Đơn tối thiểu</th><th>Đã dùng</th><th>Hạn</th><th>Trạng thái</th><th>Thao tác</th></tr></thead>
+            <thead><tr><th>Mã code</th><th>Giảm</th><th>Đã dùng</th><th>Hạn</th><th>Trạng thái</th><th></th></tr></thead>
             <tbody>
                 @forelse($maGiamGias as $ma)
                 @php
@@ -32,13 +32,17 @@
                         . ", " . json_encode(optional($ma->ngay_het_han)->format('Y-m-d'))
                         . ", " . ($ma->trang_thai ? 1 : 0) . ")";
                 @endphp
+                @php
+                    $hetHan = $ma->ngay_het_han && $ma->ngay_het_han->isPast();
+                    $hetLuot = $ma->so_lan_su_dung_toi_da && $ma->so_lan_da_dung >= $ma->so_lan_su_dung_toi_da;
+                    $trangThaiText = !$ma->trang_thai ? 'Ngừng' : ($hetHan ? 'Hết hạn' : ($hetLuot ? 'Hết lượt' : 'Hoạt động'));
+                @endphp
                 <tr class="admin-table__row">
-                    <td><strong>{{ $ma->ma_code }}</strong></td>
+                    <td><strong class="admin-table__clickable" data-bs-toggle="modal" data-bs-target="#couponModal" onclick='{{ $attrs }}' title="Bấm để sửa">{{ $ma->ma_code }}</strong></td>
                     <td class="admin-table__price">{{ $ma->loai=='phan_tram' ? rtrim(rtrim(number_format($ma->gia_tri,2),'0'),'.').'%' : number_format($ma->gia_tri).'đ' }}</td>
-                    <td>{{ $ma->gia_tri_don_toi_thieu > 0 ? number_format($ma->gia_tri_don_toi_thieu).'đ' : '—' }}</td>
                     <td>{{ $ma->so_lan_da_dung }} / {{ $ma->so_lan_su_dung_toi_da ?? '∞' }}</td>
                     <td>{{ $ma->ngay_het_han?->format('d/m/Y') ?? '—' }}</td>
-                    <td><span class="admin-badge admin-badge--{{ $ma->conHieuLuc()?'done':'cancel' }}">{{ $ma->conHieuLuc()?'Hoạt động':'Ngừng' }}</span></td>
+                    <td><span class="admin-badge admin-badge--{{ $ma->conHieuLuc()?'done':'cancel' }}">{{ $trangThaiText }}</span></td>
                     <td>
                         <div class="d-flex gap-2">
                             <button class="admin-icon-btn" title="Sửa" data-bs-toggle="modal" data-bs-target="#couponModal" onclick='{{ $attrs }}'>
@@ -52,7 +56,7 @@
                     </td>
                 </tr>
                 @empty
-                <tr class="admin-table__row"><td colspan="7" class="admin-table__muted">Chưa có mã giảm giá</td></tr>
+                <tr class="admin-table__row"><td colspan="6" class="admin-table__muted">Chưa có mã giảm giá</td></tr>
                 @endforelse
             </tbody>
         </table>
