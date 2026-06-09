@@ -30,6 +30,10 @@ Route::delete('/gio-hang/coupon', [MaGiamGiaController::class, 'huy'])->name('co
 Route::get('/thanh-toan', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/thanh-toan', [CheckoutController::class, 'datHang'])->name('checkout.place');
 
+// MoMo callback: return (browser redirect) + ipn (server-to-server)
+Route::get('/thanh-toan/momo/return', [CheckoutController::class, 'momoReturn'])->name('momo.return');
+Route::post('/thanh-toan/momo/ipn', [CheckoutController::class, 'momoIpn'])->name('momo.ipn');
+
 Route::get('/don-hang/thanh-cong/{ma}', [DonHangController::class, 'success'])->name('orders.success');
 
 Route::middleware('auth')->group(function () {

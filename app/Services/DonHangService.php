@@ -138,6 +138,34 @@ class DonHangService
         });
     }
 
+    /**
+     * Đánh dấu đơn đã thanh toán (gọi từ callback MoMo/cổng thanh toán hợp lệ).
+     */
+    public function danhDauDaThanhToan(DonHang $donHang, ?string $maGiaoDich = null, array $callback = []): void
+    {
+        $donHang->update(['trang_thai_thanh_toan' => 'da_thanh_toan']);
+
+        $donHang->thanhToan?->update([
+            'ma_giao_dich' => $maGiaoDich ?: $donHang->thanhToan?->ma_giao_dich,
+            'trang_thai' => 'success',
+            'thoi_gian_thanh_toan' => now(),
+            'du_lieu_callback' => $callback ?: null,
+        ]);
+    }
+
+    /**
+     * Đánh dấu thanh toán thất bại/hủy (đơn vẫn giữ để khách thử lại hoặc shop xử lý).
+     */
+    public function danhDauThanhToanThatBai(DonHang $donHang, array $callback = []): void
+    {
+        $donHang->update(['trang_thai_thanh_toan' => 'that_bai']);
+
+        $donHang->thanhToan?->update([
+            'trang_thai' => 'failed',
+            'du_lieu_callback' => $callback ?: null,
+        ]);
+    }
+
     public function capNhatTrangThai(DonHang $donHang, string $trangThai): bool
     {
         $hopLe = ['cho_xac_nhan', 'dang_chuan_bi', 'dang_giao', 'da_giao', 'da_huy'];

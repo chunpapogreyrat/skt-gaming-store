@@ -31,4 +31,18 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    /*
+    | MoMo (Ví điện tử) — mặc định dùng bộ thông tin SANDBOX CÔNG KHAI của MoMo
+    | (lấy từ tài liệu dev MoMo, dùng cho test, KHÔNG phải tiền thật).
+    | Khi lên production: đăng ký merchant tại business.momo.vn rồi đặt
+    | MOMO_PARTNER_CODE / MOMO_ACCESS_KEY / MOMO_SECRET_KEY trong .env.
+    */
+    'momo' => [
+        'partner_code' => env('MOMO_PARTNER_CODE', 'MOMO'),
+        'access_key' => env('MOMO_ACCESS_KEY', 'F8BBA842ECF85'),
+        'secret_key' => env('MOMO_SECRET_KEY', 'K951B6PE1waDMi640xX08PD3vg6EkVlz'),
+        'endpoint' => env('MOMO_ENDPOINT', 'https://test-payment.momo.vn/v2/gateway/api/create'),
+        'query_endpoint' => env('MOMO_QUERY_ENDPOINT', 'https://test-payment.momo.vn/v2/gateway/api/query'),
+    ],
+
 ];
