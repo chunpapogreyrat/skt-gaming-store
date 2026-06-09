@@ -90,13 +90,26 @@ class GioHangService
     {
         $gioHang = $this->layGioHang();
         $tamTinh = $gioHang->tongTien();
-        $phiShip = $tamTinh >= 500000 ? 0 : 30000;
+
+        // Giỏ rỗng (tạm tính = 0) thì không tính phí ship; đơn >= 500K được free ship
+        $phiShip = ($tamTinh > 0 && $tamTinh < 500000) ? 30000 : 0;
+
+        // Áp lại mã giảm giá đang lưu trong session (nếu còn hiệu lực)
+        $giamGia = 0;
+        if ($maId = session('ma_giam_gia_id')) {
+            $coupon = MaGiamGia::find($maId);
+            if ($coupon && $coupon->conHieuLuc() && $tamTinh >= $coupon->gia_tri_don_toi_thieu) {
+                $giamGia = $coupon->tinhGiamGia($tamTinh);
+            } else {
+                session()->forget('ma_giam_gia_id');
+            }
+        }
 
         return [
             'tam_tinh' => $tamTinh,
             'phi_ship' => $phiShip,
-            'giam_gia' => 0,
-            'tong_tien' => $tamTinh + $phiShip,
+            'giam_gia' => $giamGia,
+            'tong_tien' => max(0, $tamTinh + $phiShip - $giamGia),
         ];
     }
 
