@@ -130,23 +130,34 @@ class DonHangService
         }
 
         return DB::transaction(function () use ($donHang, $lyDo) {
-            foreach ($donHang->chiTiet as $ct) {
-                if ($ct->sanPham) {
-                    $ct->sanPham->increment('so_luong_ton', $ct->so_luong);
-                }
-            }
+            $this->hoanKhoVaCoupon($donHang);
 
             $donHang->update([
                 'trang_thai_don_hang' => 'da_huy',
                 'ghi_chu' => trim(($donHang->ghi_chu ?? '') . "\n[Hủy] " . ($lyDo ?? 'Khách hủy')),
             ]);
 
-            if ($donHang->ma_giam_gia_id) {
-                MaGiamGia::where('id', $donHang->ma_giam_gia_id)->decrement('so_lan_da_dung');
-            }
-
             return true;
         });
+    }
+
+    /**
+     * Hoàn tồn kho + trả lại lượt dùng mã giảm giá khi đơn bị hủy.
+     * Dùng chung cho khách tự hủy và admin hủy.
+     */
+    private function hoanKhoVaCoupon(DonHang $donHang): void
+    {
+        $donHang->loadMissing('chiTiet.sanPham');
+
+        foreach ($donHang->chiTiet as $ct) {
+            if ($ct->sanPham) {
+                $ct->sanPham->increment('so_luong_ton', $ct->so_luong);
+            }
+        }
+
+        if ($donHang->ma_giam_gia_id) {
+            MaGiamGia::where('id', $donHang->ma_giam_gia_id)->decrement('so_lan_da_dung');
+        }
     }
 
     /**
@@ -186,6 +197,19 @@ class DonHangService
         $hopLe = ['cho_xac_nhan', 'dang_chuan_bi', 'dang_giao', 'da_giao', 'da_huy'];
         if (!in_array($trangThai, $hopLe)) {
             return false;
+        }
+
+        // Admin chuyển sang "Đã hủy" (từ trạng thái chưa hủy) → hoàn kho + trả lượt coupon
+        if ($trangThai === 'da_huy' && $donHang->trang_thai_don_hang !== 'da_huy') {
+            return DB::transaction(function () use ($donHang) {
+                $this->hoanKhoVaCoupon($donHang);
+                $donHang->update([
+                    'trang_thai_don_hang' => 'da_huy',
+                    'ghi_chu' => trim(($donHang->ghi_chu ?? '') . "\n[Hủy] Admin hủy đơn"),
+                ]);
+
+                return true;
+            });
         }
 
         $donHang->update(['trang_thai_don_hang' => $trangThai]);
