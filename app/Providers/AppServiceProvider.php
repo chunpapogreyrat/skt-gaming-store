@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\GioHangService;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Phân trang dùng Bootstrap 5 (project load bootstrap, không dùng Tailwind)
+        Paginator::useBootstrapFive();
+
         // Inject cart drawer data vào mọi view dùng layouts.app
         View::composer('layouts.app', function ($view) {
             try {
