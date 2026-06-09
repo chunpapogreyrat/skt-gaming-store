@@ -26,6 +26,19 @@ class DonHangService
                 throw new \Exception('Giỏ hàng trống — không thể đặt hàng');
             }
 
+            // Chặn bán quá tồn kho (CART-05)
+            foreach ($gioHang->items as $item) {
+                $sp = $item->sanPham;
+                if ($sp && $item->so_luong > (int) $sp->so_luong_ton) {
+                    $conLai = (int) $sp->so_luong_ton;
+                    throw new \Exception(
+                        $conLai > 0
+                            ? "Sản phẩm “{$sp->ten}” chỉ còn {$conLai} trong kho."
+                            : "Sản phẩm “{$sp->ten}” đã hết hàng."
+                    );
+                }
+            }
+
             $tamTinh = $gioHang->tongTien();
             $phiShip = $data['phi_ship'] ?? ($tamTinh >= 500000 ? 0 : 30000);
             $giamGia = 0;
@@ -68,16 +81,17 @@ class DonHangService
                 ChiTietDonHang::create([
                     'don_hang_id' => $donHang->id,
                     'san_pham_id' => $item->san_pham_id,
-                    'ten_san_pham' => $sanPham->ten_san_pham ?? 'Sản phẩm',
-                    'anh_san_pham' => $sanPham->anh_chinh ?? null,
+                    'ten_san_pham' => $sanPham?->ten ?? 'Sản phẩm',
+                    'anh_san_pham' => $sanPham?->mainImagePath(),
                     'mau_sac' => $item->mau_sac,
                     'so_luong' => $item->so_luong,
                     'don_gia' => $item->gia_tai_thoi_diem,
                     'thanh_tien' => $item->gia_tai_thoi_diem * $item->so_luong,
                 ]);
 
-                if ($sanPham && isset($sanPham->so_luong_kho)) {
-                    $sanPham->decrement('so_luong_kho', $item->so_luong);
+                // Trừ tồn kho (không cho âm)
+                if ($sanPham) {
+                    $sanPham->decrement('so_luong_ton', min($item->so_luong, (int) $sanPham->so_luong_ton));
                 }
             }
 
@@ -106,8 +120,8 @@ class DonHangService
 
         return DB::transaction(function () use ($donHang, $lyDo) {
             foreach ($donHang->chiTiet as $ct) {
-                if ($ct->sanPham && isset($ct->sanPham->so_luong_kho)) {
-                    $ct->sanPham->increment('so_luong_kho', $ct->so_luong);
+                if ($ct->sanPham) {
+                    $ct->sanPham->increment('so_luong_ton', $ct->so_luong);
                 }
             }
 
