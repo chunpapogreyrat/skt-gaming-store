@@ -49,7 +49,8 @@ class SanPhamController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validateData($request);
-        SanPham::create($data);
+        $sanPham = SanPham::create($data);
+        $this->luuHinhAnh($sanPham, $request);
 
         return redirect()->route('admin.products.index')->with('success', 'Đã thêm sản phẩm');
     }
@@ -68,6 +69,7 @@ class SanPhamController extends Controller
         $sanPham = SanPham::findOrFail($id);
         $data = $this->validateData($request);
         $sanPham->update($data);
+        $this->luuHinhAnh($sanPham, $request);
 
         return redirect()->route('admin.products.index')->with('success', 'Đã cập nhật sản phẩm');
     }
@@ -106,5 +108,53 @@ class SanPhamController extends Controller
         $data['is_active'] = $request->boolean('is_active', true);
 
         return $data;
+    }
+
+    /**
+     * Lưu ảnh sản phẩm: xóa ảnh được chọn + upload ảnh mới vào public/uploads/products.
+     */
+    private function luuHinhAnh(SanPham $sanPham, Request $request): void
+    {
+        $request->validate([
+            'hinh_anh' => 'nullable|array',
+            'hinh_anh.*' => 'image|mimes:jpg,jpeg,png,webp,gif|max:4096',
+            'xoa_anh' => 'nullable|array',
+        ], [
+            'hinh_anh.*.image' => 'File tải lên phải là ảnh.',
+            'hinh_anh.*.max' => 'Mỗi ảnh tối đa 4MB.',
+        ]);
+
+        // 1) Xóa ảnh được tick (chỉ xóa file vật lý nếu là ảnh upload)
+        if ($request->filled('xoa_anh')) {
+            $sanPham->hinhAnh()->whereIn('id', (array) $request->input('xoa_anh'))->get()
+                ->each(function ($img) {
+                    if (str_starts_with($img->duong_dan, 'uploads/')) {
+                        $abs = public_path($img->duong_dan);
+                        if (is_file($abs)) { @unlink($abs); }
+                    }
+                    $img->delete();
+                });
+        }
+
+        // 2) Upload ảnh mới
+        if ($request->hasFile('hinh_anh')) {
+            $dir = public_path('uploads/products');
+            if (! is_dir($dir)) { @mkdir($dir, 0755, true); }
+
+            $thuTu = (int) $sanPham->hinhAnh()->max('thu_tu');
+            $coAnhChinh = $sanPham->hinhAnh()->where('is_main', true)->exists();
+
+            foreach ($request->file('hinh_anh') as $file) {
+                $ten = uniqid('sp' . $sanPham->id . '_') . '.' . $file->getClientOriginalExtension();
+                $file->move($dir, $ten);
+
+                $sanPham->hinhAnh()->create([
+                    'duong_dan' => 'uploads/products/' . $ten,
+                    'thu_tu' => ++$thuTu,
+                    'is_main' => $coAnhChinh ? false : true,
+                ]);
+                $coAnhChinh = true;
+            }
+        }
     }
 }

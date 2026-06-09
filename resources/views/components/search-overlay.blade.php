@@ -1,11 +1,11 @@
 {{-- Lớp phủ tìm kiếm --}}
 <div class="search-overlay" id="searchOverlay" aria-hidden="true">
     <div class="search-overlay__panel">
-        <div class="search-overlay__head">
+        <form class="search-overlay__head" action="{{ route('products.index') }}" method="GET">
             <i class="fa-solid fa-magnifying-glass search-overlay__icon"></i>
-            <input type="text" id="searchInput" class="search-overlay__input" placeholder="Tìm chuột, bàn phím, tai nghe...">
-            <button class="search-overlay__close" id="closeSearchBtn" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
-        </div>
+            <input type="text" name="q" id="searchInput" class="search-overlay__input" placeholder="Tìm chuột, bàn phím, tai nghe..." value="{{ request('q') }}">
+            <button type="button" class="search-overlay__close" id="closeSearchBtn" aria-label="Đóng"><i class="fa-solid fa-xmark"></i></button>
+        </form>
         <div class="search-overlay__divider"></div>
         <div class="search-overlay__body">
             <p class="search-overlay__label">Search menu</p>

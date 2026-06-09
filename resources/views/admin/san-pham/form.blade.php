@@ -43,6 +43,29 @@
                 <textarea name="mo_ta_day_du" class="admin-field__textarea" rows="6">{{ old('mo_ta_day_du', $sanPham->mo_ta_day_du) }}</textarea>
             </div>
         </div>
+
+        <div class="admin-panel mb-3">
+            <h3 class="admin-panel__title mb-3">Hình ảnh sản phẩm</h3>
+            @if($sanPham->exists && $sanPham->hinhAnh->count())
+                <div class="d-flex flex-wrap gap-2 mb-2">
+                    @foreach($sanPham->hinhAnh as $img)
+                    <label style="position:relative;width:84px;height:84px;border-radius:8px;overflow:hidden;border:1px solid rgba(255,255,255,.12);cursor:pointer;display:block;background:#fff">
+                        <img src="{{ asset($img->duong_dan) }}" alt="" style="width:100%;height:100%;object-fit:contain">
+                        @if($img->is_main)<span style="position:absolute;top:2px;left:2px;background:var(--red);color:#fff;font-size:9px;padding:1px 5px;border-radius:3px">Chính</span>@endif
+                        <span style="position:absolute;top:2px;right:2px;background:rgba(0,0,0,.65);padding:2px 4px;border-radius:3px">
+                            <input type="checkbox" name="xoa_anh[]" value="{{ $img->id }}" title="Xóa ảnh này">
+                        </span>
+                    </label>
+                    @endforeach
+                </div>
+                <p class="admin-table__muted small mb-3">Tick ô góc phải mỗi ảnh để xóa khi lưu.</p>
+            @endif
+            <div class="admin-field">
+                <label class="admin-field__label">Thêm ảnh (chọn nhiều)</label>
+                <input type="file" name="hinh_anh[]" class="admin-field__input" multiple accept="image/*">
+                @error('hinh_anh.*')<p class="txt-red small">{{ $message }}</p>@enderror
+            </div>
+        </div>
     </div>
 
     <div>
