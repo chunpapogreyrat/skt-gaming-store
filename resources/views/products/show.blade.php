@@ -192,32 +192,45 @@
             @endforelse
         </div>
 
-        <div class="review-form">
-            <h4 class="review-form__title">Viết đánh giá</h4>
-            @guest
-                <p class="review-card__text">Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để đánh giá sản phẩm.</p>
+        @if (session('success'))
+            <div class="alert alert-success my-3 py-2 small"><i class="fa-solid fa-circle-check me-1"></i>{{ session('success') }}</div>
+        @endif
+
+        @auth
+            @if ($hasReviewed)
+                <div class="review-form">
+                    <h5 class="review-form__title">Viết đánh giá của bạn</h5>
+                    <p class="review-card__text"><i class="fa-solid fa-circle-check me-1"></i> Bạn đã đánh giá sản phẩm này. Cảm ơn bạn!</p>
+                </div>
             @else
-                @if ($canReview)
-                    <form action="{{ route('products.reviews.store', $product) }}" method="POST">
-                        @csrf
-                        <div class="review-form__row">
-                            <select class="store-filter-input" name="so_sao" required>
-                                <option value="">Chọn số sao</option>
-                                @for ($star = 5; $star >= 1; $star--)
-                                    <option value="{{ $star }}" @selected(old('so_sao') == $star)>{{ $star }} sao</option>
-                                @endfor
-                            </select>
+                <form class="review-form" action="{{ route('products.reviews.store', $product) }}" method="POST">
+                    @csrf
+                    <h5 class="review-form__title">Viết đánh giá của bạn</h5>
+                    @error('review') <div class="auth-error-msg mb-2">{{ $message }}</div> @enderror
+                    @error('so_sao') <div class="auth-error-msg mb-2">{{ $message }}</div> @enderror
+                    <div class="review-form__row">
+                        <div class="review-form__rating-pick">
+                            <span>Đánh giá:</span>
+                            <div class="star-pick" id="starPick">
+                                <i class="fa-solid fa-star" data-val="1"></i>
+                                <i class="fa-solid fa-star" data-val="2"></i>
+                                <i class="fa-solid fa-star" data-val="3"></i>
+                                <i class="fa-solid fa-star" data-val="4"></i>
+                                <i class="fa-solid fa-star" data-val="5"></i>
+                            </div>
                         </div>
-                        <textarea class="review-form__textarea mt-3" name="noi_dung" rows="4" placeholder="Cảm nhận của bạn về sản phẩm...">{{ old('noi_dung') }}</textarea>
-                        <button class="review-form__submit mt-3" type="submit">Gửi đánh giá</button>
-                    </form>
-                @elseif ($hasReviewed)
-                    <p class="review-card__text">Bạn đã đánh giá sản phẩm này.</p>
-                @else
-                    <p class="review-card__text">Bạn cần mua và nhận sản phẩm này trước khi đánh giá.</p>
-                @endif
-            @endguest
-        </div>
+                    </div>
+                    <input type="hidden" name="so_sao" id="reviewSoSao" value="{{ old('so_sao', 5) }}">
+                    <textarea class="review-form__textarea" name="noi_dung" rows="4" placeholder="Chia sẻ trải nghiệm của bạn về sản phẩm...">{{ old('noi_dung') }}</textarea>
+                    <button type="submit" class="review-form__submit"><i class="fa-solid fa-paper-plane"></i> Gửi đánh giá</button>
+                </form>
+            @endif
+        @else
+            <div class="review-form">
+                <h5 class="review-form__title">Viết đánh giá của bạn</h5>
+                <p class="review-card__text">Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để đánh giá sản phẩm.</p>
+            </div>
+        @endauth
     </section>
 
     @if ($relatedProducts->count())
@@ -232,3 +245,26 @@
     @endif
 </main>
 @endsection
+
+@push('scripts')
+<script>
+/* Star picker đánh giá → đồng bộ vào input ẩn so_sao */
+(function () {
+    var pick = document.getElementById('starPick');
+    var input = document.getElementById('reviewSoSao');
+    if (!pick || !input) return;
+    var stars = pick.querySelectorAll('i');
+    function paint(val) {
+        stars.forEach(function (s, i) { s.classList.toggle('is-active', i < val); });
+    }
+    stars.forEach(function (s) {
+        s.addEventListener('click', function () {
+            var v = parseInt(s.dataset.val) || 5;
+            input.value = v;
+            paint(v);
+        });
+    });
+    paint(parseInt(input.value) || 5); // tô sẵn theo giá trị mặc định
+})();
+</script>
+@endpush
