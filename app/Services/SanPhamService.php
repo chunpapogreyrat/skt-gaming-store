@@ -59,7 +59,8 @@ class SanPhamService
 
         $this->applySort($query, (string) ($filters['sort'] ?? 'default'));
 
-        $perPage = min(max((int) ($filters['per_page'] ?? 12), 6), 48);
+        // Mặc định hiện hết sản phẩm trên 1 trang (tránh cảm giác "ẩn" do phân trang)
+        $perPage = min(max((int) ($filters['per_page'] ?? 48), 6), 100);
 
         return $query->paginate($perPage)->withQueryString();
     }
