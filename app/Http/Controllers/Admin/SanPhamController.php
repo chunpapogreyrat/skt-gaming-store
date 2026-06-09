@@ -74,6 +74,15 @@ class SanPhamController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Đã cập nhật sản phẩm');
     }
 
+    public function doiTrangThai(int $id): RedirectResponse
+    {
+        $sanPham = SanPham::findOrFail($id);
+        $sanPham->update(['is_active' => ! $sanPham->is_active]);
+
+        return redirect()->back()
+            ->with('success', $sanPham->is_active ? 'Đã hiển thị sản phẩm “' . $sanPham->ten . '”' : 'Đã ẩn sản phẩm “' . $sanPham->ten . '”');
+    }
+
     public function destroy(int $id): RedirectResponse
     {
         SanPham::findOrFail($id)->delete();

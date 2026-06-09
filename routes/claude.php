@@ -49,6 +49,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::get('/danh-muc', [\App\Http\Controllers\Admin\DanhMucController::class, 'index'])->name('categories.index');
     Route::post('/danh-muc', [\App\Http\Controllers\Admin\DanhMucController::class, 'store'])->name('categories.store');
     Route::put('/danh-muc/{id}', [\App\Http\Controllers\Admin\DanhMucController::class, 'update'])->name('categories.update');
+    Route::patch('/danh-muc/{id}/trang-thai', [\App\Http\Controllers\Admin\DanhMucController::class, 'doiTrangThai'])->name('categories.toggle');
     Route::delete('/danh-muc/{id}', [\App\Http\Controllers\Admin\DanhMucController::class, 'destroy'])->name('categories.destroy');
 
     // Sản phẩm (phụ thuộc model SanPham của Codex)
@@ -57,6 +58,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('/san-pham', [\App\Http\Controllers\Admin\SanPhamController::class, 'store'])->name('products.store');
     Route::get('/san-pham/{id}/sua', [\App\Http\Controllers\Admin\SanPhamController::class, 'edit'])->name('products.edit');
     Route::put('/san-pham/{id}', [\App\Http\Controllers\Admin\SanPhamController::class, 'update'])->name('products.update');
+    Route::patch('/san-pham/{id}/trang-thai', [\App\Http\Controllers\Admin\SanPhamController::class, 'doiTrangThai'])->name('products.toggle');
     Route::delete('/san-pham/{id}', [\App\Http\Controllers\Admin\SanPhamController::class, 'destroy'])->name('products.destroy');
 
     // Đơn hàng

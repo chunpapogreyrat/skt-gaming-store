@@ -380,6 +380,14 @@ body.admin-body {
 .admin-badge--stock-low { background: rgba(255, 183, 3, .12); color: var(--admin-amber); }
 .admin-badge--stock-out { background: var(--red-subtle); color: var(--red); }
 .admin-badge--stock-ok { background: rgba(57, 255, 20, .1); color: var(--admin-green); }
+/* Badge dạng nút bấm: bật/tắt trạng thái Hiện/Ẩn ngay trên bảng */
+.admin-badge--toggle {
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: filter .15s, transform .1s, border-color .15s;
+}
+.admin-badge--toggle:hover { filter: brightness(1.25); border-color: currentColor; }
+.admin-badge--toggle:active { transform: scale(.95); }
 /* #endregion */
 
 /* #region ADMIN BUTTONS */

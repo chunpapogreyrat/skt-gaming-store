@@ -12,6 +12,13 @@
     <a href="{{ route('admin.products.create') }}" class="admin-btn admin-btn--primary"><i class="fa-solid fa-plus"></i> Thêm sản phẩm</a>
 </div>
 
+@if (session('success'))
+    <div class="alert alert-success py-2 small my-3"><i class="fa-solid fa-circle-check me-1"></i>{{ session('success') }}</div>
+@endif
+@if (session('error'))
+    <div class="alert alert-danger py-2 small my-3"><i class="fa-solid fa-circle-exclamation me-1"></i>{{ session('error') }}</div>
+@endif
+
 <section class="admin-table-wrap">
     <div class="admin-table-wrap__head">
         <h3 class="admin-panel__title">Danh sách sản phẩm</h3>
@@ -51,11 +58,13 @@
                     <span class="admin-badge admin-badge--{{ $kho==0?'stock-out':($kho<10?'stock-low':'stock-ok') }}">{{ $kho }}</span>
                 </td>
                 <td>
-                    @if($sp->is_active)
-                        <span class="admin-badge admin-badge--done">Hiển thị</span>
-                    @else
-                        <span class="admin-badge admin-badge--cancel">Ẩn</span>
-                    @endif
+                    <form method="POST" action="{{ route('admin.products.toggle', $sp->id) }}" class="d-inline">
+                        @csrf @method('PATCH')
+                        <button type="submit" class="admin-badge admin-badge--{{ $sp->is_active ? 'done' : 'cancel' }} admin-badge--toggle"
+                                title="Bấm để {{ $sp->is_active ? 'ẩn sản phẩm' : 'hiển thị sản phẩm' }}">
+                            <i class="fa-solid {{ $sp->is_active ? 'fa-eye' : 'fa-eye-slash' }}"></i> {{ $sp->is_active ? 'Hiển thị' : 'Ẩn' }}
+                        </button>
+                    </form>
                     @if($sp->is_hot)<span class="admin-badge admin-badge--pending">HOT</span>@endif
                     @if($sp->is_sale)<span class="admin-badge admin-badge--shipping">SALE</span>@endif
                 </td>

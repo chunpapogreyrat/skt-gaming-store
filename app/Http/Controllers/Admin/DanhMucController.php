@@ -38,6 +38,15 @@ class DanhMucController extends Controller
         return redirect()->route('admin.categories.index')->with('success', 'Đã cập nhật danh mục');
     }
 
+    public function doiTrangThai(int $id): RedirectResponse
+    {
+        $danhMuc = DanhMuc::findOrFail($id);
+        $danhMuc->update(['is_active' => ! $danhMuc->is_active]);
+
+        return redirect()->back()
+            ->with('success', $danhMuc->is_active ? 'Đã hiển thị danh mục “' . $danhMuc->ten . '”' : 'Đã ẩn danh mục “' . $danhMuc->ten . '”');
+    }
+
     public function destroy(int $id): RedirectResponse
     {
         $danhMuc = DanhMuc::withCount('sanPhams')->findOrFail($id);

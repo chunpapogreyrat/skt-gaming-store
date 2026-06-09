@@ -43,7 +43,15 @@
                 </td>
                 <td>{{ $dm->san_phams_count }}</td>
                 <td><code class="admin-slug">{{ $dm->slug }}</code></td>
-                <td><span class="admin-badge admin-badge--{{ $dm->is_active ? 'done' : 'cancel' }}">{{ $dm->is_active ? 'Active' : 'Inactive' }}</span></td>
+                <td>
+                    <form method="POST" action="{{ route('admin.categories.toggle', $dm->id) }}" class="d-inline">
+                        @csrf @method('PATCH')
+                        <button type="submit" class="admin-badge admin-badge--{{ $dm->is_active ? 'done' : 'cancel' }} admin-badge--toggle"
+                                title="Bấm để {{ $dm->is_active ? 'ẩn danh mục' : 'hiển thị danh mục' }}">
+                            <i class="fa-solid {{ $dm->is_active ? 'fa-eye' : 'fa-eye-slash' }}"></i> {{ $dm->is_active ? 'Hoạt động' : 'Đã ẩn' }}
+                        </button>
+                    </form>
+                </td>
                 <td>
                     <div class="d-flex gap-2">
                         <button class="admin-icon-btn" data-bs-toggle="modal" data-bs-target="#categoryModal" onclick='{{ $attrs }}'>
