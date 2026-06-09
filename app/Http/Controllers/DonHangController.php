@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DonHang;
 use App\Services\DonHangService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -14,14 +15,19 @@ class DonHangController extends Controller
         private DonHangService $donHangService
     ) {}
 
-    public function index(): View
+    public function index(Request $request): View
     {
+        $status = $request->query('status');
+        $validStatus = ['cho_xac_nhan', 'dang_chuan_bi', 'dang_giao', 'da_giao', 'da_huy'];
+
         $donHangs = DonHang::with('chiTiet')
             ->where('tai_khoan_id', Auth::id())
+            ->when(in_array($status, $validStatus, true), fn ($q) => $q->where('trang_thai_don_hang', $status))
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('don-hang.lich-su', compact('donHangs'));
+        return view('don-hang.lich-su', compact('donHangs', 'status'));
     }
 
     public function show(string $ma): View
