@@ -6,12 +6,10 @@
                 <a href="{{ route('home') }}" class="site-footer__logo"><span class="site-footer__logo-yuki">YUKI</span> GAMING STORE</a>
                 <p class="site-footer__desc">Vũ khí tối thượng cho game thủ chuyên nghiệp. Engineered for extreme performance.</p>
                 <div class="site-footer__socials">
-                    <a href="#" class="social-btn social-btn--web"><i class="fa-solid fa-globe"></i></a>
-                    <a href="#" class="social-btn social-btn--yt"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" class="social-btn social-btn--fb"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#" class="social-btn social-btn--dc"><i class="fa-brands fa-discord"></i></a>
-                    <a href="#" class="social-btn social-btn--tk"><i class="fa-brands fa-tiktok"></i></a>
-                    <a href="#" class="social-btn social-btn--ig"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/genos.koz" target="_blank" rel="noopener" class="social-btn social-btn--fb"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://zalo.me/0909877520" target="_blank" rel="noopener" class="social-btn social-btn--web" title="Zalo"><i class="fa-solid fa-comment-dots"></i></a>
+                    <a href="mailto:bigbosss2k5@gmail.com" class="social-btn social-btn--yt" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                    <a href="tel:0909877520" class="social-btn social-btn--dc" title="Hotline"><i class="fa-solid fa-phone"></i></a>
                 </div>
             </div>
             <div class="col-lg-2 col-md-6 col-6">

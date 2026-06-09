@@ -86,7 +86,13 @@ class AuthService
 
         $resetUrl = route('password.reset', ['token' => $token, 'email' => $email]);
 
-        Mail::to($email)->send(new ResetPasswordMail($resetUrl));
+        // Gửi email; nếu SMTP chưa cấu hình (thiếu App Password) thì không làm sập request
+        // — token đã lưu DB nên link vẫn dùng được (xem log nếu mail lỗi).
+        try {
+            Mail::to($email)->send(new ResetPasswordMail($resetUrl));
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('Gui email reset that bai: ' . $e->getMessage());
+        }
     }
 
     public function resetPassword(string $email, string $token, string $password): void

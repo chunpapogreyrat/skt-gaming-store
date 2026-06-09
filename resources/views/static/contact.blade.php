@@ -53,11 +53,15 @@
             <h2>Kenh ho tro</h2>
             <div class="contact-method">
                 <i class="fa-solid fa-phone"></i>
-                <div><strong>Hotline</strong><span>0900 000 000</span></div>
+                <div><strong>Hotline / Zalo</strong><span><a href="tel:0909877520" style="color:inherit">0909 877 520</a></span></div>
             </div>
             <div class="contact-method">
                 <i class="fa-solid fa-envelope"></i>
-                <div><strong>Email</strong><span>support@skt-gaming.test</span></div>
+                <div><strong>Email</strong><span><a href="mailto:bigbosss2k5@gmail.com" style="color:inherit">bigbosss2k5@gmail.com</a></span></div>
+            </div>
+            <div class="contact-method">
+                <i class="fa-brands fa-facebook"></i>
+                <div><strong>Facebook</strong><span><a href="https://www.facebook.com/genos.koz" target="_blank" rel="noopener" style="color:inherit">facebook.com/genos.koz</a></span></div>
             </div>
             <div class="contact-method">
                 <i class="fa-solid fa-location-dot"></i>
@@ -71,7 +75,7 @@
 
         <div class="contact-card">
             <h2>Gui yeu cau</h2>
-            <form class="contact-form" action="mailto:support@skt-gaming.test" method="GET">
+            <form class="contact-form" action="mailto:bigbosss2k5@gmail.com" method="GET">
                 <div class="contact-form__row">
                     <input type="text" name="name" placeholder="Ho ten" required>
                     <input type="email" name="email" placeholder="Email" required>
