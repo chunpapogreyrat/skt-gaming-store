@@ -79,20 +79,34 @@
                     <span class="navbar__badge" id="cartBadge">{{ session('cart_count', 0) }}</span>
                 </button>
                 @auth
-                    <div class="navbar__item navbar__has-drop">
-                        <a href="{{ auth()->user()->isAdmin() ? route('admin.dashboard') : route('profile.show') }}" class="navbar__icon-btn" aria-label="Tài khoản"><i class="fa-regular fa-user"></i></a>
-                        <div class="navbar__dropdown">
-                            <a href="{{ route('profile.show') }}" class="navbar__drop-link"><i class="fa-solid fa-user"></i> Tài khoản</a>
-                            <a href="{{ route('orders.index') }}" class="navbar__drop-link"><i class="fa-solid fa-box"></i> Đơn hàng</a>
-                            @if(auth()->user()->isAdmin())
-                            <a href="{{ route('admin.dashboard') }}" class="navbar__drop-link"><i class="fa-solid fa-gauge-high"></i> Quản trị</a>
+                    @php $u = auth()->user(); $uInitial = mb_strtoupper(mb_substr($u->ho_ten ?? 'U', 0, 1)); @endphp
+                    {{-- User menu kiểu thiết kế (.user-menu) — bấm avatar để mở --}}
+                    <div class="user-menu" id="userMenu">
+                        <button type="button" class="navbar__icon-btn user-menu__trigger" aria-label="Tài khoản">
+                            <span class="user-menu__avatar">{{ $uInitial }}</span>
+                        </button>
+                        <div class="user-menu__panel">
+                            <div class="user-menu__head">
+                                <span class="user-menu__avatar user-menu__avatar--lg">{{ $uInitial }}</span>
+                                <div class="user-menu__head-info">
+                                    <div class="user-menu__name">{{ $u->ho_ten }}</div>
+                                    <div class="user-menu__rank"><i class="fa-solid fa-bolt"></i> Game thủ YUKI</div>
+                                </div>
+                            </div>
+                            <a href="{{ route('profile.show') }}" class="user-menu__profile-btn"><i class="fa-solid fa-id-badge"></i> Xem trang cá nhân</a>
+                            <div class="user-menu__divider"></div>
+                            <a href="{{ route('orders.index') }}" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-box-archive"></i></span> Đơn hàng của tôi <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>
+                            <a href="{{ route('profile.show', ['tab' => 'wishlist']) }}" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-heart"></i></span> Sản phẩm yêu thích <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>
+                            <a href="{{ route('static.contact') }}" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-circle-question"></i></span> Trợ giúp & hỗ trợ <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>
+                            @if($u->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="user-menu__item"><span class="user-menu__ico"><i class="fa-solid fa-gauge-high"></i></span> Trang quản trị <i class="fa-solid fa-chevron-right user-menu__arr"></i></a>
                             @endif
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            <div class="user-menu__divider"></div>
+                            <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="navbar__drop-link w-100 text-start border-0 bg-transparent">
-                                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
-                                </button>
+                                <button type="submit" class="user-menu__item user-menu__item--logout w-100 border-0 bg-transparent text-start"><span class="user-menu__ico"><i class="fa-solid fa-right-from-bracket"></i></span> Đăng xuất</button>
                             </form>
+                            <div class="user-menu__foot">YUKI Gaming Store · v2.0</div>
                         </div>
                     </div>
                 @else
@@ -451,6 +465,27 @@
     // chạy SAU handler load nội bộ của AOS
     window.addEventListener('load', function () { setTimeout(fixAos, 80); });
     setTimeout(fixAos, 1200); // fallback nếu load đã xong
+})();
+</script>
+
+{{-- User menu (.user-menu) toggle: bấm avatar mở/đóng, click ngoài hoặc Esc để đóng --}}
+<script>
+(function () {
+    var menu = document.getElementById('userMenu');
+    if (!menu) return;
+    var trigger = menu.querySelector('.user-menu__trigger');
+    if (trigger) {
+        trigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            menu.classList.toggle('is-open');
+        });
+    }
+    document.addEventListener('click', function (e) {
+        if (!menu.contains(e.target)) menu.classList.remove('is-open');
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') menu.classList.remove('is-open');
+    });
 })();
 </script>
 
