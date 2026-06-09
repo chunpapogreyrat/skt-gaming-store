@@ -13,24 +13,15 @@
         <a href="{{ route('products.index') }}" class="btn-main"><span>Khám phá ngay</span></a>
     </div>
     <div class="hero-slider__track" id="heroTrack">
+        @forelse($banners as $banner)
+        <div class="hero-card" data-title="{{ $banner->tieu_de }}"
+            data-desc="{{ $banner->mo_ta }}"
+            style="background-image: url('{{ asset($banner->hinh_anh) }}')"></div>
+        @empty
         <div class="hero-card" data-title="Gaming Gear Đỉnh Cao"
             data-desc="Trang bị vũ khí — chinh phục mọi chiến trường"
             style="background-image: url('{{ asset('assets/images/slider/1.jpg') }}')"></div>
-        <div class="hero-card" data-title="Chuột Gaming Pro"
-            data-desc="Cảm biến quang học bậc nhất — phản xạ 0 độ trễ"
-            style="background-image: url('{{ asset('assets/images/slider/2.jpg') }}')"></div>
-        <div class="hero-card" data-title="Bàn Phím Cơ Custom"
-            data-desc="Hall Effect & Rapid Trigger — cú bấm hoàn hảo nhất"
-            style="background-image: url('{{ asset('assets/images/slider/3.jpg') }}')"></div>
-        <div class="hero-card" data-title="Màn Hình Esports 360Hz"
-            data-desc="Từng khung hình là lợi thế — DyAc+ không bóng mờ"
-            style="background-image: url('{{ asset('assets/images/slider/4.jpg') }}')"></div>
-        <div class="hero-card" data-title="Setup RGB Cá Tính"
-            data-desc="Góc chơi game nổi bật — đồng bộ từ bàn phím đến lót chuột"
-            style="background-image: url('{{ asset('assets/images/slider/5.png') }}')"></div>
-        <div class="hero-card" data-title="Màn Hình Gaming Sắc Nét"
-            data-desc="Hiển thị mượt mà — tối ưu từng pha xử lý tốc độ cao"
-            style="background-image: url('{{ asset('assets/images/slider/screen.png') }}')"></div>
+        @endforelse
     </div>
     <div class="hero-nav"><button id="prevBtn">&#8249;</button><button id="nextBtn">&#8250;</button></div>
 </section>

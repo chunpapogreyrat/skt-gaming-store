@@ -39,5 +39,8 @@ class DatabaseSeeder extends Seeder
 
         // ── Danh mục + Thương hiệu + 40 sản phẩm + biến thể màu ──
         $this->call(ProductsSeeder::class);
+
+        // ── Banner hero slider trang chủ ──
+        $this->call(BannerSeeder::class);
     }
 }
