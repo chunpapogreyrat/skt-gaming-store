@@ -13,6 +13,7 @@
         <a href="{{ route('admin.orders.index') }}" class="admin-sidebar__link @yield('nav-orders')"><i class="fa-solid fa-receipt"></i> Đơn hàng</a>
         <a href="{{ route('admin.users.index') }}" class="admin-sidebar__link @yield('nav-users')"><i class="fa-solid fa-users"></i> Tài khoản</a>
         <a href="{{ route('admin.coupons.index') }}" class="admin-sidebar__link @yield('nav-coupons')"><i class="fa-solid fa-ticket"></i> Mã giảm giá</a>
+        <a href="{{ route('admin.suppliers.index') }}" class="admin-sidebar__link @yield('nav-suppliers')"><i class="fa-solid fa-truck-ramp-box"></i> Nhà phân phối</a>
         <a href="{{ route('admin.setups.index') }}" class="admin-sidebar__link @yield('nav-setups')"><i class="fa-solid fa-display"></i> Setup trưng bày</a>
     </nav>
     <div class="admin-sidebar__foot">

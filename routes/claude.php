@@ -83,6 +83,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::patch('/ma-giam-gia/{id}/trang-thai', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'toggle'])->name('coupons.toggle');
     Route::delete('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'destroy'])->name('coupons.destroy');
 
+    // Nhà phân phối (M7)
+    Route::get('/nha-phan-phoi', [\App\Http\Controllers\Admin\NhaPhanPhoiController::class, 'index'])->name('suppliers.index');
+    Route::post('/nha-phan-phoi', [\App\Http\Controllers\Admin\NhaPhanPhoiController::class, 'store'])->name('suppliers.store');
+    Route::put('/nha-phan-phoi/{id}', [\App\Http\Controllers\Admin\NhaPhanPhoiController::class, 'update'])->name('suppliers.update');
+    Route::delete('/nha-phan-phoi/{id}', [\App\Http\Controllers\Admin\NhaPhanPhoiController::class, 'destroy'])->name('suppliers.destroy');
+
     // Setup trưng bày
     Route::get('/setup', [\App\Http\Controllers\Admin\SetupController::class, 'index'])->name('setups.index');
     Route::post('/setup', [\App\Http\Controllers\Admin\SetupController::class, 'store'])->name('setups.store');
