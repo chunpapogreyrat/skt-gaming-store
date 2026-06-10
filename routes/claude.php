@@ -76,7 +76,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     // Mã giảm giá
     Route::get('/ma-giam-gia', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'index'])->name('coupons.index');
+    Route::get('/ma-giam-gia/them', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'create'])->name('coupons.create');
     Route::post('/ma-giam-gia', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'store'])->name('coupons.store');
+    Route::get('/ma-giam-gia/{id}/sua', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'edit'])->name('coupons.edit');
     Route::put('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'update'])->name('coupons.update');
     Route::delete('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'destroy'])->name('coupons.destroy');
 
