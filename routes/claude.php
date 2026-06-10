@@ -49,6 +49,9 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     Route::get('/', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
+    // Doanh thu (M8)
+    Route::get('/doanh-thu', [\App\Http\Controllers\Admin\DoanhThuController::class, 'index'])->name('revenue');
+
     // Danh mục
     Route::get('/danh-muc', [\App\Http\Controllers\Admin\DanhMucController::class, 'index'])->name('categories.index');
     Route::post('/danh-muc', [\App\Http\Controllers\Admin\DanhMucController::class, 'store'])->name('categories.store');

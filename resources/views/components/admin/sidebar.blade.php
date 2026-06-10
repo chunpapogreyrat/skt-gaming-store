@@ -7,6 +7,7 @@
     <nav class="admin-sidebar__nav">
         <p class="admin-sidebar__label">Tổng quan</p>
         <a href="{{ route('admin.dashboard') }}" class="admin-sidebar__link @yield('nav-dashboard')"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+        <a href="{{ route('admin.revenue') }}" class="admin-sidebar__link @yield('nav-revenue')"><i class="fa-solid fa-chart-line"></i> Doanh thu</a>
         <p class="admin-sidebar__label">Quản lý</p>
         <a href="{{ route('admin.categories.index') }}" class="admin-sidebar__link @yield('nav-categories')"><i class="fa-solid fa-layer-group"></i> Danh mục</a>
         <a href="{{ route('admin.products.index') }}" class="admin-sidebar__link @yield('nav-products')"><i class="fa-solid fa-box"></i> Sản phẩm</a>
