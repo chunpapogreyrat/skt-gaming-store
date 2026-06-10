@@ -72,7 +72,7 @@
             <div class="contact-form-card">
                 <h3 class="contact-form-card__title"><i class="fa-solid fa-satellite-dish"></i> KÊNH TRUYỀN TIN</h3>
 
-                <form class="contact-form" id="contactForm" action="{{ route('static.contact.send') }}" method="POST">
+                <form class="contact-form" action="{{ route('static.contact.send') }}" method="POST">
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">

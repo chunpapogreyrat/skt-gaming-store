@@ -184,14 +184,14 @@ function initAOS() {
     AOS.init({
         duration: 750,
         easing: 'ease-out-cubic',
-        once: false,
-        mirror: true,
+        once: true,
+        mirror: false,
         offset: 80,
         disableMutationObserver: true
     });
 
-    // Bộ quan sát riêng: bật/tắt hiệu ứng mỗi khi phần tử vào/ra khung nhìn
-    // -> chạy lại cả khi cuộn XUỐNG lẫn cuộn LÊN (khắc phục hạn chế của AOS)
+    // Bộ quan sát riêng: hiện hiệu ứng MỘT LẦN khi phần tử vào khung nhìn, rồi thôi
+    // (không gỡ aos-animate -> tránh transition restart / kẹt opacity 0)
     var els = document.querySelectorAll('[data-aos]');
     if (!('IntersectionObserver' in window) || !els.length) return;
 
@@ -199,8 +199,7 @@ function initAOS() {
         entries.forEach(function (en) {
             if (en.isIntersecting) {
                 en.target.classList.add('aos-animate');
-            } else {
-                en.target.classList.remove('aos-animate');
+                io.unobserve(en.target);
             }
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });

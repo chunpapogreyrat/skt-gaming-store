@@ -6,17 +6,30 @@
 <script src="https://cdn.jsdelivr.net/npm/@tsparticles/slim@3/tsparticles.slim.bundle.min.js"></script>
 
 {{-- JS dự án --}}
-<script src="{{ asset('assets/js/script.js') }}"></script>
+<script src="{{ asset('assets/js/script.js') }}?v={{ filemtime(public_path('assets/js/script.js')) }}"></script>
 
-{{-- AOS fix: ép hiện [data-aos] sau khi load (script.js để once:false/mirror:true gây ẩn tới khi cuộn) --}}
+{{-- AOS do script.js khởi tạo (once, IntersectionObserver). Đây chỉ là lưới an toàn:
+     nếu sau khi tải xong còn phần tử [data-aos] chưa hiện thì ép hiện (KHÔNG init lại AOS để tránh xung đột). --}}
 <script>
 (function () {
-    function fixAos() {
-        if (window.AOS) AOS.init({ once: true, duration: 700, offset: 0, mirror: false });
-        document.querySelectorAll('[data-aos]').forEach(function (el) { el.classList.add('aos-animate'); });
+    function inView(el) {
+        var r = el.getBoundingClientRect();
+        return r.top < (window.innerHeight || 0) && r.bottom > 0;
     }
-    window.addEventListener('load', function () { setTimeout(fixAos, 80); });
-    setTimeout(fixAos, 1200);
+    // Lưới an toàn: phần tử ĐANG trong khung nhìn mà vẫn ẩn (opacity ~0) sau khi tải
+    // -> ép hiện tức thì (vô hiệu transition) để nội dung không bao giờ bị mất.
+    function rescue() {
+        document.querySelectorAll('[data-aos]').forEach(function (el) {
+            el.classList.add('aos-animate');
+            if (inView(el) && parseFloat(getComputedStyle(el).opacity || '1') < 0.05) {
+                el.style.transition = 'none';
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            }
+        });
+    }
+    window.addEventListener('load', function () { setTimeout(rescue, 1500); });
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) setTimeout(rescue, 200); });
 })();
 </script>
 
