@@ -24,6 +24,9 @@
     .contact-form textarea { min-height: 160px; resize: vertical; }
     .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: #ff315d; }
     .contact-map { margin-top: 20px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.035); border-radius: 8px; min-height: 180px; display: grid; place-items: center; color: #94a3b8; text-align: center; padding: 24px; }
+    .contact-alert { display: flex; align-items: center; gap: 8px; border-radius: 8px; padding: 11px 14px; margin-bottom: 14px; font-size: .92rem; }
+    .contact-alert--ok { background: rgba(57,255,20,.1); border: 1px solid rgba(57,255,20,.35); color: #8cff6b; }
+    .contact-alert--err { background: rgba(255,49,93,.1); border: 1px solid rgba(255,49,93,.35); color: #ff7d97; }
     @media (max-width: 992px) { .contact-head, .contact-grid { grid-template-columns: 1fr; } }
     @media (max-width: 640px) { .contact-form__row { grid-template-columns: 1fr; } }
 </style>
@@ -75,20 +78,29 @@
 
         <div class="contact-card">
             <h2>Gui yeu cau</h2>
-            <form class="contact-form" action="mailto:bigbosss2k5@gmail.com" method="GET">
+
+            @if (session('lien_he_success'))
+                <div class="contact-alert contact-alert--ok"><i class="fa-solid fa-circle-check"></i> {{ session('lien_he_success') }}</div>
+            @endif
+            @if ($errors->any())
+                <div class="contact-alert contact-alert--err"><i class="fa-solid fa-circle-exclamation"></i> {{ $errors->first() }}</div>
+            @endif
+
+            <form class="contact-form" action="{{ route('static.contact.send') }}" method="POST">
+                @csrf
                 <div class="contact-form__row">
-                    <input type="text" name="name" placeholder="Ho ten" required>
-                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="ho_ten" value="{{ old('ho_ten') }}" placeholder="Ho ten" required>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
                 </div>
                 <div class="contact-form__row">
-                    <input type="text" name="phone" placeholder="So dien thoai">
-                    <select name="topic">
-                        <option value="tu-van">Tu van san pham</option>
-                        <option value="bao-hanh">Bao hanh</option>
-                        <option value="setup">Build setup</option>
+                    <input type="text" name="so_dien_thoai" value="{{ old('so_dien_thoai') }}" placeholder="So dien thoai">
+                    <select name="chu_de">
+                        <option value="tu-van" @selected(old('chu_de')==='tu-van')>Tu van san pham</option>
+                        <option value="bao-hanh" @selected(old('chu_de')==='bao-hanh')>Bao hanh</option>
+                        <option value="setup" @selected(old('chu_de')==='setup')>Build setup</option>
                     </select>
                 </div>
-                <textarea name="body" placeholder="Noi dung can ho tro" required></textarea>
+                <textarea name="noi_dung" placeholder="Noi dung can ho tro" required>{{ old('noi_dung') }}</textarea>
                 <button class="store-btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Gui lien he</button>
             </form>
             <div class="contact-map">

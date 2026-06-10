@@ -25,6 +25,7 @@ Route::get('/categories/sidebar', [DanhMucController::class, 'sidebar'])->name('
 // ── Module 7 — Static ──
 Route::get('/gioi-thieu', [TrangTinhController::class, 'about'])->name('static.about');
 Route::get('/lien-he', [TrangTinhController::class, 'contact'])->name('static.contact');
+Route::post('/lien-he', [TrangTinhController::class, 'guiLienHe'])->name('static.contact.send');
 Route::get('/setups', [TrangTinhController::class, 'setups'])->name('static.setups');
 Route::get('/404', [TrangTinhController::class, 'notFound'])->name('static.404');
 

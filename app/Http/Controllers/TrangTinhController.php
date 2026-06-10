@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuiLienHeRequest;
+use App\Models\LienHe;
 use App\Models\SanPham;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -23,6 +26,15 @@ class TrangTinhController extends Controller
     public function contact()
     {
         return view('static.contact');
+    }
+
+    public function guiLienHe(GuiLienHeRequest $request): RedirectResponse
+    {
+        LienHe::create($request->validated());
+
+        return redirect()
+            ->route('static.contact')
+            ->with('lien_he_success', 'Cảm ơn bạn! Yêu cầu đã được gửi, team YUKI sẽ phản hồi trong giờ làm việc.');
     }
 
     public function setups()
