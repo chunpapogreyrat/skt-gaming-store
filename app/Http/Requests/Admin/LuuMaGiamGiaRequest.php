@@ -16,10 +16,12 @@ class LuuMaGiamGiaRequest extends FormRequest
     {
         $id = $this->route('id');
 
+        $giaTriMax = $this->input('loai') === 'phan_tram' ? '|max:100' : '';
+
         return [
             'ma_code' => ['required', 'string', 'max:50', Rule::unique('ma_giam_gias', 'ma_code')->ignore($id)],
             'loai' => 'required|in:phan_tram,so_tien',
-            'gia_tri' => 'required|numeric|min:0',
+            'gia_tri' => 'required|numeric|min:0' . $giaTriMax,
             'gia_tri_don_toi_thieu' => 'nullable|numeric|min:0',
             'so_lan_su_dung_toi_da' => 'nullable|integer|min:1',
             'ngay_bat_dau' => 'nullable|date',
@@ -35,6 +37,7 @@ class LuuMaGiamGiaRequest extends FormRequest
             'ma_code.unique' => 'Mã code đã tồn tại',
             'loai.in' => 'Loại giảm giá không hợp lệ',
             'gia_tri.required' => 'Vui lòng nhập giá trị giảm',
+            'gia_tri.max' => 'Giảm theo phần trăm không được vượt quá 100%',
             'ngay_het_han.after_or_equal' => 'Ngày hết hạn phải sau ngày bắt đầu',
         ];
     }

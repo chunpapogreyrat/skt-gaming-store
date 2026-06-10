@@ -45,7 +45,8 @@ class MaGiamGia extends Model
         if ($tongTien < $this->gia_tri_don_toi_thieu) return 0;
 
         if ($this->loai === 'phan_tram') {
-            return round($tongTien * $this->gia_tri / 100);
+            $phanTram = min($this->gia_tri, 100);
+            return round($tongTien * $phanTram / 100);
         }
 
         return min($this->gia_tri, $tongTien);

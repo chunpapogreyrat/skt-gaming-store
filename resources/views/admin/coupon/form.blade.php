@@ -22,14 +22,14 @@
             <div class="admin-field__row">
                 <div class="admin-field">
                     <label class="admin-field__label">Loại giảm</label>
-                    <select name="loai" class="admin-field__select">
+                    <select name="loai" id="couponLoai" class="admin-field__select">
                         <option value="phan_tram" @selected(old('loai', $maGiamGia->loai)==='phan_tram')>Phần trăm (%)</option>
                         <option value="so_tien" @selected(old('loai', $maGiamGia->loai)==='so_tien')>Số tiền (đ)</option>
                     </select>
                 </div>
                 <div class="admin-field">
                     <label class="admin-field__label">Giá trị</label>
-                    <input type="number" name="gia_tri" class="admin-field__input" value="{{ old('gia_tri', $maGiamGia->gia_tri) }}" placeholder="10" required>
+                    <input type="number" name="gia_tri" id="couponGiaTri" class="admin-field__input" value="{{ old('gia_tri', $maGiamGia->gia_tri) }}" placeholder="10" min="0" required>
                     @error('gia_tri')<p class="txt-red small">{{ $message }}</p>@enderror
                 </div>
             </div>
@@ -82,4 +82,23 @@
         </div>
     </div>
 </form>
+
+<script>
+(function () {
+    const loai = document.getElementById('couponLoai');
+    const giaTri = document.getElementById('couponGiaTri');
+    if (!loai || !giaTri) return;
+    function sync() {
+        if (loai.value === 'phan_tram') {
+            giaTri.placeholder = 'VD: 10 (tối đa 100%)';
+            giaTri.max = 100;
+        } else {
+            giaTri.placeholder = 'VD: 50000';
+            giaTri.removeAttribute('max');
+        }
+    }
+    loai.addEventListener('change', sync);
+    sync();
+})();
+</script>
 @endsection
