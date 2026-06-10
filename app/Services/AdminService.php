@@ -59,6 +59,10 @@ class AdminService
      */
     public function baoCaoDoanhThu(int $nam, int $thang): array
     {
+        $now = now();
+        // Chỉ tính tới tháng hiện tại nếu là năm nay; năm cũ tính đủ 12 tháng; năm tương lai = 0
+        $thangToiDa = $nam > $now->year ? 0 : ($nam === (int) $now->year ? (int) $now->month : 12);
+
         // Doanh thu + số đơn từng tháng trong năm
         $rows = DonHang::where('trang_thai_don_hang', 'da_giao')
             ->whereYear('created_at', $nam)
@@ -69,7 +73,7 @@ class AdminService
 
         $thangData = [];
         $maxDoanhThu = 0;
-        for ($m = 1; $m <= 12; $m++) {
+        for ($m = 1; $m <= $thangToiDa; $m++) {
             $dt = (float) ($rows[$m]->doanh_thu ?? 0);
             $sd = (int) ($rows[$m]->so_don ?? 0);
             $truoc = $m > 1 ? $thangData[$m - 2]['doanh_thu'] : null;
@@ -105,6 +109,7 @@ class AdminService
         return [
             'nam' => $nam,
             'thang' => $thang,
+            'thang_toi_da' => $thangToiDa,
             'thang_data' => $thangData,
             'max_doanh_thu' => $maxDoanhThu,
             'card' => $card,

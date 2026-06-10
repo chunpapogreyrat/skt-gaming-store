@@ -29,7 +29,7 @@
     </div>
     <form method="GET" action="{{ route('admin.revenue') }}" class="d-flex gap-2">
         <select name="thang" class="admin-status-select" onchange="this.form.submit()">
-            @for ($m = 1; $m <= 12; $m++)
+            @for ($m = 1; $m <= $baoCao['thang_toi_da']; $m++)
                 <option value="{{ $m }}" @selected($baoCao['thang'] == $m)>T{{ $m }}</option>
             @endfor
         </select>
@@ -80,7 +80,7 @@
 {{-- CHART --}}
 <div class="admin-panel mb-4">
     <div class="admin-panel__head">
-        <h3 class="admin-panel__title">Biểu đồ doanh thu 12 tháng · {{ $baoCao['nam'] }}</h3>
+        <h3 class="admin-panel__title">Biểu đồ doanh thu năm {{ $baoCao['nam'] }}@if($baoCao['nam'] == now()->year) (tới T{{ $baoCao['thang_toi_da'] }})@endif</h3>
     </div>
     @if ($baoCao['max_doanh_thu'] > 0)
     <div class="admin-chart" style="height:260px; padding-bottom:28px;">

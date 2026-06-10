@@ -15,11 +15,19 @@ class DoanhThuController extends Controller
 
     public function index(Request $request): View
     {
-        $nam = (int) $request->query('nam', now()->year);
-        $thang = (int) $request->query('thang', now()->month);
+        $now = now();
+        $nam = (int) $request->query('nam', $now->year);
+        $thang = (int) $request->query('thang', $now->month);
 
-        if ($thang < 1 || $thang > 12) {
-            $thang = (int) now()->month;
+        // Không xem năm tương lai
+        if ($nam > $now->year) {
+            $nam = (int) $now->year;
+        }
+
+        // Năm nay chỉ tới tháng hiện tại; năm cũ tới T12
+        $thangToiDa = $nam === (int) $now->year ? (int) $now->month : 12;
+        if ($thang < 1 || $thang > $thangToiDa) {
+            $thang = $thangToiDa;
         }
 
         $baoCao = $this->adminService->baoCaoDoanhThu($nam, $thang);
