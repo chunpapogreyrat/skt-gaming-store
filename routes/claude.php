@@ -86,6 +86,11 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::patch('/ma-giam-gia/{id}/trang-thai', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'toggle'])->name('coupons.toggle');
     Route::delete('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'destroy'])->name('coupons.destroy');
 
+    // Liên hệ khách gửi (M9)
+    Route::get('/lien-he', [\App\Http\Controllers\Admin\LienHeController::class, 'index'])->name('contacts.index');
+    Route::patch('/lien-he/{id}/xu-ly', [\App\Http\Controllers\Admin\LienHeController::class, 'toggle'])->name('contacts.toggle');
+    Route::delete('/lien-he/{id}', [\App\Http\Controllers\Admin\LienHeController::class, 'destroy'])->name('contacts.destroy');
+
     // Nhà phân phối (M7)
     Route::get('/nha-phan-phoi', [\App\Http\Controllers\Admin\NhaPhanPhoiController::class, 'index'])->name('suppliers.index');
     Route::post('/nha-phan-phoi', [\App\Http\Controllers\Admin\NhaPhanPhoiController::class, 'store'])->name('suppliers.store');

@@ -48,5 +48,8 @@ class DatabaseSeeder extends Seeder
 
         // ── Nhà phân phối demo (M7) ──
         $this->call(NhaPhanPhoiSeeder::class);
+
+        // ── Liên hệ demo (M9) ──
+        $this->call(LienHeSeeder::class);
     }
 }
