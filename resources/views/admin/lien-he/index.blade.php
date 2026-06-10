@@ -4,7 +4,7 @@
 @section('nav-contacts', 'is-active')
 
 @php
-    $badgeChuDe = ['tu-van' => 'prep', 'bao-hanh' => 'pending', 'setup' => 'done'];
+    $badgeChuDe = ['ho-tro-ky-thuat' => 'prep', 'bao-hanh' => 'pending', 'don-hang' => 'done', 'hop-tac' => 'prep', 'khac' => 'pending'];
 @endphp
 
 @section('content')

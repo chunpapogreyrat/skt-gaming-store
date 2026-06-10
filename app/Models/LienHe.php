@@ -22,9 +22,11 @@ class LienHe extends Model
     ];
 
     public const NHAN_CHU_DE = [
-        'tu-van' => 'Tư vấn sản phẩm',
-        'bao-hanh' => 'Bảo hành',
-        'setup' => 'Build setup',
+        'ho-tro-ky-thuat' => 'Hỗ trợ kỹ thuật',
+        'bao-hanh' => 'Bảo hành sản phẩm',
+        'don-hang' => 'Thông tin đơn hàng',
+        'hop-tac' => 'Hợp tác kinh doanh',
+        'khac' => 'Khác',
     ];
 
     public function tenChuDe(): string

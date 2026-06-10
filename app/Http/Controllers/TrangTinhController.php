@@ -14,13 +14,7 @@ class TrangTinhController extends Controller
 {
     public function about()
     {
-        return view('static.about', [
-            'stats' => [
-                'products' => SanPham::where('is_active', true)->count(),
-                'hotProducts' => SanPham::where('is_active', true)->where('is_hot', true)->count(),
-                'saleProducts' => SanPham::where('is_active', true)->where('is_sale', true)->count(),
-            ],
-        ]);
+        return view('static.about');
     }
 
     public function contact()

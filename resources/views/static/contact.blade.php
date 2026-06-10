@@ -1,115 +1,158 @@
 @extends('layouts.app')
 
-@section('title', 'Lien he - YUKI Gaming Store')
-
-@push('styles')
-<style>
-    .contact-page { padding: 34px 0 58px; }
-    .contact-head { display: grid; grid-template-columns: 1fr 420px; gap: 24px; align-items: stretch; margin-bottom: 24px; }
-    .contact-hero { border: 1px solid rgba(255,255,255,.08); background: rgba(12,14,20,.78); border-radius: 8px; padding: 28px; display: flex; flex-direction: column; justify-content: center; }
-    .contact-hero h1 { color: #fff; font-family: Orbitron, sans-serif; font-size: clamp(2rem, 5vw, 4rem); margin: 0 0 12px; }
-    .contact-hero p { color: #cbd5e1; max-width: 680px; line-height: 1.75; margin: 0; }
-    .contact-media { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,.08); min-height: 280px; }
-    .contact-media img { width: 100%; height: 100%; object-fit: cover; }
-    .contact-grid { display: grid; grid-template-columns: 360px 1fr; gap: 20px; }
-    .contact-card { border: 1px solid rgba(255,255,255,.08); background: rgba(12,14,20,.78); border-radius: 8px; padding: 20px; }
-    .contact-card h2 { color: #fff; font-family: Orbitron, sans-serif; font-size: 1.15rem; margin-bottom: 16px; }
-    .contact-method { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08); color: #cbd5e1; }
-    .contact-method:last-child { border-bottom: 0; }
-    .contact-method i { color: #67e8f9; font-size: 1.15rem; padding-top: 3px; }
-    .contact-method strong { display: block; color: #fff; margin-bottom: 4px; }
-    .contact-form { display: grid; gap: 12px; }
-    .contact-form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .contact-form input, .contact-form textarea, .contact-form select { width: 100%; background: rgba(10,12,16,.8); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #fff; padding: 11px 12px; outline: none; }
-    .contact-form textarea { min-height: 160px; resize: vertical; }
-    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: #ff315d; }
-    .contact-map { margin-top: 20px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.035); border-radius: 8px; min-height: 180px; display: grid; place-items: center; color: #94a3b8; text-align: center; padding: 24px; }
-    .contact-alert { display: flex; align-items: center; gap: 8px; border-radius: 8px; padding: 11px 14px; margin-bottom: 14px; font-size: .92rem; }
-    .contact-alert--ok { background: rgba(57,255,20,.1); border: 1px solid rgba(57,255,20,.35); color: #8cff6b; }
-    .contact-alert--err { background: rgba(255,49,93,.1); border: 1px solid rgba(255,49,93,.35); color: #ff7d97; }
-    @media (max-width: 992px) { .contact-head, .contact-grid { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) { .contact-form__row { grid-template-columns: 1fr; } }
-</style>
-@endpush
+@section('title', 'Liên Hệ — YUKI')
 
 @section('content')
+<!-- #region BREADCRUMB -->
 <nav class="breadcrumb-bar container-fluid px-4 px-xl-5">
     <ol class="breadcrumb-bar__list">
-        <li><a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Trang chu</a></li>
-        <li class="breadcrumb-bar__active">Lien he</li>
+        <li><a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+        <li class="breadcrumb-bar__active">Liên hệ</li>
     </ol>
 </nav>
+<!-- #endregion -->
 
-<main class="contact-page container-fluid px-4 px-xl-5">
-    <section class="contact-head">
-        <div class="contact-hero">
-            <h1>Lien he SKT</h1>
-            <p>Can tu van gear, kiem tra ton kho, bao hanh hoac build setup? Gui thong tin cho team SKT, chung toi se phan hoi trong gio lam viec.</p>
-        </div>
-        <div class="contact-media">
-            <img src="{{ asset('assets/images/banners/mouse-banner.jpg') }}" alt="Gaming mouse banner">
-        </div>
-    </section>
+<!-- #region CONTACT (MAIN) -->
+<main class="container-fluid px-4 px-xl-5 contact-page">
 
-    <section class="contact-grid">
-        <aside class="contact-card">
-            <h2>Kenh ho tro</h2>
-            <div class="contact-method">
-                <i class="fa-solid fa-phone"></i>
-                <div><strong>Hotline / Zalo</strong><span><a href="tel:0909877520" style="color:inherit">0909 877 520</a></span></div>
-            </div>
-            <div class="contact-method">
-                <i class="fa-solid fa-envelope"></i>
-                <div><strong>Email</strong><span><a href="mailto:bigbosss2k5@gmail.com" style="color:inherit">bigbosss2k5@gmail.com</a></span></div>
-            </div>
-            <div class="contact-method">
-                <i class="fa-brands fa-facebook"></i>
-                <div><strong>Facebook</strong><span><a href="https://www.facebook.com/genos.koz" target="_blank" rel="noopener" style="color:inherit">facebook.com/genos.koz</a></span></div>
-            </div>
-            <div class="contact-method">
-                <i class="fa-solid fa-location-dot"></i>
-                <div><strong>Showroom</strong><span>Quan 1, TP HCM</span></div>
-            </div>
-            <div class="contact-method">
-                <i class="fa-solid fa-clock"></i>
-                <div><strong>Gio lam viec</strong><span>09:00 - 21:00, Thu 2 - Chu nhat</span></div>
-            </div>
-        </aside>
+    <header class="contact-head" data-aos="fade-up">
+        <span class="contact-head__tag">LIÊN HỆ</span>
+        <h1 class="contact-head__title">KẾT NỐI VỚI <span class="txt-red">YUKI</span></h1>
+        <p class="contact-head__sub">Đội ngũ kỹ thuật luôn sẵn sàng hỗ trợ bạn 24/7. Gửi tín hiệu cho chúng tôi ngay!</p>
+    </header>
 
-        <div class="contact-card">
-            <h2>Gui yeu cau</h2>
+    <div class="row g-4">
 
-            @if (session('lien_he_success'))
-                <div class="contact-alert contact-alert--ok"><i class="fa-solid fa-circle-check"></i> {{ session('lien_he_success') }}</div>
-            @endif
-            @if ($errors->any())
-                <div class="contact-alert contact-alert--err"><i class="fa-solid fa-circle-exclamation"></i> {{ $errors->first() }}</div>
-            @endif
+        <!-- LEFT: INFO + MAP -->
+        <div class="col-lg-5" data-aos="fade-right">
+            <div class="contact-info">
+                <h3 class="contact-info__title"><i class="fa-solid fa-tower-broadcast"></i> TRẠM CHỈ HUY</h3>
 
-            <form class="contact-form" action="{{ route('static.contact.send') }}" method="POST">
-                @csrf
-                <div class="contact-form__row">
-                    <input type="text" name="ho_ten" value="{{ old('ho_ten') }}" placeholder="Ho ten" required>
-                    <input type="email" name="email" value="{{ old('email') }}" placeholder="Email" required>
+                <div class="contact-info__item">
+                    <span class="contact-info__icon"><i class="fa-solid fa-location-dot"></i></span>
+                    <div>
+                        <p class="contact-info__label">Địa chỉ trụ sở</p>
+                        <p class="contact-info__value">Số 1 Võ Văn Ngân, P. Linh Chiểu, TP. Thủ Đức, TP. Hồ Chí Minh</p>
+                    </div>
                 </div>
-                <div class="contact-form__row">
-                    <input type="text" name="so_dien_thoai" value="{{ old('so_dien_thoai') }}" placeholder="So dien thoai">
-                    <select name="chu_de">
-                        <option value="tu-van" @selected(old('chu_de')==='tu-van')>Tu van san pham</option>
-                        <option value="bao-hanh" @selected(old('chu_de')==='bao-hanh')>Bao hanh</option>
-                        <option value="setup" @selected(old('chu_de')==='setup')>Build setup</option>
-                    </select>
+
+                <div class="contact-info__item">
+                    <span class="contact-info__icon"><i class="fa-solid fa-headset"></i></span>
+                    <div>
+                        <p class="contact-info__label">Đường dây nóng</p>
+                        <p class="contact-info__value">+84 1900 8888 (24/7 Support)</p>
+                    </div>
                 </div>
-                <textarea name="noi_dung" placeholder="Noi dung can ho tro" required>{{ old('noi_dung') }}</textarea>
-                <button class="store-btn" type="submit"><i class="fa-solid fa-paper-plane"></i> Gui lien he</button>
-            </form>
-            <div class="contact-map">
-                <div>
-                    <i class="fa-solid fa-map-location-dot fa-2x mb-2"></i>
-                    <div>YUKI Gaming Store · Quan 1 · TP HCM</div>
+
+                <div class="contact-info__item">
+                    <span class="contact-info__icon"><i class="fa-solid fa-envelope"></i></span>
+                    <div>
+                        <p class="contact-info__label">Liên hệ điện tử</p>
+                        <p class="contact-info__value">hq@YUKIgaming.com.vn</p>
+                    </div>
+                </div>
+
+                <a href="https://www.google.com/maps?q=1+Vo+Van+Ngan,+Linh+Chieu,+Thu+Duc,+Ho+Chi+Minh"
+                   target="_blank" rel="noopener" class="contact-info__map-btn">
+                    <i class="fa-solid fa-map-location-dot"></i> Open in Maps
+                </a>
+
+                <div class="contact-map">
+                    <iframe
+                        src="https://www.google.com/maps?q=1+Vo+Van+Ngan,+Linh+Chieu,+Thu+Duc,+Ho+Chi+Minh&output=embed"
+                        width="100%" height="100%" style="border:0;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                        title="Bản đồ YUKI"></iframe>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- RIGHT: FORM -->
+        <div class="col-lg-7" data-aos="fade-left">
+            <div class="contact-form-card">
+                <h3 class="contact-form-card__title"><i class="fa-solid fa-satellite-dish"></i> KÊNH TRUYỀN TIN</h3>
+
+                <form class="contact-form" id="contactForm" action="{{ route('static.contact.send') }}" method="POST">
+                    @csrf
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="contact-form__label">Họ và tên</label>
+                            <div class="contact-field">
+                                <i class="fa-regular fa-user"></i>
+                                <input type="text" name="ho_ten" value="{{ old('ho_ten') }}" class="contact-field__input" placeholder="Nhập tên của bạn..." required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="contact-form__label">Địa chỉ email</label>
+                            <div class="contact-field">
+                                <i class="fa-regular fa-envelope"></i>
+                                <input type="email" name="email" value="{{ old('email') }}" class="contact-field__input" placeholder="example@gmail.com" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="contact-form__label">Tiêu đề</label>
+                            <div class="contact-field">
+                                <i class="fa-solid fa-tag"></i>
+                                <select name="chu_de" class="contact-field__input">
+                                    <option value="ho-tro-ky-thuat" @selected(old('chu_de')==='ho-tro-ky-thuat')>Hỗ trợ kỹ thuật</option>
+                                    <option value="bao-hanh" @selected(old('chu_de')==='bao-hanh')>Bảo hành sản phẩm</option>
+                                    <option value="don-hang" @selected(old('chu_de')==='don-hang')>Thông tin đơn hàng</option>
+                                    <option value="hop-tac" @selected(old('chu_de')==='hop-tac')>Hợp tác kinh doanh</option>
+                                    <option value="khac" @selected(old('chu_de')==='khac')>Khác</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label class="contact-form__label">Nội dung thông điệp</label>
+                            <textarea name="noi_dung" class="contact-form__textarea" rows="5" placeholder="Viết thông điệp của bạn tại đây..." required>{{ old('noi_dung') }}</textarea>
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="contact-form__submit">
+                                KHỞI ĐỘNG TRUYỀN TIN <i class="fa-solid fa-bolt ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="contact-form__note">* Phản hồi sẽ được mã hóa và gửi đến trung tâm điều hành trong vòng 24 giờ.</p>
+
+                    @if ($errors->any())
+                        <div class="contact-form__success" style="display:flex;background:rgba(255,49,93,.1);border-color:rgba(255,49,93,.4);color:#ff7d97">
+                            <i class="fa-solid fa-circle-exclamation"></i> {{ $errors->first() }}
+                        </div>
+                    @endif
+                    @if (session('lien_he_success'))
+                        <div class="contact-form__success" style="display:flex">
+                            <i class="fa-solid fa-circle-check"></i> {{ session('lien_he_success') }}
+                        </div>
+                    @endif
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURE STRIP -->
+    <div class="contact-features" data-aos="fade-up">
+        <div class="contact-feature">
+            <span class="contact-feature__icon contact-feature__icon--cyan"><i class="fa-solid fa-shield-halved"></i></span>
+            <div>
+                <h5 class="contact-feature__title">Bảo Mật Tuyệt Đối</h5>
+                <p class="contact-feature__text">Mọi thông tin điều được mã hóa đầu cuối.</p>
+            </div>
+        </div>
+        <div class="contact-feature">
+            <span class="contact-feature__icon contact-feature__icon--red"><i class="fa-solid fa-bolt"></i></span>
+            <div>
+                <h5 class="contact-feature__title">Phản Hồi Siêu Tốc</h5>
+                <p class="contact-feature__text">Cam kết xử lý yêu cầu dưới 12 giờ làm việc.</p>
+            </div>
+        </div>
+        <div class="contact-feature">
+            <span class="contact-feature__icon contact-feature__icon--gold"><i class="fa-solid fa-headphones"></i></span>
+            <div>
+                <h5 class="contact-feature__title">Hỗ Trợ Tận Tâm</h5>
+                <p class="contact-feature__text">Đội ngũ kỹ thuật viên giàu kinh nghiệm.</p>
+            </div>
+        </div>
+    </div>
 </main>
+<!-- #endregion -->
 @endsection

@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->string('ho_ten', 120);
             $table->string('email', 150);
             $table->string('so_dien_thoai', 30)->nullable();
-            $table->string('chu_de', 30)->default('tu-van');
+            $table->string('chu_de', 40)->default('ho-tro-ky-thuat');
             $table->text('noi_dung');
             $table->boolean('da_xu_ly')->default(false);
             $table->timestamps();

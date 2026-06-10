@@ -17,7 +17,7 @@ class GuiLienHeRequest extends FormRequest
             'ho_ten' => ['required', 'string', 'max:120'],
             'email' => ['required', 'email', 'max:150'],
             'so_dien_thoai' => ['nullable', 'string', 'max:30'],
-            'chu_de' => ['required', 'in:tu-van,bao-hanh,setup'],
+            'chu_de' => ['required', 'in:ho-tro-ky-thuat,bao-hanh,don-hang,hop-tac,khac'],
             'noi_dung' => ['required', 'string', 'max:2000'],
         ];
     }

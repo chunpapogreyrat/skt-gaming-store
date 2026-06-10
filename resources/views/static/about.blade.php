@@ -1,86 +1,190 @@
 @extends('layouts.app')
 
-@section('title', 'Gioi thieu - YUKI Gaming Store')
-
-@push('styles')
-<style>
-    .static-hero { min-height: 440px; display: grid; align-items: end; padding: 56px 0; background: linear-gradient(180deg, rgba(5,7,12,.25), rgba(5,7,12,.92)), url("{{ asset('assets/images/slider/1.jpg') }}") center/cover no-repeat; }
-    .static-hero__eyebrow { color: #67e8f9; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
-    .static-hero__title { max-width: 760px; color: #fff; font-family: Orbitron, sans-serif; font-size: clamp(2.1rem, 5vw, 4.8rem); line-height: 1.02; margin: 10px 0 14px; }
-    .static-hero__text { max-width: 680px; color: #cbd5e1; font-size: 1.04rem; }
-    .static-band { padding: 58px 0; }
-    .static-title { color: #fff; font-family: Orbitron, sans-serif; font-size: 1.8rem; margin-bottom: 16px; }
-    .static-copy { color: #94a3b8; line-height: 1.8; }
-    .static-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-    .static-stat { border: 1px solid rgba(255,255,255,.08); background: rgba(12,14,20,.76); border-radius: 8px; padding: 20px; }
-    .static-stat strong { display: block; color: #fff; font-size: 2rem; font-family: Orbitron, sans-serif; }
-    .static-stat span { color: #94a3b8; text-transform: uppercase; font-size: .78rem; letter-spacing: .05em; }
-    .static-values { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-    .static-value { border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.035); border-radius: 8px; padding: 18px; }
-    .static-value i { color: #ff315d; font-size: 1.35rem; margin-bottom: 12px; }
-    .static-value h3 { color: #fff; font-size: 1rem; margin-bottom: 8px; }
-    .static-value p { color: #94a3b8; margin: 0; font-size: .92rem; line-height: 1.65; }
-    .static-split { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: center; }
-    .static-split img { width: 100%; aspect-ratio: 16/10; object-fit: cover; border-radius: 8px; border: 1px solid rgba(255,255,255,.08); }
-    @media (max-width: 992px) { .static-values { grid-template-columns: repeat(2, minmax(0, 1fr)); } .static-split { grid-template-columns: 1fr; } }
-    @media (max-width: 640px) { .static-stats, .static-values { grid-template-columns: 1fr; } .static-hero { min-height: 360px; } }
-</style>
-@endpush
+@section('title', 'Về Chúng Tôi — YUKI')
 
 @section('content')
-<section class="static-hero">
-    <div class="container-fluid px-4 px-xl-5">
-        <span class="static-hero__eyebrow">YUKI Gaming Store</span>
-        <h1 class="static-hero__title">Gear chuan thi dau cho ban gaming nghiem tuc.</h1>
-        <p class="static-hero__text">SKT tap trung vao chuot, ban phim, lot chuot, man hinh va phu kien co hieu nang that, phu hop ca FPS lan setup lam viec hang ngay.</p>
-        <a class="store-btn mt-3" href="{{ route('products.index') }}"><i class="fa-solid fa-bag-shopping"></i> Xem san pham</a>
+<!-- #region BREADCRUMB -->
+<nav class="breadcrumb-bar container-fluid px-4 px-xl-5">
+    <ol class="breadcrumb-bar__list">
+        <li><a href="{{ route('home') }}"><i class="fa-solid fa-house"></i> Trang chủ</a></li>
+        <li class="breadcrumb-bar__active">Giới thiệu về chúng tôi</li>
+    </ol>
+</nav>
+<!-- #endregion -->
+
+<!-- #region ABOUT HERO -->
+<section class="about-hero">
+    <div class="about-hero__grid"></div>
+    <div class="about-hero__glow"></div>
+    <div class="container-fluid px-4 px-xl-5 about-hero__inner">
+        <span class="about-hero__tag" data-aos="fade-up">VỀ CHÚNG TÔI</span>
+        <h1 class="about-hero__title" data-aos="fade-up" data-aos-delay="80">
+            YUKI <span class="txt-red">GAMING</span> STORE
+        </h1>
+        <p class="about-hero__sub" data-aos="fade-up" data-aos-delay="160">
+            Nơi quy tụ những vũ khí tối thượng cho game thủ chuyên nghiệp. Track nhanh — Bấm mượt — Không đổ lỗi cho gear.
+        </p>
     </div>
 </section>
+<!-- #endregion -->
 
-<main class="container-fluid px-4 px-xl-5">
-    <section class="static-band">
-        <div class="static-split">
-            <div>
-                <h2 class="static-title">Chon gear bang trai nghiem, khong chay theo ten goi.</h2>
-                <p class="static-copy">Moi san pham trong store duoc sap xep theo nhu cau thuc te: FPS, tracking, click latency, switch feel, control/speed surface va do ben. Muc tieu la giup nguoi dung tim dung mon do nhanh hon, it phai doi tra hon.</p>
-                <p class="static-copy">Store uu tien hang co thong so ro rang, hinh anh day du va mo ta ngan gon de ban co the so sanh truc tiep trong danh sach san pham.</p>
-            </div>
-            <img src="{{ asset('assets/images/banners/keyboard-banner.jpg') }}" alt="Gaming keyboard banner">
+<!-- #region ABOUT STATS (count-up) -->
+<section class="container-fluid px-4 px-xl-5 about-stats-wrap">
+    <div class="about-stats" data-aos="zoom-in">
+        <div class="about-stat">
+            <span class="about-stat__num" data-count="8">0</span><span class="about-stat__plus">+</span>
+            <span class="about-stat__label">Năm kinh nghiệm</span>
         </div>
-    </section>
-
-    <section class="static-band pt-0">
-        <div class="static-stats">
-            <div class="static-stat"><strong>{{ $stats['products'] }}</strong><span>San pham active</span></div>
-            <div class="static-stat"><strong>{{ $stats['hotProducts'] }}</strong><span>Dang ban chay</span></div>
-            <div class="static-stat"><strong>{{ $stats['saleProducts'] }}</strong><span>Dang sale</span></div>
+        <div class="about-stat">
+            <span class="about-stat__num" data-count="1200">0</span><span class="about-stat__plus">+</span>
+            <span class="about-stat__label">Sản phẩm chính hãng</span>
         </div>
-    </section>
+        <div class="about-stat">
+            <span class="about-stat__num" data-count="50000">0</span><span class="about-stat__plus">+</span>
+            <span class="about-stat__label">Khách hàng tin tưởng</span>
+        </div>
+        <div class="about-stat">
+            <span class="about-stat__num" data-count="60">0</span><span class="about-stat__plus">+</span>
+            <span class="about-stat__label">Thương hiệu hợp tác</span>
+        </div>
+    </div>
+</section>
+<!-- #endregion -->
 
-    <section class="static-band pt-0">
-        <h2 class="static-title">Gia tri van hanh</h2>
-        <div class="static-values">
-            <div class="static-value">
-                <i class="fa-solid fa-gauge-high"></i>
-                <h3>Hieu nang</h3>
-                <p>Uu tien latency, cam giac bam, trong luong va do on dinh khi dung lau.</p>
-            </div>
-            <div class="static-value">
-                <i class="fa-solid fa-layer-group"></i>
-                <h3>Lua chon ro rang</h3>
-                <p>Danh muc, filter, sort va tag sale/hot giup so sanh nhanh hon.</p>
-            </div>
-            <div class="static-value">
-                <i class="fa-solid fa-shield-halved"></i>
-                <h3>Hang chinh hang</h3>
-                <p>Tap trung vao san pham co nguon goc, hinh anh va cau hinh minh bach.</p>
-            </div>
-            <div class="static-value">
-                <i class="fa-solid fa-headset"></i>
-                <h3>Ho tro setup</h3>
-                <p>Goi y combo theo phong cach ban choi va khong gian ban dang co.</p>
+<!-- #region MISSION & VISION -->
+<section class="container-fluid px-4 px-xl-5 about-mv">
+    <div class="row g-4">
+        <div class="col-lg-6" data-aos="fade-right">
+            <div class="mv-card mv-card--mission">
+                <div class="mv-card__icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3 class="mv-card__title">Sứ Mệnh</h3>
+                <p class="mv-card__text">
+                    Nâng tầm trải nghiệm của mọi game thủ thông qua những thiết bị tuyển chọn khắt khe nhất.
+                    Chúng tôi đồng hành cùng cộng đồng eSports Việt Nam trong việc xây dựng nền tảng phần cứng
+                    vững chắc để vươn tầm thế giới.
+                </p>
             </div>
         </div>
-    </section>
-</main>
+        <div class="col-lg-6" data-aos="fade-left">
+            <div class="mv-card mv-card--vision">
+                <div class="mv-card__icon"><i class="fa-solid fa-binoculars"></i></div>
+                <h3 class="mv-card__title">Tầm Nhìn</h3>
+                <p class="mv-card__text">
+                    Trở thành biểu tượng của văn hóa Gaming tại Đông Nam Á, nơi mọi nhà vô địch đều tìm thấy
+                    vũ khí của riêng mình. Không ngừng cập nhật những công nghệ đột phá nhất từ các phòng lab
+                    hàng đầu thế giới.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- #endregion -->
+
+<!-- #region CORE VALUES -->
+<section class="container-fluid px-4 px-xl-5 about-values">
+    <h2 class="about-section-title" data-aos="fade-up">GIÁ TRỊ CỐT LÕI</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="0">
+            <div class="value-card">
+                <div class="value-card__icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h4 class="value-card__title">Chất Lượng</h4>
+                <p class="value-card__text">
+                    Chỉ phân phối hàng chính hãng với tiêu chuẩn kiểm định nghiêm ngặt từ nhà sản xuất.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="120">
+            <div class="value-card">
+                <div class="value-card__icon"><i class="fa-solid fa-bolt"></i></div>
+                <h4 class="value-card__title">Đột Phá</h4>
+                <p class="value-card__text">
+                    Luôn là đơn vị tiên phong mang về những sản phẩm "Limited Edition" và công nghệ mới nhất.
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="240">
+            <div class="value-card">
+                <div class="value-card__icon"><i class="fa-solid fa-users"></i></div>
+                <h4 class="value-card__title">Cộng Đồng</h4>
+                <p class="value-card__text">
+                    Xây dựng hệ sinh thái hỗ trợ game thủ, tổ chức các giải đấu chuyên nghiệp và cộng đồng chia sẻ đam mê.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- #endregion -->
+
+<!-- #region TEAM -->
+<section class="container-fluid px-4 px-xl-5 about-team">
+    <h2 class="about-section-title" data-aos="fade-up">ĐỘI NGŨ CHUYÊN GIA</h2>
+    <p class="about-team__intro" data-aos="fade-up" data-aos-delay="80">
+        Những bộ óc đứng sau YUKI — kiến tạo trải nghiệm, dựng nền tảng và tối ưu từng dòng code.
+    </p>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-6 col-lg-4" data-aos="zoom-out-up" data-aos-delay="0">
+            <div class="team-card team-card--cyan">
+                <div class="team-card__avatar">
+                    <img src="{{ asset('assets/images/avatars/truong.jpg') }}" alt="Vũ Quang Trưởng">
+                </div>
+                <h4 class="team-card__name">Vũ Quang Trưởng</h4>
+                <span class="team-card__role">Lead UI/UX Architect &amp; Data Analyst</span>
+                <p class="team-card__desc">Kiến trúc sư giao diện — thiết kế UI/UX, phân tích dữ liệu và dựng nên diện mạo trực quan của YUKI.</p>
+                <ul class="team-card__socials">
+                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-plus"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-discord"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-globe"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="zoom-out-up" data-aos-delay="120">
+            <div class="team-card team-card--red">
+                <div class="team-card__avatar">
+                    <img src="{{ asset('assets/images/avatars/trung.png') }}" alt="Trần Đức Trung">
+                </div>
+                <h4 class="team-card__name">Trần Đức Trung</h4>
+                <span class="team-card__role">Team Leader &amp; Full-stack Engineer</span>
+                <p class="team-card__desc">Thuyền trưởng dự án — dẫn dắt đội ngũ và xây dựng trọn vẹn hệ thống từ front-end đến back-end.</p>
+                <ul class="team-card__socials">
+                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-plus"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-tiktok"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-globe"></i></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4" data-aos="zoom-out-up" data-aos-delay="240">
+            <div class="team-card team-card--gold">
+                <div class="team-card__avatar">
+                    <img src="{{ asset('assets/images/avatars/khoa.jpg') }}" alt="Lê Trần Đăng Khoa">
+                </div>
+                <h4 class="team-card__name">Lê Trần Đăng Khoa</h4>
+                <span class="team-card__role">Backend Engineer &amp; System Architect</span>
+                <p class="team-card__desc">Kiến trúc sư hệ thống — phân tích nghiệp vụ và xây dựng nền tảng back-end vững chắc, an toàn.</p>
+                <ul class="team-card__socials">
+                    <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-plus"></i></a></li>
+                    <li><a href="#"><i class="fa-brands fa-discord"></i></a></li>
+                    <li><a href="#"><i class="fa-solid fa-globe"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- #endregion -->
+
+<!-- #region CTA -->
+<section class="container-fluid px-4 px-xl-5">
+    <div class="about-cta" data-aos="zoom-in">
+        <div class="about-cta__glow"></div>
+        <h2 class="about-cta__title">Sẵn sàng nâng cấp <span class="txt-red">chiến mã</span> của bạn?</h2>
+        <p class="about-cta__sub">Khám phá kho vũ khí gaming gear hi-end đang chờ bạn.</p>
+        <a href="{{ route('products.index') }}" class="about-cta__btn">KHÁM PHÁ NGAY <i class="fa-solid fa-arrow-right ms-2"></i></a>
+    </div>
+</section>
+<!-- #endregion -->
 @endsection
