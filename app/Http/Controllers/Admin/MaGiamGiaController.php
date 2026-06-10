@@ -48,6 +48,14 @@ class MaGiamGiaController extends Controller
         return redirect()->route('admin.coupons.index')->with('success', 'Đã cập nhật mã giảm giá');
     }
 
+    public function toggle(int $id): RedirectResponse
+    {
+        $ma = MaGiamGia::findOrFail($id);
+        $ma->update(['trang_thai' => !$ma->trang_thai]);
+
+        return back()->with('success', 'Đã ' . ($ma->trang_thai ? 'bật' : 'tắt') . ' mã ' . $ma->ma_code);
+    }
+
     public function destroy(int $id): RedirectResponse
     {
         MaGiamGia::findOrFail($id)->delete();

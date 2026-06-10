@@ -80,6 +80,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('/ma-giam-gia', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'store'])->name('coupons.store');
     Route::get('/ma-giam-gia/{id}/sua', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'edit'])->name('coupons.edit');
     Route::put('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'update'])->name('coupons.update');
+    Route::patch('/ma-giam-gia/{id}/trang-thai', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'toggle'])->name('coupons.toggle');
     Route::delete('/ma-giam-gia/{id}', [\App\Http\Controllers\Admin\MaGiamGiaController::class, 'destroy'])->name('coupons.destroy');
 
     // Setup trưng bày
