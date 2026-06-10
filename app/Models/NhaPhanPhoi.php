@@ -43,9 +43,37 @@ class NhaPhanPhoi extends Model
         'ended' => 'cancel',
     ];
 
+    /** Map quốc gia (tiếng Việt) → emoji cờ. */
+    public const CO_QUOC_GIA = [
+        'mỹ' => '🇺🇸', 'hoa kỳ' => '🇺🇸',
+        'hà lan' => '🇳🇱',
+        'hàn quốc' => '🇰🇷',
+        'đức' => '🇩🇪',
+        'singapore' => '🇸🇬',
+        'đan mạch' => '🇩🇰',
+        'thụy sĩ' => '🇨🇭',
+        'nhật bản' => '🇯🇵', 'nhật' => '🇯🇵',
+        'trung quốc' => '🇨🇳',
+        'đài loan' => '🇹🇼',
+        'việt nam' => '🇻🇳',
+        'anh' => '🇬🇧',
+        'pháp' => '🇫🇷',
+        'canada' => '🇨🇦',
+        'úc' => '🇦🇺',
+    ];
+
     public function tenTrangThai(): string
     {
         return self::NHAN_TRANG_THAI[$this->trang_thai] ?? $this->trang_thai;
+    }
+
+    public function coQuocGia(): string
+    {
+        if (! $this->quoc_gia) {
+            return '';
+        }
+
+        return self::CO_QUOC_GIA[mb_strtolower(trim($this->quoc_gia))] ?? '';
     }
 
     public function badgeTrangThai(): string

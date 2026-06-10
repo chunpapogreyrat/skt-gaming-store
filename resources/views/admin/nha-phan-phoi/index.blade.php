@@ -85,7 +85,7 @@
             <tr class="admin-table__row">
                 <td>
                     <a href="#" class="admin-table__edit-link admin-table__product" data-bs-toggle="modal" data-bs-target="#supplierModal" onclick='{{ $attrs }}' title="Bấm để chỉnh sửa">
-                        <div class="admin-supplier-logo"><i class="fa-solid {{ $npp->icon ?: 'fa-truck-ramp-box' }}"></i></div>
+                        <div class="admin-supplier-logo admin-supplier-logo--{{ $npp->trang_thai }}"><i class="fa-solid {{ $npp->icon ?: 'fa-truck-ramp-box' }}"></i></div>
                         <div>
                             <div class="admin-table__name">{{ $npp->ten }}</div>
                             <div class="admin-table__muted">{{ $npp->mo_ta }}</div>
@@ -93,7 +93,7 @@
                     </a>
                 </td>
                 <td>{{ $npp->email }}<div class="admin-table__muted">{{ $npp->sdt }}</div></td>
-                <td>{{ $npp->quoc_gia ?: '—' }}</td>
+                <td>@if($npp->coQuocGia()){{ $npp->coQuocGia() }} @endif{{ $npp->quoc_gia ?: '—' }}</td>
                 <td><span class="admin-badge admin-badge--prep">{{ $npp->so_sku }} SKU</span></td>
                 <td>{{ optional($npp->hop_dong_den)->format('d/m/Y') ?? '—' }}</td>
                 <td><span class="admin-badge admin-badge--{{ $npp->badgeTrangThai() }}">{{ $npp->tenTrangThai() }}</span></td>
@@ -193,6 +193,8 @@
     font-size: 18px;
     flex-shrink: 0;
 }
+.admin-supplier-logo--paused { background: rgba(255,183,3,.1); color: #ffb703; }
+.admin-supplier-logo--ended  { background: rgba(255,0,60,.08); color: var(--red, #ff003c); }
 </style>
 
 @push('scripts')
