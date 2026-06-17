@@ -40,6 +40,9 @@ class DatabaseSeeder extends Seeder
         // ── Danh mục + Thương hiệu + 40 sản phẩm + biến thể màu ──
         $this->call(ProductsSeeder::class);
 
+        // ── Biến thể màu chính xác theo ảnh thật (gắn ảnh + mã màu) ──
+        $this->call(BienTheMauSeeder::class);
+
         // ── Banner hero slider trang chủ ──
         $this->call(BannerSeeder::class);
 

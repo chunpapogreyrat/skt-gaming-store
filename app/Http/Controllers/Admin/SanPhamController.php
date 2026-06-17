@@ -182,6 +182,7 @@ class SanPhamController extends Controller
             'bien_the' => 'nullable|array',
             'bien_the.*.ten' => 'nullable|string|max:50',
             'bien_the.*.hex' => 'nullable|string|max:10',
+            'bien_the.*.hinh_anh_id' => 'nullable|integer',
             'bien_the.*.gia_chenh_lech' => 'nullable|numeric',
             'bien_the.*.so_luong_ton' => 'nullable|integer|min:0',
         ], [
@@ -189,6 +190,8 @@ class SanPhamController extends Controller
         ]);
 
         $rows = $request->input('bien_the', []);
+        // Chỉ chấp nhận ảnh thuộc chính sản phẩm này (tránh gán nhầm ảnh SP khác)
+        $anhHopLe = $sanPham->hinhAnh()->pluck('id')->all();
         $keepIds = [];
 
         foreach ($rows as $row) {
@@ -197,10 +200,16 @@ class SanPhamController extends Controller
                 continue; // bỏ qua dòng trống
             }
 
+            $hinhAnhId = $row['hinh_anh_id'] ?? null;
+            if ($hinhAnhId !== null && ! in_array((int) $hinhAnhId, $anhHopLe)) {
+                $hinhAnhId = null;
+            }
+
             $payload = [
                 'san_pham_id'    => $sanPham->id,
                 'ten_bien_the'   => $ten,
                 'ma_hex'         => $row['hex'] ?? null,
+                'hinh_anh_id'    => $hinhAnhId ? (int) $hinhAnhId : null,
                 'gia_chenh_lech' => (float) ($row['gia_chenh_lech'] ?? 0),
                 'so_luong_ton'   => (int) ($row['so_luong_ton'] ?? 0),
                 'is_active'      => ! empty($row['is_active']),

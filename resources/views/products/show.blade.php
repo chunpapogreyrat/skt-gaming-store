@@ -77,7 +77,7 @@
                 <div class="detail-info__stock">
                     <i class="fa-solid fa-circle-check"></i>
                     {{ $product->so_luong_ton > 0 ? 'Còn hàng' : 'Hết hàng' }}
-                    <span>({{ $product->so_luong_ton }} sản phẩm)</span>
+                    <span id="detailStockText">({{ $product->so_luong_ton }} sản phẩm)</span>
                 </div>
 
                 <div class="detail-info__features">
@@ -90,6 +90,7 @@
                 </div>
 
                 @if ($product->bienThe->count() > 1)
+                    @php $imgIndexById = $product->hinhAnh->values()->mapWithKeys(fn ($img, $i) => [$img->id => $i]); @endphp
                     <div class="detail-info__variants" id="detailVariants" data-base-price="{{ (int) $product->gia_ban }}">
                         <p class="detail-info__variant-label">Màu sắc: <span class="detail-info__variant-current" id="selectedVariantName"></span></p>
                         <div class="detail-info__swatches">
@@ -100,6 +101,7 @@
                                     data-hex="{{ $variant->ma_hex ?: '#222' }}"
                                     data-pricediff="{{ (int) $variant->gia_chenh_lech }}"
                                     data-stock="{{ (int) $variant->so_luong_ton }}"
+                                    data-img-index="{{ $variant->hinh_anh_id !== null && isset($imgIndexById[$variant->hinh_anh_id]) ? $imgIndexById[$variant->hinh_anh_id] : '' }}"
                                     title="{{ $variant->ten_bien_the }}"
                                     @disabled($variant->so_luong_ton <= 0)>
                                     <span class="detail-swatch__dot" style="background:{{ $variant->ma_hex ?: '#222' }}"></span>
@@ -283,22 +285,33 @@
     var swatches = wrap ? Array.prototype.slice.call(wrap.querySelectorAll('.detail-swatch')) : [];
     var nameEl   = document.getElementById('selectedVariantName');
     var priceEl  = document.querySelector('.detail-info__price');
+    var stockEl  = document.getElementById('detailStockText');
     var basePrice = wrap ? (parseInt(wrap.dataset.basePrice) || 0) : 0;
 
     function fmt(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
 
-    function select(sw) {
+    // Đổi ảnh lớn theo màu: tái dùng nút thumbnail (đã gắn sẵn sự kiện owl trong script.js)
+    function switchGalleryImage(idx) {
+        var thumbs = document.querySelectorAll('.detail-gallery__thumb');
+        if (thumbs[idx]) thumbs[idx].click();
+    }
+
+    function select(sw, isInit) {
         swatches.forEach(function (s) { s.classList.remove('is-active'); });
         sw.classList.add('is-active');
         if (nameEl) nameEl.textContent = sw.dataset.variant || '';
         var diff = parseInt(sw.dataset.pricediff) || 0;
         if (priceEl && basePrice) priceEl.textContent = fmt(basePrice + diff);
+        if (stockEl) stockEl.textContent = '(' + (parseInt(sw.dataset.stock) || 0) + ' sản phẩm)';
+        var imgIdx = sw.dataset.imgIndex;
+        // không đổi ảnh lúc khởi tạo (owl chưa sẵn sàng); chỉ đổi khi khách bấm
+        if (!isInit && imgIdx !== '' && imgIdx != null) switchGalleryImage(parseInt(imgIdx));
     }
 
     if (swatches.length) {
         // mặc định chọn biến thể đầu tiên còn hàng
         var init = swatches.filter(function (s) { return !s.disabled; })[0] || swatches[0];
-        select(init);
+        select(init, true);
         swatches.forEach(function (sw) {
             sw.addEventListener('click', function () { if (!sw.disabled) select(sw); });
         });

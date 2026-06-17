@@ -15,6 +15,7 @@ class BienTheSanPham extends Model
         'san_pham_id',
         'ten_bien_the',
         'ma_hex',
+        'hinh_anh_id',
         'gia_chenh_lech',
         'so_luong_ton',
         'is_active',
@@ -28,5 +29,10 @@ class BienTheSanPham extends Model
     public function sanPham(): BelongsTo
     {
         return $this->belongsTo(SanPham::class, 'san_pham_id');
+    }
+
+    public function hinhAnh(): BelongsTo
+    {
+        return $this->belongsTo(HinhAnhSanPham::class, 'hinh_anh_id');
     }
 }

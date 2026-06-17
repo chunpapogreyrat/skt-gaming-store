@@ -100,12 +100,17 @@
                         'id' => $b->id,
                         'ten' => $b->ten_bien_the,
                         'hex' => $b->ma_hex,
+                        'hinh_anh_id' => $b->hinh_anh_id,
                         'gia_chenh_lech' => (int) $b->gia_chenh_lech,
                         'so_luong_ton' => $b->so_luong_ton,
                         'is_active' => $b->is_active,
                     ])->toArray()
                     : [];
             }
+            // Ảnh sản phẩm để gắn cho từng màu (chọn màu sẽ đổi sang ảnh này ở trang khách)
+            $anhOptions = $sanPham->exists
+                ? $sanPham->hinhAnh->values()->map(fn ($img, $i) => ['id' => $img->id, 'label' => 'Ảnh ' . ($i + 1)])
+                : collect();
         @endphp
         <div class="admin-panel mb-3">
             <h3 class="admin-panel__title mb-2">Biến thể màu sắc</h3>
@@ -114,9 +119,10 @@
             <div class="variant-list__head">
                 <span style="flex:0 0 38px">Màu</span>
                 <span style="flex:1">Tên màu</span>
-                <span style="flex:0 0 96px">Chênh giá</span>
-                <span style="flex:0 0 70px">Tồn</span>
-                <span style="flex:0 0 52px">Hiện</span>
+                <span style="flex:0 0 90px">Ảnh</span>
+                <span style="flex:0 0 90px">Chênh giá</span>
+                <span style="flex:0 0 64px">Tồn</span>
+                <span style="flex:0 0 44px">Hiện</span>
                 <span style="flex:0 0 30px"></span>
             </div>
 
@@ -126,6 +132,12 @@
                     <input type="hidden" name="bien_the[{{ $i }}][id]" value="{{ $bt['id'] ?? '' }}">
                     <input type="color" name="bien_the[{{ $i }}][hex]" value="{{ $bt['hex'] ?: '#1a1a1a' }}" class="variant-row__color" title="Chọn màu">
                     <input type="text" name="bien_the[{{ $i }}][ten]" value="{{ $bt['ten'] ?? '' }}" placeholder="VD: Đen, Trắng, Bạc…" class="admin-field__input variant-row__name">
+                    <select name="bien_the[{{ $i }}][hinh_anh_id]" class="admin-field__select variant-row__img" title="Ảnh hiển thị khi chọn màu này">
+                        <option value="">— Ảnh —</option>
+                        @foreach($anhOptions as $opt)
+                        <option value="{{ $opt['id'] }}" @selected(($bt['hinh_anh_id'] ?? null) == $opt['id'])>{{ $opt['label'] }}</option>
+                        @endforeach
+                    </select>
                     <input type="number" name="bien_the[{{ $i }}][gia_chenh_lech]" value="{{ $bt['gia_chenh_lech'] ?? 0 }}" class="admin-field__input variant-row__price" title="Chênh lệch giá so với giá bán (đ)">
                     <input type="number" name="bien_the[{{ $i }}][so_luong_ton]" value="{{ $bt['so_luong_ton'] ?? 0 }}" min="0" class="admin-field__input variant-row__stock">
                     <label class="variant-row__active"><input type="checkbox" name="bien_the[{{ $i }}][is_active]" value="1" @checked($bt['is_active'] ?? true)></label>
@@ -141,6 +153,12 @@
                     <input type="hidden" name="bien_the[__IDX__][id]" value="">
                     <input type="color" name="bien_the[__IDX__][hex]" value="#1a1a1a" class="variant-row__color" title="Chọn màu">
                     <input type="text" name="bien_the[__IDX__][ten]" value="" placeholder="VD: Đen, Trắng, Bạc…" class="admin-field__input variant-row__name">
+                    <select name="bien_the[__IDX__][hinh_anh_id]" class="admin-field__select variant-row__img" title="Ảnh hiển thị khi chọn màu này">
+                        <option value="">— Ảnh —</option>
+                        @foreach($anhOptions as $opt)
+                        <option value="{{ $opt['id'] }}">{{ $opt['label'] }}</option>
+                        @endforeach
+                    </select>
                     <input type="number" name="bien_the[__IDX__][gia_chenh_lech]" value="0" class="admin-field__input variant-row__price" title="Chênh lệch giá so với giá bán (đ)">
                     <input type="number" name="bien_the[__IDX__][so_luong_ton]" value="0" min="0" class="admin-field__input variant-row__stock">
                     <label class="variant-row__active"><input type="checkbox" name="bien_the[__IDX__][is_active]" value="1" checked></label>
@@ -202,9 +220,10 @@
     .variant-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
     .variant-row__color { flex: 0 0 38px; width: 38px; height: 38px; padding: 2px; border: 1px solid rgba(255,255,255,.14); border-radius: 8px; background: transparent; cursor: pointer; }
     .variant-row__name { flex: 1; margin: 0; }
-    .variant-row__price { flex: 0 0 96px; margin: 0; }
-    .variant-row__stock { flex: 0 0 70px; margin: 0; }
-    .variant-row__active { flex: 0 0 52px; display: flex; justify-content: center; align-items: center; margin: 0; }
+    .variant-row__img { flex: 0 0 90px; margin: 0; padding: 6px 6px; }
+    .variant-row__price { flex: 0 0 90px; margin: 0; }
+    .variant-row__stock { flex: 0 0 64px; margin: 0; }
+    .variant-row__active { flex: 0 0 44px; display: flex; justify-content: center; align-items: center; margin: 0; }
     .variant-row__rm { flex: 0 0 30px; width: 30px; height: 30px; border: 0; border-radius: 8px; background: rgba(255,0,60,.14); color: var(--red); cursor: pointer; font-size: 20px; line-height: 1; transition: .15s; }
     .variant-row__rm:hover { background: var(--red); color: #fff; }
 </style>
