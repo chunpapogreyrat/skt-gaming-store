@@ -54,5 +54,8 @@ class DatabaseSeeder extends Seeder
 
         // ── Liên hệ demo (M9) ──
         $this->call(LienHeSeeder::class);
+
+        // ── Bài viết blog "Góc game thủ" ──
+        $this->call(BaiVietSeeder::class);
     }
 }

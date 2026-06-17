@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DanhGiaController;
 use App\Http\Controllers\DanhMucController;
 use App\Http\Controllers\DiaChiController;
@@ -28,6 +29,10 @@ Route::get('/lien-he', [TrangTinhController::class, 'contact'])->name('static.co
 Route::post('/lien-he', [TrangTinhController::class, 'guiLienHe'])->name('static.contact.send');
 Route::get('/setups', [TrangTinhController::class, 'setups'])->name('static.setups');
 Route::get('/404', [TrangTinhController::class, 'notFound'])->name('static.404');
+
+// ── Blog "Góc game thủ" ──
+Route::get('/goc-game-thu', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/goc-game-thu/{baiViet:slug}', [BlogController::class, 'show'])->name('blog.show');
 
 // ── Module 1 — Auth (khách chưa đăng nhập) ──
 Route::middleware('guest.module')->group(function () {

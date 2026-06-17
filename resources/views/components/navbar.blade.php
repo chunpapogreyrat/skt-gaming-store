@@ -17,13 +17,15 @@
                     </div>
                 </li>
                 <li class="navbar__item navbar__has-drop">
-                    <a href="{{ route('static.setups') }}" class="navbar__link {{ request()->routeIs('static.setups') ? 'navbar__link--active' : '' }}">
+                    <a href="{{ route('blog.index') }}" class="navbar__link {{ request()->routeIs('blog.*') ? 'navbar__link--active' : '' }}">
                         Góc game thủ <i class="fa-solid fa-angle-down navbar__caret"></i>
                     </a>
                     <div class="navbar__dropdown">
-                        <a href="{{ route('static.setups') }}" class="navbar__drop-link"><i class="fa-solid fa-display"></i> Setup đỉnh cao</a>
-                        <a href="{{ route('static.setups') }}" class="navbar__drop-link"><i class="fa-solid fa-gamepad"></i> Trải nghiệm sản phẩm</a>
-                        <a href="{{ route('static.setups') }}" class="navbar__drop-link"><i class="fa-solid fa-broom"></i> Vệ sinh thiết bị</a>
+                        <a href="{{ route('blog.index') }}" class="navbar__drop-link"><i class="fa-solid fa-newspaper"></i> Tất cả bài viết</a>
+                        <a href="{{ route('blog.index', ['danh_muc' => 'huong-dan']) }}" class="navbar__drop-link"><i class="fa-solid fa-book-open"></i> Hướng dẫn chọn gear</a>
+                        <a href="{{ route('blog.index', ['danh_muc' => 'review']) }}" class="navbar__drop-link"><i class="fa-solid fa-star"></i> Đánh giá sản phẩm</a>
+                        <a href="{{ route('blog.index', ['danh_muc' => 'setup']) }}" class="navbar__drop-link"><i class="fa-solid fa-display"></i> Setup & Build</a>
+                        <a href="{{ route('blog.index', ['danh_muc' => 'esports']) }}" class="navbar__drop-link"><i class="fa-solid fa-trophy"></i> Esports</a>
                     </div>
                 </li>
                 <li><a href="{{ route('static.about') }}" class="navbar__link {{ request()->routeIs('static.about') ? 'navbar__link--active' : '' }}">Giới thiệu về chúng tui</a></li>
