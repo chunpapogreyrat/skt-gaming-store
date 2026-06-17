@@ -3,6 +3,14 @@
 @section('title', 'Quản lý sản phẩm - YUKI Admin')
 @section('nav-products', 'is-active')
 
+@push('styles')
+<style>
+    .admin-variant-dots { display: flex; align-items: center; gap: 3px; margin-top: 4px; }
+    .admin-variant-dots__dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); }
+    .admin-variant-dots__count { font-size: .68rem; color: var(--text-muted); margin-left: 4px; }
+</style>
+@endpush
+
 @section('content')
 <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
     <div>
@@ -46,6 +54,14 @@
                     <div>
                         <div class="admin-table__name">{{ $sp->ten }}</div>
                         <div class="admin-table__muted">{{ $sp->thuongHieu->ten ?? '—' }}</div>
+                        @if($sp->bienThe->count() > 1)
+                        <div class="admin-variant-dots" title="{{ $sp->bienThe->pluck('ten_bien_the')->implode(', ') }}">
+                            @foreach($sp->bienThe->take(6) as $bt)
+                                <span class="admin-variant-dots__dot" style="background:{{ $bt->ma_hex ?: '#888' }}"></span>
+                            @endforeach
+                            <span class="admin-variant-dots__count">{{ $sp->bienThe->count() }} màu</span>
+                        </div>
+                        @endif
                     </div>
                 </div></td>
                 <td>{{ $sp->danhMuc->ten ?? '—' }}</td>

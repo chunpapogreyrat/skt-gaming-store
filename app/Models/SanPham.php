@@ -72,6 +72,12 @@ class SanPham extends Model
         return $this->hasMany(BienTheSanPham::class, 'san_pham_id')->where('is_active', true);
     }
 
+    /** Tất cả biến thể (kể cả đang ẩn) — dùng cho trang quản trị. */
+    public function bienTheTatCa(): HasMany
+    {
+        return $this->hasMany(BienTheSanPham::class, 'san_pham_id')->orderBy('id');
+    }
+
     public function danhGia(): HasMany
     {
         return $this->hasMany(DanhGiaSanPham::class, 'san_pham_id')->where('is_active', true)->latest('ngay_tao');

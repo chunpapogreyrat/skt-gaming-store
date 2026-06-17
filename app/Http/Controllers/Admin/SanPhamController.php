@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BienTheSanPham;
 use App\Models\DanhMuc;
 use App\Models\SanPham;
 use App\Models\ThuongHieu;
@@ -21,7 +22,7 @@ class SanPhamController extends Controller
 {
     public function index(Request $request): View
     {
-        $query = SanPham::with(['danhMuc', 'thuongHieu'])->orderByDesc('ngay_tao');
+        $query = SanPham::with(['danhMuc', 'thuongHieu', 'bienThe'])->orderByDesc('ngay_tao');
 
         if ($danhMucId = $request->query('danh_muc')) {
             $query->where('danh_muc_id', $danhMucId);
@@ -51,6 +52,7 @@ class SanPhamController extends Controller
         $data = $this->validateData($request);
         $sanPham = SanPham::create($data);
         $this->luuHinhAnh($sanPham, $request);
+        $this->luuBienThe($sanPham, $request);
 
         return redirect()->route('admin.products.index')->with('success', 'Đã thêm sản phẩm');
     }
@@ -70,6 +72,7 @@ class SanPhamController extends Controller
         $data = $this->validateData($request);
         $sanPham->update($data);
         $this->luuHinhAnh($sanPham, $request);
+        $this->luuBienThe($sanPham, $request);
 
         return redirect()->route('admin.products.index')->with('success', 'Đã cập nhật sản phẩm');
     }
@@ -165,5 +168,60 @@ class SanPhamController extends Controller
                 $coAnhChinh = true;
             }
         }
+    }
+
+    /**
+     * Đồng bộ biến thể màu sắc của sản phẩm từ form.
+     * - Dòng có id → cập nhật; không id → tạo mới.
+     * - Biến thể không còn trong form → xóa.
+     * - Dòng để trống tên màu → bỏ qua.
+     */
+    private function luuBienThe(SanPham $sanPham, Request $request): void
+    {
+        $request->validate([
+            'bien_the' => 'nullable|array',
+            'bien_the.*.ten' => 'nullable|string|max:50',
+            'bien_the.*.hex' => 'nullable|string|max:10',
+            'bien_the.*.gia_chenh_lech' => 'nullable|numeric',
+            'bien_the.*.so_luong_ton' => 'nullable|integer|min:0',
+        ], [
+            'bien_the.*.ten.max' => 'Tên màu tối đa 50 ký tự.',
+        ]);
+
+        $rows = $request->input('bien_the', []);
+        $keepIds = [];
+
+        foreach ($rows as $row) {
+            $ten = trim($row['ten'] ?? '');
+            if ($ten === '') {
+                continue; // bỏ qua dòng trống
+            }
+
+            $payload = [
+                'san_pham_id'    => $sanPham->id,
+                'ten_bien_the'   => $ten,
+                'ma_hex'         => $row['hex'] ?? null,
+                'gia_chenh_lech' => (float) ($row['gia_chenh_lech'] ?? 0),
+                'so_luong_ton'   => (int) ($row['so_luong_ton'] ?? 0),
+                'is_active'      => ! empty($row['is_active']),
+            ];
+
+            if (! empty($row['id'])) {
+                $bienThe = BienTheSanPham::where('san_pham_id', $sanPham->id)->find($row['id']);
+                if ($bienThe) {
+                    $bienThe->update($payload);
+                    $keepIds[] = $bienThe->id;
+                    continue;
+                }
+            }
+
+            $bienThe = BienTheSanPham::create($payload);
+            $keepIds[] = $bienThe->id;
+        }
+
+        // Xóa biến thể đã bị gỡ khỏi form
+        BienTheSanPham::where('san_pham_id', $sanPham->id)
+            ->whereNotIn('id', $keepIds ?: [0])
+            ->delete();
     }
 }

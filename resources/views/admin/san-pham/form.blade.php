@@ -91,6 +91,64 @@
             </div>
         </div>
 
+        @php
+            // Danh sách biến thể: ưu tiên dữ liệu cũ (khi validate lỗi), nếu không lấy từ DB
+            $bienTheList = old('bien_the');
+            if ($bienTheList === null) {
+                $bienTheList = $sanPham->exists
+                    ? $sanPham->bienTheTatCa->map(fn ($b) => [
+                        'id' => $b->id,
+                        'ten' => $b->ten_bien_the,
+                        'hex' => $b->ma_hex,
+                        'gia_chenh_lech' => (int) $b->gia_chenh_lech,
+                        'so_luong_ton' => $b->so_luong_ton,
+                        'is_active' => $b->is_active,
+                    ])->toArray()
+                    : [];
+            }
+        @endphp
+        <div class="admin-panel mb-3">
+            <h3 class="admin-panel__title mb-2">Biến thể màu sắc</h3>
+            <p class="admin-table__muted small mb-3">Dùng cho sản phẩm nhiều màu (chuột, lót chuột…). Khách sẽ chọn màu khi đặt hàng. Để trống nếu sản phẩm chỉ có một màu.</p>
+
+            <div class="variant-list__head">
+                <span style="flex:0 0 38px">Màu</span>
+                <span style="flex:1">Tên màu</span>
+                <span style="flex:0 0 96px">Chênh giá</span>
+                <span style="flex:0 0 70px">Tồn</span>
+                <span style="flex:0 0 52px">Hiện</span>
+                <span style="flex:0 0 30px"></span>
+            </div>
+
+            <div id="variantRows">
+                @foreach($bienTheList as $i => $bt)
+                <div class="variant-row" data-variant-row>
+                    <input type="hidden" name="bien_the[{{ $i }}][id]" value="{{ $bt['id'] ?? '' }}">
+                    <input type="color" name="bien_the[{{ $i }}][hex]" value="{{ $bt['hex'] ?: '#1a1a1a' }}" class="variant-row__color" title="Chọn màu">
+                    <input type="text" name="bien_the[{{ $i }}][ten]" value="{{ $bt['ten'] ?? '' }}" placeholder="VD: Đen, Trắng, Bạc…" class="admin-field__input variant-row__name">
+                    <input type="number" name="bien_the[{{ $i }}][gia_chenh_lech]" value="{{ $bt['gia_chenh_lech'] ?? 0 }}" class="admin-field__input variant-row__price" title="Chênh lệch giá so với giá bán (đ)">
+                    <input type="number" name="bien_the[{{ $i }}][so_luong_ton]" value="{{ $bt['so_luong_ton'] ?? 0 }}" min="0" class="admin-field__input variant-row__stock">
+                    <label class="variant-row__active"><input type="checkbox" name="bien_the[{{ $i }}][is_active]" value="1" @checked($bt['is_active'] ?? true)></label>
+                    <button type="button" class="variant-row__rm" data-rm-variant title="Xóa màu này">&times;</button>
+                </div>
+                @endforeach
+            </div>
+
+            <button type="button" class="admin-btn admin-btn--ghost mt-2" id="addVariantBtn"><i class="fa-solid fa-plus"></i> Thêm màu</button>
+
+            <template id="variantTpl">
+                <div class="variant-row" data-variant-row>
+                    <input type="hidden" name="bien_the[__IDX__][id]" value="">
+                    <input type="color" name="bien_the[__IDX__][hex]" value="#1a1a1a" class="variant-row__color" title="Chọn màu">
+                    <input type="text" name="bien_the[__IDX__][ten]" value="" placeholder="VD: Đen, Trắng, Bạc…" class="admin-field__input variant-row__name">
+                    <input type="number" name="bien_the[__IDX__][gia_chenh_lech]" value="0" class="admin-field__input variant-row__price" title="Chênh lệch giá so với giá bán (đ)">
+                    <input type="number" name="bien_the[__IDX__][so_luong_ton]" value="0" min="0" class="admin-field__input variant-row__stock">
+                    <label class="variant-row__active"><input type="checkbox" name="bien_the[__IDX__][is_active]" value="1" checked></label>
+                    <button type="button" class="variant-row__rm" data-rm-variant title="Xóa màu này">&times;</button>
+                </div>
+            </template>
+        </div>
+
         <div class="admin-panel mb-3">
             <h3 class="admin-panel__title mb-3">Phân loại & Trạng thái</h3>
             <div class="admin-field">
@@ -138,6 +196,17 @@
     .img-preview__item { position: relative; width: 80px; height: 80px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); background:#fff; }
     .img-preview__item img { width: 100%; height: 100%; object-fit: contain; }
     .img-preview__rm { position: absolute; top: 2px; right: 2px; width: 20px; height: 20px; border: 0; border-radius: 50%; background: rgba(0,0,0,.7); color: #fff; cursor: pointer; line-height: 18px; font-size: 14px; padding: 0; }
+
+    /* Biến thể màu sắc */
+    .variant-list__head { display: flex; align-items: center; gap: 8px; padding: 0 2px 6px; font-size: .72rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: .03em; }
+    .variant-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .variant-row__color { flex: 0 0 38px; width: 38px; height: 38px; padding: 2px; border: 1px solid rgba(255,255,255,.14); border-radius: 8px; background: transparent; cursor: pointer; }
+    .variant-row__name { flex: 1; margin: 0; }
+    .variant-row__price { flex: 0 0 96px; margin: 0; }
+    .variant-row__stock { flex: 0 0 70px; margin: 0; }
+    .variant-row__active { flex: 0 0 52px; display: flex; justify-content: center; align-items: center; margin: 0; }
+    .variant-row__rm { flex: 0 0 30px; width: 30px; height: 30px; border: 0; border-radius: 8px; background: rgba(255,0,60,.14); color: var(--red); cursor: pointer; font-size: 20px; line-height: 1; transition: .15s; }
+    .variant-row__rm:hover { background: var(--red); color: #fff; }
 </style>
 @endpush
 
@@ -203,6 +272,29 @@
         store = nt;
         input.files = store.files;
         render();
+    });
+})();
+
+/* Repeater biến thể màu sắc */
+(function () {
+    var rows = document.getElementById('variantRows');
+    var addBtn = document.getElementById('addVariantBtn');
+    var tpl = document.getElementById('variantTpl');
+    if (!rows || !addBtn || !tpl) return;
+
+    // index kế tiếp = số dòng hiện có (các dòng cũ đánh số 0..n-1)
+    var nextIdx = rows.querySelectorAll('[data-variant-row]').length;
+
+    addBtn.addEventListener('click', function () {
+        var html = tpl.innerHTML.replace(/__IDX__/g, nextIdx++);
+        rows.insertAdjacentHTML('beforeend', html);
+    });
+
+    rows.addEventListener('click', function (e) {
+        var rm = e.target.closest('[data-rm-variant]');
+        if (!rm) return;
+        var row = rm.closest('[data-variant-row]');
+        if (row) row.remove();
     });
 })();
 </script>

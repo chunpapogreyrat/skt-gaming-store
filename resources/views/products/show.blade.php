@@ -89,12 +89,22 @@
                     @endif
                 </div>
 
-                @if ($product->bienThe->count())
-                    <div class="detail-info__variants">
-                        <p class="detail-info__variant-label">Biến thể:</p>
+                @if ($product->bienThe->count() > 1)
+                    <div class="detail-info__variants" id="detailVariants" data-base-price="{{ (int) $product->gia_ban }}">
+                        <p class="detail-info__variant-label">Màu sắc: <span class="detail-info__variant-current" id="selectedVariantName"></span></p>
                         <div class="detail-info__swatches">
                             @foreach ($product->bienThe as $variant)
-                                <button class="detail-swatch {{ $loop->first ? 'is-active' : '' }}" style="background:{{ $variant->ma_hex ?: '#222' }}" title="{{ $variant->ten_bien_the }}"></button>
+                                <button type="button"
+                                    class="detail-swatch {{ $loop->first ? 'is-active' : '' }} {{ $variant->so_luong_ton <= 0 ? 'is-soldout' : '' }}"
+                                    data-variant="{{ $variant->ten_bien_the }}"
+                                    data-hex="{{ $variant->ma_hex ?: '#222' }}"
+                                    data-pricediff="{{ (int) $variant->gia_chenh_lech }}"
+                                    data-stock="{{ (int) $variant->so_luong_ton }}"
+                                    title="{{ $variant->ten_bien_the }}"
+                                    @disabled($variant->so_luong_ton <= 0)>
+                                    <span class="detail-swatch__dot" style="background:{{ $variant->ma_hex ?: '#222' }}"></span>
+                                    <span class="detail-swatch__name">{{ $variant->ten_bien_the }}</span>
+                                </button>
                             @endforeach
                         </div>
                     </div>
@@ -106,7 +116,7 @@
                         <input type="text" value="1" readonly class="detail-qty__input" id="detailQtyInput">
                         <button class="detail-qty__btn" id="detailQtyPlus" type="button">+</button>
                     </div>
-                    <button class="detail-btn detail-btn--cart" id="detailAddCart" type="button">
+                    <button class="detail-btn detail-btn--cart" id="detailAddCart" type="button" data-product-id="{{ $product->id }}">
                         <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ
                     </button>
                     @auth
@@ -265,6 +275,115 @@
         });
     });
     paint(parseInt(input.value) || 5); // tô sẵn theo giá trị mặc định
+})();
+
+/* Chọn biến thể màu + Thêm vào giỏ (server, kèm màu & số lượng) */
+(function () {
+    var wrap     = document.getElementById('detailVariants');
+    var swatches = wrap ? Array.prototype.slice.call(wrap.querySelectorAll('.detail-swatch')) : [];
+    var nameEl   = document.getElementById('selectedVariantName');
+    var priceEl  = document.querySelector('.detail-info__price');
+    var basePrice = wrap ? (parseInt(wrap.dataset.basePrice) || 0) : 0;
+
+    function fmt(n) { return Number(n).toLocaleString('vi-VN') + 'đ'; }
+
+    function select(sw) {
+        swatches.forEach(function (s) { s.classList.remove('is-active'); });
+        sw.classList.add('is-active');
+        if (nameEl) nameEl.textContent = sw.dataset.variant || '';
+        var diff = parseInt(sw.dataset.pricediff) || 0;
+        if (priceEl && basePrice) priceEl.textContent = fmt(basePrice + diff);
+    }
+
+    if (swatches.length) {
+        // mặc định chọn biến thể đầu tiên còn hàng
+        var init = swatches.filter(function (s) { return !s.disabled; })[0] || swatches[0];
+        select(init);
+        swatches.forEach(function (sw) {
+            sw.addEventListener('click', function () { if (!sw.disabled) select(sw); });
+        });
+    }
+
+    // Thêm vào giỏ — POST lên server (animation bay vào giỏ do script.js lo)
+    var addBtn   = document.getElementById('detailAddCart');
+    var qtyInput = document.getElementById('detailQtyInput');
+    var csrf     = document.querySelector('meta[name="csrf-token"]');
+    csrf = csrf ? csrf.content : null;
+    // Lấy id từ data-attribute của nút (tránh biến $product bị ghi đè bởi vòng lặp "sản phẩm tương tự")
+    var productId = addBtn ? parseInt(addBtn.dataset.productId) : null;
+
+    function openDrawer() {
+        var drawer = document.getElementById('cartDrawer');
+        if (!drawer) return;
+        drawer.classList.add('is-open');
+        drawer.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('is-locked');
+    }
+
+    function buildItem(item) {
+        var sp = item.san_pham || {};
+        var img = (sp.hinh_anh && sp.hinh_anh[0]) ? sp.hinh_anh[0].duong_dan : 'assets/images/library/logo.png';
+        var price = Number(item.gia_tai_thoi_diem).toLocaleString('vi-VN') + 'đ';
+        var variant = item.mau_sac || 'Mặc định';
+        return '<div class="cart-item" data-item-id="' + item.id + '">'
+            + '<div class="cart-item__img"><img src="/' + img + '" alt=""></div>'
+            + '<div class="cart-item__info"><h6 class="cart-item__name">' + (sp.ten || 'Sản phẩm') + '</h6>'
+            + '<span class="cart-item__price">' + price + '</span>'
+            + '<p class="cart-item__variant">Phân loại: ' + variant + '</p></div>'
+            + '<div class="cart-item__actions"><div class="qty-input">'
+            + '<button type="button" class="qty-input__btn" data-drawer-minus>−</button>'
+            + '<input type="text" value="' + item.so_luong + '" readonly>'
+            + '<button type="button" class="qty-input__btn" data-drawer-plus>+</button></div>'
+            + '<button type="button" class="cart-item__remove" data-drawer-remove aria-label="Xóa"><i class="fa-solid fa-trash-can"></i></button></div></div>';
+    }
+
+    function updateCartUI(data) {
+        document.querySelectorAll('#cartBadge, #cartCount').forEach(function (b) {
+            b.style.display = data.cart_count > 0 ? '' : 'none';
+            b.textContent = data.cart_count;
+        });
+        var totalEl = document.getElementById('cartTotal');
+        if (totalEl) totalEl.innerHTML = Number(data.tong.tong_tien).toLocaleString('vi-VN') + '<sup>đ</sup>';
+        var list = document.getElementById('cartList');
+        var empty = document.getElementById('cartDrawerEmpty');
+        if (empty) empty.remove();
+        if (list && data.item) {
+            var existing = list.querySelector('.cart-item[data-item-id="' + data.item.id + '"]');
+            if (existing) {
+                var inp = existing.querySelector('.qty-input input');
+                if (inp) inp.value = data.item.so_luong;
+            } else {
+                list.insertAdjacentHTML('beforeend', buildItem(data.item));
+            }
+        }
+    }
+
+    if (addBtn && csrf) {
+        addBtn.addEventListener('click', function () {
+            var active = wrap ? wrap.querySelector('.detail-swatch.is-active') : null;
+            var mauSac = active ? active.dataset.variant : null;
+            var qty = qtyInput ? (parseInt(qtyInput.value) || 1) : 1;
+
+            fetch('/gio-hang', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrf,
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin',
+                body: JSON.stringify({ san_pham_id: productId, so_luong: qty, mau_sac: mauSac })
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (res) {
+                if (!res || !res.success) { alert((res && res.message) || 'Không thêm được sản phẩm'); return; }
+                updateCartUI(res.data);
+                setTimeout(openDrawer, 450); // mở giỏ sau khi animation bay xong
+            })
+            .catch(function () { alert('Có lỗi khi thêm vào giỏ, vui lòng thử lại.'); });
+        });
+    }
 })();
 </script>
 @endpush

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\BienTheSanPham;
 use App\Models\GioHang;
 use App\Models\GioHangItem;
 use App\Models\MaGiamGia;
@@ -41,6 +42,18 @@ class GioHangService
         $gioHang = $this->layGioHang();
         $sanPham = SanPham::findOrFail($sanPhamId);
 
+        // Giá tại thời điểm = giá bán + chênh lệch của biến thể màu (nếu khách chọn)
+        $gia = $sanPham->gia_ban;
+        if ($mauSac) {
+            $bienThe = BienTheSanPham::where('san_pham_id', $sanPhamId)
+                ->where('ten_bien_the', $mauSac)
+                ->where('is_active', true)
+                ->first();
+            if ($bienThe) {
+                $gia += $bienThe->gia_chenh_lech;
+            }
+        }
+
         $item = $gioHang->items()
             ->where('san_pham_id', $sanPhamId)
             ->where('mau_sac', $mauSac)
@@ -52,7 +65,7 @@ class GioHangService
             $item = $gioHang->items()->create([
                 'san_pham_id' => $sanPhamId,
                 'so_luong' => $soLuong,
-                'gia_tai_thoi_diem' => $sanPham->gia_ban,
+                'gia_tai_thoi_diem' => $gia,
                 'mau_sac' => $mauSac,
             ]);
         }
