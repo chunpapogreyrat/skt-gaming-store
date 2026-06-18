@@ -13,7 +13,7 @@
 <main class="shop container-fluid px-4 px-xl-5">
     <header class="shop__head" data-aos="fade-up">
         <h1 class="shop__title">Kho Vũ Khí Gaming</h1>
-        <p class="shop__sub">Danh sách sản phẩm lấy trực tiếp từ database Laravel.</p>
+        <p class="shop__sub">Chuột, bàn phím, lót chuột & phụ kiện chính hãng — tuyển chọn cho game thủ.</p>
     </header>
 
     <div class="row g-4">

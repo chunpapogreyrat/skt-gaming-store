@@ -4,7 +4,7 @@
 function initTogglePassword() {
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var container = this.closest('.auth-field') || this.closest('.input-group');
+            var container = this.closest('.auth-field, .input-group, .slider-auth__field') || this.parentElement;
             if (!container) return;
             var input = container.querySelector('input');
             var icon  = this.querySelector('i');
