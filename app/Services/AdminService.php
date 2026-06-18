@@ -15,7 +15,7 @@ class AdminService
         $soDonChoXuLy = DonHang::where('trang_thai_don_hang', 'cho_xac_nhan')->count();
         $soNguoiDung = TaiKhoan::count();
 
-        // Sản phẩm: model của Codex có thể chưa tồn tại — đếm an toàn
+        // Sản phẩm: model có thể chưa tồn tại — đếm an toàn
         $soSanPham = 0;
         if (class_exists(\App\Models\SanPham::class)) {
             $soSanPham = \App\Models\SanPham::count();

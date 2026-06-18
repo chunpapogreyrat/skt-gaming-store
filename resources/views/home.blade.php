@@ -199,7 +199,7 @@
                 </article>
                 @empty
                 <div class="col-12 text-center py-5" style="grid-column: 1 / -1;">
-                    <p class="text-secondary mb-3">Chưa có sản phẩm nào — chờ Codex chạy seeder để load data thực.</p>
+                    <p class="text-secondary mb-3">Chưa có sản phẩm nào — chạy seeder để nạp dữ liệu.</p>
                     <a href="{{ route('products.index') }}" class="btn-outline"><span>Xem sản phẩm</span></a>
                 </div>
                 @endforelse

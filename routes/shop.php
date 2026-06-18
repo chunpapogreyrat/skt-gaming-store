@@ -7,8 +7,8 @@ use App\Http\Controllers\MaGiamGiaController;
 use Illuminate\Support\Facades\Route;
 
 // ══════════════════════════════════════════════════════
-//  CLAUDE — Module 3: GioHang  |  Module 4: DonHang
-//            Module 6: Admin
+//  SHOP — Module 3: GioHang  |  Module 4: DonHang
+//         Module 6: Admin
 // ══════════════════════════════════════════════════════
 
 // ──────────────────────────────────────────────────────
@@ -59,7 +59,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::patch('/danh-muc/{id}/trang-thai', [\App\Http\Controllers\Admin\DanhMucController::class, 'doiTrangThai'])->name('categories.toggle');
     Route::delete('/danh-muc/{id}', [\App\Http\Controllers\Admin\DanhMucController::class, 'destroy'])->name('categories.destroy');
 
-    // Sản phẩm (phụ thuộc model SanPham của Codex)
+    // Sản phẩm (phụ thuộc model SanPham)
     Route::get('/san-pham', [\App\Http\Controllers\Admin\SanPhamController::class, 'index'])->name('products.index');
     Route::get('/san-pham/them', [\App\Http\Controllers\Admin\SanPhamController::class, 'create'])->name('products.create');
     Route::post('/san-pham', [\App\Http\Controllers\Admin\SanPhamController::class, 'store'])->name('products.store');

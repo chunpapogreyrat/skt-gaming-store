@@ -14,8 +14,8 @@ use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 // ══════════════════════════════════════════════════════
-//  CODEX — Module 1: Auth  |  Module 2: SanPham
-//           Module 5: NguoiDung  |  Module 7: Static
+//  SITE — Module 1: Auth  |  Module 2: SanPham
+//         Module 5: NguoiDung  |  Module 7: Static
 // ══════════════════════════════════════════════════════
 
 // ── Module 2 — SanPham (công khai) ──

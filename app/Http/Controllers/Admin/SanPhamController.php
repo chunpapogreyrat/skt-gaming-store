@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
- * Admin CRUD sản phẩm — khớp schema thực của Codex (Module 2):
+ * Admin CRUD sản phẩm — khớp schema thực (Module 2):
  * SanPham: ten, slug, danh_muc_id, thuong_hieu_id, gia_ban, gia_goc,
  *          so_luong_ton, diem_danh_gia, is_hot, is_sale, is_active,
  *          mo_ta_ngan, mo_ta_day_du.
