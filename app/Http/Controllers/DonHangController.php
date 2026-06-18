@@ -11,10 +11,12 @@ use Illuminate\View\View;
 
 class DonHangController extends Controller
 {
+    // Khởi tạo controller, tiêm service xử lý đơn hàng
     public function __construct(
         private DonHangService $donHangService
     ) {}
 
+    // Hiển thị lịch sử đơn hàng của khách, lọc theo trạng thái và phân trang
     public function index(Request $request): View
     {
         $status = $request->query('status');
@@ -30,6 +32,7 @@ class DonHangController extends Controller
         return view('don-hang.lich-su', compact('donHangs', 'status'));
     }
 
+    // Hiển thị chi tiết một đơn hàng theo mã, chỉ cho phép xem đơn của mình hoặc đơn khách vãng lai
     public function show(string $ma): View
     {
         $donHang = DonHang::with('chiTiet.sanPham', 'thanhToan', 'maGiamGia')
@@ -43,6 +46,7 @@ class DonHangController extends Controller
         return view('don-hang.chi-tiet', compact('donHang'));
     }
 
+    // Hiển thị trang đặt hàng thành công theo mã đơn hàng
     public function success(string $ma): View
     {
         $donHang = DonHang::with('chiTiet')
@@ -52,6 +56,7 @@ class DonHangController extends Controller
         return view('don-hang.order-success', compact('donHang'));
     }
 
+    // Hủy đơn hàng của khách theo mã, báo kết quả thành công hoặc thất bại
     public function huy(string $ma): RedirectResponse
     {
         $donHang = DonHang::where('ma_don_hang', $ma)

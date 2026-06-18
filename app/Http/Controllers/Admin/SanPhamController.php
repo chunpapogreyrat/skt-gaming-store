@@ -20,6 +20,7 @@ use Illuminate\View\View;
  */
 class SanPhamController extends Controller
 {
+    // Hiển thị danh sách sản phẩm kèm lọc theo danh mục, tìm kiếm theo tên và phân trang
     public function index(Request $request): View
     {
         $query = SanPham::with(['danhMuc', 'thuongHieu', 'bienThe'])->orderByDesc('ngay_tao');
@@ -38,6 +39,7 @@ class SanPhamController extends Controller
         return view('admin.san-pham.index', compact('sanPhams', 'danhMucs'));
     }
 
+    // Hiển thị form tạo sản phẩm mới cùng danh mục và thương hiệu đang kích hoạt
     public function create(): View
     {
         return view('admin.san-pham.form', [
@@ -47,6 +49,7 @@ class SanPhamController extends Controller
         ]);
     }
 
+    // Lưu sản phẩm mới cùng hình ảnh và biến thể sau khi xác thực dữ liệu
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validateData($request);
@@ -57,6 +60,7 @@ class SanPhamController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Đã thêm sản phẩm');
     }
 
+    // Hiển thị form chỉnh sửa sản phẩm theo id cùng danh mục và thương hiệu
     public function edit(int $id): View
     {
         return view('admin.san-pham.form', [
@@ -66,6 +70,7 @@ class SanPhamController extends Controller
         ]);
     }
 
+    // Cập nhật sản phẩm theo id cùng hình ảnh và biến thể sau khi xác thực dữ liệu
     public function update(Request $request, int $id): RedirectResponse
     {
         $sanPham = SanPham::findOrFail($id);
@@ -77,6 +82,7 @@ class SanPhamController extends Controller
         return redirect()->route('admin.products.index')->with('success', 'Đã cập nhật sản phẩm');
     }
 
+    // Bật/tắt trạng thái hiển thị (ẩn/hiện) của sản phẩm theo id
     public function doiTrangThai(int $id): RedirectResponse
     {
         $sanPham = SanPham::findOrFail($id);
@@ -86,6 +92,7 @@ class SanPhamController extends Controller
             ->with('success', $sanPham->is_active ? 'Đã hiển thị sản phẩm “' . $sanPham->ten . '”' : 'Đã ẩn sản phẩm “' . $sanPham->ten . '”');
     }
 
+    // Xóa sản phẩm khỏi cơ sở dữ liệu theo id
     public function destroy(int $id): RedirectResponse
     {
         SanPham::findOrFail($id)->delete();

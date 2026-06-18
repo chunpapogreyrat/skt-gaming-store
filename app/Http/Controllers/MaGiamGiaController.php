@@ -8,10 +8,12 @@ use Illuminate\Http\Request;
 
 class MaGiamGiaController extends Controller
 {
+    // Khởi tạo controller, tiêm service xử lý giỏ hàng
     public function __construct(
         private GioHangService $gioHangService
     ) {}
 
+    // Kiểm tra và áp dụng mã giảm giá vào giỏ hàng, trả về kết quả dạng JSON
     public function apDung(Request $request): JsonResponse
     {
         $request->validate([
@@ -23,6 +25,7 @@ class MaGiamGiaController extends Controller
         return response()->json($result);
     }
 
+    // Hủy mã giảm giá đang áp dụng, tính lại tổng tiền và trả về JSON
     public function huy(): JsonResponse
     {
         session()->forget('ma_giam_gia_id');

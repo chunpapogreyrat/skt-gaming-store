@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 
 class GioHangController extends Controller
 {
+    // Khởi tạo controller, tiêm service xử lý giỏ hàng
     public function __construct(
         private GioHangService $gioHangService
     ) {}
 
+    // Hiển thị trang giỏ hàng cùng tổng tiền
     public function index()
     {
         $gioHang = $this->gioHangService->layGioHang();
@@ -22,6 +24,7 @@ class GioHangController extends Controller
         return view('gio-hang.cart', compact('gioHang', 'tongTien'));
     }
 
+    // Thêm sản phẩm vào giỏ hàng, trả về JSON kèm số lượng và tổng tiền
     public function them(ThemGioHangRequest $request): JsonResponse
     {
         $item = $this->gioHangService->themSanPham(
@@ -41,6 +44,7 @@ class GioHangController extends Controller
         ]);
     }
 
+    // Cập nhật số lượng một mục trong giỏ hàng, trả về JSON kèm tổng tiền
     public function capNhat(CapNhatGioHangRequest $request, int $itemId): JsonResponse
     {
         $item = $this->gioHangService->capNhatSoLuong($itemId, $request->so_luong);
@@ -57,6 +61,7 @@ class GioHangController extends Controller
         ]);
     }
 
+    // Xóa một sản phẩm khỏi giỏ hàng, trả về JSON kèm tổng tiền còn lại
     public function xoa(int $itemId): JsonResponse
     {
         $this->gioHangService->xoaItem($itemId);
@@ -72,6 +77,7 @@ class GioHangController extends Controller
         ]);
     }
 
+    // Xóa toàn bộ sản phẩm trong giỏ hàng, trả về JSON với số lượng bằng 0
     public function xoaTatCa(): JsonResponse
     {
         $this->gioHangService->xoaTatCa();
@@ -86,6 +92,7 @@ class GioHangController extends Controller
         ]);
     }
 
+    // Trả về số lượng sản phẩm hiện có trong giỏ hàng dưới dạng JSON
     public function demSoLuong(): JsonResponse
     {
         return response()->json([

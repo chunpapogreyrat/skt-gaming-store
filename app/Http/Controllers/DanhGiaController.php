@@ -9,6 +9,7 @@ use App\Services\SanPhamService;
 
 class DanhGiaController extends Controller
 {
+    // Lưu đánh giá sản phẩm của người dùng và cập nhật lại điểm đánh giá trung bình
     public function store(StoreDanhGiaRequest $request, SanPham $sanPham, SanPhamService $sanPhamService)
     {
         $user = $request->user();

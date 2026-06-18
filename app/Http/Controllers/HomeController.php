@@ -9,6 +9,7 @@ use Illuminate\View\View;
 
 class HomeController extends Controller
 {
+    // Hiển thị trang chủ với banner, sản phẩm sale, nổi bật, bán chạy và danh mục
     public function index(): View
     {
         // Banner hero slider (đổ từ DB)

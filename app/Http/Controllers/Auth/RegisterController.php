@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
+    // Chuyển hướng về trang đăng nhập và mở panel đăng ký qua hash
     public function showRegister()
     {
         // Auth gộp 1 trang double-slider (Hiến pháp §9.3) → mở panel đăng ký qua hash
         return redirect()->to(route('login') . '#register');
     }
 
+    // Kiểm tra dữ liệu, tạo tài khoản mới rồi đăng nhập và chuyển về trang chủ
     public function register(Request $request, AuthService $authService)
     {
         $validated = $request->validate([

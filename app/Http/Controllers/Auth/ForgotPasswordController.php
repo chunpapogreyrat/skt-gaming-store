@@ -8,12 +8,14 @@ use Illuminate\Http\Request;
 
 class ForgotPasswordController extends Controller
 {
+    // Chuyển hướng về trang đăng nhập và mở panel quên mật khẩu qua hash
     public function showForm()
     {
         // Auth gộp 1 trang double-slider (Hiến pháp §9.3) → mở panel quên mật khẩu qua hash
         return redirect()->to(route('login') . '#forgot');
     }
 
+    // Kiểm tra email rồi gửi link đặt lại mật khẩu tới email người dùng
     public function sendResetLink(Request $request, AuthService $authService)
     {
         $validated = $request->validate([
@@ -35,6 +37,7 @@ class ForgotPasswordController extends Controller
         return back()->with('success', $thongBao);
     }
 
+    // Hiển thị form đặt lại mật khẩu kèm token và email từ đường dẫn
     public function showResetForm(Request $request, string $token)
     {
         return view('auth.reset-password', [
@@ -43,6 +46,7 @@ class ForgotPasswordController extends Controller
         ]);
     }
 
+    // Kiểm tra dữ liệu, đặt lại mật khẩu mới rồi chuyển về trang đăng nhập
     public function reset(Request $request, AuthService $authService)
     {
         $validated = $request->validate([

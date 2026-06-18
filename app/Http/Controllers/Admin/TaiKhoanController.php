@@ -10,6 +10,7 @@ use Illuminate\View\View;
 
 class TaiKhoanController extends Controller
 {
+    // Hiển thị danh sách tài khoản, hỗ trợ lọc theo vai trò (role)
     public function index(Request $request): View
     {
         $query = TaiKhoan::query()->latest('ngay_tao');
@@ -23,6 +24,7 @@ class TaiKhoanController extends Controller
         return view('admin.tai-khoan.index', compact('taiKhoans'));
     }
 
+    // Bật/tắt trạng thái kích hoạt của tài khoản theo id
     public function doiTrangThai(int $id): RedirectResponse
     {
         $taiKhoan = TaiKhoan::findOrFail($id);

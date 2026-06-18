@@ -12,16 +12,19 @@ use Illuminate\Support\Facades\Schema;
 
 class TrangTinhController extends Controller
 {
+    // Hien thi trang gioi thieu
     public function about()
     {
         return view('static.about');
     }
 
+    // Hien thi trang lien he
     public function contact()
     {
         return view('static.contact');
     }
 
+    // Luu yeu cau lien he da xac thuc roi chuyen huong ve trang lien he kem thong bao thanh cong
     public function guiLienHe(GuiLienHeRequest $request): RedirectResponse
     {
         LienHe::create($request->validated());
@@ -31,6 +34,7 @@ class TrangTinhController extends Controller
             ->with('lien_he_success', 'Cảm ơn bạn! Yêu cầu đã được gửi, team YUKI sẽ phản hồi trong giờ làm việc.');
     }
 
+    // Hien thi trang cac setup trung bay
     public function setups()
     {
         return view('static.setups', [
@@ -38,6 +42,7 @@ class TrangTinhController extends Controller
         ]);
     }
 
+    // Hien thi trang 404 kem goi y mot so san pham noi bat
     public function notFound()
     {
         return response()->view('static.404', [
@@ -50,6 +55,7 @@ class TrangTinhController extends Controller
         ], 404);
     }
 
+    // Lay danh sach setup tu CSDL, neu khong co thi tra ve danh sach mac dinh
     private function getSetups(): Collection
     {
         if (Schema::hasTable('setups_trung_bay')) {

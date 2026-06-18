@@ -8,11 +8,13 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
+    // Hiển thị trang đăng nhập
     public function showLogin()
     {
         return view('auth.login');
     }
 
+    // Xác thực đăng nhập rồi điều hướng admin về trang quản trị, khách về trang chủ
     public function login(Request $request, AuthService $authService)
     {
         $validated = $request->validate([
@@ -40,6 +42,7 @@ class LoginController extends Controller
         return redirect()->to($target);
     }
 
+    // Đăng xuất tài khoản rồi chuyển về trang đăng nhập
     public function logout(Request $request, AuthService $authService)
     {
         $authService->logout($request);

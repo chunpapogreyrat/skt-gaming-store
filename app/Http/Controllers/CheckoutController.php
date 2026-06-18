@@ -13,12 +13,14 @@ use Illuminate\View\View;
 
 class CheckoutController extends Controller
 {
+    // Khởi tạo controller, tiêm các service giỏ hàng, đơn hàng và MoMo
     public function __construct(
         private GioHangService $gioHangService,
         private DonHangService $donHangService,
         private MoMoService $moMoService
     ) {}
 
+    // Hiển thị trang thanh toán, chuyển về giỏ nếu giỏ hàng trống
     public function index(): View|RedirectResponse
     {
         $gioHang = $this->gioHangService->layGioHang();
@@ -33,6 +35,7 @@ class CheckoutController extends Controller
         return view('don-hang.checkout', compact('gioHang', 'tongTien'));
     }
 
+    // Xử lý đặt hàng: tạo đơn, nếu chọn MoMo thì chuyển sang cổng thanh toán, ngược lại báo thành công
     public function datHang(DatHangRequest $request): RedirectResponse
     {
         try {

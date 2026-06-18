@@ -8,6 +8,7 @@ use Illuminate\View\View;
 
 class BlogController extends Controller
 {
+    // Hiển thị danh sách bài viết blog kèm lọc theo danh mục, tìm kiếm, bài nổi bật và phổ biến
     public function index(Request $request): View
     {
         $danhMuc = $request->query('danh_muc');
@@ -68,6 +69,7 @@ class BlogController extends Controller
         ]);
     }
 
+    // Hiển thị chi tiết bài viết, tăng lượt xem và lấy bài liên quan, mới nhất
     public function show(BaiViet $baiViet): View
     {
         abort_unless($baiViet->is_active, 404);

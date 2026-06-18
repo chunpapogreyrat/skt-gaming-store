@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class SanPhamController extends Controller
 {
+    // Hien thi danh sach san pham da loc theo tieu chi, kem danh muc, thuong hieu va bo loc hien tai
     public function index(Request $request, SanPhamService $sanPhamService)
     {
         return view('products.index', [
@@ -19,6 +20,7 @@ class SanPhamController extends Controller
         ]);
     }
 
+    // Hien thi chi tiet san pham, san pham lien quan va trang thai wishlist/quyen danh gia cua nguoi dung
     public function show(SanPham $sanPham, SanPhamService $sanPhamService)
     {
         $sanPham = $sanPhamService->getDetail($sanPham);

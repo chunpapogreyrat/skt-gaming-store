@@ -9,10 +9,12 @@ use Illuminate\View\View;
 
 class DoanhThuController extends Controller
 {
+    // Khởi tạo controller và tiêm service xử lý nghiệp vụ admin
     public function __construct(
         private AdminService $adminService
     ) {}
 
+    // Hiển thị báo cáo doanh thu theo năm/tháng, chặn xem mốc thời gian tương lai
     public function index(Request $request): View
     {
         $now = now();

@@ -11,10 +11,12 @@ use Illuminate\View\View;
 
 class DonHangController extends Controller
 {
+    // Khởi tạo controller và tiêm service xử lý nghiệp vụ đơn hàng
     public function __construct(
         private DonHangService $donHangService
     ) {}
 
+    // Hiển thị danh sách đơn hàng, hỗ trợ lọc theo trạng thái đơn hàng
     public function index(Request $request): View
     {
         $query = DonHang::with('taiKhoan')->latest();
@@ -28,6 +30,7 @@ class DonHangController extends Controller
         return view('admin.don-hang.index', compact('donHangs'));
     }
 
+    // Hiển thị chi tiết một đơn hàng kèm sản phẩm, thanh toán, tài khoản, mã giảm giá
     public function show(int $id): View
     {
         $donHang = DonHang::with('chiTiet', 'thanhToan', 'taiKhoan', 'maGiamGia')->findOrFail($id);
@@ -35,6 +38,7 @@ class DonHangController extends Controller
         return view('admin.don-hang.show', compact('donHang'));
     }
 
+    // Kiểm tra hợp lệ và cập nhật trạng thái đơn hàng qua service
     public function capNhatTrangThai(Request $request, int $id): RedirectResponse
     {
         $request->validate([

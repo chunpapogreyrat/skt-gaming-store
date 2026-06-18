@@ -10,6 +10,7 @@ use Illuminate\View\View;
 
 class LienHeController extends Controller
 {
+    // Hiển thị danh sách liên hệ, hỗ trợ tìm kiếm và lọc theo trạng thái xử lý
     public function index(Request $request): View
     {
         $query = LienHe::query()->latest();
@@ -39,6 +40,7 @@ class LienHeController extends Controller
         return view('admin.lien-he.index', compact('lienHes', 'thongKe'));
     }
 
+    // Chuyển đổi trạng thái đã xử lý/chưa xử lý của một liên hệ
     public function toggle(int $id): RedirectResponse
     {
         $lienHe = LienHe::findOrFail($id);
@@ -49,6 +51,7 @@ class LienHeController extends Controller
             : 'Đã chuyển liên hệ của ' . $lienHe->ho_ten . ' về CHƯA xử lý');
     }
 
+    // Xóa một liên hệ theo id
     public function destroy(int $id): RedirectResponse
     {
         $lienHe = LienHe::findOrFail($id);

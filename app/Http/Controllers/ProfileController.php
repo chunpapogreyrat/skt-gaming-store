@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 
 class ProfileController extends Controller
 {
+    // Hien thi trang ca nhan voi tab dang chon, kem dia chi, wishlist, don hang, danh gia va thong ke
     public function show(Request $request)
     {
         $user = $request->user();
@@ -61,6 +62,7 @@ class ProfileController extends Controller
         ));
     }
 
+    // Cap nhat thong tin ca nhan (ho ten, email, dien thoai, ngay sinh, gioi tinh) sau khi xac thuc
     public function update(Request $request)
     {
         $validated = $request->validate([
@@ -81,6 +83,7 @@ class ProfileController extends Controller
         return back()->with('success', 'Thong tin tai khoan da duoc cap nhat.')->with('active_tab', 'profile');
     }
 
+    // Doi mat khau: kiem tra mat khau hien tai roi luu mat khau moi da ma hoa
     public function updatePassword(Request $request)
     {
         $validated = $request->validate([
