@@ -26,15 +26,20 @@ class BlogController extends Controller
             });
         }
 
-        // Bài nổi bật (hero) — chỉ hiện khi không lọc / không tìm kiếm
+        // Bài nổi bật (hero): chỉ khi không lọc/tìm kiếm. Luôn loại khỏi lưới ở mọi trang,
+        // nhưng chỉ hiển thị hero ở TRANG 1 (tránh lặp hero + lệch lưới ở trang 2).
         $featured = null;
         if (! $danhMuc && ! $tuKhoa) {
-            $featured = BaiViet::where('is_active', true)
+            $featuredPost = BaiViet::where('is_active', true)
                 ->orderByDesc('is_featured')
                 ->orderByDesc('ngay_dang')
                 ->first();
-            if ($featured) {
-                $query->where('id', '!=', $featured->id);
+
+            if ($featuredPost) {
+                $query->where('id', '!=', $featuredPost->id);
+                if ((int) $request->query('page', 1) === 1) {
+                    $featured = $featuredPost;
+                }
             }
         }
 

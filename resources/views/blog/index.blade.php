@@ -95,8 +95,7 @@
     .blog-empty { text-align:center; padding:70px 20px; color:#8b94a3; border:1px dashed rgba(255,255,255,.14); border-radius:16px; }
     .blog-empty i { font-size:2.4rem; color:#3a4150; margin-bottom:12px; }
 
-    .blog-pagination { margin-top:34px; display:flex; justify-content:center; }
-    .blog-pagination .pagination { gap:6px; }
+    .blog-pagination { margin-top:34px; }
 
     @media (max-width:980px){ .blog-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .blog-featured{grid-template-columns:1fr;} .blog-featured__media{min-height:240px;} .blog-featured__media::after{background:linear-gradient(180deg,transparent 50%,#0c0e15);} }
     @media (max-width:600px){ .blog-grid{grid-template-columns:1fr;} .blog-hero{padding:34px 22px;} .blog-featured__body{padding:26px 22px;} }
@@ -188,7 +187,7 @@
             @endforeach
         </div>
 
-        <div class="blog-pagination">{{ $baiViets->links() }}</div>
+        <div class="blog-pagination store-pagination">{{ $baiViets->links() }}</div>
     @else
         <div class="blog-empty">
             <i class="fa-solid fa-newspaper d-block"></i>

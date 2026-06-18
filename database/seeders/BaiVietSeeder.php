@@ -53,7 +53,7 @@ class BaiVietSeeder extends Seeder
                 'slug' => 'hall-effect-analog-ban-phim',
                 'tac_gia' => 'YUKI Team',
                 'thoi_gian_doc' => 5,
-                'anh_bia' => 'assets/images/library/made68pro.jpg',
+                'anh_bia' => 'assets/images/slider/4.jpg',
                 'mo_ta_ngan' => 'Công nghệ cảm biến từ trường (Hall Effect) cho phép chỉnh điểm kích hoạt và điều khiển analog như tay cầm. Vì sao đây là xu hướng nóng nhất 2026?',
                 'noi_dung' => '<p>Bàn phím Hall Effect dùng cảm biến từ trường thay cho tiếp điểm vật lý, mở ra những khả năng mà switch truyền thống không có.</p>
 <h3>Adjustable Actuation</h3>
@@ -92,7 +92,7 @@ class BaiVietSeeder extends Seeder
                 'tac_gia' => 'Minh "ZeroLatency" Trần',
                 'thoi_gian_doc' => 9,
                 'is_featured' => false,
-                'anh_bia' => 'assets/images/products/mice/finalmouse-ulx/1.webp',
+                'anh_bia' => 'assets/images/slider/2.jpg',
                 'mo_ta_ngan' => 'Khung magnesium tổ ong, trọng lượng phá kỷ lục, cảm biến tùy chỉnh. Sau hai tuần dùng thử ULX Pro, đây là những gì khiến nó xứng danh flagship giới hạn.',
                 'noi_dung' => '<p>Finalmouse luôn là cái tên gây tranh cãi: giá cao, hàng hiếm, nhưng độ "phê" thì khó bàn cãi. ULX Pro tiếp nối di sản đó.</p>
 <h3>Thiết kế &amp; trọng lượng</h3>
@@ -147,7 +147,7 @@ class BaiVietSeeder extends Seeder
                 'slug' => 'gear-tuyen-thu-valorant-2026',
                 'tac_gia' => 'Khoa "DeskGoals" Phạm',
                 'thoi_gian_doc' => 6,
-                'anh_bia' => 'assets/images/setups/setup-3.jpg',
+                'anh_bia' => 'assets/images/banners/screen-banner.jpg',
                 'mo_ta_ngan' => 'Vì sao đa số pro VALORANT dùng chuột siêu nhẹ, DPI thấp và bàn phím TKL? Giải mã triết lý chọn gear đằng sau những pha clutch đỉnh cao.',
                 'noi_dung' => '<p>Gear của tuyển thủ chuyên nghiệp không chọn theo "đẹp" mà theo hiệu năng và sự nhất quán. Đây là những điểm chung dễ thấy.</p>
 <h3>Chuột siêu nhẹ</h3>
